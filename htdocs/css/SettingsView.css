@@ -1,0 +1,126 @@
+/* General */
+
+.settingsview {
+	background-color: #ddd;
+	font-size: 12px;
+}
+
+.settingsView h1 {
+    font-size:1.5em;
+	margin: 16px 0;
+	padding-top:0;
+}
+
+.settingsView h2 {
+	font-size: 1.33em;
+	margin: 0 0 12px 0;
+}
+
+.settingsView h1 small {
+	font-weight: normal;
+	font-size: 0.61em;
+	display: block;
+}
+
+.settingsView section {
+	max-width: 400px;
+	padding: 0;
+	margin: 16px 8px 0;
+	/*
+	need this to compensate for -webkit-overflow-scrolling:touch,
+	which otherwise prevents a redraw
+	*/
+	-webkit-transform: translate3d(0,0,0);
+}
+
+.settingsView section:first-child {
+	margin-top:0;
+}
+
+
+.settingsView ul,
+.settingsView ol,
+.settingsView li {
+	list-style:none;
+	margin:0;
+	padding:0;
+	overflow:hidden;
+}
+
+
+.settingsView ul,
+.settingsView ol {
+	background-color: #fafafa;
+	border: 1px solid #bbb;
+	margin-bottom: 8px;
+}
+
+
+/** settings "hit" targets */
+.settingsView label,
+.settingsView li a {
+	display:block;
+    font-size:1.08em;
+	padding:10px;
+	border-bottom: 1px solid #ddd;
+	cursor: pointer;
+	line-height: 1.08;
+}
+.settingsView li:last-child label,
+.settingsView li:last-child a {
+	border-bottom:none;
+}
+
+/** make room for radio/checkbox. */
+.settingsView li {
+	position:relative;
+}
+.settingsView label {
+	padding-left:30px;
+}
+.settingsView input {
+	position:absolute;
+	left:10px;
+	top:10px;
+	padding:0;
+	margin:0;
+}
+
+@media screen and (min-width:640px) {
+	.settingsView label {
+		padding:5px 5px 5px 30px;
+	}
+	.settingsView input {
+		top:5px;
+	}
+
+	.settingsView li a {
+		padding:5px 10px;
+	}
+}
+
+
+
+
+.settingsView > section > h1 > .help {
+	display:block;
+	font-size:.8em;
+	color:#333;
+}
+.settingsView .resetToDefaults {
+	background-color: #c00;
+	color:#fff;
+	font-weight: bold;
+	text-align: center;
+}
+.settingsview-searchwrapper {
+	text-align:center;
+	background-color:#090;
+	border:1px solid #bbb;
+	padding:4px;
+}
+.settingsview-searchwrapper .help {
+	display:block;
+	font-size:.9em;
+	color:#fafafa;
+}

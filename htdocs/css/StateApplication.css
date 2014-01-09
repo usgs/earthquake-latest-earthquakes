@@ -1,0 +1,149 @@
+/* reset styles */
+
+html, body {
+	width:100%;
+	height:100%;
+	margin:0;
+	padding:0;
+}
+
+
+/* container styles. */
+
+.app-container {
+	width:100%;
+	height:100%;
+	margin:0;
+	padding:0;
+	/* make padding (for header/footer) subtract from size */
+	box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-ie-box-sizing:border-box;
+	-o-box-sizing:border-box;
+}
+
+
+.app-container > header {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	z-index:2;
+}
+
+.app-container > section {
+	position:relative;
+	z-index:1;
+	height:100%;
+	width:100%;
+	bottom: 0;
+}
+
+.app-container > footer {
+	position:absolute;
+	/*bottom:5px;*/
+	left:0;
+	right:0;
+	z-index:2;
+}
+
+
+/* loading styles */
+
+.app-container > .loading-spinner {
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	background-color:#999;
+	opacity:.8;
+	z-index:3;
+}
+
+
+.app-container > .loading-spinner > div {
+	position:absolute;
+	left:50%;
+	top:50%;
+
+	width:11em;
+	height:auto;
+	margin-left:-5em;
+	margin-top:-1.5em;
+
+	vertical-align: middle;
+	text-align: center;
+	background-color:#333;
+	color:#fff;
+	padding:.5em;
+	border:1px solid #fff;
+}
+
+.app-container > .loading-spinner > div > p {
+	display:block;
+	margin-top:1em;
+	padding:8px;
+	background-color: #eee;
+	color:#111;
+	font-size:smaller;
+}
+
+/* customizations */
+
+
+/** styles for fixed size header */
+.app-container {
+	padding-top:35px;
+}
+
+.app-container > header {
+	height:35px;
+}
+
+body {
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+body.default {
+	background-color:#111;
+}
+
+
+
+.app-container > header .logo {
+	display:block;
+	margin:5px 0;
+	padding:0 5px;
+	float:left;
+}
+
+.app-container > header .logo img {
+	border:none;
+}
+
+.map-state, .mapView {
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+}
+
+
+.states {
+	display:block;
+	float:right;
+	list-style:none;
+}
+
+.states > li {
+	display:block;
+	float:left;
+	list-style:none;
+}
+
+.states a {
+	background-color:#fff;
+}

@@ -1,0 +1,118 @@
+
+.eventSummaryView {
+	font-size:smaller;
+	box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.2);
+	display:block;
+	position:absolute;
+	bottom:0;
+	left:0;
+	right:0;
+	background-color:#fff;
+	z-index: 3;
+	overflow-y: auto;
+}
+
+
+.eventSummaryView > div {
+	padding:8px;
+}
+
+.eventSummaryView h1 {
+	font-size:medium;
+	font-weight:bold;
+	margin-top:0;
+	margin-right:46px;
+}
+
+.eventSummaryView dl {
+	margin:0;
+}
+
+.eventSummaryView dt {
+	float:left;
+	clear:left;
+	display:block;
+	width:5em;
+}
+
+
+.alertlevel, .roman {font-family: Tahoma, Verdana, Segoe, sans-serif;}
+.mmiI{color:#000000 !important; background-color:#FFFFFF !important;}
+.mmiII{color:#000000 !important; background-color:#ACD8E9 !important;}
+.mmiIII{color:#000000 !important; background-color:#ACD8E9 !important;}
+.mmiIV{color:#000000 !important; background-color:#83D0DA !important;}
+.mmiV{color:#000000 !important; background-color:#7BC87F !important;}
+.mmiVI{color:#000000 !important; background-color:#F9F518 !important;}
+.mmiVII{color:#000000 !important; background-color:#FAC611 !important;}
+.mmiVIII{color:#000000 !important; background-color:#FA8A11 !important;}
+.mmiIX{color:#FFFFFF !important; background-color:#F7100C !important;}
+.mmiX{color:#FFFFFF !important; background-color:#C80F0A !important;}
+.mmiXI{color:#FFFFFF !important; background-color:#C80F0A !important;}
+.mmiXII{color:#FFFFFF !important; background-color:#C80F0A !important;}
+
+
+.alertlevel {
+	border:1px solid #333333;
+	padding:3px 8px 1px;
+	text-align:center;
+	/*line-height:.85;*/
+	color:#222222;
+}
+
+.pager-alertlevel-green {
+	background-color:#00B04F;
+}
+.pager-alertlevel-yellow {
+	background-color:#FFFF00;
+}
+.pager-alertlevel-orange {
+	background-color:#FF9900;
+}
+.pager-alertlevel-red {
+	color:#FFFFFF;
+	background-color:#FF0000;
+}
+
+.quicksummary {
+	margin:1em 0 0.5em;
+}
+
+.quicksummary > a {
+	display:inline-block;
+	margin-bottom:.5em;
+	margin-right:8px;
+	padding:3px 5px 2px;
+	border:1px solid #ccc;
+	text-align:center;
+	text-decoration: none;
+
+	border-radius:3px;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	-ie-border-radius:3px;
+}
+
+.quicksummary > a:hover {
+	border-color:#999;
+}
+
+.quicksummary > a > strong {
+	font-size:.9em;
+}
+
+.quicksummary > a.tsunamilogo,
+.quicksummary > a.tsunamilogo:hover {
+	vertical-align: top;
+	margin:0;
+	padding:0;
+	border:none;
+}
+
+
+.quicksummary > a.tsunamilogo img {
+	border:none;
+	height: 23px;
+	margin-top: 1px;
+	border-radius: 3px;
+}
+

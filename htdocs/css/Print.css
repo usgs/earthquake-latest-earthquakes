@@ -1,0 +1,86 @@
+@media print {
+
+	body {
+		background-color:#fff !important;
+	}
+
+	.app-header,
+	.default-state .defaultcontent,
+	.default-state .mapview,
+	.default-state .settingsview,
+	.app-footer,
+	.listView .downloads,
+	.listView .listFooter {
+		display:none !important;
+	}
+
+
+	/** header **/
+
+	.default .app-container {
+		padding-top: 0;
+	}
+
+
+	/** event list **/
+
+	.listview {
+		position:static !important;
+		height:auto !important;
+		display:block !important;
+		overflow-y: visible !important;
+		margin-top: 15px;
+		width:100%;
+	}
+
+	.listView ol,
+	.listView li{
+		width:100%;
+		height:auto;
+		padding:0;
+		border:none;
+		float:left;
+		clear:left;
+	}
+
+	.listView .listHeader,
+	.listView li.bigger,
+	.listView li.selected {
+		background: #fff;
+	}
+
+	.listView li .mag,
+	.listView li.big .mag,
+	.listView li .place,
+	.listView li .time,
+	.listView li .depth {
+		position:static;
+		top:auto;left:auto;right:auto;bottom:auto;
+		float:left;
+		line-height:2px;
+		height:auto;
+		padding:5px;
+		font-size: 10px !important;
+		color:#000;
+	}
+
+	.listView .mag {
+		width:3% !important;
+		text-align: right !important;
+	}
+
+	.listView .place {
+		width:49% !important;
+		padding-left:5px !important;
+	}
+
+	.listView .time {
+		width:30% !important;
+	}
+
+	.listView .depth {
+		width:15% !important;
+		text-align: right !important;
+	}
+
+}

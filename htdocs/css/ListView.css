@@ -1,0 +1,227 @@
+.listview {
+	/**
+	 * This prevents default state from showing through when there are no quakes
+	 * in the current data feed.
+	 */
+	background-color:#ddd;
+
+}
+
+.listview .downloads {
+	display: none;
+}
+
+.listview .showDownloads .downloads{
+	display: block;
+}
+
+
+/**
+ * LIST HEADER
+ */
+
+.listHeader {
+    display:block;
+    font-size:12px;
+    margin:0; padding:8px;
+    border-bottom:1px solid #BBB;
+    box-shadow:0 2px 5px #CCC;
+}
+
+.listHeader h1,
+.listHeader .updated,
+.listHeader .showing {
+    display:block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.listHeader h1 {
+    font-size:16px;
+    margin:0;
+}
+.listHeader .updated,
+.listHeader .timezone {
+    color:#494949;
+    font-size:11px;
+}
+.listHeader .total {
+    padding-left:8px;
+    color:#000;
+}
+.listHeader .showing {
+    display:none;
+    margin-top:8px;
+}
+.filtered .listHeader .showing {
+    display:block;
+}
+
+/**
+ * LIST CONTENT
+ */
+
+.listView .nodata {
+    padding:0 8px;
+    font-size:14px;
+    color:#900;
+}
+.listContent,
+.listContent li {
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+
+.listContent li {
+	position:relative;
+	border-bottom: 1px solid #DFDFDF;
+	background: #fff;
+
+	/*
+	need this to compensate for -webkit-overflow-scrolling:touch,
+	which otherwise prevents a redraw
+	*/
+	-webkit-transform: translate3d(0,0,0);
+
+	/** bottom is room for time, depth; left is room for mag  */
+	padding:0.375em 0.375em 1.5em 3.2em;
+	color:#111;
+	font-size:.8em;
+	-webkit-text-size-adjust: none;
+}
+
+
+.listContent .depth {
+	display:block;
+	position:absolute;
+	bottom:5px;
+	right:5px;
+	color:#666;
+    font-size:.85em;
+}
+
+.listContent .time {
+	display:block;
+	position:absolute;
+	bottom:5px;
+	color:#666;
+    font-size:.85em;
+}
+
+.listContent .mag {
+	width:40px;
+	height:40px;
+	line-height:40px;
+	font-size:40px;
+	text-align:center;
+	font-size:inherit;
+	position:absolute;
+	top:0;
+	left:0;
+}
+
+
+.listContent .bigger {
+	background: #fcc;
+	border-bottom:1px solid #ccc;
+}
+
+
+.listContent .selected {
+	background: #bff;
+}
+
+
+.listContent .mag {
+	font-size:14px;
+}
+
+.listContent .place {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	display:block;
+}
+
+
+.listContent .big .mag,
+.listContent .bigger .mag {
+	font-weight:bold;
+	font-size:larger;
+}
+.listContent li.bigger .place {
+	font-weight:bold;
+}
+
+/**
+ * LIST FOOTER
+ */
+
+.listFooter {
+    display:block;
+    font-size:12px;
+    margin:0; padding:0 8px 8px;
+    font-size:11px;
+}
+
+.listFooter h5 {
+	margin:0 -8px;
+	padding:10px 5px;
+	font-size: 13px;
+}
+
+.listFooter .help {
+    margin:0;padding:0;
+    list-style:none;
+}
+.listFooter .help li {
+	margin:0;
+	padding:5px 0;
+}
+
+.listContent li.links ol#help > li a{
+	text-decoration: underline;
+}
+
+
+/** make list look like a table. */
+@media screen and (min-width:640px) {
+
+	.list .listContent li {
+		padding:0;
+		clear:left;
+		float:left;
+		width:100%;
+	}
+
+	.list .listContent .mag,
+	.list .listContent .place,
+	.list .listContent .time {
+		position:static;
+		top:auto;left:auto;right:auto;bottom:auto;
+		float:left;
+		line-height: inherit;
+		height:auto;
+		padding:5px;
+	}
+
+	.list .listContent .mag {
+		width:4%
+	}
+
+	.list .listContent .place {
+		width:48%;
+	}
+
+	.list .listContent .time {
+		width:25%;
+	}
+
+	.list .listContent .depth {
+		top:5px;
+		bottom:auto;
+	}
+}
+
