@@ -1,0 +1,223 @@
+.searchView .advanced {
+	border:1px solid #999;
+	background-color:#EEE;
+	padding:4px 8px;
+	margin:8px 0 4px;
+	width:304px;
+}
+.searchView .advanced h3 {
+	margin:4px 0 4px;
+	padding:0;
+	font-size:.9em;
+	font-weight:normal;
+	color:#00C;
+	cursor:pointer;
+
+	-moz-user-select:-moz-none;
+	-khtml-user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+}
+.searchView .advanced h3::selection,
+.searchView .advanced h3::-moz-selection {
+	background:none repeat scroll 0 0 transparent;
+}
+.searchView .advanced h3:before {
+	display:block;
+	float:left;
+	border:1px solid #00C;
+	color:#00C;
+	content:'+';
+	margin-right:8px;
+	padding:0 4px;
+	line-height:1em;
+}
+.showAdvanced .advanced {
+	padding-bottom:8px;
+}
+.showAdvanced .advanced h3:before {
+	content:'\2013';
+}
+.searchView .advanced > ul {
+	display:none;
+	margin-top:16px;
+	width:auto;
+}
+
+/** Form control styles */
+.searchView ul {
+	list-style:none;
+	margin:0; padding:0;
+	width:304px;
+}
+.searchView li,
+.searchView .restrictBounds li {
+	margin:8px 0 0 0;
+	padding:0;
+	width:100%;
+}
+.searchView li:first-child {
+	margin-top:0;
+}
+.searchView label, .searchView legend {
+	display:block;
+	font-weight:bold;
+	color:#222;
+	margin:0 0 2px 0; padding:0;
+}
+.searchView label .help,
+.searchView legend .help,
+.searchView .customBoundsInputs > .help {
+	display:block;
+	font-weight:normal;
+	color:#666;
+	font-size:.8em;
+}
+.searchView .customBoundsInputs > .help {
+	font-size:.7em;
+}
+.searchView input, .searchView select {
+	width:100%;
+}
+.searchView fieldset {
+	border:none;
+	margin:0;
+	padding:0;
+}
+.searchView fieldset li {
+	float:left;
+	margin-top:0;
+	width:144px;
+}
+.searchView fieldset li:first-child {
+	margin-right:16px;
+}
+.searchView .advanced fieldset ul {
+	width:auto;
+}
+.searchView .advanced fieldset li {
+	width:138px;
+}
+.searchView .advanced fieldset li:first-child {
+	margin-right:8px;
+}
+.searchView fieldset label,
+.searchView .restrictBounds .customBoundsInputs label {
+	font-weight:normal;
+	font-size:.7em;
+}
+.searchView .disabled .customBoundsInputs label {
+	color:#999;
+}
+.searchView .restrictBounds li {
+	margin-top:2px;
+}
+.searchView .restrictBounds label {
+	font-size:.9em;
+}
+.searchView .restrictBounds input {
+	width:auto;
+}
+.searchView .customBoundsInputs {
+	padding-top:0;
+}
+.searchView .customBoundsInputs input {
+	width:80px;
+	margin:0 auto;
+}
+.searchView .customBoundsInputs #useMapExtent {
+	display:block;
+	margin:8px auto 0;
+}
+.searchView .customBoundsInputs #maxlatitude-lbl,
+.searchView .customBoundsInputs #minlatitude-lbl {
+	display:block;
+	width:144px;
+	margin:0 auto;
+	text-align:center;
+}
+.searchView .customBoundsInputs #minlatitude-lbl:before {
+	display:block;
+	content:' ';
+	clear:both;
+}
+.searchView .customBoundsInputs #maxlatitude,
+.searchView .customBoundsInputs #minlatitude {
+	display:block;
+}
+.searchView .customBoundsInputs #minlongitude-lbl,
+.searchView .customBoundsInputs #maxlongitude-lbl {
+	margin-top:8px;
+	margin-bottom:8px;
+}
+.searchView .customBoundsInputs #minlongitude-lbl {
+	float:left;
+}
+.searchView .customBoundsInputs #maxlongitude-lbl {
+	float:right;
+}
+.searchView .customBoundsInputs #minlongitude {
+	margin-left:4px;
+}
+.searchView .customBoundsInputs #maxlongitude {
+	margin-right:4px;
+}
+
+.searchView #saveButton {
+	border:1px solid #666;
+	background-color:#AAA;
+	color:#333;
+	cursor:pointer;
+	font-size:1em;
+	line-height:1em;
+
+	background-image:-webkit-linear-gradient(top,rgba(255,255,255,0.75),rgba(255,255,255,0.5));
+	background-image:-moz-linear-gradient(top,rgba(255,255,255,0.75),rgba(255,255,255,0.5));
+	background-image:-ms-linear-gradient(top,rgba(255,255,255,0.75),rgba(255,255,255,0.5));
+	background-image:-o-linear-gradient(top,rgba(255,255,255,0.75),rgba(255,255,255,0.5));
+	background-image:linear-gradient(top,rgba(255,255,255,0.75),rgba(255,255,255,0.5));
+
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	border-radius:3px;
+}
+.searchView #cancelButton,
+.searchView #deleteButton {
+	color:#00C;
+	border:none;
+	background:none;
+	text-decoration:underline;
+	cursor:pointer;
+}
+.searchView #deleteButton {
+	color:#900;
+	float:right;
+	margin-top:6px;
+}
+
+/* Toggle visibility of advanced options */
+.showAdvanced .advanced ul {
+	display:block;
+}
+/* Errors */
+.searchView .errors {
+	display:none;
+	background-color:#FCC;
+	border:2px dashed #933;
+	color:#900;
+	font-size:.8em;
+	padding:4px 0;
+	margin-bottom:8px;
+}
+.searchView.error .errors,
+.error .errors { display:block; }
+.searchView .errors li {
+	list-style-type:disc;
+	list-style-position:outside;
+	margin:4px 0 0 24px;
+	width:auto;
+}
+.searchView .errors li:first-child {
+	margin-top:0;
+}

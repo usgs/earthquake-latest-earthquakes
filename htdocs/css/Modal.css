@@ -1,0 +1,42 @@
+.modalmask {
+    position:absolute;
+    top:0; right:0; bottom:0; left:0;
+    margin:0; padding:56px 0 61px;
+    background-color:#EEE;
+    background-color:rgba(0,0,0,0.75);
+    z-index:9999;
+    overflow-y:auto;
+}
+.modal {
+    position:relative;
+    width:344px;
+    margin:0 auto;
+    padding:0;
+    overflow:hidden;
+    background-color:#FFF;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px;
+}
+.modal header {
+    background-color:#CCC;
+    border-bottom:1px solid #666;
+    color:#333;
+    -webkit-border-radius:3px 3px 0 0;
+    -moz-border-radius:3px 3px 0 0;
+    border-radius:3px 3px 0 0;
+}
+.modal header h3 {
+    margin:0;
+    padding:4px 16px;
+}
+.modal section {
+    margin:0 0 0 16px;
+    padding:8px 16px 4px 0;
+    max-height:540px;
+    overflow-y:auto;
+}
+.modal footer {
+    padding:4px 0 8px;
+    margin:4px 12px 0;
+}

@@ -1,0 +1,60 @@
+This README describes how to build a "lite" version suitable for use on
+earthquake.
+
+Use: "earthquake" branch in emartinez-usgs github repo. Build as follows:
+
+Install build dependencies:
+ - Node (npm)
+ - npm install -g jake
+ - npm install -g jshint
+ - npm install uglify-js
+
+Run this command:
+	jake build[3rno01a5,custom]
+
+If the above instructions produce a build that appears broken, use the leaflet
+build helper tool:
+
+build/build.html (from leaflet source directory)
+
+The following classes are required (marked with a star):
+
+	* Core
+	  EPSG3395
+	* TileLayer
+	  TileLayerWMS
+	  TileLayerCanvas
+	  ImageOverlay
+	* Marker
+	  DivIcon
+	* EqIcon
+	  Popup
+	* LayerGroup
+	  FeatureGroup
+	  Path
+	  PathVML
+	  PathCanvas
+	  Polyline
+	  Polygon
+	  MultiPoly
+	  Rectangle
+	  Circle
+	  CircleMarker
+	  VectorsCanvas
+	  GeoJSON
+	* MapDrag
+	* MouseZoom
+	* TouchZoom
+	* BoxZoom
+	* Keyboard
+	  MarkerDrag
+	  PolyEdit
+	* ControlZoom
+	* ControlAttrib
+	* ControlScale
+	  ControlLayers
+	* AnimationPan
+	* AnimationTimer
+	* AnimationZoom
+	* Geolocation
+
