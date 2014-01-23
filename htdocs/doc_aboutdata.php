@@ -40,7 +40,7 @@
 </p>
 <ul>
 	<li>Realtime Earthquake Data Sources &amp; Contributing Networks from 2013-02-02 to present</li>
-	<li>NEIC <a href="http://earthquake.usgs.gov/research/data/pde.php">PDE Preliminary Determination of Epicenters Bulletin</a>
+	<li>NEIC <a href="http://earthquake.usgs.gov/data/pde.php">PDE Preliminary Determination of Epicenters Bulletin</a>
 		<ul>
 			<li>Monthly from 1973-01-01 to 2011-03-31</li>
 			<li>Weekly from 2011-04-01 to 2012-10-13</li>
@@ -48,7 +48,7 @@
 		</ul>
 	</li>
 	<li><a href="/earthquakes/shakemap/atlas.php">Shakemap Atlas</a> from 1923 to 2011</li>
-	<li><a href="/research/data/centennial.php">Centennial Earthquake Catalog</a> from 1900 to 2007</li>
+	<li><a href="/data/centennial/">Centennial Earthquake Catalog</a> from 1900 to 2007</li>
 </ul>
 <p>
 	Currently loading (available soon):
