@@ -1,8 +1,11 @@
 <?php
-	$TITLE = 'About ANSS Comprehensive Catalog';
-	$STYLESHEETS = 'css/documentation.css';
 
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/template/template.inc.php';
+	if (!isset($TEMPLATE)) {
+		$TITLE = 'About ANSS Comprehensive Catalog';
+		$STYLESHEETS = 'css/documentation.css';
+
+		include 'template.inc.php';
+	}
 ?>
 
 <?php /* TABLE OF CONTENTS -------------------------------------------------- */ ?>
