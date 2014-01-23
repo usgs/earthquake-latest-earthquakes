@@ -3,6 +3,7 @@
 	if (!isset($TEMPLATE)) {
 		$TITLE = 'About ANSS Comprehensive Catalog';
 		$STYLESHEETS = 'css/documentation.css';
+		$NAVIGATION = true;
 
 		include 'template.inc.php';
 	}

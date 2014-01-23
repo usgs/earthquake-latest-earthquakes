@@ -2,6 +2,7 @@
 	if (!isset($TEMPLATE)) {
 		$TITLE = 'Using the Latest Earthquakes Map and List';
 		$STYLESHEETS = 'css/documentation.css';
+		$NAVIGATION = true;
 
 		include 'template.inc.php';
 	}

@@ -2,6 +2,7 @@
 
 	if (!isset($TEMPLATE)) {
 		$TITLE = 'Which Earthquakes are Included on the Map and List';
+		$NAVIGATION = true;
 
 		include 'template.inc.php';
 	}
