@@ -1,8 +1,11 @@
 <?php
-	$TITLE = 'Using the Latest Earthquakes Map and List';
-    $STYLESHEETS = 'css/documentation.css';
+	if (!isset($TEMPLATE)) {
+		$TITLE = 'Using the Latest Earthquakes Map and List';
+		$STYLESHEETS = 'css/documentation.css';
+		$NAVIGATION = true;
 
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/template/template.inc.php';
+		include 'template.inc.php';
+	}
 ?>
 
 <?php /* TABLE OF CONTENTS -------------------------------------------------- */ ?>

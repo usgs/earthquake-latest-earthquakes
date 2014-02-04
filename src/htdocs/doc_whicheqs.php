@@ -1,11 +1,11 @@
 <?php
-	$TITLE = 'Which Earthquakes are Included on the Map and List';
-	$STYLES = '
-		.topics li {
-			font-weight:bold;
-		}
-	';
-	include_once $_SERVER['DOCUMENT_ROOT'] . '/template/template.inc.php';
+
+	if (!isset($TEMPLATE)) {
+		$TITLE = 'Which Earthquakes are Included on the Map and List';
+		$NAVIGATION = true;
+
+		include 'template.inc.php';
+	}
 ?>
 
 <header>
