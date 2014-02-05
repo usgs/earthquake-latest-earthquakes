@@ -46,7 +46,7 @@ define([
 					'<h1 class="title"></h1>',
 					'<span>',
 						'<strong class="count"></strong> earthquakes - ',
-						'<a class="download" href="javascript:void(null);>Download</a>',
+						'<a class="download" href="javascript:void(null);">Download</a>',
 					'</span>',
 					'<ul class="downloads"></ul>',
 					'<span class="updated"></span>',
