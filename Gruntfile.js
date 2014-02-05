@@ -239,7 +239,7 @@ module.exports = function (grunt) {
 			conf: {
 				expand: true,
 				cwd: '<%= app.src %>/conf',
-				dest: '<%= app.dist/conf',
+				dest: '<%= app.dist %>/conf',
 				src: [
 					'**/*',
 					'!**/*.orig'
