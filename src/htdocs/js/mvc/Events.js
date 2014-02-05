@@ -3,10 +3,11 @@
  *
  * Lazily builds indexes to avoid overhead until needed.
  */
+/* global define */
 define(
 	[],
 	function() {
-// begin closure
+		'use strict';
 
 
 		var Events = function() {
@@ -17,7 +18,7 @@ define(
 			/**
 			 * Add an event listener
 			 *
-			 * @param event {String} event name (singular).  E.g. "reset"
+			 * @param event {String} event name (singular).  E.g. 'reset'
 			 * @param callback {Function} function to call when event is triggered.
 			 */
 			this.on = function(event, callback, context) {
@@ -28,8 +29,8 @@ define(
 
 				// add listener
 				_listeners[event][_listeners[event].length] = {
-					"callback": callback,
-					"context": context
+					'callback': callback,
+					'context': context
 				};
 			};
 
@@ -44,11 +45,11 @@ define(
 			 * @param callback {Function} callback to unbind.
 			 */
 			this.off = function(event, callback) {
-				if (typeof event === "undefined") {
+				if (typeof event === 'undefined') {
 					// removing all listeners on this object
 					_listeners = null;
 					_listeners = {};
-				} else if (typeof callback === "undefined") {
+				} else if (typeof callback === 'undefined') {
 					// removing all listeners for this event
 					delete _listeners[event];
 				} else {
@@ -57,7 +58,7 @@ define(
 						if (_listeners[event][i].callback === callback) {
 							_listeners[event] = _listeners[event].slice(i,1);
 							// check if last callback of this type
-							if (_listeners[event].length == 0) {
+							if (_listeners[event].length === 0) {
 								delete _listeners[event];
 							}
 							// found callback, stop searching
@@ -95,13 +96,13 @@ define(
 
 		// intercept window.onhashchange events, or simulate if browser doesn't support, and send to global Events object
 		var _onHashChange = function(e) {
-			Events.trigger("hashchange", e);
+			Events.trigger('hashchange', e);
 		};
 		// courtesy of http://stackoverflow.com/questions/9339865/get-the-hashchange-event-to-work-in-all-browsers-including-ie7
 		if (!('onhashchange' in window)) {
 			var oldHref = document.location.hash;
 			setInterval(function() {
-			//console.log("hashchange interval");
+			//console.log('hashchange interval');
 				if (oldHref !== document.location.hash) {
 					oldHref = document.location.hash;
 					_onHashChange({
@@ -112,9 +113,9 @@ define(
 				}
 			}, 300);
 		} else if (window.addEventListener) {
-			window.addEventListener("hashchange", _onHashChange, false);
+			window.addEventListener('hashchange', _onHashChange, false);
 		} else if (window.attachEvent) {
-			window.attachEvent("onhashchange", _onHashChange);
+			window.attachEvent('onhashchange', _onHashChange);
 		}
 
 

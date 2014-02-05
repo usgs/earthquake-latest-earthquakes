@@ -1,14 +1,15 @@
+/* global define */
 define([
 	'leaflet',
 	'mvc/View',
-	'mvc/Util',
-	'eq/Format'
+	'mvc/Util'
 ], function(
 	L,
 	View,
-	Util,
-	Format
+	Util
 ) {
+	'use strict';
+
 
 	var locations;
 
@@ -26,11 +27,11 @@ define([
 
 			this._map = map;
 
-			this._map.on('locationfound', function (evt) {
+			this._map.on('locationfound', function (/*evt*/) {
 				this.fire('zoominteraction');
 			}, this);
 
-			locations = this.options.getOptions("jumpLocations");
+			locations = this.options.getOptions('jumpLocations');
 
 			if(locations) {
 				this._createJumpList('Jump to', className + '-jump', container, this._setZoom, this);
@@ -52,7 +53,7 @@ define([
 			this.fire('zoominteraction');
 		},
 
-		_boxZoom: function (e) {
+		_boxZoom: function (/*e*/) {
 			if (L.DomUtil.hasClass(this._map._container, 'leaflet-box-zooming')) {
 				L.DomUtil.removeClass(this._map._container, 'leaflet-box-zooming');
 			} else {
@@ -73,20 +74,23 @@ define([
 			}
 
 			// catch jump to option
-			if(option == "jump") return;
+			if(option === 'jump') {
+				return;
+			}
 
 			// handle world
-			if (option == "world") {
+			if (option === 'world') {
 				this._map.fitBounds(this._map.world);
 				this.fire('zoominteraction');
-			} else if (option == "geolocate") { // handle my location
+			} else if (option === 'geolocate') { // handle my location
 				this._map.locate({setView: true, maxZoom: 8});
 				// Note :: Do not fire zoominteraction here, we want to wait until the
 				//         map successfully performs the geolocation, then fire after
 				//         that, so we'll also listen to the map "locationfound" event,
 				//         but this is done seperately
 			} else {
-				this._map.fitBounds([[locations[index]["lat1"], locations[index]["long1"]], [locations[index]["lat2"], locations[index]["long2"]]]);
+				this._map.fitBounds([[locations[index].lat1, locations[index].long1],
+						[locations[index].lat2, locations[index].long2]]);
 				this.fire('zoominteraction');
 			}
 
@@ -114,24 +118,25 @@ define([
 		},
 
 		_createJumpList: function (title, className, container, fn, context) {
-			var jumpList = L.DomUtil.create('select', className + 'list', container);
+			var jumpList = L.DomUtil.create('select', className + 'list', container),
+			    option;
 
-			var option = document.createElement("OPTION");
-			option.text = "Zoom to...";
-			option.value = "jump";
+			option = document.createElement('OPTION');
+			option.text = 'Zoom to...';
+			option.value = 'jump';
 			jumpList.options.add(option);
 
 			if(navigator.geolocation) {
-				option = document.createElement("OPTION");
-				option.text = "My Location";
-				option.value = "geolocate";
+				option = document.createElement('OPTION');
+				option.text = 'My Location';
+				option.value = 'geolocate';
 				jumpList.options.add(option);
 			}
 
 			for(var i = 0; i < locations.length; ++i) {
-				var option = document.createElement("OPTION");
-				option.text = locations[i]["name"];
-				option.value = locations[i]["value"];
+				option = document.createElement('OPTION');
+				option.text = locations[i].name;
+				option.value = locations[i].value;
 				jumpList.options.add(option);
 			}
 

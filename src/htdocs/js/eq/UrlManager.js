@@ -1,8 +1,8 @@
+/* global define, escape, unescape */
 define([
-
 ], function(
-
 ) {
+	'use strict';
 
 
 	var UrlManager = {
@@ -57,14 +57,14 @@ define([
 
 			// todo for loop
 			var obj = {
-					"feed":              settings.feed,
-					"sort":              settings.sort,
-					"basemap":           settings.basemap,
-					"restrictListToMap": settings.restrictListToMap,
-					"timeZone":          settings.timeZone,
-					"mapposition":       settings.mapposition,
-					"overlays":          settings.overlays,
-					"viewModes":         settings.viewModes
+					feed:              settings.feed,
+					sort:              settings.sort,
+					basemap:           settings.basemap,
+					restrictListToMap: settings.restrictListToMap,
+					timeZone:          settings.timeZone,
+					mapposition:       settings.mapposition,
+					overlays:          settings.overlays,
+					viewModes:         settings.viewModes
 			};
 
 
@@ -90,7 +90,7 @@ define([
 				obj.autoUpdate = true;
 			}
 
-			return "#" + UrlManager.getSettingsHash(obj);
+			return '#' + UrlManager.getSettingsHash(obj);
 		}
 
 	};

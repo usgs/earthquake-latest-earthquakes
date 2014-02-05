@@ -1,6 +1,9 @@
+/* global define */
 define([
-    "leaflet"
+	'leaflet'
 ], function(L) {
+	'use strict';
+
 
     // Digits used in ArcCache tile index for URLs
     var RCDIGITS = 8;
@@ -131,7 +134,7 @@ sources: [
             while (x < 0) { x += numX; }
             x = x % numX;
 
-            if (this.options.hasOwnProperty("sources")) {
+            if (this.options.hasOwnProperty('sources')) {
                 // find last source that is not for a zoom level deeper than
                 // current
                 var source = null;
@@ -144,7 +147,7 @@ sources: [
                     }
                 }
 
-                if (source != null) {
+                if (source !== null) {
                     url = source.url || url;
                     format = source.format || format;
                 }

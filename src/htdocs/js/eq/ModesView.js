@@ -1,7 +1,10 @@
+/* global define, ltIE9 */
 define([
-	"mvc/Util",
-	"mvc/View"
+	'mvc/Util',
+	'mvc/View'
 ], function(Util, View) {
+	'use strict';
+
 
 	// ----------------------------------------------------------------------
 	// Private static variables
@@ -138,7 +141,7 @@ define([
 
 			panels = _options.order.panel;
 			len = panels.length;
-			viewModes = _options.settings.get("viewModes") || {};
+			viewModes = _options.settings.get('viewModes') || {};
 
 			_el = _this.el;
 			_el.className = 'modesView';
@@ -150,7 +153,7 @@ define([
 
 			// Add some event bindings
 			Util.addEvent(window, 'resize', _onWindowResize);
-			_options.settings.on("change:viewModes", _this.render);
+			_options.settings.on('change:viewModes', _this.render);
 
 			// Trim initial modes to a single mode on mobile
 			if (_deviceMode === DEVICE_MODE_MOBILE) {
@@ -176,14 +179,16 @@ define([
 		 *      The change event that occurred that triggered this method call.
 		 */
 		var _onChange = function(e) {
-			var ev = Util.getEvent(e);
+			var ev = Util.getEvent(e),
+			    id,
+			    mode;
 
 			// was help clicked?
 			if (ev.target.id === 'mode-help-checkbox') {
 
 				// help was clicked... disable all else and enable help
-				for (var id in _options.modes) {
-					var	mode = _options.modes[id];
+				for (id in _options.modes) {
+					mode = _options.modes[id];
 					if (ev.target === mode.checkbox) {
 						mode.enabled = true;
 						mode.checkbox.checked = true;
@@ -197,8 +202,8 @@ define([
 			}
 
 			// help was not clicked...
-			for (var id in _options.modes) {
-				var	mode = _options.modes[id];
+			for (id in _options.modes) {
+				mode = _options.modes[id];
 
 				// always disable help
 				if (mode.title === 'Help') {
@@ -220,7 +225,7 @@ define([
 			// check to see if all are disabled (non-mobile only)
 			var noneSelected = true;
 			if (_deviceMode === DEVICE_MODE_DESKTOP) {
-				for (var id in _options.modes) {
+				for (id in _options.modes) {
 					if (_options.modes[id].enabled === true) {
 						noneSelected = false;
 						break;
@@ -232,8 +237,8 @@ define([
 
 			// nothing is selected... enable help
 			if (noneSelected) {
-				_options.modes['help'].enabled = true;
-				_options.modes['help'].checkbox.checked = true;
+				_options.modes.help.enabled = true;
+				_options.modes.help.checkbox.checked = true;
 			}
 			options.settings.set({viewModes: _this.getStatus()});
 		};
@@ -249,7 +254,7 @@ define([
 				var id = _options.order.nav[i],
 				    mode = _options.modes[id],
 				    li = _list.appendChild(document.createElement('li')),
-				    htmlid = "mode-" + id + "-checkbox",
+				    htmlid = 'mode-' + id + '-checkbox',
 				    checkbox = document.createElement('input'),
 				    label = document.createElement('label');
 
@@ -257,9 +262,9 @@ define([
 				checkbox.type = 'checkbox';
 				checkbox.checked = mode.enabled;
 
-				label.setAttribute("for", htmlid);
-				label.setAttribute("class", "modeIcon " + id);
-				label.setAttribute("title", mode.title);
+				label.setAttribute('for', htmlid);
+				label.setAttribute('class', 'modeIcon ' + id);
+				label.setAttribute('title', mode.title);
 				label.appendChild(checkbox);
 				label.appendChild(document.createTextNode(mode.title));
 				Util.addEvent(label, 'click', _onChange);
@@ -297,7 +302,7 @@ define([
 		 *      The last window resize event to occur before this event was
 		 *      triggered.
 		 */
-		var _onWindowResizeEnd = function (windowEvent) {
+		var _onWindowResizeEnd = function (/*windowEvent*/) {
 			var newMode = null;
 
 			if (_windowResizeTimer !== null) {
@@ -329,8 +334,11 @@ define([
 		 *      The inferred device mode based on the current window width.
 		 */
 		var _determineDeviceMode = function () {
-			if(typeof(ltIE9) === "undefined") {
-				var ltIE9 = false;
+			var _ltIE9;
+			if(typeof(ltIE9) === 'undefined') {
+				 _ltIE9 = false;
+			} else {
+				_ltIE9 = ltIE9;
 			}
 			var w = window.innerWidth, mode = DEVICE_MODE_MOBILE;
 			if (w >= MIN_DESKTOP_WIDTH && !ltIE9) {

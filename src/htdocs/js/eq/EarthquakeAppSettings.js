@@ -1,3 +1,4 @@
+/* global define */
 define([
 	'mvc/Util',
 	'mvc/Events',
@@ -7,6 +8,8 @@ define([
 	Events,
 	Settings
 ) {
+	'use strict';
+
 
 	var hostname = document.location.hostname,
 	    searchHost = '',
@@ -30,7 +33,7 @@ define([
 		searchHost: searchHost,
 		timeZone: 'local', // local, epicenter, or utc
 		autoUpdate: false, // true, or false
-		restrictListToMap: false, // true or false
+		restrictListToMap: true, // true or false
 
 		// default to bounds set by map (conterminous US)
 		mapposition: null,
@@ -253,7 +256,7 @@ define([
 
 	var EarthquakeAppSettings = function (options) {
 		var _this = this,
-			_options = Util.extend({}, DEFAULT_SETTINGS, options);
+		    _options = Util.extend({}, DEFAULT_SETTINGS, options);
 
 		// set defaults
 		_options.defaults = Util.extend({},
@@ -269,7 +272,6 @@ define([
 				mapposition: _options.mapposition,
 				// overlay status, off by default
 				overlays: {plates: true},
-				restrictListToMap: true,
 				viewModes: {
 					list: true,
 					map: true,
@@ -279,7 +281,7 @@ define([
 			},
 
 			// allow override of defaults
-			_options.hasOwnProperty('defaults') ? _options.defaults : null
+			_options.defaults
 		);
 
 
@@ -300,9 +302,12 @@ define([
 		};
 
 		this.removeOption = function (key, option) {
-			var options = this.get(key);
+			var options = this.get(key),
+			    o, i, len;
 			if (options && options.length) {
-				for (var i = 0, o = null; o = options[i]; i++) {
+				len = options.length;
+				for (i = 0; i < len; i++) {
+					 o = options[i];
 					if (o.id === option.id) { break; }
 				}
 				var removed = options.splice(i, 1);
@@ -333,9 +338,7 @@ define([
 			}
 
 			// default to first feed
-			var newFeed = {};
-			newFeed['feed'] = _options.feeds[0].id;
-			_this.set(newFeed);
+			_this.set({feed: _options.feeds[0].id});
 			return _options.feeds[0];
 		};
 

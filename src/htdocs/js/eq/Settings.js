@@ -1,3 +1,4 @@
+/* global define */
 define([
 	'mvc/Util',
 	'mvc/Events',
@@ -9,6 +10,8 @@ define([
 	TransitionView,
 	UrlManager
 ) {
+	'use strict';
+
 
 	var Settings = function(options) {
 
@@ -31,11 +34,11 @@ define([
 		 *      }
 		 */
 		var _initialize = function() {
-			if (typeof(_options.storageKey) !== "string") {
+			if (typeof(_options.storageKey) !== 'string') {
 				throw new Error('Settings requires a "storageKey" string.');
 			}
 			_storageKey = _options.storageKey;
-			if (typeof(_options.defaults) !== "object") {
+			if (typeof(_options.defaults) !== 'object') {
 				throw new Error('Settings requires a "defaults" object.');
 			}
 
@@ -56,8 +59,10 @@ define([
 		this.set = function(settings, options) {
 			// detect changes
 			var changed = {},
-				anyChanged = false;
-			for (var c in settings) {
+			    anyChanged = false,
+			    c;
+
+			for (c in settings) {
 				if (!_current.hasOwnProperty(c) ||
 						!Util.equals(_current[c], settings[c])) {
 					changed[c] = settings[c];
@@ -77,7 +82,7 @@ define([
 				_save();
 			}
 
-			if (options && options.hasOwnProperty("silent") && options.silent) {
+			if (options && options.hasOwnProperty('silent') && options.silent) {
 				// don't trigger any events
 				return;
 			}
@@ -85,18 +90,18 @@ define([
 			// trigger events based on changes
 			if (options && options.hasOwnProperty('force') && options.force) {
 				// forcing. trigger changes for all specified settings
-				for (var c in settings) {
+				for (c in settings) {
 					this.trigger('change:' + c, settings[c]);
 				}
 			} else {
 				// not forcing. only notify what actually changed.
-				for (var c in changed) {
+				for (c in changed) {
 					// events specific to a property
-					this.trigger("change:" + c, changed[c]);
+					this.trigger('change:' + c, changed[c]);
 				}
 			}
 			// generic event for any change
-			this.trigger("change");
+			this.trigger('change');
 		};
 
 		/**
@@ -109,7 +114,7 @@ define([
 		 *      The key for which to fetch the _current setting value.
 		 */
 		this.get = function(key) {
-			if (typeof(key) == "undefined") {
+			if (typeof(key) === 'undefined') {
 				return _current;
 			}
 			if (_current.hasOwnProperty(key)) {
@@ -129,17 +134,7 @@ define([
 		this.reset = function(options) {
 			this.set(_defaults, options);
 			if (!(options && options.silent)) {
-				this.trigger("reset", "Default Settings Restored");
-			}
-		};
-
-		// return true if successful, false otherwise
-		var clearLocalStorage = function() {
-			try {
-				localStorage.setItem(_storageKey, {});
-				return true;
-			} catch (e) {
-				return false;
+				this.trigger('reset', 'Default Settings Restored');
 			}
 		};
 

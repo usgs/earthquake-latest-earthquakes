@@ -1,3 +1,4 @@
+/* global define */
 define([
 	'mvc/Util',
 	'mvc/View',
@@ -13,6 +14,8 @@ define([
 	ToggleSettingView,
 	Format
 ) {
+	'use strict';
+
 
 	var SettingsView = function(options) {
 		Events.call(this);
@@ -21,7 +24,7 @@ define([
 
 		var _this = this,
 			_options = options,
-			_settings = options.settings,
+			//_settings = options.settings,
 			_initialized = false;
 
 		var _feedView = null,
@@ -29,7 +32,7 @@ define([
 			_sortView = null,
 			_restrictListToMapView = null,
 			_basemapView = null,
-			_overlayView = null,
+			_overlaysView = null,
 			_timezoneView = null;
 
 		/**

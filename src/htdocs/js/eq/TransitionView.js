@@ -1,3 +1,4 @@
+/* global define */
 define([
 	'mvc/Util',
 	'mvc/View',
@@ -9,6 +10,9 @@ define([
 	ModalView,
 	UrlManager
 ) {
+	'use strict';
+
+
 	var CSS_CLASSNAME = 'transitionview';
 	var DEFAULTS = {
 		onComplete: null,
@@ -141,8 +145,7 @@ define([
 			var item = document.createElement('li'),
 			    link = item.appendChild(document.createElement('a')),
 			    name = (search)?search.name:'Default Settings',
-					url = _createUrl(settings, search),
-					action = null;
+					url = _createUrl(settings, search);
 
 			item.className = CSS_CLASSNAME + '-bookmark';
 

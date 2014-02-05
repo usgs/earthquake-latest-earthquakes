@@ -4,11 +4,11 @@
  *
  * Lazily builds indexes to avoid overhead until needed.
  */
+/* global define */
 define(
-	["./Events"],
+	['./Events'],
 	function(Events) {
-// begin closure
-
+		'use strict';
 
 		/**
 		 * Create a new Collection.
@@ -38,7 +38,7 @@ define(
 			this.data = function() {
 				return _data;
 			};
-			
+
 			/**
 			 * Sorts the data.
 			 */
@@ -57,7 +57,7 @@ define(
 					_ids = {};
 					for (var i=0; i<_data.length; i++) {
 						_ids[_data[i].id] = i;
-					};
+					}
 				}
 				return _ids;
 			};
@@ -65,7 +65,7 @@ define(
 
 			/**
 			 * Get an object in the collection by ID.
-			 * 
+			 *
 			 * Uses getIds(), so builds map of ID to INDEX on first access O(N).
 			 * Subsequent access should be O(1).
 			 *
@@ -92,7 +92,7 @@ define(
 			this.push = function() {
 				_data.push.apply(_data, arguments);
 				_ids = null;
-				this.trigger("add", Array.slice.call(arguments, 1));
+				this.trigger('add', Array.slice.call(arguments, 1));
 			};
 
 			/**
@@ -114,9 +114,9 @@ define(
 					// remove from array
 					_data.splice(ids[o.id], 1);
 					delete ids[o.id];
-					this.trigger("remove", o);
+					this.trigger('remove', o);
 				} else {
-					throw "removing object not in collection";
+					throw 'removing object not in collection';
 				}
 			};
 
@@ -136,7 +136,7 @@ define(
 				// set new array
 				_data = data;
 				// notify listeners
-				this.trigger("reset", data);
+				this.trigger('reset', data);
 
 
 				// reselect if there was a previous selection
@@ -158,7 +158,7 @@ define(
 			};
 
 
-			/** 
+			/**
 			 * Get the currently selected object.
 			 */
 			this.getSelected = function() {
@@ -179,9 +179,9 @@ define(
 				if (obj === this.get(obj.id)) {
 					// make sure it's part of this collection…
 					_selected = obj;
-					this.trigger("select", _selected, options);
+					this.trigger('select', _selected, options);
 				} else {
-					throw "selecting object not in collection";
+					throw 'selecting object not in collection';
 				}
 			};
 
@@ -192,7 +192,7 @@ define(
 				if (_selected !== null) {
 					var oldSelected = _selected;
 					_selected = null;
-					this.trigger("deselect", oldSelected);
+					this.trigger('deselect', oldSelected);
 				}
 			};
 

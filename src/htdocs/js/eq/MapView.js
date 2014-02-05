@@ -1,9 +1,16 @@
+/* global define */
 define([
 	'mvc/View',
 	'mvc/Util',
 	'mvc/Events',
 	'mvc/Application'
-], function(View, Util, Events, Application){
+], function(
+	View,
+	Util,
+	Events,
+	Application
+) {
+	'use strict';
 
 	var L, SimpleAbstractLayer, LegendControl;
 
@@ -15,7 +22,7 @@ define([
 	var AGE_HOUR = 60 * 60 * 1000;
 	var AGE_DAY = AGE_HOUR * 24;
 	var AGE_WEEK = AGE_DAY * 7;
-	var AGE_MONTH = AGE_DAY * 30; // Close enough
+	//var AGE_MONTH = AGE_DAY * 30; // Close enough
 
 	var AGE_HOUR_CLASS = 'eq-age-hour';
 	var AGE_DAY_CLASS = 'eq-age-day';
@@ -34,7 +41,7 @@ define([
 
 	// class name and styles used for earthquake type events
 	var TYPE_EARTHQUAKE_CLASS = 'eq-icon';
-	var TYPE_EARTHQUAKE_STYLES = [];
+	//var TYPE_EARTHQUAKE_STYLES = [];
 
 	// class name and styles used for non-earthquake type events
 	var TYPE_NONEARTHQUAKE_CLASS = 'non-eq-icon';
@@ -50,7 +57,7 @@ define([
 	var MapView = function (options) {
 
 		View.call(this, options);
-		Util.addClass(this.el, "mapView");
+		Util.addClass(this.el, 'mapView');
 
 		var _options = Util.extend({}, options, DEFAULT_OPTIONS),
 		    _collection = _options.collection,
@@ -59,10 +66,10 @@ define([
 		    _this = this,
 		    _eqLayer = null,
 		    _map = null,
-		    _idprefix = "mapview-" + (++SEQUENCE) + "-",
+		    _idprefix = 'mapview-' + (++SEQUENCE) + '-',
 		    _lastDataRender = null,
 		    _currentLayer = null,
-		    _legendControl = null,
+		    //_legendControl = null,
 		    _zoomControl = null;
 
 		// cache for created layers/overlays
@@ -79,13 +86,12 @@ define([
 
 		var _getOverlay = function(overlay) {
 			if (!_overlays.hasOwnProperty(overlay.id)) {
-				if (overlay.className&&L.hasOwnProperty(overlay.className)) {
-					var constructor = L[overlay.className];
-					_overlays[overlay.id] = new constructor(overlay);
+				if (overlay.className && L.hasOwnProperty(overlay.className)) {
+					_overlays[overlay.id] = new L[overlay.className](overlay);
 				} else {
 					_overlays[overlay.id] = new SimpleAbstractLayer(overlay);
 				}
-				if (overlay.hasOwnProperty("zindex")) {
+				if (overlay.hasOwnProperty('zindex')) {
 					_overlays[overlay.id].setZIndex(overlay.zindex);
 				}
 			}
@@ -95,7 +101,7 @@ define([
 		// initialize guard
 		var _initializing = false;
 
-		var _initialize = function(callback){
+		var _initialize = function (/*callback*/) {
 			// initialize guard
 			if (_initializing) {
 				return;
@@ -108,7 +114,7 @@ define([
 					'" alt="" width="16" height="16"/> Loading ...</p>';
 
 			require([
-				"eq/MapViewDependencies"
+				'eq/MapViewDependencies'
 			], function(d) {
 				L = d.L;
 				SimpleAbstractLayer = d.SimpleAbstractLayer;
@@ -133,11 +139,11 @@ define([
 				_setLayer();
 
 				// update when settings change
-				_options.settings.on("change:feed", _setFeedView);
-				_options.settings.on("change:overlays", _setOverlays);
-				_options.settings.on("change:basemap", _setLayer);
-				_options.settings.on("change:mapposition", _setView);
-				_map.on("locationerror", _onLocationError);
+				_options.settings.on('change:feed', _setFeedView);
+				_options.settings.on('change:overlays', _setOverlays);
+				_options.settings.on('change:basemap', _setLayer);
+				_options.settings.on('change:mapposition', _setView);
+				_map.on('locationerror', _onLocationError);
 				_map.on('zoomend', _onMapZoomEnd);
 				_map.fire('zoomend'); // Add initial zoom class to map container
 				_shown = true;
@@ -195,12 +201,12 @@ define([
 		};
 
 		var _onLocationError = function (e) {
-			Events.trigger("locationError", e);
+			Events.trigger('locationError', e);
 		};
 
 		var _setView = function() {
 			// get saved bounds, use default if none exists
-			var mapposition = _options.settings.get("mapposition");
+			var mapposition = _options.settings.get('mapposition');
 			if (mapposition === null) {
 				mapposition = _options.bounds;
 			}
@@ -226,11 +232,11 @@ define([
 			// the moment it works.  This should only be happening on page reload and
 			// "reset to defaults".
 			_map.fitBounds(new L.LatLngBounds(mapposition));
-			var b = new L.LatLngBounds(mapposition);
-			    tr = _map.latLngToLayerPoint(b.getNorthEast()),
+			b = new L.LatLngBounds(mapposition);
+			var tr = _map.latLngToLayerPoint(b.getNorthEast()),
 			    bl = _map.latLngToLayerPoint(b.getSouthWest()),
 			    cen = new L.Point((bl.x + tr.x) / 2, (bl.y + tr.y) / 2),
-			    latlng = _map.layerPointToLatLng(cen);
+			    latlng = _map.layerPointToLatLng(cen),
 			    zoom = _map.getBoundsZoom(mapposition),
 			    zoomOut = _map.getBoundsZoom(b.pad(-0.005)),
 			    zoomIn = _map.getBoundsZoom(b.pad(0.005)),
@@ -253,7 +259,7 @@ define([
 					[bounds.getNorthEast().lat, bounds.getNorthEast().lng]
 				]
 			});
-		}
+		};
 
 		var _setFeedView = function () {
 			var feed = _options.settings.getFeed();
@@ -282,7 +288,7 @@ define([
 			var layer = _options.settings.getBasemap(),
 					layerObj = _getLayer(layer);
 
-			if (_currentLayer !== layerObj && _currentLayer != null) {
+			if (_currentLayer !== layerObj && _currentLayer !== null) {
 				_map.removeLayer(_currentLayer);
 			}
 			_currentLayer = layerObj;
@@ -310,7 +316,7 @@ define([
 			}
 		};
 
-		var _onMapZoomEnd = function (zoom_end_event) {
+		var _onMapZoomEnd = function (/*zoom_end_event*/) {
 			var currentZoom = _map.getZoom();
 
 			var zoomClassEl = Util.getParentNode(_this.el, 'ARTICLE', null);
@@ -329,7 +335,7 @@ define([
 			}
 		};
 
-		var _onMapMoveEnd = function(e) {
+		var _onMapMoveEnd = function(/*e*/) {
 			if (_map === null || _eqLayer === null ||
 					_map.getSize().equals(new L.Point(0, 0))) {
 				return;
@@ -373,7 +379,7 @@ define([
 		};
 
 		var _addMarkersToMap = function(items) {
-			var markers = [];
+			//var markers = [];
 
 			// loops through events in the collection, adds markers to map
 			for(var i=items.length-1; i>=0; i--) {
@@ -446,7 +452,7 @@ define([
 		 * Bounds contain test that accounts for leaflets handling for longitude.
 		 *
 		 * When initial bounds.contains fails: shifts bounds left or right,
-		 * 		until northEast is less than one world to the right of test point and repeats test.
+		 * until northEast is less than one world to the right of test point and repeats test.
 		 *
 		 * @param bounds {4x4 Array [southWest, northEast] or LatLngBounds object}
 		 * @param latlng {leaflet LatLng}
@@ -484,7 +490,7 @@ define([
 		var _collectionSelect = function(selected, options) {
 			var id = selected.id;
 			var row = document.getElementById(_idprefix + id);
-			Util.addClass(row, "selected");
+			Util.addClass(row, 'selected');
 
 			if (options && options.reset) {
 				return;
@@ -527,11 +533,11 @@ define([
 		var _collectionDeselect = function(selected) {
 			var id = selected.id,
 			    row = document.getElementById(_idprefix + id);
-			Util.removeClass(row, "selected");
+			Util.removeClass(row, 'selected');
 		};
 
-		_collection.on("select", _collectionSelect);
-		_collection.on("deselect", _collectionDeselect);
+		_collection.on('select', _collectionSelect);
+		_collection.on('deselect', _collectionDeselect);
 
 		/**
 			* @return {LatLngBounds}
