@@ -1,6 +1,6 @@
 require.config({
 	baseUrl: 'js',
-	urlArgs: "stamp="+(new Date()).getTime(), /* Remove for production */
+	urlArgs: 'stamp='+(new Date()).getTime(), /* Remove for production */
 	paths: {
 		leaflet: '../lib/leaflet/leaflet-src',
 		localStorage: '../lib/localStorage',
@@ -18,11 +18,12 @@ require.config({
 var _application;
 
 require(
-	["eq/EarthquakeApp"],
+	['eq/EarthquakeApp'],
 	function(EarthquakeApp) {
+		'use strict';
 
 		_application = new EarthquakeApp({
-			el: document.getElementById("application")
+			el: document.getElementById('application')
 		});
 
 	}
@@ -35,6 +36,8 @@ _gaq.push(['_setAccount', 'UA-7320779-1']);
 _gaq.push(['_gat.anonymizeIp']);
 _gaq.push(['_trackPageview']);
 (function () {
+	'use strict';
+
 	var ga = document.createElement('script');
 	ga.async = true;
 	ga.src = 'http://www.google-analytics.com/ga.js';

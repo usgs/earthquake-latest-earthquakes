@@ -1,7 +1,14 @@
-define(["mvc/Util", "mvc/View"], function(Util, View) {
+/* global define */
+define([
+	'mvc/Util',
+	'mvc/View'
+], function(
+	Util,
+	View
+) {
+	'use strict';
 
-
-	var MessageView = function(options) {
+	var MessageView = function(/*options*/) {
 
 		View.call(this);
 		this.el.className = 'messageView';

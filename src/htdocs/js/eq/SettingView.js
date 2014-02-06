@@ -1,7 +1,10 @@
+/* global define */
 define([
 	'mvc/Util',
 	'mvc/View'
 ], function (Util, View) {
+	'use strict';
+
 
 	var IDSEQUENCE = 0;
 
@@ -27,7 +30,7 @@ define([
 				};
 			})(this));
 		} else {
-			this.settings.on("change:" + this.key, (function (view) {
+			this.settings.on('change:' + this.key, (function (view) {
 				return function () {
 					SettingView.prototype.render.apply(view, arguments);
 				};
@@ -87,7 +90,7 @@ define([
 			input.value = option.id;
 			this.inputs[option.id] = input;
 
-			Util.addEvent(input, "change", (function (input, view) {
+			Util.addEvent(input, 'change', (function (input, view) {
 				return function() {
 					var toset = {};
 					toset[view.key] = input.value;
@@ -95,9 +98,9 @@ define([
 				};
 			})(input, this));
 
-			label.setAttribute("for", input.id);
+			label.setAttribute('for', input.id);
 			// ipad requires this empty attribute for input change to fire
-			label.setAttribute("onclick", "");
+			label.setAttribute('onclick', '');
 			label.innerHTML = option.name;
 
 			label.insertBefore(input, label.firstChild);

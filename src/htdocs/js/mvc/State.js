@@ -1,6 +1,8 @@
 
+/* global define */
+define([], function() {
+	'use strict';
 
-define(["./Util"], function(Util) {
 
 	var State = function(id) {
 
@@ -8,15 +10,15 @@ define(["./Util"], function(Util) {
 		this.id = id;
 
 		// container element
-		this.el = document.createElement("section");
-		this.el.className = id + "-state";
+		this.el = document.createElement('section');
+		this.el.className = id + '-state';
 
 
 		// called by application when entering this state
-		this.onEnter = function(application, lastState) {};
+		this.onEnter = function(/*application, lastState*/) {};
 
 		// called by application when leaving this state
-		this.onLeave = function(application, nextState) {};
+		this.onLeave = function(/*application, nextState*/) {};
 
 	};
 

@@ -9,6 +9,9 @@ var mountFolder = function (connect, dir) {
 	return connect.static(require('path').resolve(dir));
 };
 
+var BUILD_TIME = new Date().getTime();
+
+
 var mountPHP = function (dir, options) {
     options = options || {
         '.php': 'php-cgi',
@@ -78,14 +81,13 @@ module.exports = function (grunt) {
 			predist: [
 				'jshint:scripts',
 				'jshint:tests',
-				'compass'
+				'compass',
+				'copy'
 			],
 			dist: [
-				'requirejs:dist',
 				'cssmin:dist',
 				'htmlmin:dist',
-				'uglify',
-				'copy'
+				'uglify'
 			]
 		},
 		connect: {
@@ -172,19 +174,44 @@ module.exports = function (grunt) {
 		requirejs: {
 			dist: {
 				options: {
-					name: 'index',
-					baseUrl: appConfig.src + '/htdocs/js',
-					out: appConfig.dist + '/htdocs/js/index.js',
-					optimize: 'uglify2',
-					mainConfigFile: appConfig.src + '/htdocs/js/index.js',
+					appDir: appConfig.src + '/htdocs',
+					baseUrl: 'js',
+					dir: appConfig.dist + '/htdocs',
 					useStrict: true,
-					wrap: true,
-					uglify2: {
-						report: 'gzip',
-						mangle: true,
-						compress: true,
-						preserveComments: 'some'
-					}
+					wrap: false,
+
+					// for bundling require library in to index.js
+					paths: {
+						requireLib: '../../../bower_components/requirejs/require',
+						leaflet: '../lib/leaflet/leaflet'
+					},
+
+					shim: {
+						leaflet: {
+							exports: "L"
+						}
+					},
+
+					modules: [
+						{
+							name: "index",
+							include:[
+								"../lib/require/require"
+							],
+							excludeShallow: [
+								"eq/MapViewDependencies",
+								"map/*",
+								"leaflet"
+							]
+						},
+						{
+							name: "eq/MapViewDependencies",
+							excludeShallow: [
+								"mvc/*",
+								"eq/Format"
+							]
+						}
+					]
 				}
 			}
 		},
@@ -192,8 +219,7 @@ module.exports = function (grunt) {
 			dist: {
 				files: {
 					'<%= app.dist %>/htdocs/css/index.css': [
-						'<%= app.src %>/htdocs/css/**/*.css',
-						'.tmp/css/**/*.css'
+						'<%= app.src %>/htdocs/css/index.css'
 					]
 				}
 			}
@@ -219,10 +245,10 @@ module.exports = function (grunt) {
 			},
 			dist: {
 				files: {
-					'<%= app.dist %>/htdocs/lib/requirejs/require.js':
-							['<%= bower.directory %>/requirejs/require.js'],
-					'<%= app.dist %>/htdocs/lib/html5shiv/html5shiv.js':
-							['<%= bower.directory %>/html5shiv-dist/html5shiv.js']
+					'<%= app.dist %>/htdocs/js/index.js':
+							['<%= app.dist %>/htdocs/js/index.js'],
+					'<%= app.dist %>/htdocs/js/eq/MapViewDependencies.js':
+							['<%= app.dist %>/htdocs/js/eq/MapViewDependencies.js']
 				}
 			}
 		},
@@ -236,39 +262,44 @@ module.exports = function (grunt) {
 					'**/*.php'
 				]
 			},
-			conf: {
-				expand: true,
-				cwd: '<%= app.src %>/conf',
-				dest: '<%= app.dist/conf',
-				src: [
-					'**/*',
-					'!**/*.orig'
-				]
-			},
 			lib: {
 				expand: true,
 				cwd: '<%= app.src %>/lib',
 				dest: '<%= app.dist %>/lib',
 				src: [
 					'**/*'
-				]
+				],
+				options: {
+					mode: true
+				}
 			}
 		},
 		replace: {
-			dist: {
+			html: {
 				src: [
-					'<%= app.dist %>/htdocs/index.html',
-					'<%= app.dist %>/**/*.php'
+					'<%= app.dist %>/htdocs/index.html'
 				],
 				overwrite: true,
 				replacements: [
 					{
-						from: 'requirejs/require.js',
-						to: 'lib/requirejs/require.js'
+						from: 'data-main="js/index.js" src="lib/require/require.js"',
+						to: 'src="js/index.js?build=' + BUILD_TIME + '"'
 					},
 					{
-						from: 'html5shiv-dist/html5shiv.js',
-						to: 'lib/html5shiv/html5shiv.js'
+						from: 'css/index.css',
+						to: 'css/index.css?build=' + BUILD_TIME + '"'
+					}
+				]
+			},
+			javascript: {
+				src: [
+					'<%= app.dist %>/htdocs/js/index.js'
+				],
+				overwrite: true,
+				replacements: [
+					{
+						from: '"stamp="+(new Date).getTime()',
+						to: '"build=' + BUILD_TIME + '"'
 					}
 				]
 			}
@@ -304,6 +335,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('build', [
 		'clean:dist',
 		'concurrent:predist',
+		'requirejs:dist',
 		'concurrent:dist',
 		'replace',
 		'open:dist',

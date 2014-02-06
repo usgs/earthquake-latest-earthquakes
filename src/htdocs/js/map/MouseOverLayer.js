@@ -1,9 +1,12 @@
+/* global define */
 define([
 	'leaflet',
 	'map/UtfGrid',
-    'mvc/Events',
-    'mvc/Util'
+	'mvc/Events',
+	'mvc/Util'
 ], function(L, UtfGrid, Events, Util) {
+	'use strict';
+
 
 	var CLASSES = 'leaflet-mouseover-tooltip';
 
@@ -46,11 +49,11 @@ define([
 		// Delegate event handling to the data layer
 		// --------------------------------------------------
 
-		on: function (types, fn, context) {
+		on: function (/* types, fn, context */) {
 			L.UtfGrid.prototype.on.apply(this._dataLayer, arguments);
 		},
 
-		off: function (types, fn, context) {
+		off: function (/* types, fn, context */) {
 			L.UtfGrid.prototype.off.apply(this._dataLayer, arguments);
 		},
 
@@ -66,7 +69,7 @@ define([
 			}
 		},
 
-		onRemove: function (map) {
+		onRemove: function (/*map*/) {
 			L.LayerGroup.prototype.onRemove.apply(this, arguments);
 
 			if (this._tooltip && this._tooltip.parentNode) {
@@ -78,7 +81,7 @@ define([
 		// Suppress these methods inherited from LayerGroup
 		// --------------------------------------------------
 
-		addLayer: function (layer) {
+		addLayer: function (/*layer*/) {
 			if (!this._initialized) {
 				L.LayerGroup.prototype.addLayer.apply(this, arguments);
 			} else {
@@ -86,7 +89,7 @@ define([
 				catch (e) { /* Ignore */ }
 			}
 		},
-		removeLayer: function (layer) {
+		removeLayer: function (/*layer*/) {
 			if (!this._initialized) {
 				L.LayerGroup.prototype.removeLayer.apply(this, arguments);
 			} else {
@@ -119,7 +122,7 @@ define([
 			this._tooltip.style.display = 'block';
 		},
 
-		_onMouseOut: function (evt) {
+		_onMouseOut: function (/*evt*/) {
 			// Hide the tooltip
 			this._tooltip.style.display = '';
 		}

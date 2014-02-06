@@ -1,6 +1,7 @@
-define([
-    'mvc/Events'
-], function (Events) {
+/* global define */
+define([], function () {
+	'use strict';
+
 
     // do this check once, instead of once per call
     var supportsClassList = false,
@@ -11,10 +12,10 @@ define([
 
     // static object with utility methods
     var Util = {
-        "isMobile": function () {
+        isMobile: function () {
             return isMobile;
         },
-        "supportsDateInput": function () {
+        supportsDateInput: function () {
             return supportsDateInput;
         },
         /**
@@ -27,7 +28,7 @@ define([
          *                        a property on a later argument
          *                        overrides a property on an earlier argument.
          */
-        "extend": function(dst) {
+        extend: function(dst) {
             // iterate over sources where properties are read
             for (var i=1,len=arguments.length; i<len; i++) {
                 var src=arguments[i];
@@ -48,58 +49,10 @@ define([
          * @param a {Object} Object a.
          * @param b {Object} Object b.
          */
-				 /*
-        "equals": function(a, b) {
-            var p;
-            for (p in a) {
-                if (b === null || typeof(b[p]) == 'undefined') {
-                    return false;
-                }
-            }
-
-            for (p in a) {
-                if (a[p]) {
-                    switch (typeof(a[p])) {
-                    case 'object':
-                        if (!a[p].equals(b[p])) {
-                            return false;
-                        }
-                        break;
-                    case 'function':
-                        if (
-                            (typeof(b[p]) == 'undefined') ||
-                            (p != 'equals' && a[p].toString() != b[p].toString())
-                        ) {
-                            return false;
-                        }
-                        break;
-                    default:
-                        if (a[p] != b[p]) {
-                            return false;
-                        }
-                    }
-                } else {
-                    if (b[p]) {
-                        return false;
-                    }
-                }
-            }
-
-            for(p in b) {
-                if (a === null || typeof(a[p]) == 'undefined') {
-                    return false;
-                }
-            }
-
-            if (typeof a === 'boolean' && a !== b) {
-	            return false;
-            }
-
-            return true;
-        },
-				*/
-
 				equals: function (objA, objB) {
+					var keya,
+					    keyb;
+
 					if (objA === objB) {
 						// if === then ===, no question about that...
 						return true;
@@ -138,7 +91,7 @@ define([
          * @param el the element to modify.
          * @param className the class to add.
          */
-        "addClass": function(el, className) {
+        addClass: function(el, className) {
             if (!el) {
                 return;
             } else if (supportsClassList) {
@@ -163,7 +116,7 @@ define([
          * @param el the element to modify.
          * @param className the class to remove.
          */
-        "removeClass": function (el, className) {
+        removeClass: function (el, className) {
             if (!el) {
                 return;
             } else if (supportsClassList) {
@@ -189,7 +142,7 @@ define([
          * @param el the element to test.
          * @param className the class to find.
          */
-        "hasClass": function(el, className) {
+        hasClass: function(el, className) {
             if (!el) {
                 return;
             } else if (supportsClassList) {
@@ -213,13 +166,13 @@ define([
          * @param eventName the event name (e.g. "click").
          * @param callback the callback function.
          */
-        "addEvent": function (el, eventName, callback) {
+        addEvent: function (el, eventName, callback) {
             if (!el) {
                 return;
             } else if (supportsAddEventListener) {
                 el.addEventListener(eventName, callback, false);
             } else {
-                el.attachEvent("on" + eventName, callback);
+                el.attachEvent('on' + eventName, callback);
             }
         },
 
@@ -229,13 +182,13 @@ define([
          * @param eventName the event name (e.g. "click").
          * @param callback the callback function.
          */
-        "removeEvent": function (el, eventName, callback) {
+        removeEvent: function (el, eventName, callback) {
             if (!el) {
                 return;
             } else if (supportsAddEventListener) {
                 el.removeEventListener(eventName, callback, false);
             } else {
-                el.detachEvent("on" + eventName, callback);
+                el.detachEvent('on' + eventName, callback);
             }
         },
 
@@ -247,10 +200,10 @@ define([
          *         "target" - the element where the event occurred.
          *         "originalEvent" - the event object, either parameter e or window.event (in IE).
          */
-        "getEvent": function(e) {
+        getEvent: function(e) {
             if (!e) {
                 // ie puts event in global
-                var e = window.event;
+                e = window.event;
             }
             // find target
             var targ;
@@ -267,8 +220,8 @@ define([
 
             // return target and event
             return {
-                "target": targ,
-                "originalEvent": e
+                target: targ,
+                originalEvent: e
             };
         },
 
@@ -280,12 +233,12 @@ define([
          * @param maxParent element to stop searching.
          * @return matching element, or null if not found.
          */
-        "getParentNode": function(el, nodeName, maxParent) {
+        getParentNode: function(el, nodeName, maxParent) {
             var parent = el;
             while (parent && parent !== maxParent && parent.nodeName.toUpperCase() !== nodeName) {
                 parent = parent.parentNode;
             }
-            if (parent && "nodeName" in parent && parent.nodeName.toUpperCase() === nodeName) {
+            if (parent && parent.nodeName && parent.nodeName.toUpperCase() === nodeName) {
                 // found the desired node
                 return parent;
             }
@@ -294,28 +247,28 @@ define([
         },
 
         // remove an elements child nodes
-        "empty": function(el) {
+        empty: function(el) {
             while (el.firstChild) {
                 el.removeChild(el.firstChild);
             }
         },
 
         // detach an element from its parent
-        "detach": function(el) {
+        detach: function(el) {
             if (el.parentNode) {
                 el.parentNode.removeChild(el);
             }
         },
 
-        "getWindowSize": function() {
-            if ("innerWidth" in window && "innerHeight" in window) {
+        getWindowSize: function() {
+            if ('innerWidth' in window && 'innerHeight' in window) {
                 return {
                     width: window.innerWidth,
                     height: window.innerHeight
                 };
             } else {
                 // probably IE<=8
-                var elem = "documentElement" in document ?
+                var elem = 'documentElement' in document ?
                         document.documentElement :
                         document.body;
                 return {
@@ -328,9 +281,9 @@ define([
         /**
          * returns true if array a contains b
          */
-        "contains": function(a, b) {
+        contains: function(a, b) {
             for (var i = 0; i < a.length; i++) {
-                if (b == a[i]) {
+                if (b === a[i]) {
                     return true;
                 }
             }
@@ -340,11 +293,11 @@ define([
         /**
          * returns true if object is an array
          */
-        "isArray": function(a) {
+        isArray: function(a) {
             if (typeof Array.isArray === 'function') {
-            	return Array.isArray(a);
+              return Array.isArray(a);
             } else if (a.constructor === Array) {
-            	return true;
+              return true;
             }
             return false;
         }
@@ -352,18 +305,19 @@ define([
 
     // Do these checks once and cache the results
     (function() {
-        var testEl = document.createElement("div");
+        var testEl = document.createElement('div');
         var testInput = document.createElement('input');
         var str = navigator.userAgent||navigator.vendor||window.opera;
 
         isMobile = str.match(/(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone)/i);
-        supportsClassList = ("classList" in testEl);
-        supportsAddEventListener = ("addEventListener" in testEl);
+        supportsClassList = ('classList' in testEl);
+        supportsAddEventListener = ('addEventListener' in testEl);
         testInput.setAttribute('type', 'date');
         supportsDateInput = (testInput.type !== 'text');
 
-        // clean up testing element
+        // clean up testing elements
         testEl = null;
+        testInput = null;
     })();
 
     return Util;

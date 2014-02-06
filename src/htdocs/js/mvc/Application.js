@@ -1,6 +1,6 @@
-
-define(["./Util"], function(Util) {
-
+/* global define */
+define(['./Util'], function(Util) {
+	'use strict';
 
 	var _createEl = function(name, className, parent) {
 		var el = document.createElement(name);
@@ -20,31 +20,28 @@ define(["./Util"], function(Util) {
 			// default options
 
 				// element where application should create itself
-				"el": null,
+				'el': null,
 					// classname of created elements
-					"el_classname":      "app-container",
-					"header_classname":  "app-header",
-					"content_classname": "app-content",
-					"footer_classname":  "app-footer",
+					'el_classname':      'app-container',
+					'header_classname':  'app-header',
+					'content_classname': 'app-content',
+					'footer_classname':  'app-footer',
 
 				// different states
-				"states": {},
-				"views": {},
+				'states': {},
+				'views': {},
 
 				// state to load automatically (if not null)
-				"initialState": null
+				'initialState': null
 
 			}, options),
 			_currentState = null,
 			// elements
-			_el = _createEl('article', _options["el_classname"]),
-			_header = _createEl('header', _options["header_classname"], _el),
-			_content = _createEl('section', _options["content_classname"], _el),
-			_footer = _createEl('footer', _options["footer_classname"], _el),
-			_loading = null,
-
-			// keep other arguments consitent
-			_null = null;
+			_el = _createEl('article', _options.el_classname),
+			_header = _createEl('header', _options.header_classname, _el),
+			_content = _createEl('section', _options.content_classname, _el),
+			_footer = _createEl('footer', _options.footer_classname, _el),
+			_loading = null;
 
 
 
@@ -77,7 +74,7 @@ define(["./Util"], function(Util) {
 			}
 		};
 
-		this.createView = function(name) {
+		this.createView = function(/*name*/) {
 			return null;
 		};
 
@@ -110,7 +107,7 @@ define(["./Util"], function(Util) {
 
 		this.setLoading = function(isLoading) {
 			if (_loading === null) {
-				_loading = _createEl('aside', "loading-spinner");
+				_loading = _createEl('aside', 'loading-spinner');
 				_loading.innerHTML = [
 					'<div>',
 						'<img src="', Application.LOADING_SPINNER, '" alt="" width="16" height="16"/> Loading ...',

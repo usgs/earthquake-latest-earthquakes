@@ -1,4 +1,4 @@
-
+/* global define */
 define([
 	'leaflet',
 	'map/MouseOverLayer',
@@ -12,7 +12,9 @@ define([
 	SimpleAbstractLayer,
 	MousePosition,
 	ZoomControl,
-	LegendControl) {
+	LegendControl
+) {
+	'use strict';
 
 	// container for MapView dependencies for simpler compilation
 	return {

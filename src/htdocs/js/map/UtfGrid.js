@@ -7,9 +7,13 @@
 // 04/11/13 -- EMM: This is an AMD'd (require.js) version of the original
 //                  source.
 
+/* global define */
 define([
 	'leaflet'
 ], function (L) {
+	'use strict';
+
+
 L.Util.ajax = function (url, cb) {
 	// the following is from JavaScript: The Definitive Guide
 	// and https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest/Using_XMLHttpRequest_in_IE6
@@ -17,22 +21,22 @@ L.Util.ajax = function (url, cb) {
 		window.XMLHttpRequest = function () {
 			/*global ActiveXObject:true */
 			try {
-				return new ActiveXObject("Microsoft.XMLHTTP");
+				return new ActiveXObject('Microsoft.XMLHTTP');
 			}
 			catch  (e) {
-				throw new Error("XMLHttpRequest is not supported");
+				throw new Error('XMLHttpRequest is not supported');
 			}
 		};
 	}
 	var response, request = new XMLHttpRequest();
-	request.open("GET", url);
+	request.open('GET', url);
 	request.onreadystatechange = function () {
 		/*jshint evil: true */
 		if (request.readyState === 4 && request.status === 200) {
 			if (window.JSON) {
 				response = JSON.parse(request.responseText);
 			} else {
-				response = eval("(" + request.responseText + ")");
+				response = eval('(' + request.responseText + ')');
 			}
 			cb(response);
 		}
@@ -215,8 +219,8 @@ L.UtfGrid = L.Class.extend({
 		}, this.options));
 
 		var script = document.createElement('script');
-		script.setAttribute("type", "text/javascript");
-		script.setAttribute("src", url);
+		script.setAttribute('type', 'text/javascript');
+		script.setAttribute('src', url);
 
 		window[wk][functionName] = function (data) {
 			self._cache[key] = data;

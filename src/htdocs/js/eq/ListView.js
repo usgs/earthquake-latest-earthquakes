@@ -1,8 +1,15 @@
+/* global define */
 define([
 	'mvc/View',
 	'mvc/Util',
 	'./Format'
-], function (View, Util, Format) {
+], function (
+	View,
+	Util,
+	Format
+) {
+	'use strict';
+
 
 	var DEFAULTS = {
 	};
@@ -13,29 +20,16 @@ define([
 		View.apply(this, arguments);
 
 		this._options = Util.extend({}, DEFAULTS, options);
-		this._idprefix = "listview-" + (++SEQUENCE) + "-";
+		this._idprefix = 'listview-' + (++SEQUENCE) + '-';
 		this._lastDataRender = null;
 
-		Util.addClass(this.el, "listView");
+		Util.addClass(this.el, 'listView');
 		this.initialize();
 		this._bindEvents();
 	};
 
 	// Extend the base View with custom methods and state
 	ListView.prototype = {
-
-		// dom elements
-		elements: {
-			"header" : null,
-			"title" : null,
-			"timestamp" : null,
-			"count" : null,
-			"downloads" : null,
-			"downloadsLink" : null,
-			"filtered" : null,
-			"content" : null,
-			"footer" : null
-		},
 
 		// ------------------------------------------------------------
 		// Public methods
@@ -45,67 +39,35 @@ define([
 		* Creates the view
 		*/
 		initialize: function() {
+			var el = this.el;
 
-			// header
-			this.elements['header'] = document.createElement('div');
-			Util.addClass(this.elements['header'], 'listHeader');
+			el.innerHTML = [
+				'<header class="listHeader">',
+					'<h1 class="title"></h1>',
+					'<span>',
+						'<strong class="count"></strong> earthquakes - ',
+						'<a class="download" href="javascript:void(null);">Download</a>',
+					'</span>',
+					'<ul class="downloads"></ul>',
+					'<span class="updated"></span>',
+					'<span class="timezone"></span>',
+					'<span class="showing"></span>',
+				'</header>',
+				'<ol class="listContent"></ol>',
+				'<footer class="listFooter"></footer>'
+			].join('');
 
-			// feed/search title
-			this.elements['title'] = document.createElement('h1');
-			Util.addClass(this.elements['title'], 'title');
-			this.elements['header'].appendChild(this.elements['title']);
+			this._header = el.querySelector('.listHeader');
+			this._title = el.querySelector('.title');
+			this._count = el.querySelector('.count');
+			this._downloadsLink = el.querySelector('.download');
+			this._downloads = el.querySelector('.downloads');
+			this._timestamp = el.querySelector('.updated');
+			this._timezone = el.querySelector('.timezone');
+			this._filtered = el.querySelector('.showing');
+			this._content = el.querySelector('.listContent');
+			this._footer = el.querySelector('.listFooter');
 
-			// count/download
-			var cnt_dnld = this.elements['header'].appendChild(
-					document.createElement('span'));
-			this.elements['count'] = cnt_dnld.appendChild(
-					document.createElement('strong'));
-			cnt_dnld.appendChild(document.createTextNode(' earthquakes - '));
-			this.elements['downloadsLink'] = cnt_dnld.appendChild(
-					document.createElement('a'));
-			this.elements['downloadsLink'].href = 'javascript:void(null);';
-			this.elements['downloadsLink'].innerHTML = 'Download';
-
-			// downloads
-			this.elements['downloads'] = this.elements['header'].appendChild(
-					document.createElement('ul'));
-			Util.addClass(this.elements['downloads'], 'downloads');
-
-			// timestamp
-			this.elements['timestamp'] = this.elements['header'].appendChild(
-					document.createElement('span'));
-			Util.addClass(this.elements['timestamp'], 'updated');
-			this.elements['timezone'] = this.elements['header'].appendChild(
-					document.createElement('span'));
-			Util.addClass(this.elements['timezone'], 'timezone');
-
-			// append header to container
-			this.el.appendChild(this.elements['header']);
-
-			Util.addEvent(this.elements['downloadsLink'], 'click', (function (view) {
-				return function (clickEvent) {
-					if (Util.hasClass(view.el, 'showDownloads')) {
-						Util.removeClass(view.el, 'showDownloads');
-					} else {
-						Util.addClass(view.el, 'showDownloads');
-					}
-				};
-			})(this));
-
-			// filtered event count
-			this.elements['filtered'] = document.createElement('span');
-			Util.addClass(this.elements['filtered'], 'showing');
-			this.elements['header'].appendChild(this.elements['filtered']);
-
-			// the list of events
-			this.elements['content'] = document.createElement('ol');
-			Util.addClass(this.elements['content'], 'listContent');
-			this.el.appendChild(this.elements['content']);
-
-			// the footer
-			this.elements['footer'] = document.createElement('div');
-			Util.addClass(this.elements['footer'], 'listFooter');
-			this.el.appendChild(this.elements['footer']);
 			this._generateListFooterMarkup();
 		},
 
@@ -140,7 +102,7 @@ define([
 					};
 
 					// deselect if out of bounds and list is restricted to map
-					var selected = collection.getSelected();
+					selected = collection.getSelected();
 					if (selected !== null && !inBounds(selected)) {
 						collection.deselect();
 					}
@@ -169,8 +131,8 @@ define([
 			this._lastDataRender = {
 				generated: collection.generated,
 				url: collection.url,
-				sort: settings.get("sort"),
-				timeZone: settings.get("timeZone"),
+				sort: settings.get('sort'),
+				timeZone: settings.get('timeZone'),
 				bounds: bounds
 			};
 		},
@@ -192,10 +154,10 @@ define([
 			return (lastDataRender !== null &&
 					lastDataRender.generated === _collection.generated &&
 					lastDataRender.url === _collection.url &&
-					lastDataRender.sort === _settings.get("sort") &&
+					lastDataRender.sort === _settings.get('sort') &&
 					// have bounds changed, and do we care
 					(_bounds && this._boundsEqual(_bounds, lastDataRender.bounds)) &&
-					lastDataRender.timeZone === _settings.get("timeZone"));
+					lastDataRender.timeZone === _settings.get('timeZone'));
 		},
 
 		_boundsEqual: function (a, b) {
@@ -251,14 +213,14 @@ define([
 			if (tz === 'utc') {
 				tzString = 'UTC';
 				theDate = Format.dateTimeWithTimezone(
-						new Date(catalog.generated||(+new Date)), {
+						new Date(catalog.generated||(new Date().getTime())), {
 							tz: 0,
 							tzText: ' UTC'
 						});
 			} else if (tz === 'epicenter') {
 				tzString = 'Event Epicenter Time';
 				theDate = Format.dateTimeWithTimezone(
-						new Date(catalog.generated||(+new Date)), {
+						new Date(catalog.generated||(new Date().getTime())), {
 							tz: 0,
 							tzText: ' UTC' + (Format.isoTimezone(0))
 						});
@@ -268,24 +230,24 @@ define([
 				    tzOffsetStr = Format.isoTimezone(tzOffset);
 				tzString = 'Local System Time (UTC' + tzOffsetStr + ')';
 				theDate = Format.dateTimeWithTimezone(
-						new Date(catalog.generated||(+new Date)), {
+						new Date(catalog.generated||(new Date().getTime())), {
 							'tz': tzOffset,
 							tzText: ' UTC' + tzOffsetStr
 						});
 			}
 
-			this.elements['title'].innerHTML = title;
-			this.elements['timestamp'].innerHTML = 'Updated: ' + theDate;
-			this.elements['timezone'].innerHTML = 'Showing event times using '+ tzString;
-			this.elements['count'].innerHTML = totalCount;
-			this.elements['downloads'].innerHTML = this._generateDownloadList();
+			this._title.innerHTML = title;
+			this._timestamp.innerHTML = 'Updated: ' + theDate;
+			this._timezone.innerHTML = 'Showing event times using '+ tzString;
+			this._count.innerHTML = totalCount;
+			this._downloads.innerHTML = this._generateDownloadList();
 
 			if (_restricted) {
 				if (!Util.hasClass(this.el, 'filtered')) {
 					Util.addClass(this.el, 'filtered');
 				}
 
-				this.elements['filtered'].innerHTML = [
+				this._filtered.innerHTML = [
 					'<strong>', displayCount, '</strong>',
 					' earthquakes in map area'
 				].join('');
@@ -334,7 +296,7 @@ define([
 					'</li>');
 				}
 			}
-			this.elements['content'].innerHTML = markup.join('');
+			this._content.innerHTML = markup.join('');
 		},
 
 		_generateListItemTitle: function (type, place) {
@@ -364,7 +326,7 @@ define([
 		},
 
 		_generateListFooterMarkup: function () {
-			this.elements['footer'].innerHTML = [
+			this._footer.innerHTML = [
 				'<h5>Didn\'t find what you were looking for?</h5>',
 				'<ol class="help">',
 					'<li>',
@@ -403,25 +365,26 @@ define([
 		_bindEvents: function () {
 			var c = this._options.collection,
 			    s = this._options.settings,
-			    m = this._options.app.getView("map");
+			    m = this._options.app.getView('map');
 
 			// Add handler for list click event
-			Util.addEvent(this.elements['content'], "click", this._listClick());
+			Util.addEvent(this._content, 'click', this._listClick());
+			Util.addEvent(this._downloadsLink, 'click', this._downloadsClick());
 
 			// was the map somehow shown before the list initialized?
 			if (m.wasShown()) {
 				this._mapShown();
 			} else {
-				m.on("mapshown", this._mapShown, this);
+				m.on('mapshown', this._mapShown, this);
 			}
 
 			// Add handler for various MVC events
-			s.on("change:sort", this.render, this);
-			s.on("change:timeZone", this.render, this);
-			s.on("change:restrictListToMap", this._bindMapListeners, this);
-			s.on("change:restrictListToMap", this.render, this);
-			c.on("select", this._collectionSelect, this);
-			c.on("deselect", this._collectionDeselect, this);
+			s.on('change:sort', this.render, this);
+			s.on('change:timeZone', this.render, this);
+			s.on('change:restrictListToMap', this._bindMapListeners, this);
+			s.on('change:restrictListToMap', this.render, this);
+			c.on('select', this._collectionSelect, this);
+			c.on('deselect', this._collectionDeselect, this);
 		},
 
 		_mapShown: function() {
@@ -434,21 +397,22 @@ define([
 		_unbindEvents: function () {
 			var c = this._options.collection,
 			    s = this._options.settings,
-			    m = this._options.app.getView("map");
+			    m = this._options.app.getView('map');
 
-			if (m.wasShown() && settings.get('restrictListToMap')) {
+			if (m.wasShown() && s.get('restrictListToMap')) {
 				this._bindMapListeners(false);
 			}
 
-			m.off("mapshown", this._mapShown, this);
-			c.off("deselect", this._collectionDeselect, this);
-			c.off("select", this._collectionSelect, this);
-			s.off("change:restrictListToMap", this.render, this);
-			s.off("change:restrictListToMap", this._bindMapListeners, this);
-			s.off("change:timeZone", this.render, this);
-			s.off("change:sort", this.render, this);
+			m.off('mapshown', this._mapShown, this);
+			c.off('deselect', this._collectionDeselect, this);
+			c.off('select', this._collectionSelect, this);
+			s.off('change:restrictListToMap', this.render, this);
+			s.off('change:restrictListToMap', this._bindMapListeners, this);
+			s.off('change:timeZone', this.render, this);
+			s.off('change:sort', this.render, this);
 
-			Util.removeEvent(this.el, "click", this._listClick());
+			Util.removeEvent(this.el, 'click', this._listClick());
+			Util.removeEvent(this._downloadsLink, 'click', this._downloadsClick());
 		},
 
 		_bindMapListeners: function (bind) {
@@ -467,36 +431,55 @@ define([
 			var id = selected.id,
 			    row = document.getElementById(this._idprefix + id);
 
-			Util.addClass(row, "selected");
+			Util.addClass(row, 'selected');
 		},
 
 		_collectionDeselect: function (selected) {
 			var id = selected.id,
 			    row = document.getElementById(this._idprefix + id);
 
-			Util.removeClass(row, "selected");
+			Util.removeClass(row, 'selected');
 		},
 
 		// use event delegation to bind once
 		// Need to create a clousure in order to preserve _this === ListView
 		// so we have a means to bind _and_ unbind the DOM event.
 		__listClick: null,
-		_listClick: function (e) {
+		_listClick: function () {
 			var _this = this;
 			if (_this.__listClick === null) {
 				_this.__listClick = function (e) {
-					var ev = Util.getEvent(e);
-					if (ev.target.tagName == 'LI') {
-						var el = ev.target;
+					var ev = Util.getEvent(e),
+					    el,
+					    id,
+					    obj;
+					if (ev.target.tagName === 'LI') {
+						el = ev.target;
 					} else {
-						var el = ev.target.parentNode;
+						el = ev.target.parentNode;
 					}
-					id = el.getAttribute("id").replace(_this._idprefix, "");
+					id = el.getAttribute('id').replace(_this._idprefix, '');
 					obj = _this._options.collection.get(id);
 					_this._options.collection.select(obj);
 				};
 			}
 			return this.__listClick;
+		},
+
+		// reference to downloads click event handler, so it can later be removed.
+		__downloadsClick: null,
+		_downloadsClick: function () {
+			var _el = this.el;
+			if (this.__downloadsClick === null) {
+				this.__downloadsClick = function () {
+					if (Util.hasClass(_el, 'showDownloads')) {
+						Util.removeClass(_el, 'showDownloads');
+					} else {
+						Util.addClass(_el, 'showDownloads');
+					}
+				};
+			}
+			return this.__downloadsClick;
 		}
 	};
 

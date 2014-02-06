@@ -4,6 +4,7 @@
  * toggle-able content.
  *
  */
+/* global define */
 define([
 	'mvc/View',
 	'mvc/Util'
@@ -11,6 +12,8 @@ define([
 	View,
 	Util
 ) {
+	'use strict';
+
 
 	var CSS_EXPANDED_CLASS = 'toggle-expanded';
 
@@ -72,7 +75,7 @@ define([
 			}
 
 			Util.addEvent(this._controlElement, 'click', (function (tv) {
-				return function (evt) {
+				return function (/*evt*/) {
 					if (Util.hasClass(tv.el, CSS_EXPANDED_CLASS)) {
 						Util.removeClass(tv.el, CSS_EXPANDED_CLASS);
 					} else {

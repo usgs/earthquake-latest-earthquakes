@@ -1,3 +1,5 @@
+/* global define, escape */
+
 // define in global scope
 var eqfeed_callback;
 var checkSearchLimit;
@@ -6,16 +8,14 @@ define([
 	'mvc/Collection',
 	'mvc/Util',
 	'mvc/ModalView',
-	'mvc/ToggleView',
-	'eq/UrlManager',
+	'mvc/ToggleView'
 ], function(
 	Collection,
 	Util,
 	ModalView,
-	ToggleView,
-	UrlManager
+	ToggleView
 ) {
-
+	'use strict';
 
 	var Catalog = function(options) {
 
@@ -28,7 +28,8 @@ define([
 		    _isError,
 		    _maxResults,
 		    _overridden,
-		    _settings;
+		    _settings,
+		    _app;
 
 		// --------------------------------------------------
 		// Private methods
@@ -39,12 +40,12 @@ define([
 		 *
 		 */
 		var _initialize = function (options) {
-			_options = options || {feed:null},
+			_options = options || {feed:null};
 			_this = this;
 			_isError = false;
 			_overridden = false;
 			_settings = _options.settings;
-			_feed = _options.feed,
+			_feed = _options.feed;
 			_app = _options.app;
 
 			// this is a collection of data
@@ -75,9 +76,11 @@ define([
 		 */
 		var _createSearchURL = function (params, count) {
 			var method = (count) ? 'count' : 'query',
-			    callback = (count) ? 'checkSearchLimit' : 'eqfeed_callback';
+			    callback = (count) ? 'checkSearchLimit' : 'eqfeed_callback',
 			    query = '',
-			    host = _options.host + '/fdsnws/event/1/' + method + '?' +
+			    host;
+
+			host = _options.host + '/fdsnws/event/1/' + method + '?' +
 					'format=geojson&jsonerror=true&callback=' + callback;
 
 			for (var key in params) {
@@ -98,12 +101,12 @@ define([
 		 *      The key to be migrated.
 		 */
 		var _migrateKey = function (key) {
-		// These are "safe" to perform for keys.
+			// These are "safe" to perform for keys.
 
-		key = key.replace('-', ''); // Search fields do not contain a hyphen
-		key = key.toLowerCase();    // Search fields are all lower case
+			key = key.replace('-', ''); // Search fields do not contain a hyphen
+			key = key.toLowerCase();    // Search fields are all lower case
 
-		return key;
+			return key;
 		};
 
 		/**
@@ -115,7 +118,7 @@ define([
 		 *      A script element
 		 */
 		var _createScript = function (src) {
-			var script = document.createElement("script");
+			var script = document.createElement('script');
 			script.src = src;
 			script.async = 1;
 			return script;
@@ -130,13 +133,13 @@ define([
 		var _doFetch = function (script) {
 
 			// notify a fetch is happening
-			_this.trigger("fetching");
+			_this.trigger('fetching');
 
 			// callback to cleanup script element when done
-			var cleanup = function (e) {
+			var cleanup = function () {
 				// unbind
-				Util.removeEvent(script, "load", cleanup);
-				Util.removeEvent(script, "error", cleanupError);
+				Util.removeEvent(script, 'load', cleanup);
+				Util.removeEvent(script, 'error', cleanupError);
 
 				// remove element from dom
 				script.parentNode.removeChild(script);
@@ -147,17 +150,17 @@ define([
 				cleanup = null;
 			};
 
-			var cleanupError = function (e) {
+			var cleanupError = function () {
 				_isError = true;
 				_showServerError();
 				cleanup();
 			};
 
-			Util.addEvent(script, "load", cleanup);
-			Util.addEvent(script, "error", cleanupError);
+			Util.addEvent(script, 'load', cleanup);
+			Util.addEvent(script, 'error', cleanupError);
 
 			// add script
-			var body = document.getElementsByTagName("body")[0];
+			var body = document.getElementsByTagName('body')[0];
 			body.appendChild(script);
 		};
 
@@ -288,7 +291,7 @@ define([
 		var _showServerError = function () {
 			var message = document.createElement('div'),
 			    supportsBookmark = window.sidebar ||
-							(window.external&&window.external.AddFavorite)
+							(window.external&&window.external.AddFavorite),
 			    dialog = new ModalView(message, {
 						title: 'Error: Service Unavailable',
 						classes: ['modal-error', 'catalog'],
@@ -484,7 +487,7 @@ define([
 
 			if (_feed.isSearch) {
 				url = _createSearchURL(_feed.params);
-				r = "geojson",
+				r = 'geojson';
 
 				url = url.replace(/&callback=[\w]+/, '').replace('&jsonerror=true', '');
 
@@ -502,7 +505,7 @@ define([
 
 			} else {
 				url = _feed.url;
-				r = ".geojsonp";
+				r = '.geojsonp';
 
 				urls = {
 					'atom': url.replace(r, '.atom'),
@@ -517,19 +520,19 @@ define([
 			}
 
 			downloads = [
-				{'link': 'CSV', 'href': urls['csv']},
-				{'link': 'GeoJSON', 'href': urls['geojson'] },
-				{'link': 'KML - Color by Age', 'href': urls['kmlAge']},
+				{'link': 'CSV', 'href': urls.csv},
+				{'link': 'GeoJSON', 'href': urls.geojson },
+				{'link': 'KML - Color by Age', 'href': urls.kmlAge},
 				{'link': 'KML - Color by Age (animated)',
-						'href': urls['kmlAgeAnimated']},
-				{'link': 'KML - Color by Depth', 'href': urls['kmlDepth']},
+						'href': urls.kmlAgeAnimated},
+				{'link': 'KML - Color by Depth', 'href': urls.kmlDepth},
 				{'link': 'KML - Color by Depth (animated)',
-						'href': urls['kmlDepthAnimated']},
-				{'link': 'QuakeML', 'href': urls['quakeml']}
+						'href': urls.kmlDepthAnimated},
+				{'link': 'QuakeML', 'href': urls.quakeml}
 			];
 
 			if (!_feed.isSearch) {
-				downloads.unshift({'link': 'ATOM', 'href': urls['atom']});
+				downloads.unshift({'link': 'ATOM', 'href': urls.atom});
 			}
 
 			return downloads;
@@ -596,15 +599,7 @@ define([
 		// callback for fdsn count method requests
 		checkSearchLimit = function (data) {
 			var count = data.count,
-			    max = data.maxAllowed,
-			    message = null,
-			    downloads = null,
-			    download = null,
-			    i = 0, len = 0,
-			    dialog = new ModalView(message, {
-						title: 'Warning',
-						classes: ['modal-warning', 'catalog']
-			    });
+			    max = data.maxAllowed;
 
 			// check limits, provide warning or search as applicable
 			if (count > max) {

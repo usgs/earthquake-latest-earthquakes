@@ -15,6 +15,7 @@
  * last-in, first-out (stack) ordering until all modal dialogs are closed.
  *
  */
+/* global define */
 define([
 	'mvc/View',
 	'mvc/Util'
@@ -22,6 +23,8 @@ define([
 	View,
 	Util
 ) {
+	'use strict';
+
 
 	var __INITIALIZED__ = false,
 	    DIALOG_STACK = null,
@@ -75,7 +78,7 @@ define([
 	ModalView.prototype = Util.extend({}, View.prototype, {
 
 		_createViewSkeleton: function () {
-			var modal, header, closeButton, i, len;
+			var header, closeButton, i, len;
 
 			Util.empty(this.el);
 			Util.addClass(this.el, 'modal-dialog');
@@ -100,7 +103,7 @@ define([
 				closeButton.setAttribute('title', 'Cancel');
 				closeButton.innerHTML = 'x';
 				Util.addEvent(closeButton, 'click', (function (modal) {
-					return function (evt) {
+					return function (/*evt*/) {
 						modal.hide();
 					};
 				})(this));
@@ -114,13 +117,15 @@ define([
 		},
 
 		_createButton: function (info) {
-			var button = document.createElement('button');
+			var button = document.createElement('button'),
 			    buttonInfo = Util.extend({}, {
 						classes: [],
 						text: 'Click Me',
 						title: '',
 						callback: function () {}
-					}, info);
+					}, info),
+					i,
+					len;
 
 			for (i = 0, len = buttonInfo.classes.length; i < len; i++) {
 				Util.addClass(button, buttonInfo.classes[i]);
@@ -242,7 +247,7 @@ define([
 			}
 
 			if (FOCUS_STACK.length > 0) {
-				nextFocus = FOCUS_STACK.pop();
+				var nextFocus = FOCUS_STACK.pop();
 				if (nextFocus instanceof Node) {
 					nextFocus.focus();
 				}

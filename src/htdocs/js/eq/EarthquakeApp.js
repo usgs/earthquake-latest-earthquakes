@@ -1,20 +1,22 @@
+/* global define */
+
 // earthquake app updated to use states
 define([
-	"mvc/Util",
-	"mvc/Events",
-	"mvc/Application",
-	"eq/Catalog",
-	"eq/Settings",
-	"eq/ListView",
-	"eq/MapView",
-	"eq/SettingsView",
-	"eq/EventSummaryView",
-	"eq/ModesView",
-	"eq/DefaultState",
-	"eq/MessageView",
+	'mvc/Util',
+	'mvc/Events',
+	'mvc/Application',
+	'eq/Catalog',
+	'eq/Settings',
+	'eq/ListView',
+	'eq/MapView',
+	'eq/SettingsView',
+	'eq/EventSummaryView',
+	'eq/ModesView',
+	'eq/DefaultState',
+	'eq/MessageView',
 	'mvc/ModalView',
-	"eq/EarthquakeAppSettings",
-	"eq/UrlManager"
+	'eq/EarthquakeAppSettings',
+	'eq/UrlManager'
 ], function(
 	Util,
 	Events,
@@ -32,20 +34,22 @@ define([
 	EarthquakeAppSettings,
 	UrlManager
 ){
+	'use strict';
+
 
 	var EarthquakeApp = function(options) {
 		// take over the page
-		var body = document.getElementsByTagName("body")[0];
+		var body = document.getElementsByTagName('body')[0];
 		Util.empty(body);
 
 		var _this = this;
 		var _settings = new EarthquakeAppSettings(
 			Util.extend({},
-				(options && options.hasOwnProperty("settings")) ?
+				(options && options.hasOwnProperty('settings')) ?
 					options.settings : {},
 				{
-					"defaults": {
-						"autoUpdate": !Util.isMobile()
+					'defaults': {
+						'autoUpdate': !Util.isMobile()
 					}
 				}
 			)
@@ -57,9 +61,9 @@ define([
 			app: _this
 		});
 		var _states = {
-			"default": new DefaultState()
+			'default': new DefaultState()
 		};
-		var _initialState = "default";
+		var _initialState = 'default';
 
 		// expose these for states, for now
 		this.catalog = _catalog;
@@ -67,7 +71,7 @@ define([
 
 
 		Application.call(this, {
-			"states": _states
+			'states': _states
 		});
 
 		body.appendChild(this.getEl());
@@ -96,32 +100,32 @@ define([
 	};
 
 	// logic for creating different views
-	this.createView = function(name, callback) {
-		if (name == "list") {
+	this.createView = function(name /*, callback */) {
+		if (name === 'list') {
 			return new ListView({
 				app: this,
 				settings: _settings,
 				collection: _catalog
 			});
-		} else if (name == "map") {
+		} else if (name === 'map') {
 			return new MapView({
 				settings: _settings,
 				collection: _catalog
 			});
-		} else if (name == "settings") {
+		} else if (name === 'settings') {
 			return new SettingsView({
 				settings: _settings
 			});
-		} else if (name == "eventsummary") {
+		} else if (name === 'eventsummary') {
 			return new EventSummaryView({
 				settings: _settings,
 				collection: _catalog
 			});
-		} else if (name == "modes") {
+		} else if (name === 'modes') {
 			return new ModesView({
 				'settings': _settings
 			});
-		} else if (name == "message") {
+		} else if (name === 'message') {
 			return new MessageView();
 		} else {
 			return null;
@@ -147,68 +151,57 @@ define([
 		}
 	};
 
-	_settings.on("change:viewModes", _modeChange);
+	_settings.on('change:viewModes', _modeChange);
 
 	// deselect an earthquake on reset to defaults
-	_settings.on("reset", (function(c){
+	_settings.on('reset', (function(c){
 		return function(){
 			c.deselect();
 		};
 	})(_catalog));
 
 	// event for user resetting to defaults
-	_settings.on("reset", function (message) {
-		_messageView.addMessage(message, 3000, "success");
+	_settings.on('reset', function (message) {
+		_messageView.addMessage(message, 3000, 'success');
 	});
 
 	// creating the modes view below triggers a change:viewModes event
-	this.getHeader().appendChild(this.getView("modes").el);
-	this.getFooter().appendChild(this.getView("eventsummary").el);
-	this.getFooter().appendChild(this.getView("message").el);
+	this.getHeader().appendChild(this.getView('modes').el);
+	this.getFooter().appendChild(this.getView('eventsummary').el);
+	this.getFooter().appendChild(this.getView('message').el);
 
 	// catalog messages
-	var _messageView = this.getView("message");
+	var _messageView = this.getView('message');
 	var _loadingMessage = null;
 
-	_catalog.on("fetching", function() {
+	_catalog.on('fetching', function() {
 		if (_loadingMessage !== null) {
 			_loadingMessage.remove();
 			_loadingMessage = null;
 		}
 		// TODO: customize based on feed?
-		_loadingMessage = _messageView.addMessage("Loading earthquakes");
+		_loadingMessage = _messageView.addMessage('Loading earthquakes');
 	});
 
-	_catalog.on("reset", function(data) {
+	_catalog.on('reset', function(data) {
 		if (_loadingMessage !== null) {
 			_loadingMessage.remove();
 			_loadingMessage = null;
 		}
-		if (data.hasOwnProperty("loadAnyway") && data.loadAnyway === true) {
+		if (data.loadAnyway === true) {
 			// set autoupdate off
-			var existing = _settings.get("autoUpdate"), toset = {};
-			if (typeof existing === 'object') {
-				// clonse so settings sees change
-				existing = Util.extend({}, existing);
-
-				// setting autoUpdate to false
-				existing["autoUpdate"] = false;
-				toset["autoUpdate"] = existing;
-			} else {
-				toset["autoUpdate"] = false;
-			}
-			_settings.set(toset);
+			_settings.set({autoUpdate: false});
 		}
 
 		if (!_catalog.isError()) {
-			_messageView.addMessage("Earthquakes updated", 3000, "success");
+			_messageView.addMessage('Earthquakes updated', 3000, 'success');
 			// when the earthquake is updated, update the page title
 			var feed=_settings.getFeed();
 
 			if (feed && feed.name) {
 				document.title=feed.name;
 			} else {
-				document.title="Earthquakes";
+				document.title='Earthquakes';
 			}
 		}
 	}, this);
@@ -223,11 +216,11 @@ define([
 			_autoUpdateInterval = null;
 		}
 
-		if (_settings.get("autoUpdate")) {
+		if (_settings.get('autoUpdate')) {
 			// user requested auto update
 
 			var feed = _catalog.getFeed();
-			if (feed.hasOwnProperty("autoUpdate") && feed.autoUpdate) {
+			if (feed.hasOwnProperty('autoUpdate') && feed.autoUpdate) {
 				// and feed supports auto update
 
 				// set update interval
@@ -239,24 +232,24 @@ define([
 		}
 	};
 
-	_settings.on("change:feed", function() {
+	_settings.on('change:feed', function() {
 		_catalog.setFeed(_settings.getFeed());
 		_catalog.fetch();
 		_setAutoUpdateInterval();
 	});
 
-	_settings.on("change:autoUpdate", function() {
+	_settings.on('change:autoUpdate', function() {
 		// TODO: trigger fetch first if now-generated > autoUpdate?
 		_setAutoUpdateInterval();
 	});
 
 	// map geolocation error
-	Events.on("locationError", function(e) {
-		_messageView.addMessage(e.message, 3000, "error");
+	Events.on('locationError', function(e) {
+		_messageView.addMessage(e.message, 3000, 'error');
 	});
 
 	// on a URL change, update the settings
-	Events.on("hashchange", function(e) {
+	Events.on('hashchange', function(/* e */) {
 		// parse URL into anonymous object
 		var newSettings = UrlManager.parseUrl();
 

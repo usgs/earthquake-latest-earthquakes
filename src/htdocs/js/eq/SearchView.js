@@ -1,14 +1,17 @@
+/* global define, confirm */
 define([
     'eq/Format',
     'mvc/View',
     'mvc/Util'
 ], function (Format, View, Util) {
+	'use strict';
+
 
     // -------------------------------------------------------------------------
     // Private static variables
     // -------------------------------------------------------------------------
     var DOM_CONTAINER_CLASS = 'searchView modalmask',
-        DOM_ADVANCED_CLASS = 'advancedOptions',
+        //DOM_ADVANCED_CLASS = 'advancedOptions',
         NULL_SELECT_VALUE = 'pleaseSelect',
         NULL_SELECT_DISPLAY = 'Please Select',
         DEFAULTS = {
@@ -37,7 +40,8 @@ define([
      *      Markup for the given list of options as select box options.
      */
     var _getOptionsMarkup = function (options) {
-        var markup = [];
+        var markup = [],
+            key;
 
         for (key in options) {
             markup.push('<option value="',key,'">',options[key],'</option>');
@@ -56,7 +60,7 @@ define([
      *      The formatted date. yyyy-mm-dd
      */
     var _getYMD = function (theDate) {
-        var y, m, d, isNeg;
+        var y, m, d; //, isNeg;
 
         y = theDate.getUTCFullYear();
         m = theDate.getUTCMonth(); m += 1;
@@ -110,7 +114,7 @@ define([
         }
 
         // Make sure we still have a valid date object
-        if (Object.prototype.toString.call(t) === "[object Date]") {
+        if (Object.prototype.toString.call(t) === '[object Date]') {
             if (isNaN(t.getTime())) {
                 throw 'Invalid date.';
             }
@@ -133,12 +137,12 @@ define([
      *      If any of the above keys are missing from the object, an empty
      *      placeholder is used for that field instead.
      */
-    var _serializeBounds = function (bounds, humanReadable) {
+    var _serializeBounds = function (bounds/*, humanReadable*/) {
         var north = bounds.maxlatitude,
             south = bounds.minlatitude,
              east  = bounds.maxlongitude,
-             west  = bounds.minlongitude,
-             text = '';
+             west  = bounds.minlongitude; //,
+             //text = '';
 
         if (isNaN(north)) { north = ''; } else { north = north.toFixed(3); }
         if (isNaN(south)) { south = ''; } else { south = south.toFixed(3); }
@@ -181,20 +185,20 @@ define([
      */
     var _parseBounds = function (bounds) {
         var parts = bounds.split(','),
-            bounds = {},
-             value = null;
+            boundsObj = {},
+            value = null;
 
         try { /* Try catch in case of incomplete bounds */
             if (parts[0] !== '') {
                 value = parseFloat(parts[0]);
                 if (!isNaN(value)) {
-                    bounds.maxlatitude = value;
+                    boundsObj.maxlatitude = value;
                 }
             }
             if (parts[1] !== '') {
                 value = parseFloat(parts[1]);
                 if (!isNaN(value)) {
-                    bounds.minlatitude = value;
+                    boundsObj.minlatitude = value;
                 }
             }
             if (parts[2] !== '') {
@@ -202,7 +206,7 @@ define([
                 while (value < -360.0) { value += 360.0; }
                 while (value > 360.0) { value -= 360.0; }
                 if (!isNaN(value)) {
-                    bounds.maxlongitude = value;
+                    boundsObj.maxlongitude = value;
                 }
             }
             if (parts[3] !==  '') {
@@ -210,12 +214,12 @@ define([
                 while (value < -360.0) { value += 360.0; }
                 while (value > 360.0) { value -= 360.0; }
                 if (!isNaN(value)) {
-                    bounds.minlongitude = value;
+                    boundsObj.minlongitude = value;
                 }
             }
         } catch (e) { }
 
-        return bounds;
+        return boundsObj;
     };
 
     /**
@@ -230,7 +234,7 @@ define([
                 '<h3>Create new search</h3>',
                 '<span id="closeButton" class="close-link" title="Cancel">x</span>',
                 '<input type="hidden" name="searchId" id="searchId" ',
-                        'value="', (+new Date), '"/>',
+                        'value="', (new Date.getTime()), '"/>',
             '</header>',
             '<section>',
             '<ul class="errors"></ul>',
@@ -480,6 +484,7 @@ define([
              // Input fields for basic search parameters
              _searchName = null,
 
+             _restrictBounds,
              _noBounds = null,
              _customBounds = null,
              _minlatitude = null,
@@ -494,6 +499,7 @@ define([
              _maxmagnitude = null,
 
              // Input fields for advanced search parameters
+             _advancedController,
              _mindepth = null,
              _maxdepth = null,
              _minmmi = null,
@@ -615,7 +621,7 @@ define([
         var _clearForm = function () {
             _oldSearchObject = null;
 
-            _searchId.value = '' + (+new Date);
+            _searchId.value = '' + (new Date().getTime());
             _errors.innerHTML = '';
             _modalTitle.innerHTML = 'Create new search';
             _searchName.value = 'Custom Search';
@@ -647,12 +653,14 @@ define([
         };
 
         var _populateForm = function (searchParams) {
-            var showAdvanced = false; // Flag to expand advanced options
+            var showAdvanced = false, // Flag to expand advanced options
+                key,
+                value;
 
             _oldSearchObject = searchParams;
 
             for (key in searchParams) {
-                var value = searchParams[key];
+                value = searchParams[key];
 
                 switch (key) {
                     case 'id':
@@ -895,10 +903,10 @@ define([
             currentDate.setUTCMilliseconds(999);
 
             if (startDate !== null && startDate.getTime() > currentDate.getTime()) {
-                errors.push("Start date may not be in the future.");
+                errors.push('Start date may not be in the future.');
             }
             if (endDate !== null && endDate.getTime() > currentDate.getTime()) {
-                errors.push("End date may not be in the future.");
+                errors.push('End date may not be in the future.');
             }
 
             if (startDate !== null && endDate !== null && startDate.getTime() >=
@@ -1022,7 +1030,7 @@ define([
             }
         };
 
-        var _toggleCustomBounds = function (evt) {
+        var _toggleCustomBounds = function (/*evt*/) {
             if (_customBounds.checked) {
                 _minlatitude.removeAttribute('disabled');
                 _maxlatitude.removeAttribute('disabled');
@@ -1038,7 +1046,7 @@ define([
             }
         };
 
-        var _toggleAdvancedOptions = function (evt) {
+        var _toggleAdvancedOptions = function (/*evt*/) {
             if (Util.hasClass(_this.el, 'showAdvanced')) {
                 Util.removeClass(_this.el, 'showAdvanced');
             } else {
@@ -1046,7 +1054,7 @@ define([
             }
         };
 
-        var _handleCancel = function (evt) {
+        var _handleCancel = function (/*evt*/) {
             // Close form
             document.body.removeChild(_this.el);
 
@@ -1060,7 +1068,7 @@ define([
             _onDeleteCallback = null;
         };
 
-        var _handleSave = function (evt) {
+        var _handleSave = function (/*evt*/) {
             // Validate and short-circuit if appropriate.
             if (!_validateSearchForm()) {
                 // Scroll up so errors are visible
@@ -1081,7 +1089,7 @@ define([
             _onDeleteCallback = null;
         };
 
-        var _handleDelete = function (evt) {
+        var _handleDelete = function (/*evt*/) {
             // Built-in dialog not ideal, but quick and dirty.
             if (confirm('Are you sure you want to delete this search?')) {
 
