@@ -44,7 +44,7 @@
 </p>
 <ul>
 	<li>Realtime Earthquake Data Sources &amp; Contributing Networks from 2013-02-02 to present</li>
-	<li>NEIC <a href="http://earthquake.usgs.gov/data/pde.php">PDE Preliminary Determination of Epicenters Bulletin</a>
+	<li>NEIC <a href="/data/pde.php">PDE Preliminary Determination of Epicenters Bulletin</a>
 		<ul>
 			<li>Monthly from 1973-01-01 to 2011-03-31</li>
 			<li>Weekly from 2011-04-01 to 2012-10-13</li>
