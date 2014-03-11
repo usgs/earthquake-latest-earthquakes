@@ -1,7 +1,7 @@
 <?php
 	if (!isset($TEMPLATE)) {
 		$TITLE = 'Using the Latest Earthquakes Map and List';
-		$STYLESHEETS = 'css/documentation.css';
+		$HEAD = '<link rel="stylesheet" href="/css/documentation.css"/>' . $HEAD;
 		$NAVIGATION = true;
 
 		include 'template.inc.php';
@@ -19,7 +19,7 @@
 			<ul>
 				<li><a href="#downloads">Downloads</a></li>
 			</ul>
-    </li>
+		</li>
 		<li><a href="#map">Map</a></li>
 		<li><a href="#map-layers">Map Layers</a></li>
 		<li><a href="#settings">Settings</a></li>
