@@ -1,7 +1,7 @@
 <?php
 	if (!isset($TEMPLATE)) {
 		$TITLE = 'Using the Latest Earthquakes Map and List';
-		$HEAD = '<link rel="stylesheet" href="css/documentation.css"/>' . $HEAD;
+		$HEAD = '<link rel="stylesheet" href="css/documentation.css"/>';
 		$NAVIGATION = true;
 
 		include 'template.inc.php';
