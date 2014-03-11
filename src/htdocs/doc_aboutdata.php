@@ -2,7 +2,7 @@
 
 	if (!isset($TEMPLATE)) {
 		$TITLE = 'About ANSS Comprehensive Catalog';
-		$HEAD = '<link rel="stylesheet" href="/css/documentation.css"/>' . $HEAD;
+		$HEAD = '<link rel="stylesheet" href="css/documentation.css"/>' . $HEAD;
 		$NAVIGATION = true;
 
 		include 'template.inc.php';
