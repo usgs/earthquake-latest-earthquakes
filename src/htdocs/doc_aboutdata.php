@@ -2,7 +2,7 @@
 
 	if (!isset($TEMPLATE)) {
 		$TITLE = 'About ANSS Comprehensive Catalog';
-		$STYLESHEETS = 'css/documentation.css';
+		$HEAD = '<link rel="stylesheet" href="css/documentation.css"/>';
 		$NAVIGATION = true;
 
 		include 'template.inc.php';
@@ -14,7 +14,7 @@
 <div class="right three column toc">
 	<h3>Table of Contents</h3>
 	<ul>
- 		<li><a href="#data-availability">Data Availability</a></li>
+		<li><a href="#data-availability">Data Availability</a></li>
 		<li><a href="#placenames">Placenames/ Labels</a></li>
 		<li><a href="#magnitudes">Magnitudes</a></li>
 		<li><a href="#map">Map</a></li>
