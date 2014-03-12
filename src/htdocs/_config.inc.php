@@ -35,4 +35,4 @@ $SITE_COMMONNAV = '
 if (!isset($HEAD)) {
 	$HEAD = '';
 }
-$HEAD = '<link rel="stylesheet" href="css/template.css"/>' . $HEAD;
+$HEAD = '<link rel="stylesheet" href="/css/template.css"/>' . $HEAD;
