@@ -57,7 +57,7 @@ define([
 	var MapView = function (options) {
 
 		View.call(this, options);
-		Util.addClass(this.el, 'mapView');
+		Util.addClass(this._el, 'mapView');
 
 		var _options = Util.extend({}, options, DEFAULT_OPTIONS),
 		    _collection = _options.collection,
@@ -108,7 +108,7 @@ define([
 			}
 			_initializing = true;
 
-			var mapdiv = _this.el.appendChild(document.createElement('div'));
+			var mapdiv = _this._el.appendChild(document.createElement('div'));
 			mapdiv.innerHTML = '<p class="loading"><img src="' +
 					Application.LOADING_SPINNER +
 					'" alt="" width="16" height="16"/> Loading ...</p>';
@@ -319,7 +319,7 @@ define([
 		var _onMapZoomEnd = function (/*zoom_end_event*/) {
 			var currentZoom = _map.getZoom();
 
-			var zoomClassEl = Util.getParentNode(_this.el, 'ARTICLE', null);
+			var zoomClassEl = Util.getParentNode(_this._el, 'ARTICLE', null);
 			if (currentZoom > 10) {
 				Util.addClass(zoomClassEl, 'zoomedin');
 				Util.removeClass(zoomClassEl, 'zoomednormal');

@@ -60,13 +60,13 @@ define([
 
 	var ModalView = function (message, options) {
 		// Call parent constructor
-		View.call(this, options); // Parent constructor will set this.el
+		View.call(this, options); // Parent constructor will set this._el
 
 		this.message = message;
 		this.options = Util.extend({}, DEFAULTS, options||null);
-		this.el.modal = this;
+		this._el.modal = this;
 
-		this._createViewSkeleton(this.el, this.options);
+		this._createViewSkeleton(this._el, this.options);
 		this.render();
 
 
@@ -80,17 +80,17 @@ define([
 		_createViewSkeleton: function () {
 			var header, closeButton, i, len;
 
-			Util.empty(this.el);
-			Util.addClass(this.el, 'modal-dialog');
+			Util.empty(this._el);
+			Util.addClass(this._el, 'modal-dialog');
 
 			// Add custom classes to the view
 			if (this.options.classes && this.options.classes.length > 0) {
 				for (i = 0, len = this.options.classes.length; i < len; i++) {
-					Util.addClass(this.el, this.options.classes[i]);
+					Util.addClass(this._el, this.options.classes[i]);
 				}
 			}
 
-			header = this.el.appendChild(document.createElement('header'));
+			header = this._el.appendChild(document.createElement('header'));
 			Util.addClass(header, 'modal-header');
 
 			this._title = header.appendChild(document.createElement('h3'));
@@ -109,10 +109,10 @@ define([
 				})(this));
 			}
 
-			this._content = this.el.appendChild(document.createElement('section'));
+			this._content = this._el.appendChild(document.createElement('section'));
 			Util.addClass(this._content, 'modal-content');
 
-			this._footer = this.el.appendChild(document.createElement('footer'));
+			this._footer = this._el.appendChild(document.createElement('footer'));
 			Util.addClass(this._footer, 'modal-footer');
 		},
 
@@ -213,7 +213,7 @@ define([
 			}
 
 			// Add this dialog to the mask
-			MASK.appendChild(this.el);
+			MASK.appendChild(this._el);
 
 			// Show the mask if not yet visible
 			if (!MASK_VISIBLE) {

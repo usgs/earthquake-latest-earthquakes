@@ -16,10 +16,10 @@ define([
 		Events.call(this);
 
 		// element where this view is rendered
-		this.el = (options && options.hasOwnProperty('el')) ?
+		this._el = (options && options.hasOwnProperty('el')) ?
 				options.el : document.createElement('div');
 
-		// render inside this.el
+		// render inside this._el
 		//this.render = function () {
 		//};
 	};

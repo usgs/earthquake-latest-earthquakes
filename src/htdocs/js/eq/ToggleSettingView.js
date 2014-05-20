@@ -40,7 +40,7 @@ define([
 		};
 
 		// build list of options
-		var _list = this.el.appendChild(document.createElement('ul'));
+		var _list = this._el.appendChild(document.createElement('ul'));
 		for (var i=0, len=_options.length; i<len; i++) {
 			var o = _options[i];
 

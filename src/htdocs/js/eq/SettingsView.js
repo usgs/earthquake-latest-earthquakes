@@ -20,7 +20,7 @@ define([
 	var SettingsView = function(options) {
 		Events.call(this);
 		View.call(this, options);
-		this.el.className = 'settingsView';
+		this._el.className = 'settingsView';
 
 		var _this = this,
 			_options = options,
@@ -47,7 +47,7 @@ define([
 
 // HEADER
 
-			section = _this.el.appendChild(document.createElement('section'));
+			section = _this._el.appendChild(document.createElement('section'));
 			section.innerHTML = '<h1>' +
 					'MY SETTINGS' +
 					'<span class="help">' +
@@ -57,7 +57,7 @@ define([
 
 // EARTHQUAKES
 
-			section = _this.el.appendChild(document.createElement('section'));
+			section = _this._el.appendChild(document.createElement('section'));
 			section.appendChild(document.createElement('h2')).innerHTML = 'Earthquakes';
 
 			_autoupdateView = new ToggleSettingView({
@@ -119,7 +119,7 @@ define([
 
 // LIST SORT
 
-			section = _this.el.appendChild(document.createElement('section'));
+			section = _this._el.appendChild(document.createElement('section'));
 			section.appendChild(document.createElement('h2')).innerHTML = 'List Sort Order';
 			_sortView = new SettingView({
 				'settings': _options.settings,
@@ -142,7 +142,7 @@ define([
 
 // MAP LAYERS
 
-			section = _this.el.appendChild(document.createElement('section'));
+			section = _this._el.appendChild(document.createElement('section'));
 			section.appendChild(document.createElement('h2')).innerHTML = 'Map Layers';
 			_basemapView = new SettingView({
 				'settings': _options.settings,
@@ -160,7 +160,7 @@ define([
 
 // TIME ZONE
 
-			section = _this.el.appendChild(document.createElement('section'));
+			section = _this._el.appendChild(document.createElement('section'));
 			section.appendChild(document.createElement('h2')).innerHTML = 'Time Zone';
 			_timezoneView = new SettingView({
 				'settings': _options.settings,

@@ -27,7 +27,7 @@ define([
 		    _summaryEl = document.createElement('div'),
 		    _closeEl = document.createElement('a');
 
-		_this.el.className = 'eventSummaryView';
+		_this._el.className = 'eventSummaryView';
 
 		_closeEl.className = 'close-link';
 		_closeEl.innerHTML = 'x';
@@ -55,7 +55,7 @@ define([
 
 			if (eq === null) {
 				// no current selection, empty
-				Util.empty(_this.el);
+				Util.empty(_this._el);
 				return;
 			}
 
@@ -147,8 +147,8 @@ define([
 
 			// add summary element and close button
 			_summaryEl.innerHTML = buf.join('');
-			_this.el.appendChild(_summaryEl);
-			_this.el.appendChild(_closeEl);
+			_this._el.appendChild(_summaryEl);
+			_this._el.appendChild(_closeEl);
 		};
 
 		// when an event is selected, show selected event

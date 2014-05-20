@@ -37,9 +37,9 @@ define([
 		View.call(this, this._options);
 
 		this._createViewSkeleton();
-		Util.addClass(this.el, 'toggle');
+		Util.addClass(this._el, 'toggle');
 		if (this._options.expanded) {
-			Util.addClass(this.el, CSS_EXPANDED_CLASS);
+			Util.addClass(this._el, CSS_EXPANDED_CLASS);
 		}
 
 		this.setHeader(this._options.header, true);
@@ -55,7 +55,7 @@ define([
 			    contentClasses = this._options.contentClasses;
 
 			this._headerElement =
-					this.el.appendChild(document.createElement('header'));
+					this._el.appendChild(document.createElement('header'));
 			Util.addClass(this._headerElement, 'toggle-header');
 
 			this._controlElement =
@@ -67,7 +67,7 @@ define([
 			}
 
 			this._contentElement =
-					this.el.appendChild(document.createElement('div'));
+					this._el.appendChild(document.createElement('div'));
 			Util.addClass(this._contentElement, 'toggle-content');
 
 			for (i = 0, len = contentClasses.length; i < len; i++) {

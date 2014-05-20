@@ -17,7 +17,7 @@ define([
 		this.options = options.options;
 		this.inputs = {};
 
-		this.list = this.el.appendChild(document.createElement('ul'));
+		this.list = this._el.appendChild(document.createElement('ul'));
 		this.list.className = 'settinglist';
 
 		this._createView();

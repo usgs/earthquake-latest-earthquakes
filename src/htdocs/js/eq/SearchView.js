@@ -526,8 +526,8 @@ define([
             _options = Util.extend({}, DEFAULTS, options);
 
             // Create search form template
-            _this.el.innerHTML = _createSearchForm(_options);
-            _this.el.className = DOM_CONTAINER_CLASS;
+            _this._el.innerHTML = _createSearchForm(_options);
+            _this._el.className = DOM_CONTAINER_CLASS;
 
             // Pull out DOM elements from our search form and store for quicker
             // access later (so we aren't constantly fetching from the DOM).
@@ -559,7 +559,7 @@ define([
          */
         this.show = function (opts) { //onCancel, onSave, searchParams, map) {
             // If form already visible, cancel.
-            if (_this.el.parentNode === document.body) {
+            if (_this._el.parentNode === document.body) {
                 return false;
             }
 
@@ -577,8 +577,8 @@ define([
             }
 
             // Show the form.
-            // Note: Must attach _this.el to body before trying to set "checked"
-            document.body.appendChild(_this.el);
+            // Note: Must attach _this._el to body before trying to set "checked"
+            document.body.appendChild(_this._el);
 
             // Always clear form before potentially setting input parameter values
             // since a previous search value might still be present but may not be
@@ -643,9 +643,9 @@ define([
             _catalog.selectedIndex = 0;
             _contributor.selectedIndex = 0;
 
-            Util.removeClass(_this.el, 'error');
+            Util.removeClass(_this._el, 'error');
             Util.removeClass(_restrictBounds, 'supportsMapBounds');
-            Util.removeClass(_this.el, 'showAdvanced');
+            Util.removeClass(_this._el, 'showAdvanced');
 
             _deleteButton.style.display = 'none';
 
@@ -750,8 +750,8 @@ define([
             // Expand advanced options my default if rendering a previous search
             // that included any advanced feature
             if (showAdvanced &&
-                    !Util.hasClass(_this.el,'showAdvanced')) {
-                Util.addClass(_this.el, 'showAdvanced');
+                    !Util.hasClass(_this._el,'showAdvanced')) {
+                Util.addClass(_this._el, 'showAdvanced');
             }
 
             // Set bounds. If bounds specified, show geographic region radio button
@@ -766,7 +766,7 @@ define([
         };
 
         var _cacheDOMObjects = function () {
-            var el = _this.el;
+            var el = _this._el;
 
             _searchId = el.querySelector('#searchId');
 
@@ -1004,12 +1004,12 @@ define([
             var numErrors = errors.length;
 
             if (numErrors > 0) {
-                if (!Util.hasClass(_this.el, 'error')) {
-                    Util.addClass(_this.el, 'error');
+                if (!Util.hasClass(_this._el, 'error')) {
+                    Util.addClass(_this._el, 'error');
                 }
             } else {
-                if (Util.hasClass(_this.el, 'error')) {
-                    Util.removeClass(_this.el, 'error');
+                if (Util.hasClass(_this._el, 'error')) {
+                    Util.removeClass(_this._el, 'error');
                 }
             }
             _errors.innerHTML = '<li>' + errors.join('</li><li>') + '</li>';
@@ -1047,16 +1047,16 @@ define([
         };
 
         var _toggleAdvancedOptions = function (/*evt*/) {
-            if (Util.hasClass(_this.el, 'showAdvanced')) {
-                Util.removeClass(_this.el, 'showAdvanced');
+            if (Util.hasClass(_this._el, 'showAdvanced')) {
+                Util.removeClass(_this._el, 'showAdvanced');
             } else {
-                Util.addClass(_this.el, 'showAdvanced');
+                Util.addClass(_this._el, 'showAdvanced');
             }
         };
 
         var _handleCancel = function (/*evt*/) {
             // Close form
-            document.body.removeChild(_this.el);
+            document.body.removeChild(_this._el);
 
             // Execute callback
             if (typeof _onCancelCallback === 'function') {
@@ -1077,7 +1077,7 @@ define([
             }
 
             // Close the form
-            document.body.removeChild(_this.el);
+            document.body.removeChild(_this._el);
 
             // Execute callback
             if (typeof _onSaveCallback === 'function') {
@@ -1094,7 +1094,7 @@ define([
             if (confirm('Are you sure you want to delete this search?')) {
 
                 // Close the form
-                document.body.removeChild(_this.el);
+                document.body.removeChild(_this._el);
 
                 // Execute the callback
                 if (typeof _onDeleteCallback === 'function') {

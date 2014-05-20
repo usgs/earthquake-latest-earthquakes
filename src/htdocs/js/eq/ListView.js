@@ -23,7 +23,7 @@ define([
 		this._idprefix = 'listview-' + (++SEQUENCE) + '-';
 		this._lastDataRender = null;
 
-		Util.addClass(this.el, 'listView');
+		Util.addClass(this._el, 'listView');
 		this.initialize();
 		this._bindEvents();
 	};
@@ -39,7 +39,7 @@ define([
 		* Creates the view
 		*/
 		initialize: function() {
-			var el = this.el;
+			var el = this._el;
 
 			el.innerHTML = [
 				'<header class="listHeader">',
@@ -243,8 +243,8 @@ define([
 			this._downloads.innerHTML = this._generateDownloadList();
 
 			if (_restricted) {
-				if (!Util.hasClass(this.el, 'filtered')) {
-					Util.addClass(this.el, 'filtered');
+				if (!Util.hasClass(this._el, 'filtered')) {
+					Util.addClass(this._el, 'filtered');
 				}
 
 				this._filtered.innerHTML = [
@@ -252,8 +252,8 @@ define([
 					' earthquakes in map area'
 				].join('');
 			} else {
-				if (Util.hasClass(this.el, 'filtered')) {
-					Util.removeClass(this.el, 'filtered');
+				if (Util.hasClass(this._el, 'filtered')) {
+					Util.removeClass(this._el, 'filtered');
 				}
 			}
 		},
@@ -411,7 +411,7 @@ define([
 			s.off('change:timeZone', this.render, this);
 			s.off('change:sort', this.render, this);
 
-			Util.removeEvent(this.el, 'click', this._listClick());
+			Util.removeEvent(this._el, 'click', this._listClick());
 			Util.removeEvent(this._downloadsLink, 'click', this._downloadsClick());
 		},
 
@@ -469,7 +469,7 @@ define([
 		// reference to downloads click event handler, so it can later be removed.
 		__downloadsClick: null,
 		_downloadsClick: function () {
-			var _el = this.el;
+			var _el = this._el;
 			if (this.__downloadsClick === null) {
 				this.__downloadsClick = function () {
 					if (Util.hasClass(_el, 'showDownloads')) {

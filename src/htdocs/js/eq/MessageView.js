@@ -11,10 +11,10 @@ define([
 	var MessageView = function(/*options*/) {
 
 		View.call(this);
-		this.el.className = 'messageView';
+		this._el.className = 'messageView';
 
 		// container for messages
-		var _list = this.el.appendChild(document.createElement('ol'));
+		var _list = this._el.appendChild(document.createElement('ol'));
 
 
 		/**

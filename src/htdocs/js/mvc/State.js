@@ -10,8 +10,8 @@ define([], function() {
 		this.id = id;
 
 		// container element
-		this.el = document.createElement('section');
-		this.el.className = id + '-state';
+		this._el = document.createElement('section');
+		this._el.className = id + '-state';
 
 
 		// called by application when entering this state

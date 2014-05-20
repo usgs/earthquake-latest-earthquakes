@@ -8,7 +8,7 @@ define(['mvc/State'], function(State) {
 		State.call(this, 'default');
 
 // HEADER
-		this.el.innerHTML = [
+		this._el.innerHTML = [
 			'<div class="defaultcontent">',
 			'<h1>Latest Earthquakes<small>' + VERSION + '</small></h1>',
 			'<ul>',
@@ -81,9 +81,9 @@ define(['mvc/State'], function(State) {
 			'</div>'
 		].join('');
 
-		var _mapEl = this.el.appendChild(document.createElement('section'));
-		var _listEl = this.el.appendChild(document.createElement('section'));
-		var _settingsEl = this.el.appendChild(document.createElement('section'));
+		var _mapEl = this._el.appendChild(document.createElement('section'));
+		var _listEl = this._el.appendChild(document.createElement('section'));
+		var _settingsEl = this._el.appendChild(document.createElement('section'));
 
 		_mapEl.className = 'mapview';
 		_listEl.className = 'listview';

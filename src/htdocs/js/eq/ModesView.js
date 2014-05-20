@@ -143,10 +143,10 @@ define([
 			len = panels.length;
 			viewModes = _options.settings.get('viewModes') || {};
 
-			_el = _this.el;
+			_el = _this._el;
 			_el.className = 'modesView';
 
-			// Create the view in the DOM (_this.el)
+			// Create the view in the DOM (_this._el)
 			_createView();
 
 			_deviceMode = _determineDeviceMode();
