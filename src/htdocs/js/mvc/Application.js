@@ -97,7 +97,7 @@ define(['./Util'], function(Util) {
 
 			// enter new state
 			var state = _options.states[stateName];
-			_content.appendChild(state.el);
+			_content.appendChild(state._el);
 			state.onEnter(_this, _currentState);
 
 			// keep track of current state

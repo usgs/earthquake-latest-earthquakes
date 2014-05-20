@@ -166,9 +166,9 @@ define([
 	});
 
 	// creating the modes view below triggers a change:viewModes event
-	this.getHeader().appendChild(this.getView('modes').el);
-	this.getFooter().appendChild(this.getView('eventsummary').el);
-	this.getFooter().appendChild(this.getView('message').el);
+	this.getHeader().appendChild(this.getView('modes')._el);
+	this.getFooter().appendChild(this.getView('eventsummary')._el);
+	this.getFooter().appendChild(this.getView('message')._el);
 
 	// catalog messages
 	var _messageView = this.getView('message');

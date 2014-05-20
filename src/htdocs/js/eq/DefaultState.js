@@ -130,9 +130,9 @@ define(['mvc/State'], function(State) {
 			_list = _application.getView('list');
 			_settings = _application.getView('settings');
 
-			_mapEl.appendChild(_map.el);
-			_listEl.appendChild(_list.el);
-			_settingsEl.appendChild(_settings.el);
+			_mapEl.appendChild(_map._el);
+			_listEl.appendChild(_list._el);
+			_settingsEl.appendChild(_settings._el);
 
 			// when mode changes
 			application.settings.on('change:viewModes', _modeChange);
