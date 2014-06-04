@@ -23,17 +23,15 @@ define([
 		this._el.className = 'settingsView';
 
 		var _this = this,
-			_options = options,
-			//_settings = options.settings,
-			_initialized = false;
-
-		var _feedView = null,
-			_autoupdateView = null,
-			_sortView = null,
-			_restrictListToMapView = null,
-			_basemapView = null,
-			_overlaysView = null,
-			_timezoneView = null;
+		    _options = options,
+		    _initialized = false;
+		    _feedView = null,
+		    _autoupdateView = null,
+		    _sortView = null,
+		    _restrictListToMapView = null,
+		    _basemapView = null,
+		    _overlaysView = null,
+		    _timezoneView = null;
 
 		/**
 		 * Create the form controls for the settings.
@@ -45,8 +43,7 @@ define([
 
 			var section;
 
-// HEADER
-
+			// HEADER
 			section = _this._el.appendChild(document.createElement('section'));
 			section.innerHTML = '<h1>' +
 					'MY SETTINGS' +
@@ -55,8 +52,8 @@ define([
 					'</span>' +
 				'</h1>';
 
-// EARTHQUAKES
 
+			// EARTHQUAKES
 			section = _this._el.appendChild(document.createElement('section'));
 			section.appendChild(document.createElement('h2')).innerHTML = 'Earthquakes';
 
@@ -90,10 +87,6 @@ define([
 					return feeds;
 				}
 			});
-
-
-
-
 			section.appendChild(_feedView._el);
 
 			var _searchContainer = section.appendChild(
@@ -116,9 +109,7 @@ define([
 			});
 
 
-
-// LIST SORT
-
+			// LIST SORT
 			section = _this._el.appendChild(document.createElement('section'));
 			section.appendChild(document.createElement('h2')).innerHTML = 'List Sort Order';
 			_sortView = new SettingView({
@@ -128,20 +119,20 @@ define([
 			});
 			section.appendChild(_sortView._el);
 
-            _restrictListToMapView = new ToggleSettingView({
-		'settings': _options.settings,
-		'key': 'restrictListToMap',
-		'options': [
-                    {
-			'id': 'restrictListToMap',
-			'name': 'Only List Earthquakes Shown on Map'
-                    }
-                ]
-            });
-            section.appendChild(_restrictListToMapView._el);
+			_restrictListToMapView = new ToggleSettingView({
+				'settings': _options.settings,
+				'key': 'restrictListToMap',
+				'options': [
+					{
+						'id': 'restrictListToMap',
+						'name': 'Only List Earthquakes Shown on Map'
+					}
+				]
+			});
+			section.appendChild(_restrictListToMapView._el);
 
-// MAP LAYERS
 
+			// MAP LAYERS
 			section = _this._el.appendChild(document.createElement('section'));
 			section.appendChild(document.createElement('h2')).innerHTML = 'Map Layers';
 			_basemapView = new SettingView({
@@ -158,8 +149,8 @@ define([
 			});
 			section.appendChild(_overlaysView._el);
 
-// TIME ZONE
 
+			// TIME ZONE
 			section = _this._el.appendChild(document.createElement('section'));
 			section.appendChild(document.createElement('h2')).innerHTML = 'Time Zone';
 			_timezoneView = new SettingView({
@@ -169,9 +160,8 @@ define([
 					{
 						id: 'local',
 						name: 'Local System Time <small>(UTC' +
-                                Format.isoTimezone(-1* (
-                                    new Date()).getTimezoneOffset()) +
-                                ')</small>'
+								Format.isoTimezone(-1* (new Date()).getTimezoneOffset()) +
+								')</small>'
 					},
 					{
 						id: 'epicenter',
@@ -185,7 +175,8 @@ define([
 			});
 			section.appendChild(_timezoneView._el);
 
-// DONE
+
+			// DONE
 			_initialized = true;
 		};
 
@@ -201,7 +192,7 @@ define([
 
 			_feedView.render();
 			_sortView.render();
-            _restrictListToMapView.render();
+			_restrictListToMapView.render();
 			_basemapView.render();
 			_overlaysView.render();
 			_timezoneView.render();
