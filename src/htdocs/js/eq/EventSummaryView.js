@@ -111,7 +111,7 @@ define([
 				if (props.tsunami !== null && props.tsunami > 0) {
 					buf.push(
 						'<a class="tsunamilogo" href="http://www.tsunami.gov/" title="Tsunami Warning Center">',
-							'<img src="/earthquakes/eventpage/images/logos/tsunami-wave-warning.jpg" alt="Tsunami Warning Center"/>',
+							'<img src="/earthquakes/eventpage/images/logos/tsunami.jpg" alt="Tsunami Warning Center"/>',
 						'</a>'
 					);
 				}
