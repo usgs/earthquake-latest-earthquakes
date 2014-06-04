@@ -24,7 +24,7 @@ define([
 
 		var _this = this,
 		    _options = options,
-		    _initialized = false;
+		    _initialized = false,
 		    _feedView = null,
 		    _autoupdateView = null,
 		    _sortView = null,
