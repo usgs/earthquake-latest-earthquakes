@@ -76,10 +76,10 @@ define([
 
 			Util.addEvent(this._controlElement, 'click', (function (tv) {
 				return function (/*evt*/) {
-					if (Util.hasClass(tv.el, CSS_EXPANDED_CLASS)) {
-						Util.removeClass(tv.el, CSS_EXPANDED_CLASS);
+					if (Util.hasClass(tv._el, CSS_EXPANDED_CLASS)) {
+						Util.removeClass(tv._el, CSS_EXPANDED_CLASS);
 					} else {
-						Util.addClass(tv.el, CSS_EXPANDED_CLASS);
+						Util.addClass(tv._el, CSS_EXPANDED_CLASS);
 					}
 				};
 			})(this));
