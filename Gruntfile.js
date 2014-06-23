@@ -365,6 +365,18 @@ module.exports = function (grunt) {
 						to: 'task(\'build\', {async: true}, function (compsBase32, buildName)'
 					}
 				]
+			},
+			legacyTemplate: {
+				src: [
+					'<%= app.dist %>/**/*.php'
+				],
+				overwrite: true,
+				replacements: [
+					{
+						from:'include \'template.inc.php\';',
+						to: 'include $_SERVER[\'DOCUMENT_ROOT\'] . \'/template/template.inc.php\';'
+					}
+				]
 			}
 		},
 		open: {
@@ -401,21 +413,30 @@ module.exports = function (grunt) {
 		'mocha_phantomjs'
 	]);
 
+
 	//remove "copy:jakefile", and "replace:leaflet_jakefile"
 	//	when Jakefile.js is upgraded with next release.
-	grunt.registerTask('build', [
-		'clean:dist',
-		'copy:jakefile',
-		'replace:leaflet_jakefile',
-		'exec:build_leaflet',
-		'copy:leaflet_custom',
-		'concurrent:predist',
-		'requirejs:dist',
-		'concurrent:dist',
-		'replace',
-		'open:dist',
-		'connect:dist'
-	]);
+	grunt.registerTask('build', function (task) {
+		var tasks = [
+			'clean:dist',
+			'copy:jakefile',
+			'replace:leaflet_jakefile',
+			'exec:build_leaflet',
+			'copy:leaflet_custom',
+			'concurrent:predist',
+			'requirejs:dist',
+			'concurrent:dist',
+			'replace',
+			'open:dist',
+			'connect:dist'
+		];
+
+		if (task === 'legacy') {
+			tasks.push('replace:legacyTemplate');
+		}
+
+		grunt.task.run(tasks);
+	});
 
 	//remove "copy:jakefile", and "replace:leaflet_jakefile"
 	//	when Jakefile.js is upgraded with next release.
