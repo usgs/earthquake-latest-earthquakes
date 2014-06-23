@@ -413,7 +413,6 @@ module.exports = function (grunt) {
 		'mocha_phantomjs'
 	]);
 
-
 	//remove "copy:jakefile", and "replace:leaflet_jakefile"
 	//	when Jakefile.js is upgraded with next release.
 	grunt.registerTask('build', function (task) {
