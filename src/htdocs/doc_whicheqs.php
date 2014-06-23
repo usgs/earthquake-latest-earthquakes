@@ -36,4 +36,4 @@
 	<li><a href="/earthquakes/world/">Earthquake Info by Country/Region</a></li>
 </ul>
 
-<p>Also see: <a href="http://www.usgs.gov/faq/index.php?action=show&amp;cat=114">FAQs about real-time earthquake information</a></p>
+<p>Also see: <a href="http://http://www.usgs.gov/faq/taxonomy/term/9826">FAQs about real-time earthquake information</a></p>
