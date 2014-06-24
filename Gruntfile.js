@@ -53,7 +53,7 @@ module.exports = function (grunt) {
 			},
 			scss: {
 				files: ['<%= app.src %>/htdocs/css/**/*.scss'],
-				tasks: ['compass:dev']
+				tasks: ['copy:leaflet', 'compass:dev']
 			},
 			tests: {
 				files: ['<%= app.test %>/*.html', '<%= app.test %>/**/*.js'],
@@ -86,6 +86,7 @@ module.exports = function (grunt) {
 			],
 			dist: [
 				'cssmin:dist',
+				'cssmin:leaflet',
 				'htmlmin:dist',
 				'uglify'
 			]
@@ -183,32 +184,32 @@ module.exports = function (grunt) {
 					// for bundling require library in to index.js
 					paths: {
 						requireLib: '../../../bower_components/requirejs/require',
-						leaflet: '../lib/leaflet/leaflet'
+						leaflet: '../../../node_modules/leaflet/dist/leaflet-src'
 					},
 
 					shim: {
 						leaflet: {
-							exports: "L"
+							exports: 'L'
 						}
 					},
 
 					modules: [
 						{
-							name: "index",
+							name: 'index',
 							include:[
-								"../lib/require/require"
+								'../lib/require/require'
 							],
 							excludeShallow: [
-								"eq/MapViewDependencies",
-								"map/*",
-								"leaflet"
+								'eq/MapViewDependencies',
+								'map/*',
+								'leaflet'
 							]
 						},
 						{
-							name: "eq/MapViewDependencies",
+							name: 'eq/MapViewDependencies',
 							excludeShallow: [
-								"mvc/*",
-								"eq/Format"
+								'mvc/*',
+								'eq/Format'
 							]
 						}
 					]
@@ -222,6 +223,10 @@ module.exports = function (grunt) {
 						'<%= app.src %>/htdocs/css/index.css'
 					]
 				}
+			},
+			leaflet: {
+				dest: '<%= app.dist %>/htdocs/lib/leaflet/leaflet.css',
+				src: 'node_modules/leaflet/dist/leaflet.css'
 			}
 		},
 		htmlmin: {
@@ -253,6 +258,16 @@ module.exports = function (grunt) {
 			}
 		},
 		copy: {
+			leaflet: {
+				expand: true,
+				cwd: 'node_modules/leaflet/dist',
+				dest: '<%= app.dist %>/htdocs/lib/leaflet',
+				src: [
+					'leaflet.js',
+					'leaflet.css',
+					'images/**'
+				]
+			},
 			app: {
 				expand: true,
 				cwd: '<%= app.src %>/htdocs',
@@ -302,6 +317,22 @@ module.exports = function (grunt) {
 						to: '"build=' + BUILD_TIME + '"'
 					}
 				]
+			},
+			leaflet_shim_dist: {
+				src: [
+					'<%= app.dist %>/htdocs/js/index.js'
+				],
+				overwrite: true,
+				replacements: [
+					{
+						from: 'leaflet/dist',
+						to: 'lib/leaflet'
+					},
+					{
+						from: 'leaflet-src',
+						to: 'leaflet'
+					}
+				]
 			}
 		},
 		open: {
@@ -344,6 +375,7 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('default', [
 		'clean:dist',
+		'copy:leaflet',
 		'compass:dev',
 		'configureRewriteRules',
 		'connect:test',

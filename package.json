@@ -36,7 +36,8 @@
     "mocha": "~1.9.0",
     "sinon": "~1.7.3",
     "grunt-connect-rewrite": "~0.2.0",
-    "hazdev-template": "0.0.4"
+    "hazdev-template": "0.0.4",
+    "leaflet": "~0.7.0"
   },
   "engines": {
     "node": ">=0.8.0"

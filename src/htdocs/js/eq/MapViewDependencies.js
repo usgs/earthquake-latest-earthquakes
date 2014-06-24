@@ -5,6 +5,7 @@ define([
 	'map/SimpleAbstractLayer',
 	'map/MousePosition',
 	'map/ZoomControl',
+	'map/EqIcon',
 	'eq/LegendControl'
 ], function (
 	L,
@@ -12,6 +13,7 @@ define([
 	SimpleAbstractLayer,
 	MousePosition,
 	ZoomControl,
+	EqIcon,
 	LegendControl
 ) {
 	'use strict';
@@ -23,6 +25,7 @@ define([
 		SimpleAbstractLayer: SimpleAbstractLayer,
 		MousePosition: MousePosition,
 		ZoomControl: ZoomControl,
+		EqIcon: EqIcon,
 		LegendControl: LegendControl
 	};
 

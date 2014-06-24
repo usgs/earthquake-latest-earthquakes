@@ -1,8 +1,8 @@
 require.config({
 	baseUrl: 'js',
-	urlArgs: 'stamp='+(new Date()).getTime(), /* Remove for production */
+//	urlArgs: 'stamp='+(new Date()).getTime(), /* Remove for production */
 	paths: {
-		leaflet: '../lib/leaflet/leaflet-src',
+		leaflet: '../leaflet/dist/leaflet-src',
 		localStorage: '../lib/localStorage',
 		JSON: '../lib/JSON'
 	},
