@@ -344,7 +344,36 @@ define([
 
 			// move earthquake markers to either side of map center
 			var layers = _eqLayer._layers,
-			    bounds = _map.getBounds(),
+			    renderWindow = _getRenderWindow(),
+			    lngmin = renderWindow.min,
+			    lngmax = renderWindow.max;
+
+			// loop over earthquakes
+			for (var i in layers) {
+				if (layers.hasOwnProperty(i)) {
+					var layer = layers[i],
+					    layerLatLng = layer.getLatLng(),
+					    layerLng = layerLatLng.lng;
+
+					// check if out of view port
+					if (layerLng > lngmax || layerLng < lngmin) {
+
+						// change position
+						layerLatLng.lng = _normalize(layerLatLng.lng, lngmin, lngmax);
+						layer.setLatLng(layerLatLng);
+					}
+				}
+			}
+		};
+
+		var _normalize = function (longitude, min, max) {
+				while (longitude > max) { longitude -= 360; }
+				while (longitude < min) { longitude += 360; }
+				return longitude;
+		};
+
+		var _getRenderWindow = function () {
+			var bounds = _map.getBounds(),
 			    sw = bounds.getSouthWest(),
 			    ne = bounds.getNorthEast(),
 			    lng0 = sw.lng,
@@ -356,39 +385,19 @@ define([
 			    // markers between max and center are positioned right of center
 			    lngmax = lngcenter + 180;
 
-			// loop over earthquakes
-			for (var i in layers) {
-				if (layers.hasOwnProperty(i)) {
-					var layer = layers[i],
-					    layerLatLng = layer.getLatLng(),
-					    layerLng = layerLatLng.lng;
-
-					// check if out of view port
-					if (layerLng > lngmax || layerLng < lngmin) {
-						var normalized = layerLng;
-
-						// update earthquake position to be within 180 of center
-						while (normalized > lngmax) { normalized -= 360; }
-						while (normalized < lngmin) { normalized += 360; }
-
-						// change position
-						layerLatLng.lng = normalized;
-						layer.setLatLng(layerLatLng);
-					}
-				}
-			}
+			return {min:lngmin, max:lngmax};
 		};
 
 		var _addMarkersToMap = function(items) {
-			//var markers = [];
+			var renderWindow = _getRenderWindow();
 
 			// loops through events in the collection, adds markers to map
 			for(var i=items.length-1; i>=0; i--) {
-				_eqLayer.addLayer(_buildMarker(items[i]));
+				_eqLayer.addLayer(_buildMarker(items[i], {normalize:renderWindow}));
 			}
 		};
 
-		var _buildMarker = function(item) {
+		var _buildMarker = function(item, options) {
 
 			// takes a geojson feature and builds a marker to place on the map
 			var properties = item.properties,
@@ -434,6 +443,12 @@ define([
 			if (type !== 'earthquake' && type !== 'induced or triggered event') {
 				iconClass = TYPE_NONEARTHQUAKE_CLASS;
 				iconStyles = TYPE_NONEARTHQUAKE_STYLES;
+			}
+
+			if (options.normalize && options.normalize.hasOwnProperty('min') &&
+					options.normalize.hasOwnProperty('max')) {
+				longitude = _normalize(longitude, options.normalize.min,
+						options.normalize.max);
 			}
 
 			var marker = new L.Marker(new L.LatLng(latitude, longitude), {
