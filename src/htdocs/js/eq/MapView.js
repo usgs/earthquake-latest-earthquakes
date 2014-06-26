@@ -175,6 +175,7 @@ define([
 				_map.on('moveend', _onMapMoveEnd, this);
 
 				// This saves the map state in the URL
+				_map.on('boxzoomend', _userInteraction);
 				_map.on('dragend', _userInteraction);
 				_map.on('dblclick', _userInteraction);
 				_zoomControl.on('zoominteraction', _userInteraction);
