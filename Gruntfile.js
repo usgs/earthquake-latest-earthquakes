@@ -180,6 +180,7 @@ module.exports = function (grunt) {
 					dir: appConfig.dist + '/htdocs',
 					useStrict: true,
 					wrap: false,
+					optimize: 'none',
 
 					// for bundling require library in to index.js
 					paths: {
@@ -258,10 +259,22 @@ module.exports = function (grunt) {
 			}
 		},
 		copy: {
+			leaflet_custom: {
+				files: [{
+					expand: true,
+					dot: true,
+					cwd: 'node_modules/leaflet/dist',
+					dest: 'node_modules/leaflet/dist/',
+					src: 'leaflet-custom.js',
+					rename: function (dest, src) {
+						return dest + src.replace('-custom', '');
+					}
+				}]
+			},
 			leaflet: {
 				expand: true,
 				cwd: 'node_modules/leaflet/dist',
-				dest: '<%= app.dist %>/htdocs/lib/leaflet',
+				dest: '<%= app.src %>/htdocs/lib/leaflet',
 				src: [
 					'leaflet.js',
 					'leaflet.css',
@@ -348,7 +361,17 @@ module.exports = function (grunt) {
 		},
 		clean: {
 			dist: ['<%= app.dist %>'],
-			dev: ['<%= app.tmp %>', '.sass-cache']
+			dev: ['<%= app.tmp %>', '.sass-cache'],
+			leaflet_build: ['node_modules/leaflet/leaflet-src.js']
+		},
+		exec: {
+			print_cwd: {
+				cmd: 'pwd'
+			},
+			build_leaflet: {
+				cmd: 'jake build[1trs00i5,custom]',
+				cwd: 'node_modules/leaflet'
+			}
 		}
 	});
 
@@ -365,6 +388,10 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('build', [
 		'clean:dist',
+		'exec:build_leaflet',
+		'clean:leaflet_build',
+		'copy:leaflet_custom',
+		'copy:leaflet',
 		'concurrent:predist',
 		'requirejs:dist',
 		'concurrent:dist',
@@ -375,6 +402,9 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('default', [
 		'clean:dist',
+		'exec:build_leaflet',
+		'clean:leaflet_build',
+		'copy:leaflet_custom',
 		'copy:leaflet',
 		'compass:dev',
 		'configureRewriteRules',
