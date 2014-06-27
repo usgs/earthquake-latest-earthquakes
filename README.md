@@ -35,3 +35,6 @@ command line interface globally
 1. If this is your first time using **bower**, you need to install bower globally
 
 		`npm install -g bower`
+
+1. Leaflet uses Jake to compile it's source.
+		'npm install -g jake'
