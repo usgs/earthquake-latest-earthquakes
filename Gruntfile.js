@@ -53,7 +53,7 @@ module.exports = function (grunt) {
 			},
 			scss: {
 				files: ['<%= app.src %>/htdocs/css/**/*.scss'],
-				tasks: ['copy:leaflet', 'compass:dev']
+				tasks: ['compass:dev']
 			},
 			tests: {
 				files: ['<%= app.test %>/*.html', '<%= app.test %>/**/*.js'],
@@ -274,7 +274,7 @@ module.exports = function (grunt) {
 			leaflet: {
 				expand: true,
 				cwd: 'node_modules/leaflet/dist',
-				dest: '<%= app.src %>/htdocs/lib/leaflet',
+				dest: '<%= app.src %>/htdocs/.tmp/leaflet',
 				src: [
 					'leaflet.js',
 					'leaflet.css',
@@ -339,7 +339,7 @@ module.exports = function (grunt) {
 				replacements: [
 					{
 						from: 'leaflet/dist',
-						to: 'lib/leaflet'
+						to: '.tmp/leaflet'
 					},
 					{
 						from: 'leaflet-src',
