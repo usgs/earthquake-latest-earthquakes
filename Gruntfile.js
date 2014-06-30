@@ -431,7 +431,7 @@ module.exports = function (grunt) {
 		];
 
 		if (task === 'legacy') {
-			tasks.push('replace:legacyTemplate');
+			task.splice(5,0, 'legacyTemplate');
 		}
 
 		grunt.task.run(tasks);
