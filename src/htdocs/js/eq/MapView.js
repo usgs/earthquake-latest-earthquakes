@@ -126,7 +126,6 @@ define([
 				_map = L.map(mapdiv, {
 					worldCopyJump: false,
 					inertia: false,
-					zoomAnimation: false,
 					markerZoomAnimation: false,
 					zoomControl: false,
 					attributionControl: false
