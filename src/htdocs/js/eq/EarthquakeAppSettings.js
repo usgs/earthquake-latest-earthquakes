@@ -24,6 +24,10 @@ define([
 		tileHost = 'http://earthquake.usgs.gov';
 	}
 
+	//Uncomment the following two lines to run in grunt on the network
+	//feedHost = 'http://earthquake.usgs.gov';
+	//tileHost = 'http://earthquake.usgs.gov';
+
 	var DEFAULT_SETTINGS = {
 
 		// key to localStorage
