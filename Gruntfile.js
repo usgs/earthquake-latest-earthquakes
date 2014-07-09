@@ -180,12 +180,10 @@ module.exports = function (grunt) {
 					dir: appConfig.dist + '/htdocs',
 					useStrict: true,
 					wrap: false,
-					optimize: 'none',
-
 					// for bundling require library in to index.js
 					paths: {
 						requireLib: '../../../bower_components/requirejs/require',
-						leaflet: '../../../node_modules/leaflet/dist/leaflet-src'
+						leaflet: '../.tmp/leaflet/leaflet'
 					},
 
 					shim: {
@@ -265,6 +263,16 @@ module.exports = function (grunt) {
 					dot: true,
 					cwd: 'node_modules/leaflet/dist',
 					dest: 'node_modules/leaflet/dist/',
+					src: 'leaflet-custom-src.js',
+					rename: function (dest, src) {
+						return dest + src.replace('-custom-src', '-src');
+					}
+				},
+				{
+					expand: true,
+					dot: true,
+					cwd: 'node_modules/leaflet/dist',
+					dest: 'node_modules/leaflet/dist/',
 					src: 'leaflet-custom.js',
 					rename: function (dest, src) {
 						return dest + src.replace('-custom', '');
@@ -338,13 +346,9 @@ module.exports = function (grunt) {
 				overwrite: true,
 				replacements: [
 					{
-						from: 'leaflet/dist',
-						to: '.tmp/leaflet'
+						from: 'leaflet/dist/leaflet-custom-src',
+						to: '.tmp/leaflet/leaflet'
 					},
-					{
-						from: 'leaflet-src',
-						to: 'leaflet'
-					}
 				]
 			}
 		},
@@ -362,7 +366,7 @@ module.exports = function (grunt) {
 		clean: {
 			dist: ['<%= app.dist %>'],
 			dev: ['<%= app.tmp %>', '.sass-cache'],
-			leaflet_build: ['node_modules/leaflet/leaflet-src.js']
+			leaflet_build: ['node_modules/leaflet/dist/leaflet.js']
 		},
 		exec: {
 			print_cwd: {
