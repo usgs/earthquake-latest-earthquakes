@@ -140,10 +140,18 @@ define([
 				jumpList.options.add(option);
 			}
 
+			//Disable propagation for old style mouse/touch
+			//Includes ie11
+			L.DomEvent.disableClickPropagation(container);
+
+			//Disable propagation for ie11/microsoft touch
 			L.DomEvent
 				.on(jumpList, 'change', fn, context)
-				.on(jumpList, 'mousedown', L.DomEvent.stopPropagation)
-				.on(jumpList, 'touchstart', L.DomEvent.stopPropagation);
+				.on(jumpList, 'pointerdown', function (e) {
+					var evt = e ? e:window.event;
+					evt.returnValue = false;
+					evt.cancelBubble = true;
+				});
 		}
 
 	});
