@@ -308,6 +308,16 @@ module.exports = function (grunt) {
 				options: {
 					mode: true
 				}
+			},
+			jakefile: {
+				expand: true,
+				dot: true,
+				cwd: 'node_modules/leaflet',
+				dest: 'node_modules/leaflet/',
+				src: 'Jakefile.js',
+				rename: function (dest, src) {
+					return dest + src.replace('.js', '_custom.js');
+				}
 			}
 		},
 		replace: {
@@ -350,6 +360,22 @@ module.exports = function (grunt) {
 						to: '.tmp/leaflet/leaflet'
 					},
 				]
+			},
+			leaflet_jakefile: {
+				src: [
+				'node_modules/leaflet/Jakefile_custom.js'
+				],
+				overwrite: true,
+				replacements: [
+					{
+						from: 'build.build(complete);',
+						to: 'build.build(complete, compsBase32, buildName);'
+					},
+					{
+						from: 'task(\'build\', {async: true}, function ()',
+						to: 'task(\'build\', {async: true}, function (compsBase32, buildName)'
+					}
+				]
 			}
 		},
 		open: {
@@ -365,15 +391,11 @@ module.exports = function (grunt) {
 		},
 		clean: {
 			dist: ['<%= app.dist %>'],
-			dev: ['<%= app.tmp %>', '.sass-cache'],
-			leaflet_build: ['node_modules/leaflet/dist/leaflet.js']
+			dev: ['<%= app.tmp %>', '.sass-cache']
 		},
 		exec: {
-			print_cwd: {
-				cmd: 'pwd'
-			},
 			build_leaflet: {
-				cmd: 'jake build[1trs00i5,custom]',
+				cmd: 'jake -f Jakefile_custom.js build[1trs00i5,custom]',
 				cwd: 'node_modules/leaflet'
 			}
 		}
@@ -390,10 +412,13 @@ module.exports = function (grunt) {
 		'mocha_phantomjs'
 	]);
 
+	//remove "copy:jakefile", and "replace:leaflet_jakefile"
+	//	when Jakefile.js is upgraded with next release.
 	grunt.registerTask('build', [
 		'clean:dist',
+		'copy:jakefile',
+		'replace:leaflet_jakefile',
 		'exec:build_leaflet',
-		'clean:leaflet_build',
 		'copy:leaflet_custom',
 		'copy:leaflet',
 		'concurrent:predist',
@@ -404,10 +429,13 @@ module.exports = function (grunt) {
 		'connect:dist'
 	]);
 
+	//remove "copy:jakefile", and "replace:leaflet_jakefile"
+	//	when Jakefile.js is upgraded with next release.
 	grunt.registerTask('default', [
 		'clean:dist',
+		'copy:jakefile',
+		'replace:leaflet_jakefile',
 		'exec:build_leaflet',
-		'clean:leaflet_build',
 		'copy:leaflet_custom',
 		'copy:leaflet',
 		'compass:dev',
