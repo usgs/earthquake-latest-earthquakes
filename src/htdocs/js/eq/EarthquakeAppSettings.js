@@ -18,15 +18,11 @@ define([
 
 	if (hostname.indexOf('earthquake.usgs.gov') > -1) {
 		searchHost = 'http://comcat.cr.usgs.gov';
-	} else if (hostname.indexOf('localhost') > -1) {
+	} else if (hostname.indexOf('usgs.gov') < 0) {
 		searchHost = 'http://comcat.cr.usgs.gov';
 		feedHost = 'http://earthquake.usgs.gov';
 		tileHost = 'http://earthquake.usgs.gov';
 	}
-
-	//Uncomment the following two lines to run in grunt on the network
-	//feedHost = 'http://earthquake.usgs.gov';
-	//tileHost = 'http://earthquake.usgs.gov';
 
 	var DEFAULT_SETTINGS = {
 
