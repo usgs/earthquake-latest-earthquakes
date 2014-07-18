@@ -86,7 +86,6 @@ module.exports = function (grunt) {
 			],
 			dist: [
 				'cssmin:dist',
-				'cssmin:leaflet',
 				'htmlmin:dist',
 				'uglify'
 			]
@@ -183,7 +182,7 @@ module.exports = function (grunt) {
 					// for bundling require library in to index.js
 					paths: {
 						requireLib: '../../../bower_components/requirejs/require',
-						leaflet: '../.tmp/leaflet/leaflet'
+						leaflet: '../../../node_modules/leaflet/dist/leaflet'
 					},
 
 					shim: {
@@ -217,15 +216,14 @@ module.exports = function (grunt) {
 		},
 		cssmin: {
 			dist: {
+				options: {
+					'root': 'node_modules'
+				},
 				files: {
 					'<%= app.dist %>/htdocs/css/index.css': [
 						'<%= app.src %>/htdocs/css/index.css'
 					]
 				}
-			},
-			leaflet: {
-				dest: '<%= app.dist %>/htdocs/lib/leaflet/leaflet.css',
-				src: 'node_modules/leaflet/dist/leaflet.css'
 			}
 		},
 		htmlmin: {
@@ -278,16 +276,6 @@ module.exports = function (grunt) {
 						return dest + src.replace('-custom', '');
 					}
 				}]
-			},
-			leaflet: {
-				expand: true,
-				cwd: 'node_modules/leaflet/dist',
-				dest: '<%= app.src %>/htdocs/.tmp/leaflet',
-				src: [
-					'leaflet.js',
-					'leaflet.css',
-					'images/**'
-				]
 			},
 			app: {
 				expand: true,
@@ -357,7 +345,7 @@ module.exports = function (grunt) {
 				replacements: [
 					{
 						from: 'leaflet/dist/leaflet-custom-src',
-						to: '.tmp/leaflet/leaflet'
+						to: 'leaflet/dist/leaflet/leaflet'
 					},
 				]
 			},
@@ -420,7 +408,6 @@ module.exports = function (grunt) {
 		'replace:leaflet_jakefile',
 		'exec:build_leaflet',
 		'copy:leaflet_custom',
-		'copy:leaflet',
 		'concurrent:predist',
 		'requirejs:dist',
 		'concurrent:dist',
@@ -437,7 +424,6 @@ module.exports = function (grunt) {
 		'replace:leaflet_jakefile',
 		'exec:build_leaflet',
 		'copy:leaflet_custom',
-		'copy:leaflet',
 		'compass:dev',
 		'configureRewriteRules',
 		'connect:test',
