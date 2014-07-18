@@ -28,25 +28,26 @@ define([
 	//We changed setPosition to not overwrite translations.
 	//Needed for diamond markers.
 	L.DomUtil.setPosition = function (el, point, disable3D) {
-				var previousTransform = null;
+		var previousTransform = null;
 
 		el._leaflet_pos = point;
 
 		if (!disable3D && L.Browser.any3d) {
-
-		previousTransform = el.style[L.DomUtil.TRANSFORM] || '';
+			previousTransform = el.style[L.DomUtil.TRANSFORM] || '';
 
 			if (previousTransform.indexOf('translate') !== -1) {
 				// replace existing translate
 				el.style[L.DomUtil.TRANSFORM] = previousTransform.replace(
-					/translate(3d)?\([^\)]+\)/i,
-					L.DomUtil.getTranslateString(point));
+						/translate(3d)?\([^\)]+\)/i,
+						L.DomUtil.getTranslateString(point));
 			} else {
 				// insert translate before any other transforms (like rotate)
-				el.style[L.DomUtil.TRANSFORM] = L.DomUtil.getTranslateString(point) + ' ' + previousTransform;
+				el.style[L.DomUtil.TRANSFORM] = L.DomUtil.getTranslateString(point) +
+						' ' + previousTransform;
 			}
 
-			// workaround for Android 2/3 stability (https://github.com/CloudMade/Leaflet/issues/69)
+			// workaround for Android 2/3 stability
+			// (https://github.com/CloudMade/Leaflet/issues/69)
 			if (L.Browser.mobileWebkit3d) {
 				el.style.WebkitBackfaceVisibility = 'hidden';
 			}
@@ -62,18 +63,23 @@ define([
 		this._moved = false;
 
 		if ((e.shiftKey || (this._dragStartTarget &&
-			L.DomUtil.hasClass(this._dragStartTarget, 'leaflet-box-zooming'))) ||
-			((e.which !== 1) && (e.button !== 1) && !e.touches))
-			{ return; }
+					L.DomUtil.hasClass(this._dragStartTarget, 'leaflet-box-zooming'))) ||
+					((e.which !== 1) && (e.button !== 1) && !e.touches)) {
+				return;
+			}
 
 		L.DomEvent.stopPropagation(e);
 
-		if (L.Draggable._disabled) { return; }
+		if (L.Draggable._disabled) {
+			return;
+		}
 
 		L.DomUtil.disableImageDrag();
 		L.DomUtil.disableTextSelection();
 
-		if (this._moving) { return; }
+		if (this._moving) {
+			return;
+		}
 
 		var first = e.touches ? e.touches[0] : e;
 
@@ -81,8 +87,8 @@ define([
 		this._startPos = this._newPos = L.DomUtil.getPosition(this._element);
 
 		L.DomEvent
-		    .on(document, L.Draggable.MOVE[e.type], this._onMove, this)
-		    .on(document, L.Draggable.END[e.type], this._onUp, this);
+				.on(document, L.Draggable.MOVE[e.type], this._onMove, this)
+				.on(document, L.Draggable.END[e.type], this._onUp, this);
 	};
 
 	L.Map.BoxZoom.prototype.addHooks = function () {
@@ -100,7 +106,9 @@ define([
 		this._moved = false;
 
 		if ((!L.DomUtil.hasClass(this._container, 'leaflet-box-zooming') &&
-			!e.shiftKey) || ((e.which !== 1) && (e.button !== 1))) { return false; }
+				!e.shiftKey) || ((e.which !== 1) && (e.button !== 1))) {
+			return false;
+		}
 
 		L.DomUtil.disableTextSelection();
 		L.DomUtil.disableImageDrag();
@@ -108,15 +116,14 @@ define([
 		this._startLayerPoint = this._map.mouseEventToLayerPoint(e);
 
 		L.DomEvent
-		    .on(document, 'mousemove', this._onMouseMove, this)
-		    .on(document, 'touchmove', this._onMouseMove, this)
-		    .on(document, 'mouseup', this._onMouseUp, this)
-		    .on(document, 'touchend', this._onMouseUp, this)
-		    .on(document, 'keydown', this._onKeyDown, this);
+				.on(document, 'mousemove', this._onMouseMove, this)
+				.on(document, 'touchmove', this._onMouseMove, this)
+				.on(document, 'mouseup', this._onMouseUp, this)
+				.on(document, 'touchend', this._onMouseUp, this)
+				.on(document, 'keydown', this._onKeyDown, this);
 	};
 
 	L.Map.BoxZoom.prototype._onMouseUp = function (e) {
-
 		this._finish();
 
 		var map = this._map,
@@ -125,8 +132,8 @@ define([
 		if (this._startLayerPoint.equals(layerPoint)) { return; }
 
 		var bounds = new L.LatLngBounds(
-		        map.layerPointToLatLng(this._startLayerPoint),
-		        map.layerPointToLatLng(layerPoint));
+				map.layerPointToLatLng(this._startLayerPoint),
+				map.layerPointToLatLng(layerPoint));
 
 		map.fitBounds(bounds);
 
@@ -134,9 +141,7 @@ define([
 			L.DomUtil.removeClass(this._container, 'leaflet-box-zooming');
 		}
 
-		map.fire('boxzoomend', {
-			boxZoomBounds: bounds
-		});
+		map.fire('boxzoomend', {boxZoomBounds: bounds});
 	};
 
 	L.Map.BoxZoom.prototype._finish = function () {
@@ -149,11 +154,11 @@ define([
 		L.DomUtil.enableImageDrag();
 
 		L.DomEvent
-		    .off(document, 'mousemove', this._onMouseMove)
-		    .off(document, 'touchmove', this._onMouseMove)
-		    .off(document, 'mouseup', this._onMouseUp)
-		    .off(document, 'touchend', this._onMouseUp)
-		    .off(document, 'keydown', this._onKeyDown);
+				.off(document, 'mousemove', this._onMouseMove)
+				.off(document, 'touchmove', this._onMouseMove)
+				.off(document, 'mouseup', this._onMouseUp)
+				.off(document, 'touchend', this._onMouseUp)
+				.off(document, 'keydown', this._onKeyDown);
 	};
 
 

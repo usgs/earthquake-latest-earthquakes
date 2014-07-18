@@ -41,7 +41,8 @@ define([
 		},
 
 		_setIconClasses: function (el) {
-			el.className = this.options.className + ' ' + this.options.iconClasses.join(' ');
+			el.className = this.options.className + ' ' +
+				this.options.iconClasses.join(' ');
 		}
 
 	});

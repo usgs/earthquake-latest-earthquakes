@@ -366,9 +366,9 @@ define([
 		};
 
 		var _normalize = function (longitude, min, max) {
-				while (longitude > max) { longitude -= 360; }
-				while (longitude < min) { longitude += 360; }
-				return longitude;
+			while (longitude > max) { longitude -= 360; }
+			while (longitude < min) { longitude += 360; }
+			return longitude;
 		};
 
 		var _getRenderWindow = function () {
@@ -396,7 +396,7 @@ define([
 			}
 		};
 
-		var _buildMarker = function(item, options) {
+		var _buildMarker = function (item, options) {
 
 			// takes a geojson feature and builds a marker to place on the map
 			var properties = item.properties,
