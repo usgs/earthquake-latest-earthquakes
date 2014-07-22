@@ -38,8 +38,8 @@ command line interface globally
 
 1. Leaflet uses Jake to compile it's source.
 
-		'npm install -g jake'
+		`npm install -g jake`
 
 1. Jake uses uglify to compile the leaflet source.
 
-		'npm install -g uglify'
+		`npm install -g uglify`
