@@ -92,7 +92,7 @@ module.exports = function (grunt) {
 		},
 		connect: {
 			options: {
-				hostname: 'localhost'
+				hostname: '*'
 			},
 			rules: [
 				{from: '^/theme/(.*)$', to: '/hazdev-template/src/htdocs/$1'}
