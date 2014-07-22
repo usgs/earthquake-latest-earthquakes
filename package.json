@@ -39,7 +39,7 @@
     "leaflet": "~0.7.0",
     "grunt-exec": "~0.4.5",
     "jshint": "~2.5.1",
-    "hazdev-template": "0.0.15"
+    "hazdev-template": "0.0.16"
   },
   "engines": {
     "node": ">=0.8.0"
