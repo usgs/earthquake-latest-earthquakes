@@ -42,4 +42,4 @@ command line interface globally
 
 1. Jake uses uglify to compile the leaflet source.
 
-		`npm install -g uglify`
+		`npm install -g uglify-js`
