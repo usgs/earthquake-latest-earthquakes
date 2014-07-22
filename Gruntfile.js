@@ -181,7 +181,7 @@ module.exports = function (grunt) {
 					wrap: false,
 					// for bundling require library in to index.js
 					paths: {
-						requireLib: '../../../bower_components/requirejs/require',
+						requireLib: '../../../node_modules/requirejs/require',
 						leaflet: '../../../node_modules/leaflet/dist/leaflet'
 					},
 
@@ -195,7 +195,7 @@ module.exports = function (grunt) {
 						{
 							name: 'index',
 							include:[
-								'../lib/require/require'
+								'requireLib'
 							],
 							excludeShallow: [
 								'eq/MapViewDependencies',
@@ -217,7 +217,8 @@ module.exports = function (grunt) {
 		cssmin: {
 			dist: {
 				options: {
-					'root': 'node_modules'
+					'root': 'node_modules',
+					'noRebase': true
 				},
 				files: {
 					'<%= app.dist %>/htdocs/css/index.css': [
@@ -316,7 +317,7 @@ module.exports = function (grunt) {
 				overwrite: true,
 				replacements: [
 					{
-						from: 'data-main="js/index.js" src="lib/require/require.js"',
+						from: 'data-main="js/index.js" src="/requirejs/require.js"',
 						to: 'src="js/index.js?build=' + BUILD_TIME + '"'
 					},
 					{
