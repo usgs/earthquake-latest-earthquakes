@@ -128,7 +128,8 @@ define([
 					inertia: false,
 					markerZoomAnimation: false,
 					zoomControl: false,
-					attributionControl: false
+					attributionControl: false,
+					scrollWheelZoom: false, // Using scrollWheelZoomNotifier instead
 					doubleClickZoom: false  // Using doubleClickZoomNotifier instead
 				});
 				_map.world = _options.world;
