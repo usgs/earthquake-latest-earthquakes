@@ -30,6 +30,9 @@ define([
 			this._map.on('locationfound', function (/*evt*/) {
 				this.fire('zoominteraction');
 			}, this);
+			this._map.on('scrollWheelZoomEnd', function (/*evt*/) {
+				this.fire('zoominteraction');
+			}, this);
 			this._map.on('doubleclickzoomend', function (/*evt*/) {
 				this.fire('zoominteraction');
 			}, this);

@@ -162,6 +162,17 @@ define([
 	};
 
 	L.Map.mergeOptions({
+		scrollWheelZoomNotifier: true
+	});
+	L.Map.ScrollWheelZoomNotifier = L.Map.ScrollWheelZoom.extend({
+		_performZoom: function () {
+			L.Map.ScrollWheelZoom.prototype._performZoom.apply(this, arguments);
+			this._map.fire('scrollWheelZoomEnd');
+		}
+	});
+	L.Map.addInitHook('addHandler', 'scrollWheelZoomNotifier', L.Map.ScrollWheelZoomNotifier);
+
+	L.Map.mergeOptions({
 		doubleClickZoomNotifier: true
 	});
 	L.Map.DoubleClickZoomNotifier = L.Map.DoubleClickZoom.extend({
