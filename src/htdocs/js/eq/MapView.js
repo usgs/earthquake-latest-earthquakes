@@ -129,6 +129,7 @@ define([
 					markerZoomAnimation: false,
 					zoomControl: false,
 					attributionControl: false
+					doubleClickZoom: false  // Using doubleClickZoomNotifier instead
 				});
 				_map.world = _options.world;
 

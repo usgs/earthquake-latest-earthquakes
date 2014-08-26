@@ -161,6 +161,18 @@ define([
 				.off(document, 'keydown', this._onKeyDown);
 	};
 
+	L.Map.mergeOptions({
+		doubleClickZoomNotifier: true
+	});
+	L.Map.DoubleClickZoomNotifier = L.Map.DoubleClickZoom.extend({
+		_onDoubleClick: function () {
+			L.Map.DoubleClickZoom.prototype._onDoubleClick.apply(this, arguments);
+			this._map.fire('doubleclickzoomend');
+		}
+	});
+	L.Map.addInitHook('addHandler', 'doubleClickZoomNotifier', L.Map.DoubleClickZoomNotifier);
+
+
 
 	// container for MapView dependencies for simpler compilation
 	return {
