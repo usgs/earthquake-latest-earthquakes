@@ -33,6 +33,9 @@ define([
 			this._map.on('scrollWheelZoomEnd', function (/*evt*/) {
 				this.fire('zoominteraction');
 			}, this);
+			this._map.on('zoomtransitionend', function (/*evt*/) {
+				this.fire('zoominteraction');
+			}, this);
 			this._map.on('doubleclickzoomend', function (/*evt*/) {
 				this.fire('zoominteraction');
 			}, this);

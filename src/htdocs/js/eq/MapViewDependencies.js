@@ -172,6 +172,27 @@ define([
 	});
 	L.Map.addInitHook('addHandler', 'scrollWheelZoomNotifier', L.Map.ScrollWheelZoomNotifier);
 
+	var oldSetView = L.Map.prototype.setView;
+	L.Map.prototype.setView = function (center, zoom, options) {
+		if (typeof options !== 'object') {
+			options = {};
+		}
+
+		options.zoom = options.zoom || {};
+		options.zoom.animate = false;
+
+		options.pan = options.pan || {};
+		options.pan.animate = false;
+
+		return oldSetView.call(this, center, zoom, options);
+	};
+
+	var oldOnZoomTransitionEnd = L.Map.prototype._onZoomTransitionEnd;
+	L.Map.prototype._onZoomTransitionEnd = function () {
+		oldOnZoomTransitionEnd.apply(this, arguments);
+		this.fire('zoomtransitionend');
+	};
+
 	L.Map.mergeOptions({
 		doubleClickZoomNotifier: true
 	});
