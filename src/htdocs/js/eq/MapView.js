@@ -248,6 +248,7 @@ define([
 
 			_map.setView(latlng, Math.round((zoom + zoomOut + zoomIn + zoomPrime +
 					zoomOutPrime + zoomInPrime) / 6), true);
+			_options.settings.set({mapposition: mapposition}, {ninja: true});
 		};
 
 		var _userInteraction = function () {
