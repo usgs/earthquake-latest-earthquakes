@@ -34,7 +34,10 @@ body {
 
 
 /** Shared styles thoughout the application. */
-
+abbr {
+    border-bottom:1px dotted #000;
+    cursor:help;
+}
 .button-as-link {
 	display:inline;
 	border:none;
