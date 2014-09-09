@@ -141,7 +141,7 @@ define([
 					'<dt>Location</dt>',
 						'<dd>', Format.latitude(lat), ' ', Format.longitude(lon), '</dd>',
 					'<dt>Depth</dt>',
-						'<dd>', Format.depth(depth), 'km</dd>',
+						'<dd>', Format.depth(depth), ' km</dd>',
 				'</dl>'
 			);
 

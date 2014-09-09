@@ -32,11 +32,13 @@ define([
 		},
 
 		depth: function(n) {
-			return (n===null||isNaN(n)?'-':n.toFixed(1));
+			return (n===null||isNaN(n)?'<abbr title="Not reported">?</abbr>':
+					n.toFixed(1));
 		},
 
 		magnitude: function(n) {
-			return (n===null||isNaN(n)?'?':n.toFixed(1));
+			return (n===null||isNaN(n)?'<abbr title="Not reported">?</abbr>':
+					n.toFixed(1));
 		},
 
 		mmi: function(n) {
