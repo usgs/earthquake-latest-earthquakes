@@ -40,7 +40,8 @@
     "grunt-exec": "~0.4.5",
     "jshint": "~2.5.1",
     "hazdev-template": "0.0.16",
-    "requirejs": "^2.1.14"
+    "requirejs": "^2.1.14",
+    "uglify-js": "~2.4.15"
   },
   "engines": {
     "node": ">=0.8.0"
