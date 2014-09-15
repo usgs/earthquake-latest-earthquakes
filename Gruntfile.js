@@ -425,13 +425,16 @@ module.exports = function (grunt) {
 			'concurrent:predist',
 			'requirejs:dist',
 			'concurrent:dist',
-			'replace',
+			'replace:html',
+			'replace:javascript',
+			'replace:leaflet_shim_dist',
+			'replace:leaflet_jakefile',
 			'open:dist',
 			'connect:dist'
 		];
 
 		if (task === 'legacy') {
-			task.splice(5,0, 'legacyTemplate');
+			tasks.splice(-2, 0, 'replace:legacyTemplate');
 		}
 
 		grunt.task.run(tasks);
