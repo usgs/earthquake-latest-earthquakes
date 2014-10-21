@@ -31,7 +31,7 @@ define([
 
 		// app settings
 		searchHost: searchHost,
-		timeZone: 'utc', // local, epicenter, or utc
+		timeZone: 'utc', // local or utc
 		autoUpdate: false, // true, or false
 		restrictListToMap: true, // true or false
 
