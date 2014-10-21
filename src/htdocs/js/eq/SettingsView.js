@@ -158,18 +158,14 @@ define([
 				'key': 'timeZone',
 				'options': [
 					{
+						id: 'utc',
+						name: 'UTC'
+					},
+					{
 						id: 'local',
 						name: 'Local System Time <small>(UTC' +
 								Format.isoTimezone(-1* (new Date()).getTimezoneOffset()) +
 								')</small>'
-					},
-					{
-						id: 'epicenter',
-						name: 'Event Epicenter Time'
-					},
-					{
-						id: 'utc',
-						name: 'UTC'
 					}
 				]
 			});
