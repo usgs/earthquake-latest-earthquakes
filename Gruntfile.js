@@ -16,7 +16,7 @@ var mountPHP = function (dir, options) {
     options = options || {
         '.php': 'php-cgi',
         'env': {
-            'PHPRC': process.cwd() + '/node_modules/hazdev-template/src/conf/php.ini'
+            'PHPRC': process.cwd() + '/node_modules/hazdev-template/dist/conf/php.ini'
         }
     };
     return gateway(require('path').resolve(dir), options);
@@ -31,7 +31,8 @@ module.exports = function (grunt) {
 	var appConfig = {
 		src: 'src',
 		dist: 'dist',
-		test: 'test'
+		test: 'test',
+		tmp: '.tmp'
 	};
 
 	// TODO :: Read this from .bowerrc
@@ -65,7 +66,8 @@ module.exports = function (grunt) {
 				files: [
 					'<%= app.src %>/htdocs/**/*.html',
 					'<%= app.src %>/htdocs/css/**/*.css',
-					'<%= app.src %>/htdocs/img/**/*.{png,jpg,jpeg,gif}'
+					'<%= app.src %>/htdocs/img/**/*.{png,jpg,jpeg,gif}',
+					'.tmp/css/**/*.css'
 				]
 			},
 			gruntfile: {
@@ -93,7 +95,7 @@ module.exports = function (grunt) {
 				hostname: '*'
 			},
 			rules: [
-				{from: '^/theme/(.*)$', to: '/hazdev-template/src/htdocs/$1'}
+				{from: '^/theme/(.*)$', to: '/hazdev-template/dist/htdocs/$1'}
 			],
 			dev: {
 				options: {
@@ -103,6 +105,7 @@ module.exports = function (grunt) {
 					middleware: function (connect, options) {
 						return [
 							lrSnippet,
+							mountFolder(connect, '.tmp'),
 							mountFolder(connect, options.components),
 							mountPHP(options.base),
 							mountFolder(connect, options.base),
@@ -120,7 +123,9 @@ module.exports = function (grunt) {
 					middleware: function (connect, options) {
 						return [
 							mountPHP(options.base),
-							mountFolder(connect, options.base)
+							mountFolder(connect, options.base),
+							rewriteRulesSnippet,
+							mountFolder(connect, 'node_modules')
 						];
 					}
 				}
@@ -132,6 +137,7 @@ module.exports = function (grunt) {
 					port: 8000,
 					middleware: function (connect, options) {
 						return [
+							mountFolder(connect, '.tmp'),
 							mountFolder(connect, 'bower_components'),
 							mountFolder(connect, 'node_modules'),
 							mountFolder(connect, options.base),
@@ -153,6 +159,7 @@ module.exports = function (grunt) {
 			dev: {
 				options: {
 					sassDir: '<%= app.src %>/htdocs/css',
+					cssDir: '<%= app.tmp %>/css',
 					environment: 'development'
 				}
 			}
@@ -169,11 +176,12 @@ module.exports = function (grunt) {
 		requirejs: {
 			dist: {
 				options: {
-					appDir: appConfig.src + '/htdocs',
-					baseUrl: 'js',
-					dir: appConfig.dist + '/htdocs',
+					appDir: appConfig.src + '/htdocs/js',
+					baseUrl: '.',
+					dir: appConfig.dist + '/htdocs/js',
 					useStrict: true,
 					wrap: false,
+					removeCombined: true,
 					// for bundling require library in to index.js
 					paths: {
 						requireLib: '../../../node_modules/requirejs/require',
@@ -218,6 +226,9 @@ module.exports = function (grunt) {
 				files: {
 					'<%= app.dist %>/htdocs/css/index.css': [
 						'<%= app.src %>/htdocs/css/index.css'
+					],
+					'<%= app.dist %>/htdocs/css/documentation.css': [
+						'<%= app.src %>/htdocs/css/documentation.css'
 					]
 				}
 			}
@@ -386,7 +397,8 @@ module.exports = function (grunt) {
 			}
 		},
 		clean: {
-			dist: ['<%= app.dist %>']
+			dist: ['<%= app.dist %>'],
+			dev: ['<%= app.tmp %>', '.sass-cache']
 		},
 		exec: {
 			build_leaflet: {
@@ -424,6 +436,7 @@ module.exports = function (grunt) {
 			'replace:leaflet_shim_dist',
 			'replace:leaflet_jakefile',
 			'open:dist',
+			'configureRewriteRules',
 			'connect:dist'
 		];
 
