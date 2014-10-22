@@ -31,8 +31,7 @@ module.exports = function (grunt) {
 	var appConfig = {
 		src: 'src',
 		dist: 'dist',
-		test: 'test',
-		tmp: '.tmp'
+		test: 'test'
 	};
 
 	// TODO :: Read this from .bowerrc
@@ -66,8 +65,7 @@ module.exports = function (grunt) {
 				files: [
 					'<%= app.src %>/htdocs/**/*.html',
 					'<%= app.src %>/htdocs/css/**/*.css',
-					'<%= app.src %>/htdocs/img/**/*.{png,jpg,jpeg,gif}',
-					'.tmp/css/**/*.css'
+					'<%= app.src %>/htdocs/img/**/*.{png,jpg,jpeg,gif}'
 				]
 			},
 			gruntfile: {
@@ -105,7 +103,6 @@ module.exports = function (grunt) {
 					middleware: function (connect, options) {
 						return [
 							lrSnippet,
-							mountFolder(connect, '.tmp'),
 							mountFolder(connect, options.components),
 							mountPHP(options.base),
 							mountFolder(connect, options.base),
@@ -135,7 +132,6 @@ module.exports = function (grunt) {
 					port: 8000,
 					middleware: function (connect, options) {
 						return [
-							mountFolder(connect, '.tmp'),
 							mountFolder(connect, 'bower_components'),
 							mountFolder(connect, 'node_modules'),
 							mountFolder(connect, options.base),
@@ -157,7 +153,6 @@ module.exports = function (grunt) {
 			dev: {
 				options: {
 					sassDir: '<%= app.src %>/htdocs/css',
-					cssDir: '<%= app.tmp %>/css',
 					environment: 'development'
 				}
 			}
@@ -391,8 +386,7 @@ module.exports = function (grunt) {
 			}
 		},
 		clean: {
-			dist: ['<%= app.dist %>'],
-			dev: ['<%= app.tmp %>', '.sass-cache']
+			dist: ['<%= app.dist %>']
 		},
 		exec: {
 			build_leaflet: {
