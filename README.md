@@ -12,10 +12,6 @@ Mobile friendly, interactive earthquake map and list application.
 
 		`npm install`
 
-1. Install Bower dependencies
-
-		`bower install`
-
 1. Preview in a browser
 
 		`grunt`
@@ -31,10 +27,6 @@ Mobile friendly, interactive earthquake map and list application.
 command line interface globally
 
 		`npm install -g grunt-cli`
-
-1. If this is your first time using **bower**, you need to install bower globally
-
-		`npm install -g bower`
 
 1. Leaflet uses Jake to compile it's source.
 

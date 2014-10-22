@@ -3,7 +3,6 @@
 .sass-cache
 dist
 node_modules
-bower_components
 *.sublime-workspace
 src/conf/httpd.conf
 src/htdocs/lib/leaflet
