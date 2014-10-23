@@ -115,6 +115,12 @@ module.exports = function (grunt) {
 					keepalive: true,
 					middleware: function (connect, options) {
 						return [
+							(function () {
+								var gzip = require('connect-gzip');
+								return gzip.gzip({
+									matchType: /text|javascript|json|css/
+								});
+							})(),
 							mountPHP(options.base),
 							mountFolder(connect, options.base),
 							rewriteRulesSnippet,

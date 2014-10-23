@@ -15,6 +15,7 @@
   "dependencies": {},
   "devDependencies": {
     "chai": "~1.7.0",
+    "connect-gzip": "^0.1.6",
     "connect-livereload": "~0.2.0",
     "gateway": "~0.1.1",
     "grunt": "~0.4.1",
