@@ -88,7 +88,6 @@ define([
 		* visible.
 		*/
 		render: function (_force) {
-			console.log('list render');
 			var items,
 			    inBounds = null,
 			    collection = this._options.collection,
