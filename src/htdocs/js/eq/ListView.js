@@ -2,11 +2,20 @@
 define([
 	'mvc/View',
 	'mvc/Util',
-	'./Format'
+	'./Format',
+	'./DefaultListFormatter',
+	// Change these to custom implementations as they are completed
+	'./DefaultListFormatter',
+	'./DefaultListFormatter',
+	'./DefaultListFormatter'
 ], function (
 	View,
 	Util,
-	Format
+	Format,
+	DefaultListFormatter,
+	DYFIListFormatter,
+	PAGERListFormatter,
+	ShakemapListFormatter
 ) {
 	'use strict';
 
@@ -68,6 +77,9 @@ define([
 			this._content = el.querySelector('.listContent');
 			this._footer = el.querySelector('.listFooter');
 
+			// Defines this._itemFormatter
+			this._setListFormatter({silent: true});
+
 			this._generateListFooterMarkup();
 		},
 
@@ -76,6 +88,7 @@ define([
 		* visible.
 		*/
 		render: function (_force) {
+			console.log('list render');
 			var items,
 			    inBounds = null,
 			    collection = this._options.collection,
@@ -140,6 +153,48 @@ define([
 		// ------------------------------------------------------------
 		// Private methods
 		// ------------------------------------------------------------
+
+		_setListFormatter: function (params) {
+			var options,
+			    className,
+			    settings = this._options.settings,
+			    format = settings.get('listFormat');
+
+			options = {
+				settings: settings,
+				idprefix: this._idprefix
+			};
+
+			if (this._itemFormatter && this._itemFormatter.destroy) {
+				className = this._itemFormatter.getListClassName();
+
+				if (className && this._content.classList.contains(className)) {
+					this._content.classList.remove(className);
+				}
+
+				this._itemFormatter.destroy();
+				this._itemFormatter = null;
+			}
+
+			if (format === 'dyfi') {
+				this._itemFormatter = new DYFIListFormatter(options);
+			} else if (format === 'pager') {
+				this._itemFormatter = new PAGERListFormatter(options);
+			} else if (format === 'shakemap') {
+				this._itemFormatter = new ShakemapListFormatter(options);
+			} else {
+				this._itemFormatter = new DefaultListFormatter(options);
+			}
+
+			className = this._itemFormatter.getListClassName();
+			if (className) {
+				this._content.classList.add(className);
+			}
+
+			if (!params || !params.silent) {
+				this.render();
+			}
+		},
 
 		/**
 		 * Check if anything has changed since the last render
@@ -260,69 +315,16 @@ define([
 
 		_generateListMarkup: function (items) {
 			var markup = [],
-			    prefix = this._idprefix,
-			    settings = this._options.settings,
-			    i, len, item, p, c, className;
+			    i, len;
 
 			if (items.length === 0) {
 				markup.push('<p class="nodata">No earthquakes to display</p>');
 			} else {
 				for (i = 0, len = items.length; i < len; i++) {
-					item = items[i];
-					p = item.properties;
-					c = item.geometry.coordinates;
-					className = '';
-
-					if (p.sig >= 600) {
-						className = ' class="bigger"';
-					} else if (p.mag >= 4.5) {
-						className = ' class="big"';
-					}
-
-					markup.push(
-					'<li id="', prefix, item.id, '"', className, '>',
-						'<span class="mag">',
-							Format.magnitude(p.mag),
-						'</span> ',
-						'<span class="place">',
-							this._generateListItemTitle(p.type, p.place),
-						'</span> ',
-						'<span class="time"> ',
-							Format.dateFromEvent(item, settings),
-						'</span> ',
-						'<span class="depth">',
-							Format.depth(c[2]),
-						' km</span>',
-					'</li>');
+					markup.push(this._itemFormatter.generateListItemMarkup(items[i]));
 				}
 			}
 			this._content.innerHTML = markup.join('');
-		},
-
-		_generateListItemTitle: function (type, place) {
-			if (type === null || type.toLowerCase() === 'earthquake') {
-				return place;
-			} else {
-				type = type.toLowerCase();
-				if (type === 'quarry') {
-					type = 'Quarry Blast';
-				} else if (type === 'nuke') {
-					type = 'Nuclear Explosion';
-				} else if (type === 'rockfall') {
-					type = 'Rockslide';
-				} else if (type === 'rockburst') {
-					type = 'Rockslide';
-				} else if (type === 'sonicboom') {
-					type = 'Sonic Boom';
-				} else {
-					type = type.replace(/\w\S*/g,
-							function (txt) {
-								return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-							}
-					);
-				}
-			}
-			return type + ' ' + place;
 		},
 
 		_generateListFooterMarkup: function () {
@@ -383,6 +385,7 @@ define([
 			s.on('change:timeZone', this.render, this);
 			s.on('change:restrictListToMap', this._bindMapListeners, this);
 			s.on('change:restrictListToMap', this.render, this);
+			s.on('change:listFormat', this._setListFormatter, this);
 			c.on('select', this._collectionSelect, this);
 			c.on('deselect', this._collectionDeselect, this);
 		},
@@ -406,6 +409,7 @@ define([
 			m.off('mapshown', this._mapShown, this);
 			c.off('deselect', this._collectionDeselect, this);
 			c.off('select', this._collectionSelect, this);
+			s.on('change:listFormat', this._setListFormatter, this);
 			s.off('change:restrictListToMap', this.render, this);
 			s.off('change:restrictListToMap', this._bindMapListeners, this);
 			s.off('change:timeZone', this.render, this);
