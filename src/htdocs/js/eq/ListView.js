@@ -145,7 +145,8 @@ define([
 				url: collection.url,
 				sort: settings.get('sort'),
 				timeZone: settings.get('timeZone'),
-				bounds: bounds
+				bounds: bounds,
+				format: settings.get('listFormat')
 			};
 		},
 
@@ -209,6 +210,7 @@ define([
 					lastDataRender.generated === _collection.generated &&
 					lastDataRender.url === _collection.url &&
 					lastDataRender.sort === _settings.get('sort') &&
+					lastDataRender.format === _settings.get('format') &&
 					// have bounds changed, and do we care
 					(_bounds && this._boundsEqual(_bounds, lastDataRender.bounds)) &&
 					lastDataRender.timeZone === _settings.get('timeZone'));
