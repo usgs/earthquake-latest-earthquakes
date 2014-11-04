@@ -1,0 +1,21 @@
+.dyfi-intensity {
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	width: 30px;
+	margin: 10px 5px 0 5px;
+	padding: 2px 0;
+
+	text-align: center;
+}
+
+.dyfi-responses {
+	display: block;
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+
+	color: #666;
+	font-size: .85em;
+}
