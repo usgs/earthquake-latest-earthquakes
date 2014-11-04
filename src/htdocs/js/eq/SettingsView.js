@@ -28,6 +28,7 @@ define([
 		    _feedView = null,
 		    _autoupdateView = null,
 		    _sortView = null,
+		    _listFormatView = null,
 		    _restrictListToMapView = null,
 		    _basemapView = null,
 		    _overlaysView = null,
@@ -109,6 +110,17 @@ define([
 			});
 
 
+			// LIST FORMAT
+			section = _this._el.appendChild(document.createElement('section'));
+			section.appendChild(document.createElement('h2')).innerHTML = 'List Format';
+			_listFormatView = new SettingView({
+				'settings': _options.settings,
+				'key': 'listFormat',
+				'options':_options.settings.getOptions('listFormats')
+			});
+			section.appendChild(_listFormatView._el);
+
+
 			// LIST SORT
 			section = _this._el.appendChild(document.createElement('section'));
 			section.appendChild(document.createElement('h2')).innerHTML = 'List Sort Order';
@@ -188,6 +200,7 @@ define([
 
 			_feedView.render();
 			_sortView.render();
+			_listFormatView.render();
 			_restrictListToMapView.render();
 			_basemapView.render();
 			_overlaysView.render();
