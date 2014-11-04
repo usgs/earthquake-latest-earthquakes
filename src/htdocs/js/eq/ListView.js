@@ -408,7 +408,7 @@ define([
 			m.off('mapshown', this._mapShown, this);
 			c.off('deselect', this._collectionDeselect, this);
 			c.off('select', this._collectionSelect, this);
-			s.on('change:listFormat', this._setListFormatter, this);
+			s.off('change:listFormat', this._setListFormatter, this);
 			s.off('change:restrictListToMap', this.render, this);
 			s.off('change:restrictListToMap', this._bindMapListeners, this);
 			s.off('change:timeZone', this.render, this);
