@@ -92,76 +92,12 @@
 	-webkit-text-size-adjust: none;
 }
 
-
-.listContent .depth {
-	display:block;
-	position:absolute;
-	bottom:5px;
-	right:5px;
-	color:#666;
-    font-size:.85em;
-}
-
-.listContent .time {
-	display:block;
-	position:absolute;
-	bottom:5px;
-	color:#666;
-    font-size:.85em;
-}
-
-.listContent .mag {
-	width:40px;
-	height:40px;
-	line-height:40px;
-	font-size:40px;
-	text-align:center;
-	font-size:inherit;
-	position:absolute;
-	top:0;
-	left:0;
-}
-
-
-.listContent .bigger {
-	background: #fcc;
-	border-bottom:1px solid #ccc;
-}
-
-
-.listContent .selected {
-	background: #bff;
-}
-
-
-.listContent .mag {
-	font-size:14px;
-}
-
-.listContent .place {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	display:block;
-}
-
-
-.listContent .big .mag,
-.listContent .bigger .mag {
-	font-weight:bold;
-	font-size:larger;
-}
-.listContent li.bigger .place {
-	font-weight:bold;
-}
-
 /**
  * LIST FOOTER
  */
 
 .listFooter {
     display:block;
-    font-size:12px;
     margin:0; padding:0 8px 8px;
     font-size:11px;
 }

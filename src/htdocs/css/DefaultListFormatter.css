@@ -1,0 +1,58 @@
+.listContent .depth {
+  display:block;
+  position:absolute;
+  bottom:5px;
+  right:5px;
+  color:#666;
+    font-size:.85em;
+}
+
+.listContent .time {
+  display:block;
+  position:absolute;
+  bottom:5px;
+  color:#666;
+    font-size:.85em;
+}
+
+.listContent .mag {
+  width:40px;
+  height:40px;
+  line-height:40px;
+  font-size:40px;
+  text-align:center;
+  position:absolute;
+  top:0;
+  left:0;
+}
+
+
+.listContent .bigger {
+  background: #fcc;
+  border-bottom:1px solid #ccc;
+}
+
+.listContent .selected {
+  background: #bff;
+}
+
+.listContent .mag {
+  font-size:14px;
+}
+
+.listContent .place {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display:block;
+}
+
+
+.listContent .big .mag,
+.listContent .bigger .mag {
+  font-weight:bold;
+  font-size:larger;
+}
+.listContent li.bigger .place {
+  font-weight:bold;
+}

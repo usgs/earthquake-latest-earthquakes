@@ -3,6 +3,7 @@
 
 @import url("TransitionView.css");
 @import url("ListView.css");
+@import url("DefaultListFormatter.css");
 @import url("MapView.css");
 @import url("EventSummaryView.css");
 @import url("SettingsView.css");
