@@ -93,7 +93,8 @@ define([
 		listFormats: [
 			{
 				'id': 'default',
-				'name': 'Default'
+				'name': 'Default',
+				'className': ''
 			}
 		],
 
