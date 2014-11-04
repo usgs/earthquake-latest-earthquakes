@@ -99,7 +99,6 @@ module.exports = function (grunt) {
 						return [
 							lrSnippet,
 							mountFolder(connect, '.tmp'),
-							mountFolder(connect, options.components),
 							mountPHP(options.base),
 							mountFolder(connect, options.base),
 							rewriteRulesSnippet,
