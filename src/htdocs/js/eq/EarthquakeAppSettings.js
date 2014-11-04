@@ -90,6 +90,14 @@ define([
 			}
 		],
 
+		listFormats: [
+			{
+				'id': 'default',
+				'name': 'Default',
+				'className': ''
+			}
+		],
+
 		sorts: [
 			{
 				'id': 'newest',
@@ -264,6 +272,7 @@ define([
 			{
 				feed: _options.feeds[0].id,
 				search: null,
+				listFormat: _options.listFormats[0].id,
 				sort: _options.sorts[0].id,
 				basemap: _options.basemaps[0].id,
 				autoUpdate: _options.autoUpdate,
@@ -388,6 +397,22 @@ define([
 				}
 			}
 			return overlays;
+		};
+
+		/**
+		 * @return selected list format
+		 */
+		this.getListFormats = function () {
+			var current = _this.get('listFormat');
+			//check predefined list formats
+			for (var i=0, len=_options.listFormats.length; i<len; i++) {
+				var f = _options.listFormats[i];
+				if (f.id === current) {
+					return f;
+				}
+			}
+			// default to first basemap
+			return _options.listFormats[0];
 		};
 
 	};

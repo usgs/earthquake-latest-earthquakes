@@ -58,6 +58,7 @@ define([
 			// todo for loop
 			var obj = {
 					feed:              settings.feed,
+					listFormat:        settings.listFormat,
 					sort:              settings.sort,
 					basemap:           settings.basemap,
 					restrictListToMap: settings.restrictListToMap,
