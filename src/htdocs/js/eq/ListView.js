@@ -192,7 +192,7 @@ define([
 			}
 
 			if (!params || !params.silent) {
-				this.render(true);
+				this.render();
 			}
 		},
 
