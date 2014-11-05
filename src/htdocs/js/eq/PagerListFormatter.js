@@ -50,7 +50,7 @@ define ([
       mmiClass = 'intensity mmi' + mmi;
     } else {
       mmi = '&ndash;';
-      mmiClass = 'no-shakemap';
+      mmiClass = 'no-intensity';
     }
 
     if (p.sig>= 600) {
@@ -70,6 +70,7 @@ define ([
       '<span class="time"> ',
         Format.dateFromEvent(item, settings),
       '</span> ',
+      '<span class = "maxintensity">Maximum Intensity:</span>',
       '<span class="',mmiClass,'">',
         mmi,
       '</span>',
