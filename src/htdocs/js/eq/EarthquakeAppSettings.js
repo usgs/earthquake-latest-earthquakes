@@ -95,6 +95,11 @@ define([
 				'id': 'default',
 				'name': 'Default',
 				'className': ''
+			},
+			{
+				'id': 'dyfi',
+				'name': 'DYFI',
+				'className': 'dyfi-list'
 			}
 		],
 
