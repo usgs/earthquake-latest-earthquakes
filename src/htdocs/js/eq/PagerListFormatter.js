@@ -31,7 +31,7 @@ define ([
     var markup = [],
         prefix = this._options.idprefix,
         settings = this._options.settings,
-        p, c, highlightClass, alert, alertClass;
+        p, c, highlightClass, alert, alertClass, mmi, mmiClass;
 
     p = item.properties;
     c = item.geometry.coordinates;
@@ -42,7 +42,15 @@ define ([
       alertClass = 'alert pager-alertlevel-' + p.alert;
     } else {
       alert = '&ndash;';
-      alertClass = 'alert no-pager';
+      alertClass = 'no-pager';
+    }
+
+    if (p.mmi !== null) {
+      mmi = Format.mmi(p.mmi);
+      mmiClass = 'intensity mmi' + mmi;
+    } else {
+      mmi = '&ndash;';
+      mmiClass = 'no-shakemap';
     }
 
     if (p.sig>= 600) {
@@ -62,9 +70,9 @@ define ([
       '<span class="time"> ',
         Format.dateFromEvent(item, settings),
       '</span> ',
-      '<span class="depth">',
-        Format.depth(c[2]),
-      ' km</span>',
+      '<span class="',mmiClass,'">',
+        mmi,
+      '</span>',
     '</li>');
 
     return markup.join('');
