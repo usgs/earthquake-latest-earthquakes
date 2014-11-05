@@ -9,14 +9,15 @@ define([
 	'use strict';
 
 	var DEFAULTS = {
+		className: 'dyfi-list'
 	};
 
 	var DYFIListFormatter = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);
 	};
 
-	DYFIListFormatter.prototype.getListClassName = function () {
-		return 'dyfi-list';
+	DYFIListFormatter.prototype.getListClassName = function (className) {
+		return this._options.className;
 	};
 
 	DYFIListFormatter.prototype.generateListItemMarkup = function(item) {
