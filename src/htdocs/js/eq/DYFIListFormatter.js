@@ -46,7 +46,7 @@ define([
 
 			return [
 				'<li id="', prefix, item.id, '"', className, '>',
-					'<span class="dyfi-intensity mmi', cdi, '">',
+					'<span class="intensity mmi', cdi, '">',
 						cdi,
 					'</span> ',
 					'<span class="place">',
@@ -55,7 +55,24 @@ define([
 					'<span class="time"> ',
 						Format.dateFromEvent(item, settings),
 					'</span> ',
-					'<span class="dyfi-responses">',
+					'<span class="responses">',
+						p.felt,
+					' response', plural, '</span>',
+				'</li>'
+			].join('');
+		} else {
+			return [
+				'<li id="', prefix, item.id, '"', className, '>',
+					'<span class="no-dyfi">',
+						'&ndash;',
+					'</span> ',
+					'<span class="place">',
+						this._generateListItemTitle(p.mag, p.type, p.place),
+					'</span> ',
+					'<span class="time"> ',
+						Format.dateFromEvent(item, settings),
+					'</span> ',
+					'<span class="responses">',
 						p.felt,
 					' response', plural, '</span>',
 				'</li>'
