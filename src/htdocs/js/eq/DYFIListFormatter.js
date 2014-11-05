@@ -24,22 +24,24 @@ define([
 		var prefix = this._options.idprefix,
 		    settings = this._options.settings,
 		    p = item.properties,
-		    cdi = Format.mmi(p.cdi),
+		    cdi = p.cdi,
 		    className = '',
-		    mmiClassName,
+		    felt = p.felt,
+		    mmiClass,
 		    responses;
 
-		if (p.felt !== null && p.felt !== 0) {
-			mmiClassName = '<span class="intensity mmi' + cdi + '">';
+		if (felt !== null) {
+			cdi = Format.mmi(p.cdi);
+			mmiClass = 'intensity mmi' + cdi;
 
-			if (p.felt != 1) {
-				responses = p.felt + ' responses';
-			} else if (p.felt == 1) {
-				responses = p.felt + ' response';
+			if (felt !== 1) {
+				responses = felt + ' responses';
+			} else {
+				responses = felt + ' response';
 			}
 		} else {
 			cdi = '&ndash;';
-			mmiClassName = '<span class="no-dyfi">';
+			mmiClass = 'no-dyfi';
 			responses = '&ndash;';
 		}
 
@@ -50,7 +52,7 @@ define([
 		}
 
 		return '<li id="' + prefix + item.id + '"' + className + '>' +
-				mmiClassName +
+				'<span class="' + mmiClass + '">' +
 					cdi +
 				'</span> ' +
 				'<span class="place">' +
