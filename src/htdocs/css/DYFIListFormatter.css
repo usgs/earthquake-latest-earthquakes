@@ -1,4 +1,4 @@
-.dyfi-list li .intensity {
+.dyfi-list > li > .intensity {
 	position: absolute;
 	top: 5px;
 	left: 5px;
@@ -11,7 +11,7 @@
 	box-shadow: inset 0 0 1px rgba(0,0,0,.35);
 }
 
-.dyfi-list li .no-dyfi {
+.dyfi-list > li > .no-dyfi {
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -22,7 +22,7 @@
 	text-align: center;
 }
 
-.dyfi-list li .responses {
+.dyfi-list > li > .responses {
 	display: block;
 	position: absolute;
 	bottom: 5px;
