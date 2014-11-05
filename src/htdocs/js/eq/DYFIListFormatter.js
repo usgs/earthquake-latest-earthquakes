@@ -16,7 +16,7 @@ define([
 		this._options = Util.extend({}, DEFAULTS, options);
 	};
 
-	DYFIListFormatter.prototype.getListClassName = function (className) {
+	DYFIListFormatter.prototype.getListClassName = function () {
 		return this._options.className;
 	};
 
@@ -26,22 +26,20 @@ define([
 		    p = item.properties,
 		    cdi = Format.mmi(p.cdi),
 		    className = '',
-		    felt = p.felt,
-		    mmiSpan,
+		    mmiClassName,
 		    responses;
 
-		if (felt !== null && felt !== 0) {
-			mmiSpan = '<span class="intensity mmi' + cdi + '">';
+		if (p.felt !== null && p.felt !== 0) {
+			mmiClassName = '<span class="intensity mmi' + cdi + '">';
 
-			if (felt != 1) {
-				responses = ' responses'
-			} else if (felt == 1) {
-				responses = ' response';
+			if (p.felt != 1) {
+				responses = p.felt + ' responses';
+			} else if (p.felt == 1) {
+				responses = p.felt + ' response';
 			}
 		} else {
 			cdi = '&ndash;';
-			felt = '';
-			mmiSpan = '<span class="no-dyfi">';
+			mmiClassName = '<span class="no-dyfi">';
 			responses = '&ndash;';
 		}
 
@@ -51,9 +49,8 @@ define([
 			className = ' class="big"';
 		}
 
-		return [
-			'<li id="' + prefix + item.id + '"' + className + '>' +
-				mmiSpan +
+		return '<li id="' + prefix + item.id + '"' + className + '>' +
+				mmiClassName +
 					cdi +
 				'</span> ' +
 				'<span class="place">' +
@@ -63,10 +60,9 @@ define([
 					Format.dateFromEvent(item, settings) +
 				'</span> ' +
 				'<span class="responses">' +
-					felt + responses +
+					responses +
 				'</span>' +
-			'</li>'
-			];
+			'</li>';
 	};
 
 	return DYFIListFormatter;
