@@ -5,7 +5,7 @@ define([
 	'./Format',
 	'./DefaultListFormatter',
 	// Change these to custom implementations as they are completed
-	'./DefaultListFormatter',
+	'./DYFIListFormatter',
 	'./DefaultListFormatter',
 	'./DefaultListFormatter'
 ], function (
