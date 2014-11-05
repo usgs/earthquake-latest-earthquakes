@@ -16,7 +16,7 @@ define([
   };
 
   DefaultListFormatter.prototype.getListClassName = function () {
-    return '';
+    return 'default';
   };
 
   DefaultListFormatter.prototype.generateListItemMarkup = function(item) {

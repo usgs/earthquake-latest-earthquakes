@@ -94,12 +94,17 @@ define([
 			{
 				'id': 'default',
 				'name': 'Default',
-				'className': ''
+				'className': 'default'
 			},
 			{
 				'id': 'dyfi',
 				'name': 'DYFI',
 				'className': 'dyfi-list'
+			},
+			{
+				'id': 'pager',
+				'name': 'PAGER',
+				'className': 'pager'
 			},
 			{
 				'id': 'shakemap',
