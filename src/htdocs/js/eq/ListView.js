@@ -210,7 +210,7 @@ define([
 					lastDataRender.generated === _collection.generated &&
 					lastDataRender.url === _collection.url &&
 					lastDataRender.sort === _settings.get('sort') &&
-					lastDataRender.format === _settings.get('format') &&
+					lastDataRender.format === _settings.get('listFormat') &&
 					// have bounds changed, and do we care
 					(_bounds && this._boundsEqual(_bounds, lastDataRender.bounds)) &&
 					lastDataRender.timeZone === _settings.get('timeZone'));
