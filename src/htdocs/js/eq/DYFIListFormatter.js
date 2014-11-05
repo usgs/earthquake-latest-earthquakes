@@ -50,23 +50,23 @@ define([
 		} else if (p.mag >= 4.5) {
 			className = ' class="big"';
 		}
-		console.log(p);
+
 		return [
-			'<li id="', prefix, item.id, '"', className, '>',
-				mmiSpan,
-					cdi,
-				'</span> ',
-				'<span class="place">',
-					p.title,
-				'</span> ',
-				'<span class="time"> ',
-					Format.dateFromEvent(item, settings),
-				'</span> ',
-				'<span class="responses">',
-					felt,
-				responses, '</span>',
+			'<li id="' + prefix + item.id + '"' + className + '>' +
+				mmiSpan +
+					cdi +
+				'</span> ' +
+				'<span class="place">' +
+					p.title +
+				'</span> ' +
+				'<span class="time"> ' +
+					Format.dateFromEvent(item, settings) +
+				'</span> ' +
+				'<span class="responses">' +
+					felt + responses +
+				'</span>' +
 			'</li>'
-		].join('');
+			];
 	};
 
 	return DYFIListFormatter;
