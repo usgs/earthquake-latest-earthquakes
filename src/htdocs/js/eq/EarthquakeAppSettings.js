@@ -100,6 +100,11 @@ define([
 				'id': 'dyfi',
 				'name': 'DYFI',
 				'className': 'dyfi-list'
+			},
+			{
+				'id': 'shakemap',
+				'name': 'ShakeMap',
+				'className': 'shakemap-list'
 			}
 		],
 
