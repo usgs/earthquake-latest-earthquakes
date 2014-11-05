@@ -6,6 +6,7 @@
 @import url("DefaultListFormatter.css");
 @import url("DYFIListFormatter.css");
 @import url("ShakeMapListFormatter.css");
+@import url("PagerListFormatter.css");
 @import url("MapView.css");
 @import url("EventSummaryView.css");
 @import url("SettingsView.css");
