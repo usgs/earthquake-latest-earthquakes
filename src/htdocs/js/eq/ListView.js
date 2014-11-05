@@ -7,7 +7,7 @@ define([
 	// Change these to custom implementations as they are completed
 	'./DYFIListFormatter',
 	'./DefaultListFormatter',
-	'./DefaultListFormatter'
+	'./ShakeMapListFormatter'
 ], function (
 	View,
 	Util,
@@ -15,7 +15,7 @@ define([
 	DefaultListFormatter,
 	DYFIListFormatter,
 	PAGERListFormatter,
-	ShakemapListFormatter
+	ShakeMapListFormatter
 ) {
 	'use strict';
 
@@ -181,7 +181,7 @@ define([
 			} else if (format === 'pager') {
 				this._itemFormatter = new PAGERListFormatter(options);
 			} else if (format === 'shakemap') {
-				this._itemFormatter = new ShakemapListFormatter(options);
+				this._itemFormatter = new ShakeMapListFormatter(options);
 			} else {
 				this._itemFormatter = new DefaultListFormatter(options);
 			}
@@ -192,7 +192,7 @@ define([
 			}
 
 			if (!params || !params.silent) {
-				this.render();
+				this.render(true);
 			}
 		},
 
