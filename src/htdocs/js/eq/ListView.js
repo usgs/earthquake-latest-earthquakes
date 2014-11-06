@@ -457,10 +457,9 @@ define([
 					    el,
 					    id,
 					    obj;
-					if (ev.target.tagName === 'LI') {
-						el = ev.target;
-					} else {
-						el = ev.target.parentNode;
+					el = ev.target;
+					while (el.tagName !== 'LI') {
+						el = el.parentNode;
 					}
 					id = el.getAttribute('id').replace(_this._idprefix, '');
 					obj = _this._options.collection.get(id);
