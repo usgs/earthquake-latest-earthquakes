@@ -93,7 +93,7 @@ define([
 		listFormats: [
 			{
 				'id': 'default',
-				'name': 'Default',
+				'name': 'Magnitude',
 				'className': 'default'
 			},
 			{
@@ -102,14 +102,14 @@ define([
 				'className': 'dyfi-list'
 			},
 			{
-				'id': 'losspager',
-				'name': 'PAGER',
-				'className': 'pager-list'
-			},
-			{
 				'id': 'shakemap',
 				'name': 'ShakeMap',
 				'className': 'shakemap-list'
+			},
+			{
+				'id': 'losspager',
+				'name': 'PAGER',
+				'className': 'pager-list'
 			}
 		],
 
