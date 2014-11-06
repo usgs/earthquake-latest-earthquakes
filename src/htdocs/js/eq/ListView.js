@@ -8,8 +8,6 @@ define([
 	'./DYFIListFormatter',
 	'./PAGERListFormatter',
 	'./ShakeMapListFormatter'
-
-
 ], function (
 	View,
 	Util,
@@ -20,7 +18,6 @@ define([
 	ShakeMapListFormatter
 ) {
 	'use strict';
-
 
 	var DEFAULTS = {
 	};
