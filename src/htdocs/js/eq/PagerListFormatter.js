@@ -61,9 +61,11 @@ define ([
     '<span class="time"> ' +
       Format.dateFromEvent(item, settings) +
     '</span> ' +
-    '<span class = "maxintensity">Max Intensity:</span>' +
-    '<span class="' + mmiClass + '">' +
-      mmi +
+    '<span class="maxintensity">' +
+      'Max Intensity:' +
+      '<span class="' + mmiClass + '">' +
+        mmi +
+      '</span>' +
     '</span>' +
     '</li>';
   };
