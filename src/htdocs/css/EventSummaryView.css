@@ -35,29 +35,39 @@
 	width:5em;
 }
 
+/** summary PAGER/SM/DYFI buttons **/
 
-.alertlevel, .roman {font-family: Tahoma, Verdana, Segoe, sans-serif;}
-.mmiI{color:#000000 !important; background-color:#FFFFFF !important;}
-.mmiII{color:#000000 !important; background-color:#ACD8E9 !important;}
-.mmiIII{color:#000000 !important; background-color:#ACD8E9 !important;}
-.mmiIV{color:#000000 !important; background-color:#83D0DA !important;}
-.mmiV{color:#000000 !important; background-color:#7BC87F !important;}
-.mmiVI{color:#000000 !important; background-color:#F9F518 !important;}
-.mmiVII{color:#000000 !important; background-color:#FAC611 !important;}
-.mmiVIII{color:#000000 !important; background-color:#FA8A11 !important;}
-.mmiIX{color:#FFFFFF !important; background-color:#F7100C !important;}
-.mmiX{color:#FFFFFF !important; background-color:#C80F0A !important;}
-.mmiXI{color:#FFFFFF !important; background-color:#C80F0A !important;}
-.mmiXII{color:#FFFFFF !important; background-color:#C80F0A !important;}
-
-
-.alertlevel {
-	border:1px solid #333333;
-	padding:3px 8px 1px;
-	text-align:center;
-	/*line-height:.85;*/
-	color:#222222;
+.alertlevel,
+.intensity,
+.quicksummary > a,
+.quicksummary > a.tsunamilogo img {
+	font-size: 12px;
+	text-align: center;
+	box-shadow: inset 0 0 1px rgba(0,0,0,0.5);
+	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+	border-radius: 2px;
+	color: #333;
 }
+
+.roman,
+.intensity {
+	color:#333;
+	font-family: Tahona, Tahoma, Verdana, Segoe, sans-serif;
+}
+
+.mmiI{background-color:#FFFFFF;}
+.mmiII{background-color:#ACD8E9;}
+.mmiIII{background-color:#ACD8E9;}
+.mmiIV{background-color:#83D0DA;}
+.mmiV{background-color:#7BC87F;}
+.mmiVI{background-color:#F9F518;}
+.mmiVII{background-color:#FAC611;}
+.mmiVIII{background-color:#FA8A11;}
+.mmiIX{background-color:#F7100C;}
+.mmiX{background-color:#C80F0A;}
+.mmiXI{background-color:#C80F0A;}
+.mmiXII{background-color:#C80F0A;}
+
 
 .pager-alertlevel-green {
 	background-color:#00B04F;
@@ -79,21 +89,17 @@
 
 .quicksummary > a {
 	display:inline-block;
-	margin-bottom:.5em;
-	margin-right:8px;
-	padding:3px 5px 2px;
-	border:1px solid #ccc;
-	text-align:center;
+	margin-bottom:0.5em;
+	margin-right:0.5em;
+	padding: 0.5em 1em;
 	text-decoration: none;
-
-	border-radius:3px;
-	-webkit-border-radius:3px;
-	-moz-border-radius:3px;
-	-ie-border-radius:3px;
+	height: 26px;
 }
 
 .quicksummary > a:hover {
-	border-color:#999;
+	background-image: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%,
+			rgba(0,0,0,0.1) 100%);
+	color:#000;
 }
 
 .quicksummary > a > strong {
@@ -105,14 +111,10 @@
 	vertical-align: top;
 	margin:0;
 	padding:0;
-	border:none;
+	box-shadow:none;
 }
 
-
 .quicksummary > a.tsunamilogo img {
-	border:none;
-	height: 23px;
-	margin-top: 1px;
-	border-radius: 3px;
+	height: 26px;
 }
 
