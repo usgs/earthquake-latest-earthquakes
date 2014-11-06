@@ -104,17 +104,12 @@ define([
 			{
 				'id': 'pager',
 				'name': 'PAGER',
-				'className': 'pager'
+				'className': 'pager-list'
 			},
 			{
 				'id': 'shakemap',
 				'name': 'ShakeMap',
 				'className': 'shakemap-list'
-			},
-			{
-				'id': 'pager',
-				'name': 'Pager',
-				'className': 'pager-list'
 			}
 		],
 

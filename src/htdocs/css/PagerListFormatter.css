@@ -1,18 +1,3 @@
-
-.pager-list > li > .alert {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  font-size: 12px;
-  text-align: center;
-  font-weight: bold;
-  box-shadow: inset 0 0 1px rgba(0,0,0,1);
-}
-
 .pager-list > li > .no-pager {
   position: absolute;
   top: 0px;
