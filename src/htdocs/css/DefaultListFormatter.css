@@ -24,6 +24,7 @@
   position:absolute;
   top:0;
   left:0;
+  font-weight:bold;
 }
 
 .listContent > li > .intensity,
@@ -43,7 +44,6 @@
 }
 
 .listContent .bigger {
-  background: #fcc;
   border-bottom:1px solid #ccc;
 }
 
@@ -62,12 +62,12 @@
   display:block;
 }
 
-
-.listContent .big .mag,
-.listContent .bigger .mag {
+.listContent .big .place,
+.listContent .bigger .place {
   font-weight:bold;
-  font-size:larger;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
 }
-.listContent li.bigger .place {
-  font-weight:bold;
+
+.listContent .bigger .place {
+  color: #C94749;
 }

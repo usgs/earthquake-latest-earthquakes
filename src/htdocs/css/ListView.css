@@ -87,7 +87,7 @@
 
 	/** bottom is room for time, depth; left is room for mag  */
 	padding:0.375em 0.375em 1.5em 3.2em;
-	color:#111;
+  color:#333;
 	font-size:.8em;
 	-webkit-text-size-adjust: none;
 }
