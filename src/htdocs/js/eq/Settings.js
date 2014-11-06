@@ -109,7 +109,7 @@ define([
 				if (params.hasOwnProperty('producttype') &&
 					  params.producttype === 'dyfi' ||
 					  params.producttype === 'shakemap' ||
-					  params.producttype === 'pager') {
+					  params.producttype === 'losspager') {
 
 					var producttype = params.producttype;
 					this.set({'listFormat': producttype});

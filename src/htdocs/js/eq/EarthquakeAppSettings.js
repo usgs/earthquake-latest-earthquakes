@@ -102,7 +102,7 @@ define([
 				'className': 'dyfi-list'
 			},
 			{
-				'id': 'pager',
+				'id': 'losspager',
 				'name': 'PAGER',
 				'className': 'pager-list'
 			},
