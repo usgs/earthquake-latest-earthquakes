@@ -6,8 +6,9 @@ define([
 	'./DefaultListFormatter',
 	// Change these to custom implementations as they are completed
 	'./DYFIListFormatter',
-	'./ShakeMapListFormatter',
-	'./PAGERListFormatter'
+	'./PAGERListFormatter',
+	'./ShakeMapListFormatter'
+
 
 ], function (
 	View,
