@@ -59,5 +59,9 @@ define ([
     '</li>';
   };
 
+  ShakeMapListFormatter.prototype.destroy = function () {
+    return;
+  };
+
   return ShakeMapListFormatter;
 });

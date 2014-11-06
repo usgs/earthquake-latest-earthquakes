@@ -70,5 +70,9 @@ define ([
     '</li>';
   };
 
+  PagerListFormatter.prototype.destroy = function () {
+    return;
+  };
+
   return PagerListFormatter;
 });

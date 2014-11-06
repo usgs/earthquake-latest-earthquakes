@@ -67,5 +67,9 @@ define([
 			'</li>';
 	};
 
+  DYFIListFormatter.prototype.destroy = function () {
+    return;
+  };
+
 	return DYFIListFormatter;
 });

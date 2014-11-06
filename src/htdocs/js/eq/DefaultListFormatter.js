@@ -16,7 +16,7 @@ define([
   };
 
   DefaultListFormatter.prototype.getListClassName = function () {
-    return 'default';
+    return this._options.className;
   };
 
   DefaultListFormatter.prototype.generateListItemMarkup = function(item) {
@@ -76,6 +76,10 @@ define([
       }
     }
     return type + ' ' + place;
+  };
+
+  DefaultListFormatter.prototype.destroy = function () {
+    return;
   };
 
   return DefaultListFormatter;
