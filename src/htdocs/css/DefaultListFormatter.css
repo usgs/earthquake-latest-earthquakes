@@ -19,12 +19,11 @@
   width:40px;
   height:40px;
   line-height:40px;
-  font-size:40px;
+  font-size:14px;
   text-align:center;
   position:absolute;
   top:0;
   left:0;
-  font-weight:bold;
 }
 
 .listContent > li > .intensity,
@@ -43,16 +42,8 @@
   border-radius: 2px;
 }
 
-.listContent .bigger {
-  border-bottom:1px solid #ccc;
-}
-
 .listContent .selected {
   background: #bff;
-}
-
-.listContent .mag {
-  font-size:14px;
 }
 
 .listContent .place {
@@ -62,12 +53,23 @@
   display:block;
 }
 
+.listContent .bigger {
+  border-bottom:1px solid #ccc;
+}
+
 .listContent .big .place,
 .listContent .bigger .place {
   font-weight:bold;
   text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
 }
 
+.listContent .bigger .mag,
 .listContent .bigger .place {
   color: #C94749;
 }
+
+.listContent .big .mag,
+.listContent .bigger .mag {
+  font-weight: bold;
+}
+
