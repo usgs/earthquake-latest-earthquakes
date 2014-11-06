@@ -1,13 +1,3 @@
-.dyfi-list > li > .intensity {
-	position: absolute;
-	top: 7px;
-	left: 7px;
-
-	width: 26px;
-	height: 26px;
-	line-height: 26px;
-}
-
 .dyfi-list > li > .no-dyfi {
 	position: absolute;
 	top: 0px;

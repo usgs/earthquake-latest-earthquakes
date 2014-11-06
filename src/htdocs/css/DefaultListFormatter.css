@@ -26,6 +26,15 @@
   left:0;
 }
 
+.listContent .intensity {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+}
 
 .listContent .bigger {
   background: #fcc;
