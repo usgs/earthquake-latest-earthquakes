@@ -62,10 +62,10 @@ define ([
       Format.dateFromEvent(item, settings) +
     '</span> ' +
     '<span class="maxintensity">' +
-      'Max Intensity:' +
       '<span class="' + mmiClass + '">' +
         mmi +
       '</span>' +
+      ' mmi' +
     '</span>' +
     '</li>';
   };

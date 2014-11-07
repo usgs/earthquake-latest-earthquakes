@@ -42,7 +42,7 @@ define([
 		} else {
 			cdi = '&ndash;';
 			mmiClass = 'no-dyfi';
-			responses = '&ndash;';
+			responses = '&ndash; responses';
 		}
 
 		if (p.sig >= 600) {
