@@ -10,9 +10,7 @@ define([
 ) {
 	'use strict';
 
-	var DEFAULTS = {
-		className: 'dyfi-list'
-	};
+	var DEFAULTS = {};
 
 	var DYFIListFormatter = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);

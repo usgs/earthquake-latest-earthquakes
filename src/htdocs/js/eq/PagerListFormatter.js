@@ -10,9 +10,7 @@ define ([
 ){
   'use strict';
 
-  var DEFAULTS = {
-    className: 'pager-list'
-  };
+  var DEFAULTS = {};
 
   var PagerListFormatter = function (options) {
     this._options = Util.extend({},DEFAULTS, options);

@@ -161,7 +161,8 @@ define([
 
 			options = {
 				settings: settings,
-				idprefix: this._idprefix
+				idprefix: this._idprefix,
+				className: settings.getListFormats().className
 			};
 
 			if (this._itemFormatter && this._itemFormatter.destroy) {

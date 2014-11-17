@@ -8,8 +8,7 @@ define([
 ) {
   'use strict';
 
-  var DEFAULTS = {
-  };
+  var DEFAULTS = {};
 
   var DefaultListFormatter = function (options) {
     this._options = Util.extend({}, DEFAULTS, options);
