@@ -1,10 +1,12 @@
 /* global define */
 define ([
   'mvc/Util',
-  './Format'
+  './Format',
+  './DefaultListFormatter'
 ], function(
   Util,
-  Format
+  Format,
+  DefaultListFormatter
 ){
   'use strict';
 
@@ -15,6 +17,8 @@ define ([
   var PagerListFormatter = function (options) {
     this._options = Util.extend({},DEFAULTS, options);
   };
+
+  PagerListFormatter.prototype = Object.create(DefaultListFormatter.prototype);
 
   PagerListFormatter.prototype.getListClassName = function () {
     return this._options.className;
@@ -68,10 +72,6 @@ define ([
       ' mmi' +
     '</span>' +
     '</li>';
-  };
-
-  PagerListFormatter.prototype.destroy = function () {
-    return;
   };
 
   return PagerListFormatter;

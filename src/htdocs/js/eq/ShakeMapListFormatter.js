@@ -1,10 +1,12 @@
 /* global define */
 define ([
   'mvc/Util',
-  './Format'
+  './Format',
+  './DefaultListFormatter'
 ], function(
   Util,
-  Format
+  Format,
+  DefaultListFormatter
 ){
   'use strict';
 
@@ -15,6 +17,8 @@ define ([
   var ShakeMapListFormatter = function (options) {
     this._options = Util.extend({},DEFAULTS, options);
   };
+
+  ShakeMapListFormatter.prototype = Object.create(DefaultListFormatter.prototype);
 
   ShakeMapListFormatter.prototype.getListClassName = function () {
     return this._options.className;
@@ -57,10 +61,6 @@ define ([
       Format.depth(c[2]) +
     ' km</span>' +
     '</li>';
-  };
-
-  ShakeMapListFormatter.prototype.destroy = function () {
-    return;
   };
 
   return ShakeMapListFormatter;

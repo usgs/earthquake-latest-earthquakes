@@ -1,10 +1,12 @@
 /* global define */
 define([
 	'mvc/Util',
-	'./Format'
+	'./Format',
+	'./DefaultListFormatter'
 ], function (
 	Util,
-	Format
+	Format,
+	DefaultListFormatter
 ) {
 	'use strict';
 
@@ -15,6 +17,8 @@ define([
 	var DYFIListFormatter = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);
 	};
+
+	DYFIListFormatter.prototype = Object.create(DefaultListFormatter.prototype);
 
 	DYFIListFormatter.prototype.getListClassName = function () {
 		return this._options.className;
@@ -66,10 +70,6 @@ define([
 				'</span>' +
 			'</li>';
 	};
-
-  DYFIListFormatter.prototype.destroy = function () {
-    return;
-  };
 
 	return DYFIListFormatter;
 });
