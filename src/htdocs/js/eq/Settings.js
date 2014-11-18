@@ -101,20 +101,6 @@ define([
 				}
 			}
 
-			// Only override if format is not already specified
-			if (this.get('listFormat') === 'default' && settings.search) {
-				var params = settings.search.params;
-
-				// search for producttype and settings listFormat is not default
-				if (params.hasOwnProperty('producttype') &&
-					  params.producttype === 'dyfi' ||
-					  params.producttype === 'shakemap' ||
-					  params.producttype === 'losspager') {
-
-					var producttype = params.producttype;
-					this.set({'listFormat': producttype});
-				}
-			}
 			// generic event for any change
 			this.trigger('change');
 		};
