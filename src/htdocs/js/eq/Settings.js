@@ -100,6 +100,7 @@ define([
 					this.trigger('change:' + c, changed[c]);
 				}
 			}
+
 			// generic event for any change
 			this.trigger('change');
 		};

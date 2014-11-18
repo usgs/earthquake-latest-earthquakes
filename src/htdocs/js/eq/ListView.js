@@ -161,7 +161,8 @@ define([
 
 			options = {
 				settings: settings,
-				idprefix: this._idprefix
+				idprefix: this._idprefix,
+				className: settings.getListFormats().className
 			};
 
 			if (this._itemFormatter && this._itemFormatter.destroy) {
@@ -177,7 +178,7 @@ define([
 
 			if (format === 'dyfi') {
 				this._itemFormatter = new DYFIListFormatter(options);
-			} else if (format === 'pager') {
+			} else if (format === 'losspager') {
 				this._itemFormatter = new PAGERListFormatter(options);
 			} else if (format === 'shakemap') {
 				this._itemFormatter = new ShakeMapListFormatter(options);

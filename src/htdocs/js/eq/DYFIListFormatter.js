@@ -1,20 +1,22 @@
 /* global define */
 define([
 	'mvc/Util',
-	'./Format'
+	'./Format',
+	'./DefaultListFormatter'
 ], function (
 	Util,
-	Format
+	Format,
+	DefaultListFormatter
 ) {
 	'use strict';
 
-	var DEFAULTS = {
-		className: 'dyfi-list'
-	};
+	var DEFAULTS = {};
 
 	var DYFIListFormatter = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);
 	};
+
+	DYFIListFormatter.prototype = Object.create(DefaultListFormatter.prototype);
 
 	DYFIListFormatter.prototype.getListClassName = function () {
 		return this._options.className;
@@ -42,7 +44,7 @@ define([
 		} else {
 			cdi = '&ndash;';
 			mmiClass = 'no-dyfi';
-			responses = '&ndash;';
+			responses = '&ndash; responses';
 		}
 
 		if (p.sig >= 600) {

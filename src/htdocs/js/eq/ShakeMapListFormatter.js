@@ -1,20 +1,22 @@
 /* global define */
 define ([
   'mvc/Util',
-  './Format'
+  './Format',
+  './DefaultListFormatter'
 ], function(
   Util,
-  Format
+  Format,
+  DefaultListFormatter
 ){
   'use strict';
 
-  var DEFAULTS = {
-    className: 'shakemap-list'
-  };
+  var DEFAULTS = {};
 
   var ShakeMapListFormatter = function (options) {
     this._options = Util.extend({},DEFAULTS, options);
   };
+
+  ShakeMapListFormatter.prototype = Object.create(DefaultListFormatter.prototype);
 
   ShakeMapListFormatter.prototype.getListClassName = function () {
     return this._options.className;

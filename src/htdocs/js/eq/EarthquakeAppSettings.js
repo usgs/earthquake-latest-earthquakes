@@ -93,8 +93,8 @@ define([
 		listFormats: [
 			{
 				'id': 'default',
-				'name': 'Default',
-				'className': ''
+				'name': 'Magnitude',
+				'className': 'default'
 			},
 			{
 				'id': 'dyfi',
@@ -107,8 +107,8 @@ define([
 				'className': 'shakemap-list'
 			},
 			{
-				'id': 'pager',
-				'name': 'Pager',
+				'id': 'losspager',
+				'name': 'PAGER',
 				'className': 'pager-list'
 			}
 		],
@@ -311,6 +311,21 @@ define([
 
 		// extend Settings
 		Settings.call(this, _options);
+
+		// check list format, override if format is not already specified
+		if (this.get('listFormat') === 'default' && this.get('search')) {
+			var params = this.get('search').params;
+
+			// search for producttype and settings listFormat is not default
+			if (params.hasOwnProperty('producttype') &&
+				  params.producttype === 'dyfi' ||
+				  params.producttype === 'shakemap' ||
+				  params.producttype === 'losspager') {
+
+				var producttype = params.producttype;
+				this.set({'listFormat': producttype});
+			}
+		}
 
 
 		/**

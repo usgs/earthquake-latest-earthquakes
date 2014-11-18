@@ -4,7 +4,7 @@
   bottom:5px;
   right:5px;
   color:#666;
-    font-size:.85em;
+  font-size:.85em;
 }
 
 .listContent .time {
@@ -12,32 +12,38 @@
   position:absolute;
   bottom:5px;
   color:#666;
-    font-size:.85em;
+  font-size:.85em;
 }
 
 .listContent .mag {
   width:40px;
   height:40px;
   line-height:40px;
-  font-size:40px;
+  font-size:14px;
   text-align:center;
   position:absolute;
   top:0;
   left:0;
 }
 
+.listContent > li > .intensity,
+.listContent > li > .alert {
+  position: absolute;
+  top: 7px;
+  left: 7px;
 
-.listContent .bigger {
-  background: #fcc;
-  border-bottom:1px solid #ccc;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  font-size: 12px;
+  text-align: center;
+  box-shadow: inset 0 0 1px rgba(0,0,0,0.5);
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
 }
 
 .listContent .selected {
   background: #bff;
-}
-
-.listContent .mag {
-  font-size:14px;
 }
 
 .listContent .place {
@@ -47,12 +53,23 @@
   display:block;
 }
 
+.listContent .bigger {
+  border-bottom:1px solid #ccc;
+}
+
+.listContent .big .place,
+.listContent .bigger .place {
+  font-weight:bold;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
+}
+
+.listContent .bigger .mag,
+.listContent .bigger .place {
+  color: #C94749;
+}
 
 .listContent .big .mag,
 .listContent .bigger .mag {
-  font-weight:bold;
-  font-size:larger;
+  font-weight: bold;
 }
-.listContent li.bigger .place {
-  font-weight:bold;
-}
+

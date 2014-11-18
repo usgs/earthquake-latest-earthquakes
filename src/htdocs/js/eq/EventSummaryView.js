@@ -76,13 +76,14 @@ define([
 					props.alert !== null ||
 					(props.tsunami !== null && props.tsunami > 0)) {
 				buf.push('<div class="quicksummary">');
-				if (props.alert !== null) {
+				if (props.cdi !== null) {
+					cdi = Format.mmi(props.cdi);
 					buf.push(
-						'<a href="', props.url, '#pager"',
-							' title="PAGER estimated impact alert level"',
-							' class="alertlevel pager-alertlevel-', props.alert, '"',
+						'<a href="', props.url, '#dyfi"',
+							' title="Did You Feel It? maximum reported intensity (', props.felt, ' reports)"',
+							' class="feltreports mmi', cdi, '"',
 						'>',
-							'PAGER - <strong>', props.alert.toUpperCase(), '</strong>',
+							'DYFI? - <strong class="roman">', cdi, '</strong>',
 						'</a>'
 					);
 				}
@@ -97,14 +98,13 @@ define([
 						'</a>'
 					);
 				}
-				if (props.cdi !== null) {
-					cdi = Format.mmi(props.cdi);
+				if (props.alert !== null) {
 					buf.push(
-						'<a href="', props.url, '#dyfi"',
-							' title="Did You Feel It? maximum reported intensity (', props.felt, ' reports)"',
-							' class="feltreports mmi', cdi, '"',
+						'<a href="', props.url, '#pager"',
+							' title="PAGER estimated impact alert level"',
+							' class="alertlevel pager-alertlevel-', props.alert, '"',
 						'>',
-							'DYFI? - <strong class="roman">', cdi, '</strong>',
+							'PAGER - <strong>', props.alert.toUpperCase(), '</strong>',
 						'</a>'
 					);
 				}

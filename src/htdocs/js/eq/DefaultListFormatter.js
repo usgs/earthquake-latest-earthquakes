@@ -8,15 +8,14 @@ define([
 ) {
   'use strict';
 
-  var DEFAULTS = {
-  };
+  var DEFAULTS = {};
 
   var DefaultListFormatter = function (options) {
     this._options = Util.extend({}, DEFAULTS, options);
   };
 
   DefaultListFormatter.prototype.getListClassName = function () {
-    return '';
+    return this._options.className;
   };
 
   DefaultListFormatter.prototype.generateListItemMarkup = function(item) {
@@ -76,6 +75,10 @@ define([
       }
     }
     return type + ' ' + place;
+  };
+
+  DefaultListFormatter.prototype.destroy = function () {
+    return;
   };
 
   return DefaultListFormatter;

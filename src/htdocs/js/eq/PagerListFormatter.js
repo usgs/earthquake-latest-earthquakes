@@ -1,20 +1,22 @@
 /* global define */
 define ([
   'mvc/Util',
-  './Format'
+  './Format',
+  './DefaultListFormatter'
 ], function(
   Util,
-  Format
+  Format,
+  DefaultListFormatter
 ){
   'use strict';
 
-  var DEFAULTS = {
-    className: 'pager-list'
-  };
+  var DEFAULTS = {};
 
   var PagerListFormatter = function (options) {
     this._options = Util.extend({},DEFAULTS, options);
   };
+
+  PagerListFormatter.prototype = Object.create(DefaultListFormatter.prototype);
 
   PagerListFormatter.prototype.getListClassName = function () {
     return this._options.className;
@@ -62,10 +64,10 @@ define ([
       Format.dateFromEvent(item, settings) +
     '</span> ' +
     '<span class="maxintensity">' +
-      'Max Intensity:' +
       '<span class="' + mmiClass + '">' +
         mmi +
       '</span>' +
+      ' mmi' +
     '</span>' +
     '</li>';
   };
