@@ -2,7 +2,7 @@
 define(['mvc/State'], function(State) {
 	'use strict';
 
-	var VERSION = 'v0.4.4, 2014-01-07';
+	var VERSION = 'v0.5.0, 2014-12-16';
 
 	var DefaultState = function() {
 		State.call(this, 'default');
