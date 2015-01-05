@@ -9,7 +9,7 @@
 	}
 ?>
 
-<?php /* TABLE OF CONTENTS -------------------------------------------------- */ ?>
+<?php /* TABLE OF CONTENTS ----------------------------------------------- */ ?>
 
 <div class="right three column toc">
 	<h3>Table of Contents</h3>
@@ -28,16 +28,25 @@
 
 
 <p>
-	The <strong>ANSS Comprehensive Catalog (ComCat)</strong> contains earthquake source parameters (e.g. hypocenters, magnitudes, phase picks and amplitudes) and other products (e.g. moment tensor solutions, macroseismic information, tectonic summaries, maps) produced by contributing seismic networks. This comprehensive collection of seismic information replaces the ANSS composite catalog previously hosted by the Northern California Data Center.
+	The <strong>ANSS Comprehensive Catalog (ComCat)</strong> contains earthquake
+	source parameters (e.g. hypocenters, magnitudes, phase picks and amplitudes)
+	and other products (e.g. moment tensor solutions, macroseismic information,
+	tectonic summaries, maps) produced by contributing seismic networks. This
+	comprehensive collection of seismic information will eventually replace the
+	ANSS composite catalog hosted by the Northern California Data Center; however,
+	historic regional seismic network catalogs have not yet been fully loaded.
 </p>
 
 <p>
-	Important digital catalogs of earthquake source parameters (e.g. Centennial Catalog, Global Centroid Moment Tensor Catalog) are currently being loaded into ComCat. New and updated data is added to the catalog dynamically as sources publish or update products. Check back for updates.
+	Important digital catalogs of earthquake source parameters (e.g. Centennial
+	Catalog, Global Centroid Moment Tensor Catalog) are currently being loaded
+	into ComCat. New and updated data is added to the catalog dynamically as
+	sources publish or update products. Check back for updates.
 </p>
 
 
 
-<?php /* DATA AVAILABILITY -------------------------------------------------- */ ?>
+<?php /* DATA AVAILABILITY ------------------------------------------------*/ ?>
 <h3 id="data-availability">Data Availability</h3>
 <p>
 	Data Availability as of 2013-07-25:
