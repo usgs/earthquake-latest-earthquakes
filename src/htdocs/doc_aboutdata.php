@@ -43,9 +43,11 @@
 
 <?php /* DATA AVAILABILITY ------------------------------------------------*/ ?>
 <h3 id="data-availability">Data Availability</h3>
+
 <p>
-  Data Availability as of 2013-07-25:
+  Data Availability as of 2015-02-2:
 </p>
+
 <ul>
   <li>
     Realtime Earthquake Data Sources &amp; Contributing Networks from 2013-02-02
@@ -337,6 +339,7 @@
 </h2>
 
 <h3 id="contributors-us">U.S., International, and Offshore Regions</h3>
+
 <ul>
   <li>
     <a href="/regional/neic/" target="_blank">National Earthquake Information
@@ -455,6 +458,7 @@
 </ul>
 
 <h3 id="contributors-nc">Northern California</h3>
+
 <ul>
   <li>
     <a href="http://www.ncedc.org/ncsn/" target="_blank">Northern California
@@ -568,12 +572,14 @@ Network</a>
 <h2 id="network-contacts">Network Contacts</h2>
 
 <h3 id="contacts-neic">National Earthquake Information Center (NEIC)</h3>
+
 <address>
   U.S. Geological Survey<br />
   National Earthquake Information Center<br />
   Box 25046, DFC, MS 967<br />
   Denver, Colorado 80225
 </address>
+
 <p>
   Earthquake Information Line: 303-273-8500 (24x7 Operations)<br />
   Fax: 303-273-8450<br />
@@ -582,6 +588,7 @@ Network</a>
 </p>
 
 <h3 id="contact-ak">Alaska Earthquake Information Center (AEIC)</h3>
+
 <address>
   Alaska Earthquake Information Center (AEIC)<br />
   Geophysical Institute<br />
@@ -602,6 +609,7 @@ Network</a>
 <h3 id="contacts-atwc">
   West Coast and Alaska Tsunami Warning Center/NOAA/NWS
 </h3>
+
 <address>
   West Coast and Alaska Tsunami Warning Center/NOAA/NWS<br />
   910 S. Felton St.<br />
@@ -615,6 +623,7 @@ Network</a>
 </p>
 
 <h3 id="contacts-nmsn">Cooperative New Madrid Seismic Network</h3>
+
 <address>
   Center for Earthquake Research and Information<br />
   Campus Box 526590<br />
@@ -631,12 +640,14 @@ Network</a>
 </p>
 
 <h3 id="contacts-imwsm">Inter-Mountain West Seismic Networks</h3>
+
 <address>
   Earthquake Studies Office<br />
   Montana Bureau of Mines and Geology<br />
   1300 West Park Street<br />
   Butte, MT 59701-8997
 </address>
+
 <p>
   Voice: 406-496-4332<br />
   Fax: 406-496-4451<br />
@@ -673,6 +684,7 @@ Network</a>
 </p>
 
 <h3 id="contacts-hi">Hawaiian Volcano Observatory Network</h3>
+
 <address>
   U.S. Geological Survey<br />
   Hawaiian Volcano Observatory<br />
@@ -692,6 +704,7 @@ Network</a>
 </p>
 
 <h3 id="contacts-ptwc">Pacific Tsunami Warning Center</h3>
+
 <address>
   U.S. Dept. of Commerce<br />
   91-270 Fort Weaver Road<br />
@@ -706,6 +719,7 @@ Network</a>
 </p>
 
 <h3 id="contacts-ld">Northeast</h3>
+
 <address>
   Lamont-Doherty Cooperative Seismographic Network (LCSN)<br />
   Lamont-Doherty Earth Observatory of Columbia University<br />
@@ -735,6 +749,7 @@ Network</a>
 </p>
 
 <h3 id="contacts-nc">Northern California Seismic Network</h3>
+
 <address>
   U.S. Geological Survey<br />
   Seismology Section<br />
@@ -767,6 +782,7 @@ Network</a>
 </p>
 
 <h3 id="contacts-pnw">Pacific Northwest Seismic Network</h3>
+
 <address>
   University of Washington, Dept. of Earth and Space Sciences<br />
   Box 351310<br />
@@ -784,6 +800,7 @@ Network</a>
 </p>
 
 <h3 id="contacts-pr">Puerto Rico Seismic Network</h3>
+
 <address>
   Puerto Rico Seismic Network<br />
   Department of Geology<br />
@@ -801,6 +818,7 @@ Network</a>
 </p>
 
 <h3 id="contacts-ci">Southern California Seismic Network</h3>
+
 <address>
   Southern California Seismic Network<br />
   U.S. Geological Survey - Caltech Seismological Laboratory<br />
@@ -819,6 +837,7 @@ Network</a>
 
 <?php /* REFERENCES------------------------------------------------------- */ ?>
 <h2 id="references">References</h2>
+
 <ul class="referencelist">
   <li>
     Young, J.B., Presgrave, B.W., Aichele, H., Wiens, D.A. and Flinn, E.A.,
