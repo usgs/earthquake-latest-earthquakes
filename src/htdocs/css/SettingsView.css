@@ -99,9 +99,6 @@
 	}
 }
 
-
-
-
 .settingsView > section > h1 > .help {
 	display:block;
 	font-size:.8em;
@@ -123,4 +120,7 @@
 	display:block;
 	font-size:.9em;
 	color:#fafafa;
+}
+.settingsview-searchbutton {
+	margin-top: .5em;
 }
