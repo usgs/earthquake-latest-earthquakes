@@ -45,7 +45,7 @@
 <h3 id="data-availability">Data Availability</h3>
 
 <p>
-  Data Availability as of 2015-02-2:
+  Data Availability as of 2015-01-20:
 </p>
 
 <ul>
