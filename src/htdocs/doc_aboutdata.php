@@ -197,8 +197,9 @@
       This layer is from an Esri GIS service titled “Light Gray Canvas”.  This
       minimal map is used as the default because it loads more quickly in the
       browser than the other maps, and it emphasizes the earthquakes.
-      <a href="http://www.arcgis.com/home/item.html?id=8b3d38c0819547faa83f7b7aca80bd76"  target="_blank">
-      Detailed information about this map is on the Esri website</a>.
+      <a href="http://www.arcgis.com/home/item.html?id=8b3d38c0819547faa83f7b7aca80bd76"
+          target="_blank">
+          Detailed information about this map is on the Esri website</a>.
     </p>
 
     <p>
@@ -280,7 +281,7 @@
     <p>
       For northern California, the potential sources of earthquakes larger than
       magnitude 6 are documented in
-      <a href="http://pubs.usgs.gov/of/1996/0705/"  target="_blank">
+      <a href="http://pubs.usgs.gov/of/1996/0705/" target="_blank">
       Open-File Report 96-705: Database of Potential Sources for Earthquakes
       Larger than Magnitude 6 in Northern California</a> by the Working Group on
       Northern California Earthquake Potential (chaired by Jim Lienkaemper).
@@ -288,11 +289,13 @@
 
     <p>
       For the state as a whole, see
-      <a href="http://pubs.er.usgs.gov/publication/ofr96706"  target="_blank">
+      <a href="http://pubs.er.usgs.gov/publication/ofr96706" target="_blank">
       USGS Open-File Report 96-706: Probabilistic seismic hazard assessment for
       the State of California</a> by Petersen, M. D., Bryant, W.A., Cramer,
       C.H., Cao, T., Reichle, M.S., Frankel, A.D., Lienkaemper, J.J., McCrory,
-      P.A., and Schwartz, D.P, 1996 (published jointly as <a href="http://www.conservation.ca.gov/cgs/rghm/psha/ofr9608/"  target="_blank">
+      P.A., and Schwartz, D.P, 1996 (published jointly as
+      <a href="http://www.conservation.ca.gov/cgs/rghm/psha/ofr9608/"
+          target="_blank">
       California Division of Mines and Geology Open-File Report 96-08</a>.  The
       faults and fault zones described in these reports are known to have been
       active in the last 2 million years and are thought to pose a measurable
