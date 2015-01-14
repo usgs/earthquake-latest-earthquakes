@@ -10,19 +10,17 @@
 
 <?php /* TABLE OF CONTENTS ----------------------------------------------- */ ?>
 
-<div class="right three column toc">
-  <h3>Table of Contents</h3>
-  <ul>
-    <li><a href="#data-availability">Data Availability</a></li>
-    <li><a href="#placenames">Placenames/ Labels</a></li>
-    <li><a href="#magnitudes">Magnitudes</a></li>
-    <li><a href="#map">Map</a></li>
-    <li><a href="#map-layers">Map Layers</a></li>
-    <li><a href="#contributing-networks">Contributing Networks</a></li>
-    <li><a href="#network-contacts">Network Contacts</a></li>
-    <li><a href="#references">References</a></li>
-  </ul>
-</div>
+<h2>Table of Contents</h2>
+<ul>
+  <li><a href="#data-availability">Data Availability</a></li>
+  <li><a href="#placenames">Placenames/ Labels</a></li>
+  <li><a href="#magnitudes">Magnitudes</a></li>
+  <li><a href="#map">Map</a></li>
+  <li><a href="#map-layers">Map Layers</a></li>
+  <li><a href="#contributing-networks">Contributing Networks</a></li>
+  <li><a href="#network-contacts">Network Contacts</a></li>
+  <li><a href="#references">References</a></li>
+</ul>
 
 <p>
   The <strong>ANSS Comprehensive Catalog (ComCat)</strong> contains earthquake
@@ -42,7 +40,7 @@
 </p>
 
 <?php /* DATA AVAILABILITY ------------------------------------------------*/ ?>
-<h3 id="data-availability">Data Availability</h3>
+<h2 id="data-availability" class="section-header">Data Availability</h2>
 
 <p>
   Data Availability as of 2015-01-20:
@@ -98,7 +96,7 @@
 </ul>
 
 <?php /* PLACENAMES LABELS ----------------------------------------------- */ ?>
-<h3 id="placenames">Placenames/Labels</h3>
+<h2 id="placenames" class="section-header">Placenames/Labels</h2>
 
 <p>
   We use a <a href="http://www.geonames.org/"  target="_blank">GeoNames</a>
@@ -144,7 +142,7 @@
 </p>
 
 <?php /* MAGNITUDES ------------------------------------------------------ */ ?>
-<h3 id="magnitudes">Magnitudes</h3>
+<h2 id="magnitudes" class="section-header">Magnitudes</h2>
 
 <p>
   The magnitude reported is that which the U.S. Geological Survey considers
@@ -168,9 +166,9 @@
 </ul>
 
 <?php /* MAP ------------------------------------------------------------- */ ?>
-<h3 id="map">Map</h3>
+<h2 id="map" class="section-header">Map</h2>
 
-<dl>
+<dl class="vertical">
   <dt>Map Projection</dt>
   <dd>
     The earthquake map projection is Web Mercator.
@@ -190,9 +188,9 @@
 </dl>
 
 <?php /* MAP LAYERS ------------------------------------------------------ */ ?>
-<h3 id="map-layers">Map Layers</h3>
+<h2 id="map-layers" class="section-header">Map Layers</h2>
 
-<dl>
+<dl class="vertical">
   <dt>Grayscale Map</dt>
   <dd>
     <p>
@@ -264,9 +262,9 @@
       information.
     </p>
 
-    <h3 class="subheader">
+    <h4 class="subheader">
       Known hazardous faults and fault zones in California and Nevada
-    </h3>
+    </h4>
 
     <p>
       The
@@ -334,7 +332,7 @@
 </dl>
 
 <?php /* CONTRIBUTING NETWORKS ------------------------------------------- */ ?>
-<h2 id="contributing-networks">
+<h2 id="contributing-networks" class="section-header">
   Realtime Earthquake Data Sources &amp; Contributing Networks
 </h2>
 
@@ -569,7 +567,7 @@ Network</a>
 </ul>
 
 <?php /* CONTACTS -------------------------------------------------------- */ ?>
-<h2 id="network-contacts">Network Contacts</h2>
+<h2 id="network-contacts" class="section-header">Network Contacts</h2>
 
 <h3 id="contacts-neic">National Earthquake Information Center (NEIC)</h3>
 
@@ -836,7 +834,7 @@ Network</a>
 </p>
 
 <?php /* REFERENCES------------------------------------------------------- */ ?>
-<h2 id="references">References</h2>
+<h2 id="references" class="section-header">References</h2>
 
 <ul class="referencelist">
   <li>

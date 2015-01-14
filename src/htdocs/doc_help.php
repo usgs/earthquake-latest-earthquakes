@@ -10,25 +10,23 @@
 
 <?php /* TABLE OF CONTENTS -------------------------------------------------- */ ?>
 
-<div class="right three column toc">
-	<h3>Table of Contents</h3>
-	<ul>
-		<li><a href="#disclaimer">Disclaimer</a></li>
-		<li><a href="#general">General</a></li>
-		<li><a href="#list">List</a>
-			<ul>
-				<li><a href="#downloads">Downloads</a></li>
-			</ul>
-		</li>
-		<li><a href="#map">Map</a></li>
-		<li><a href="#map-layers">Map Layers</a></li>
-		<li><a href="#settings">Settings</a></li>
-		<li><a href="#search-earthquake-archives">Search Earthquake Archives</a></li>
-		<li><a href="#print">How to Print</a></li>
-		<li><a href="#bugs">Known Bugs</a></li>
-		<li><a href="#browser-support">Browser Support</a></li>
-	</ul>
-</div>
+<h2>Table of Contents</h2>
+<ul>
+	<li><a href="#disclaimer">Disclaimer</a></li>
+	<li><a href="#general">General</a></li>
+	<li><a href="#list">List</a>
+		<ul>
+			<li><a href="#downloads">Downloads</a></li>
+		</ul>
+	</li>
+	<li><a href="#map">Map</a></li>
+	<li><a href="#map-layers">Map Layers</a></li>
+	<li><a href="#settings">Settings</a></li>
+	<li><a href="#search-earthquake-archives">Search Earthquake Archives</a></li>
+	<li><a href="#print">How to Print</a></li>
+	<li><a href="#bugs">Known Bugs</a></li>
+	<li><a href="#browser-support">Browser Support</a></li>
+</ul>
 
 
 <p>
@@ -38,7 +36,7 @@
 
 <?php /* Disclaimers------------------------------------------------- */ ?>
 
-<h2 id="disclaimer">Disclaimer</h2>
+<h2 id="disclaimer" class="section-header">Disclaimer</h2>
 
 <p>The new Earthquake Map/List pages are slower than the older generation earthquake maps (recenteqs) because they provide additional benefits to viewing and interacting with the earthquake data.
 </p>
@@ -53,10 +51,10 @@
 		</ul>
 
 <?php /* GENERAL------------------------------------------------------------- */?>
-<h2 id="general">General</h2>
+<h2 id="general" class="section-header">General</h2>
 <p>The 4 icons in the top right corner toggle the following content in and out of view: </p>
 
-<ul class="modeView">
+<ul>
 	<li> <span class="modeIcon small float" title="List">List</span>
 				<span class="text">List</span>
 	</li>
@@ -74,7 +72,7 @@
 
 
 <?php /* LIST------------------------------------------------------------- */?>
-<h2 id="list">List</h2>
+<h2 id="list" class="section-header">List</h2>
 <p>The list is loaded by default the first time you open the interface. The list can be toggled in and out of view by clicking on <span class="modeIcon small inline" title="List">List</span> in the top right corner. The list provides the least resource intensive method for viewing earthquakes.  The list loads all earthquakes from the currently selected feed (<a href="#settings-earthquakes">Settings &gt; Earthquakes</a>), and by default shows the most recent earthquake first (<a href="#settings-sort">Settings &gt; List Sort Order</a>). </p>
 <ul>
 	<li>List items in bold are magnitude 4.5 and greater.</li>
@@ -95,7 +93,7 @@
 
 
 <?php /* MAP------------------------------------------------------------- */?>
-<h2 id="map">Map</h2>
+<h2 id="map" class="section-header">Map</h2>
 <p>To show (or hide on desktop) the map, click <span class="modeIcon small inline map" title="map">Map</span> in the top right corner. Earthquakes from the currently selected feed (Settings &gt; Earthquakes) are loaded onto the map. </p>
 <ul>
 	<li>Earthquakes are plotted on the map as circles and non-earthquakes are plotted as diamonds (in most browsers).  For users of older browsers, all events may be plotted as squares.</li>
@@ -105,7 +103,7 @@
 </ul>
 
 <h3>Map Controls</h3>
-<dl>
+<dl class="vertical">
 	<dt>Plus/ Minus</dt>
 	<dd>
 		Click the plus or minus control to zoom in or out, respectively.
@@ -123,7 +121,7 @@
 </dl>
 
 <h3>Map Interactions</h3>
-<dl>
+<dl class="vertical">
 
 	<dt>Zoom</dt>
 	<dd>
@@ -149,70 +147,61 @@
 
 
 <h3 id="map-layers">Map Layers</h3>
-<p>Map Layers can be changed in <a href="#settings-map">Settings &gt; Map Layers</a>.</p>
-<dl>
+<p>
+	Map Layers can be changed in <a href="#settings-map">Settings &gt; Map Layers</a>.
+</p>
+
+<dl class="vertical">
 	<dt>Grayscale Map</dt>
 	<dd>
-		<p>A light gray basemap designed with neutral colors and minimal features.</p>
+		A light gray basemap designed with neutral colors and minimal features.
 	</dd>
 
 	<dt>Terrain Map</dt>
 	<dd>
-		<p>
-			A distinctive, highly detailed, basemap that reflects National Geographic's cartographic style. The terrain map is designed to be aesthetically pleasing. </p>
-		<p>
+			A distinctive, highly detailed, basemap that reflects National Geographic's cartographic style. The terrain map is designed to be aesthetically pleasing.
 	</dd>
 
 	<dt>Street Map</dt>
 	<dd>
-		<p>
 			A hybrid view, that provides detailed street and highway-level data on top of terrain data.
-		</p>
 	</dd>
 
 	<dt>Satellite Map</dt>
 	<dd>
-		<p>
 			An aerial view that uses satellite or aerial imagery.
-		</p>
 	</dd>
 
 	<dt>Plate Boundaries</dt>
 	<dd>
-		<p>
 			An overlay depicting plate boundaries.  Plate boundaries are displayed as bold red lines.
-		</p>
 	</dd>
 
 	<dt>U.S. Faults</dt>
 	<dd>
-		<p>
 			An overlay depicting U.S. Faults.  U.S. Faults are displayed as thin red lines, and the fault names display as hover text.
-		</p>
 	</dd>
 
 	<dt>U.S. Hazards</dt>
 	<dd>
-		<p>
 			The U.S. Hazards overlay defines areas of shaking.  Red characterizes areas in the U.S. with the highest levels of shaking, while blue distinguishes areas with the lowest levels of shaking.
-		</p>
 	</dd>
 </dl>
 
 
 
 <?php /* SETTINGS------------------------------------------------------------- */?>
-<h2 id="settings">Settings</h2>
+<h2 id="settings" class="section-header">Settings</h2>
 
 <p>
 	To show settings (or hide on desktop), click <span class="modeIcon small inline settings" title="Settings">Settings</span> in the top right corner. You can save your settings or search results by bookmarking the resulting URL in your browser.
 <p>
 
 <h3 id="settings-earthquakes">Earthquakes</h3>
-<h3 id="settings-earthquakes-update" class="subheader">Auto Update</h3>
+<h4 id="settings-earthquakes-update" class="subheader">Auto Update</h4>
 <p>This option will automatically update the earthquake data every minute. Auto update defaults to ON for desktop devices and OFF for mobile devices. </p>
 
-<h3 id="settings-earthquakes-feeds" class="subheader">Feeds</h3>
+<h4 id="settings-earthquakes-feeds" class="subheader">Feeds</h4>
 <p>The default feed is set to display earthquakes of magnitude 2.5 and greater during the past 24 hrs (1 Day, Magnitude 2.5+). You can choose from the following options:</p>
 <ul>
 	<li>1 Day, Magnitude 2.5+ [default]</li>
@@ -224,12 +213,11 @@
 	<li>30 Days, Magnitude 2.5+</li>
 </ul>
 
-<h3 id="settings-earthquakes-search" class="subheader">Search Earthquake Archives</h3>
+<h4 id="settings-earthquakes-search" class="subheader">Search Earthquake Archives</h4>
 <p>See <a href="#search-earthquake-archives">Search Earthquake Archives</a> for more details on how to search the catalog.</p>
 
 <h3 id="settings-sort">List Sort Order</h3>
-
-<h3 id="settings-sort-order" class="subheader">Sort Order</h3>
+<h4 id="settings-sort-order">Sort Order</h4>
 <p>Choose the order to display the earthquakes in the list:</p>
 <ul>
 	<li>Newest first [default]</li>
@@ -268,7 +256,7 @@
 
 
 <?php /* SEARCH------------------------------------------------------------- */?>
-<h2 id="search-earthquake-archives">Search Earthquake Archives</h2>
+<h2 id="search-earthquake-archives" class="section-header">Search Earthquake Archives</h2>
 
 <p>
 	If you want to display earthquakes older than 30 days, or you want to search the earthquake catalog, click on "Search Earthquake Archives".
@@ -283,7 +271,7 @@
 
 
 <?php /* HOW TO PRINT THE MAP------------------------------------------------ */ ?>
-<h2 id="print">How to Print</h2>
+<h2 id="print" class="section-header">How to Print</h2>
 
 <h3>Map</h3>
 <p>To print the map, take a screenshot by following these instructions:</p>
@@ -303,10 +291,10 @@
 
 <?php /* KNOWN BUGS------------------------------------------------------------- */?>
 
-<h2 id="bugs">Known Bugs</h2>
+<h2 id="bugs" class="section-header">Known Bugs</h2>
 <p>There are a few bugs that we are currently aware of:</p>
 
-<dl>
+<dl class="vertical">
 	<dt>Browser Crashes</dt>
 	<dd>
 		If your browser crashes, it's probably because you're trying to view too many earthquakes.  See our <a href="#disclaimer">disclaimers</a> for tips on how to avoid crashing a resource strapped device.
@@ -324,7 +312,7 @@
 
 <?php /* DESKTOP BROWSERS------------------------------------------------------------- */?>
 
-<h2 id="browser-support">Browser Support</h2>
+<h2 id="browser-support" class="section-header">Browser Support</h2>
 
 <p>
 	<strong>We support the two most recent versions of Chrome, Firefox, Safari, and Internet Explorer.</strong>
