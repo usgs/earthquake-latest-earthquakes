@@ -343,7 +343,7 @@ define([
 						'</a>',
 					'</li>',
 					'<li>',
-						'<a href="/earthquakes/eventpage/unknown/">',
+						'<a href="/earthquakes/eventpage/unknown.php#impact_tellus">',
 							'Felt something not shown – report it here.',
 						'</a>',
 					'</li>',
