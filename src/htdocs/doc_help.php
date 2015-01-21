@@ -126,7 +126,7 @@
 	</li>
 	<li>Downloading a list of earthquakes will download the worldwide list of
 		earthquakes not just those in the map view. See
-		<a href="http://comcat.cr.usgs.gov/fdsnws/event/1/#extensions">Earthquake
+		<a href="/fdsnws/event/1/#extensions">Earthquake
 				Search and Web Service API Documentation.</a>
 	</li>
 </ul>
@@ -342,7 +342,7 @@
 </ul>
 <h3 id="search-options">Search Options</h3>
 <p>
-	See <a href="http://comcat.cr.usgs.gov/fdsnws/event/1/" >Earthquake Search
+	See <a href="/fdsnws/event/1/" >Earthquake Search
 			and Web Service API Documentation.</a>
 </p>
 
