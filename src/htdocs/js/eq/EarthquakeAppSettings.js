@@ -16,10 +16,8 @@ define([
 	    feedHost = '',
 	    tileHost = '';
 
-	if (hostname.indexOf('earthquake.usgs.gov') > -1) {
-		searchHost = 'http://comcat.cr.usgs.gov';
-	} else if (hostname.indexOf('usgs.gov') < 0) {
-		searchHost = 'http://comcat.cr.usgs.gov';
+	if (hostname.indexOf('usgs.gov') < 0) {
+		searchHost = 'http://earthquake.usgs.gov';
 		feedHost = 'http://earthquake.usgs.gov';
 		tileHost = 'http://earthquake.usgs.gov';
 	}
