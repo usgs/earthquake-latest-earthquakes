@@ -52,7 +52,7 @@ define([
 			Collection.call(this);
 
 			if (typeof(_options.host) === 'undefined') {
-				_options.host = 'http://comcat.cr.usgs.gov';
+				_options.host = '';
 			}
 
 			// set max number of results before displaying a warning
