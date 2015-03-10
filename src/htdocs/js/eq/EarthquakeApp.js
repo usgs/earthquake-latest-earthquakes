@@ -86,7 +86,7 @@ define([
 		(function() {
 			var loading = _this.setLoading(true);
 			loading.firstChild.appendChild(document.createElement('p')).innerHTML =
-				'Having trouble?<br/><a href="/reset/">Reset your settings</a>';
+				'Having trouble?<br/><a href="doc_help.php#browser-support">Supported Browsers</a>';
 		})();
 
 		this.revertToDefaultFeed = function (silent) {
