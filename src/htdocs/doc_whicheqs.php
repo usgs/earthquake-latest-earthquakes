@@ -47,7 +47,7 @@
 	be difficult for the USGS to locate if there are not enough data. The USGS
 	continues to receive data from observatories throughout the world for several
 	months after the events occur. Using those data, we add new events and revise
-	existing events in later publications. For a description of these later 
+	existing events in later publications. For a description of these later
 	publications and the data available, see <a href="/data/">Scientific Data</a>.
 </p>
 
@@ -62,9 +62,6 @@
 <ul>
 	<li>
 		<a href="/earthquakes/states/">Earthquake Info by State/Territory</a>
-	</li>
-	<li>
-		<a href="/earthquakes/world/">Earthquake Info by Country/Region</a>
 	</li>
 </ul>
 
