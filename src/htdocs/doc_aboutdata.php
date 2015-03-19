@@ -28,8 +28,10 @@
   and other products (e.g. moment tensor solutions, macroseismic information,
   tectonic summaries, maps) produced by contributing seismic networks. This
   comprehensive collection of seismic information will eventually replace the
-  ANSS composite catalog hosted by the Northern California Data Center; however,
-  historic regional seismic network catalogs have not yet been fully loaded.
+  <a href="http://www.quake.geo.berkeley.edu/anss/catalog-search.html">
+  ANSS composite catalog hosted by the Northern California Data Center</a>;
+  however, historic regional seismic network catalogs have not yet been fully
+  loaded.
 </p>
 
 <p>
@@ -43,7 +45,7 @@
 <h2 id="data-availability" class="section-header">Data Availability</h2>
 
 <p>
-  Data Availability as of 2015-01-20:
+  Data Availability as of 2015-03-19:
 </p>
 
 <ul>
@@ -71,8 +73,13 @@
     2011
   </li>
   <li>
-    <a href="/data/centennial/">Centennial Earthquake Catalog</a> from 1900 to
-    2007
+    Wphase (Duputel) from 1990 to 2012
+  </li>
+  <li>
+    ISCGEM
+  </li>
+  <li>
+    GCMT (Global Centroid-Moment-Tensor)
   </li>
 </ul>
 
@@ -82,16 +89,7 @@
 
 <ul>
   <li>
-    Wphase from 1990 to 2012
-  </li>
-  <li>
-    NEIC SOPAR - Source Parameter Database
-  </li>
-  <li>
     &ldquo;Official&rdquo; magnitudes
-  </li>
-  <li>
-    GCMT (Global Centroid-Moment-Tensor)
   </li>
 </ul>
 
