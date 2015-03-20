@@ -245,8 +245,8 @@ module.exports = function (grunt) {
 		uglify: {
 			options: {
 				mangle: true,
-				compress: true,
-				report: 'gzip'
+				compress: {},
+				report: 'min'
 			},
 			dist: {
 				files: {
