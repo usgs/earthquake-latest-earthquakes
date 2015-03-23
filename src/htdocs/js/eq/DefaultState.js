@@ -45,7 +45,7 @@ define(['mvc/State'], function(State) {
         '</li>',
         '<li>',
           '<a href="doc_aboutdata.php">',
-            'About ANSS Comprehensive Catalog',
+            'About ANSS Comprehensive Catalog and Important Caveats',
           '</a>',
         '</li>',
         '<li>',

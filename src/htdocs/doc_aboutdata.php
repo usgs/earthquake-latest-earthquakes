@@ -1,6 +1,6 @@
 <?php
   if (!isset($TEMPLATE)) {
-    $TITLE = 'About ANSS Comprehensive Catalog';
+    $TITLE = 'About ANSS Comprehensive Catalog and Important Caveats';
     $HEAD = '<link rel="stylesheet" href="css/documentation.css"/>';
     $NAVIGATION = true;
 
