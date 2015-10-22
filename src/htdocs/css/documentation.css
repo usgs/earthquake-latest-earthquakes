@@ -1,10 +1,10 @@
 .section-header {
-	padding-top: 1em;
-	border-top: 1px solid #ddd;
+  padding-top: 1em;
+  border-top: 1px solid #ddd;
 }
 
 .vertical > dt {
-	margin: 1em 0;
+  margin: 1em 0;
 }
 
 .modeIcon {
@@ -13,23 +13,23 @@
 }
 
 .modeIcon.small {
-	background-size: 64px 16px;
-	width: 16px;
-	height: 16px;
-	margin: 0 2px;
-	display: inline-block;
-	vertical-align: middle;
-	text-indent: -9999px;
+  background-size: 64px 16px;
+  width: 16px;
+  height: 16px;
+  margin: 0 2px;
+  display: inline-block;
+  vertical-align: middle;
+  text-indent: -9999px;
 }
 
 .modeIcon.help {
-	background-position: 16px 0;
+  background-position: 16px 0;
 }
 
 .modeIcon.map {
-	background-position: 48px 0;
+  background-position: 48px 0;
 }
 
 .modeIcon.settings {
-	background-position: 32px 0;
+  background-position: 32px 0;
 }
