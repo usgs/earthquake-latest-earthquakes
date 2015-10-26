@@ -53,10 +53,28 @@
     'requirejs:dev',
     'replace:leaflet_jakefile',
     'exec:build_leaflet',
-    'copy:leaflet_custom',
+    'copy:leaflet', //copies leaflet css
+    'copy:leaflet_custom', // copies leaflet js
     'configureRewriteRules',
     'connect:test',
     'connect:dev',
     'watch'
+  ]);
+
+  grunt.registerTask('dist', [
+    'copy:jakefile',
+    'copy:dev',
+    'requirejs:dev',
+    'replace:leaflet_jakefile',
+    'exec:build_leaflet',
+    'copy:leaflet',
+    'copy:leaflet_custom',
+    'copy:dist',
+    'cssmin',
+    'htmlmin',
+    'uglify',
+    'configureRewriteRules',
+    'connect:dist:keepalive'
+
   ]);
 };
