@@ -46,20 +46,18 @@ var connect = {
       base: [config.dist + '/htdocs'],
       port: config.distPort,
       open: 'http://localhost:' + config.distPort,
-      keepalive: true,
-      middleware: function (connect, options) {
-        return [
+      middleware: function (connect, options, middlewares) {
+        middlewares.unshift(
           (function () {
             var gzip = require('connect-gzip');
             return gzip.gzip({
               matchType: /text|javascript|json|css/
             });
           })(),
-          mountPHP(options.base),
-          mountFolder(connect, options.base),
-          rewriteRulesSnippet,
-          mountFolder(connect, 'node_modules')
-        ];
+          mountPHP(options.base[0]),
+          rewriteRulesSnippet
+        );
+        return middlewares;
       }
     }
   },
