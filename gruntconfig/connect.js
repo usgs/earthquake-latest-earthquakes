@@ -26,9 +26,7 @@ var connect = {
   dev: {
     options: {
       base: [
-        config.build + '/' + config.src + '/htdocs',
-        '.tmp',
-        'node_modules'
+        config.build + '/' + config.src + '/htdocs'
       ],
       port: config.devPort,
       open: 'http://localhost:' + config.devPort,
@@ -64,13 +62,12 @@ var connect = {
   test: {
     options: {
       base: [
-        config.build + '/' + config.src + '/htdocs',
         config.build + '/' + config.test,
-        'node_modules',
-        '.tmp'
+        config.build + '/' + config.src + '/htdocs',
+        'node_modules'
       ],
       port: config.testPort,
-      open: 'http://localhost:' + config.testPort
+      open: 'http://localhost:' + config.testPort + '/test.html'
     }
   }
 };
