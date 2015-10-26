@@ -25,10 +25,10 @@ var copy = {
       }
     }]
   },
-  app: {
+  dist: {
     expand: true,
-    cwd: [config.build + '/' + config.src + '/htdocs'],
-    dest: [config.dist + '/htdocs'],
+    cwd: config.build + '/' + config.src + '/htdocs',
+    dest: config.dist + '/htdocs',
     src: [
       'img/**/*.{png,gif,jpg,jpeg}',
       '**/*.php'
@@ -65,6 +65,12 @@ var copy = {
       '**/*.html',
       'css/**/*.css'
     ]
+  },
+  leaflet: {
+    expand: true,
+    cwd: 'node_modules/leaflet/dist',
+    dest: config.build + '/' + config.src + '/htdocs/lib/leaflet',
+    src: 'leaflet.css'
   }
 };
 
