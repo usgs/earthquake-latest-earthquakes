@@ -3,11 +3,11 @@
 var config = require('./config');
 
 var requirejs = {
-  dist: {
+  dev: {
     options: {
       appDir: config.src + '/htdocs/js',
       baseUrl: '.',
-      dir: config.dist + '/htdocs/js',
+      dir: config.build + '/' + config.src + '/htdocs/js',
       useStrict: true,
       wrap: false,
       removeCombined: true,
