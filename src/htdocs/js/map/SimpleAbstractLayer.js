@@ -1,8 +1,8 @@
 /* global define */
 define([
-	'leaflet'
+  'leaflet'
 ], function(L) {
-	'use strict';
+  'use strict';
 
 
     // Digits used in ArcCache tile index for URLs

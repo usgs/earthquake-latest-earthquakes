@@ -1,20 +1,20 @@
 /* Styles for intro dialog */
 .transitionview > .modal-footer > .transitionview-skip {
-	display:block;
-	font-size:.8em;
-	margin-top:16px;
+  display:block;
+  font-size:.8em;
+  margin-top:16px;
 }
 
 /* Styles for migration dialog */
 .transitionview-bookmark {
-	margin-bottom:4px;
+  margin-bottom:4px;
 }
 .transitionview-disclaimer {
-	font-size:.8em;
-	color:#666;
+  font-size:.8em;
+  color:#666;
 }
 
 /* Styles for skip dialog */
 .transitionview-remove {
-	float:right;
+  float:right;
 }

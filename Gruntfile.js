@@ -1,17 +1,17 @@
 'use strict';
  module.exports = function (grunt) {
 
-	var gruntconfig = require('./gruntconfig');
+  var gruntconfig = require('./gruntconfig');
 
-	gruntconfig.tasks.forEach(grunt.loadNpmTasks);
+  gruntconfig.tasks.forEach(grunt.loadNpmTasks);
   grunt.initConfig(gruntconfig);
 
-	grunt.event.on('watch', function (action, filepath) {
+  grunt.event.on('watch', function (action, filepath) {
     // Only lint the file that actually changed
     grunt.config(['jshint', 'scripts'], filepath);
   });
 
-	grunt.registerTask('test', [
+  grunt.registerTask('test', [
     'clean:dist',
     'connect:test',
     'mocha_phantomjs'

@@ -1,23 +1,23 @@
 .catalog-action-description {
-	display:block;
-	font-size:.7em;
-	color:#444;
+  display:block;
+  font-size:.7em;
+  color:#444;
 }
 
 .downloads > .toggle-content > ul {
-	margin:.25em 0;
-	font-size:.8em;
+  margin:.25em 0;
+  font-size:.8em;
 }
 .downloads > .toggle-content > ul > li {
-	margin:.4em 0;
+  margin:.4em 0;
 }
 
 .catalog-revert-wrapper {
-	margin-top:2.5em;
-	margin-bottom:0;
+  margin-top:2.5em;
+  margin-bottom:0;
 }
 
 .catalog > .modal-footer {
-	margin:0;
-	padding:0;
+  margin:0;
+  padding:0;
 }

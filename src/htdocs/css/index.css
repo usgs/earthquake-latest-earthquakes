@@ -26,13 +26,13 @@
 
 /* http://paulirish.com/2012/box-sizing-border-box-ftw/ */
 * {
-	-moz-box-sizing:border-box;
-	-webkit-box-sizing:border-box;
-	box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  box-sizing:border-box;
 }
 
 body {
-	opacity:.99;
+  opacity:.99;
 }
 
 
@@ -42,16 +42,16 @@ abbr {
     cursor:help;
 }
 .button-as-link {
-	display:inline;
-	border:none;
-	background:none;
-	text-decoration:none;
-	margin:0;
-	padding:0;
-	font:normal 1em/1.5 'Arial';
-	cursor:pointer;
-	color:#00C;
-	text-decoration:underline;
+  display:inline;
+  border:none;
+  background:none;
+  text-decoration:none;
+  margin:0;
+  padding:0;
+  font:normal 1em/1.5 'Arial';
+  cursor:pointer;
+  color:#00C;
+  text-decoration:underline;
 }
 
 .close-link {
@@ -82,4 +82,3 @@ abbr {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aaaaaa', endColorstr='#777777',GradientType=0 ); /* IE6-9 */
 }
 .close-link:hover {color:#C00;}
-

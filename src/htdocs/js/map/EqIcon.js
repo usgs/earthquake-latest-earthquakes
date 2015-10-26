@@ -1,55 +1,55 @@
 /* global define */
 define([
-	'leaflet'
+  'leaflet'
 ], function(
-	L
+  L
 ) {
-	'use strict';
+  'use strict';
 
 
-	L.EqIcon = L.Class.extend ({
-		options: {
-			/*
-			iconStyles: (Array)
-			iconClasses: (Array)
-			*/
-			className: 'eq-icon'
-		},
+  L.EqIcon = L.Class.extend ({
+    options: {
+      /*
+      iconStyles: (Array)
+      iconClasses: (Array)
+      */
+      className: 'eq-icon'
+    },
 
-		initialize: function (options) {
-			L.Util.setOptions(this, options);
-		},
+    initialize: function (options) {
+      L.Util.setOptions(this, options);
+    },
 
-		createIcon: function () {
-			var el = document.createElement('span');
+    createIcon: function () {
+      var el = document.createElement('span');
 
-			this._setIconClasses(el);
-			this._setIconStyles(el);
-			if ('iconId' in this.options) {
-				el.setAttribute('id', this.options.iconId);
-			}
+      this._setIconClasses(el);
+      this._setIconStyles(el);
+      if ('iconId' in this.options) {
+        el.setAttribute('id', this.options.iconId);
+      }
 
-			return el;
-		},
+      return el;
+    },
 
-		createShadow: function () {
-			return null; // No shadow, but keep so we implement the API properly
-		},
+    createShadow: function () {
+      return null; // No shadow, but keep so we implement the API properly
+    },
 
-		_setIconStyles: function (el) {
-			el.style.cssText = this.options.iconStyles.join(';');
-		},
+    _setIconStyles: function (el) {
+      el.style.cssText = this.options.iconStyles.join(';');
+    },
 
-		_setIconClasses: function (el) {
-			el.className = this.options.className + ' ' +
-				this.options.iconClasses.join(' ');
-		}
+    _setIconClasses: function (el) {
+      el.className = this.options.className + ' ' +
+        this.options.iconClasses.join(' ');
+    }
 
-	});
+  });
 
-	L.eqicon = function (options) {
-		return new L.EqIcon(options);
-	};
+  L.eqicon = function (options) {
+    return new L.EqIcon(options);
+  };
 
-	return L.EqIcon;
+  return L.EqIcon;
 });

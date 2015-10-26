@@ -10,28 +10,28 @@ Mobile friendly, interactive earthquake map and list application.
 
 1. Install NPM dependencies
 
-		`npm install`
+    `npm install`
 
 1. Preview in a browser
 
-		`grunt`
+    `grunt`
 
-		On windows, `gateway` has trouble resolving default documents and you need
-		to change the opened url to `http://localhost:8000/index.html` in order to
-		view the Test Suite.
-		To view the application go to 'http://localhost:8080/index.html'
+    On windows, `gateway` has trouble resolving default documents and you need
+    to change the opened url to `http://localhost:8000/index.html` in order to
+    view the Test Suite.
+    To view the application go to 'http://localhost:8080/index.html'
 
 ### Having trouble getting started?
 
 1. If this is your first time using **grunt**, you need to install the grunt
 command line interface globally
 
-		`npm install -g grunt-cli`
+    `npm install -g grunt-cli`
 
 1. Leaflet uses Jake to compile it's source.
 
-		`npm install -g jake`
+    `npm install -g jake`
 
 1. Jake uses uglify to compile the leaflet source.
 
-		`npm install -g uglify-js`
+    `npm install -g uglify-js`

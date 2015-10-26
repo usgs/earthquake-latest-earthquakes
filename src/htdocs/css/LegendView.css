@@ -6,20 +6,20 @@
 .leaflet-control-container .leaflet-control-legendview {
     position:absolute;
     top:0; left:-72px; /* left = 1/2 width */
-	width:144px;
+  width:144px;
 }
 
 .leaflet-control-container .leaflet-control-legendview {
     height:44px;
-	margin:0 0 10px 0;
+  margin:0 0 10px 0;
 }
 
 .leaflet-control-legendview h5  {
-	display:block;
-	margin:0 0 2px 0;
-	padding:0 1px;
-	font-size:10px;
-	font-weight: normal;
+  display:block;
+  margin:0 0 2px 0;
+  padding:0 1px;
+  font-size:10px;
+  font-weight: normal;
 }
 
 .eq-age-hour {background-color:#F00;}
@@ -29,9 +29,9 @@
 
 .leaflet-control-legendview > ol {
     list-style:none;
-	padding:0;
-	float:left;
-	margin:0;
+  padding:0;
+  float:left;
+  margin:0;
 }
 
 .leaflet-control-legendview > ol li {
@@ -48,65 +48,65 @@
 }
 
 .leaflet-control-legendview > ol > .age-color-legendView {
-	margin: 0px;
+  margin: 0px;
 }
 
 .leaflet-control-legendview .color-bar {
-	display:block;
+  display:block;
     position:static;
-	width:30px;
-	height:5px;
+  width:30px;
+  height:5px;
     margin:0 auto;
 }
 
 .mode-map .leaflet-control-container .leaflet-control-scale {
-	float:left;
-	clear:left;
+  float:left;
+  clear:left;
 }
 
 .mode-map .leaflet-control-container .leaflet-control-mouseposition,
 .mode-map .leaflet-control-container .leaflet-control-legendview {
-	float:right;
-	clear:right;
-	margin-right:10px;
-	display:none;
+  float:right;
+  clear:right;
+  margin-right:10px;
+  display:none;
 }
 
 .mode-map .leaflet-control-container .leaflet-bottom .leaflet-control-scale.leaflet-control {
 
-		margin-left:5px;
-		margin-bottom:5px;
+    margin-left:5px;
+    margin-bottom:5px;
 }
 
 /* Medium screens */
 @media screen and (min-width:420px) {
 
 
-	.mode-map .leaflet-control-container .leaflet-bottom .leaflet-control-scale.leaflet-control {
-		margin-left:10px;
-		margin-bottom: 12px;
-	}
+  .mode-map .leaflet-control-container .leaflet-bottom .leaflet-control-scale.leaflet-control {
+    margin-left:10px;
+    margin-bottom: 12px;
+  }
 
-	.mode-map .leaflet-control-container .leaflet-control-scale {
-		position:relative;
-		float:left;
-		clear:none;
-		display:block;
-		float:left;
-		clear:left;
-	}
+  .mode-map .leaflet-control-container .leaflet-control-scale {
+    position:relative;
+    float:left;
+    clear:none;
+    display:block;
+    float:left;
+    clear:left;
+  }
 
-	.mode-map .leaflet-control-container .leaflet-bottom .leaflet-control-legendview {
-		display:block;
-	}
+  .mode-map .leaflet-control-container .leaflet-bottom .leaflet-control-legendview {
+    display:block;
+  }
 
-	.desktop .mode-map .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition {
-		position:relative;
-		float:right;
-		clear:none;
-		display:block;
-		margin-top: 16px;
-	}
+  .desktop .mode-map .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition {
+    position:relative;
+    float:right;
+    clear:none;
+    display:block;
+    margin-top: 16px;
+  }
 
 }
 
@@ -114,21 +114,21 @@
 
 @media screen and (min-width:421px) and (max-width:740px) {
 
-	.mode-list .leaflet-control-container .leaflet-bottom .leaflet-control-scale,
-	.mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-scale {
-		float:left;
-		clear:left;
-	}
+  .mode-list .leaflet-control-container .leaflet-bottom .leaflet-control-scale,
+  .mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-scale {
+    float:left;
+    clear:left;
+  }
 
-	/* Two modes enabled (including map), window is below 740px. Stack the leaflet controls. */
-	.desktop .mode-list .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
-	.mode-list .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
-	.mode-list .leaflet-control-container .leaflet-bottom .leaflet-control-legendview,
-	.desktop .mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
-	.mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
-	.mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-legendview {
-		display:none;
-	}
+  /* Two modes enabled (including map), window is below 740px. Stack the leaflet controls. */
+  .desktop .mode-list .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
+  .mode-list .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
+  .mode-list .leaflet-control-container .leaflet-bottom .leaflet-control-legendview,
+  .desktop .mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
+  .mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
+  .mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-legendview {
+    display:none;
+  }
 }
 
 
@@ -136,15 +136,15 @@
 
 @media screen and (min-width:721px) and (max-width:1050px) {
 
-	/* All three modes enabled, window is below 1050px.  Stack the leaflet controls. */
-	.mode-list.mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
-	.mode-list.mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-legendview {
-		display:none;
-	}
+  /* All three modes enabled, window is below 1050px.  Stack the leaflet controls. */
+  .mode-list.mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
+  .mode-list.mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-legendview {
+    display:none;
+  }
 
-	.mode-list.mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-scale {
-		float:left;
-		clear:left;
-	}
+  .mode-list.mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-scale {
+    float:left;
+    clear:left;
+  }
 
 }

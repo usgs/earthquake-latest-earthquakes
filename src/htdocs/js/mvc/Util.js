@@ -1,6 +1,6 @@
 /* global define */
 define([], function () {
-	'use strict';
+  'use strict';
 
 
     // do this check once, instead of once per call
@@ -49,41 +49,41 @@ define([], function () {
          * @param a {Object} Object a.
          * @param b {Object} Object b.
          */
-				equals: function (objA, objB) {
-					var keya,
-					    keyb;
+        equals: function (objA, objB) {
+          var keya,
+              keyb;
 
-					if (objA === objB) {
-						// if === then ===, no question about that...
-						return true;
-					} else if (objA === null || objB === null) {
-						// funny, typeof null === 'object', so ... hmph!
-						return false;
-					} else if (typeof objA === 'object' && typeof objB === 'object') {
-						// recursively check objects
-						for (keya in objA) {
-							if (objA.hasOwnProperty(keya)) {
-								if (!objB.hasOwnProperty(keya)) {
-									return false; // objB is missing a key from objA
-								}
-							}
-						}
+          if (objA === objB) {
+            // if === then ===, no question about that...
+            return true;
+          } else if (objA === null || objB === null) {
+            // funny, typeof null === 'object', so ... hmph!
+            return false;
+          } else if (typeof objA === 'object' && typeof objB === 'object') {
+            // recursively check objects
+            for (keya in objA) {
+              if (objA.hasOwnProperty(keya)) {
+                if (!objB.hasOwnProperty(keya)) {
+                  return false; // objB is missing a key from objA
+                }
+              }
+            }
 
-						for (keyb in objB) {
-							if (objB.hasOwnProperty(keyb)) {
-								if (!objA.hasOwnProperty(keyb)) {
-									return false; // objA is missing a key from objB
-								} else if (!Util.equals(objA[keyb], objB[keyb])) {
-									return false; // objA[key] !== objB[key]
-								}
-							}
-						}
+            for (keyb in objB) {
+              if (objB.hasOwnProperty(keyb)) {
+                if (!objA.hasOwnProperty(keyb)) {
+                  return false; // objA is missing a key from objB
+                } else if (!Util.equals(objA[keyb], objB[keyb])) {
+                  return false; // objA[key] !== objB[key]
+                }
+              }
+            }
 
-						return true; // Recursively equal, so equal
-					} else {
-						return objA === objB; // Use baked in === for primitives
-					}
-				},
+            return true; // Recursively equal, so equal
+          } else {
+            return objA === objB; // Use baked in === for primitives
+          }
+        },
 
         /**
          * Add a class to an element.

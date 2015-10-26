@@ -1,25 +1,25 @@
 @import url('/lib/leaflet/leaflet.css');
 
 .mapView {
-	background-color:#fff;
+  background-color:#fff;
 }
 
 .mapView .loading {
-	position:absolute;
-	left:0;
-	top:0;
-	width:100%;
-	height:100%;
-	margin:0;
-	padding:1em;
-	background-color:#333;
-	color:#fff;
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:1em;
+  background-color:#333;
+  color:#fff;
 }
 
 .mapView .leaflet-container {
-	width:100%;
-	height:100%;
-	cursor: default;
+  width:100%;
+  height:100%;
+  cursor: default;
 }
 
 .mapView .leaflet-control-background,
@@ -36,21 +36,21 @@
 }
 
 .mapView .leaflet-control-scale-line {
-	font-size: 8px;
+  font-size: 8px;
 }
 
 .eq-icon,
 .non-eq-icon {
-	display:block;
-	position:absolute;
-	border:1px solid #333;
+  display:block;
+  position:absolute;
+  border:1px solid #333;
 }
 
 .eq-icon {
-	-webkit-border-radius:20px;
-	-moz-border-radius:20px;
-	-o-border-radius:20px;
-	border-radius:20px;
+  -webkit-border-radius:20px;
+  -moz-border-radius:20px;
+  -o-border-radius:20px;
+  border-radius:20px;
 }
 
 .eq-age-hour {background-color:#F00;}
@@ -129,5 +129,5 @@
 .zoomednormal .eq-size-large,
 .zoomedin .eq-size-large,
 .zoomedin .eq-size-medium {
-	margin-top:1px;
+  margin-top:1px;
 }
