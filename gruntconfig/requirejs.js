@@ -44,6 +44,36 @@ var requirejs = {
         }
       ]
     }
+  },
+  test: {
+    options: {
+      appDir: config.test,
+
+      baseUrl: '.',
+
+      dir: config.build + '/' + config.test,
+
+      useStrict: true,
+
+      wrap: false,
+
+      removeCombined: true,
+
+      optimize: 'none',
+
+      paths: {
+        requireLib: '../node_modules/requirejs/require'
+      },
+
+      modules: [
+        {
+          name: 'test',
+          include:[
+            'requireLib'
+          ]
+        }
+      ]
+    }
   }
 };
 
