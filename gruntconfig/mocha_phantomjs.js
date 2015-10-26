@@ -1,11 +1,11 @@
 'use strict';
-var config = require('./connect').test.options;
+var config = require('./config');
 
 var mocha_phantomjs = {
   all: {
     options: {
       urls: [
-        'http://localhost:<%= connect.test.options.port %>/index.html'
+        'http://localhost:' + config.testPort + '/test.html'
       ]
     }
   }
