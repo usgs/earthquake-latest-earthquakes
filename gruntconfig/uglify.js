@@ -6,7 +6,7 @@ var uglify = {
   options: {
     mangle: true,
     compress: {},
-    report: 'gzip'
+    report: 'min'
   },
   dist: {
     files: [{
