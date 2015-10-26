@@ -54,7 +54,7 @@
     'replace:leaflet_jakefile',
     'exec:build_leaflet',
     'copy:leaflet', //copies leaflet css
-    'copy:leaflet_custom', // copies leaflet js
+    'copy:leaflet_custom', //copies leaflet js
     'configureRewriteRules',
     'connect:test',
     'connect:dev',
@@ -67,8 +67,8 @@
     'requirejs:dev',
     'replace:leaflet_jakefile',
     'exec:build_leaflet',
-    'copy:leaflet',
-    'copy:leaflet_custom',
+    'copy:leaflet', //copies leaflet css
+    'copy:leaflet_custom', //copies leaflet js
     'copy:dist',
     'cssmin',
     'htmlmin',
