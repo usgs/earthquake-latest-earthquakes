@@ -2,21 +2,33 @@
 
 var autoprefixer = require('autoprefixer'),
     cssnano = require('cssnano'),
+    cssImport = require('postcss-import'),
     precss = require('precss');
 
 var config = require('./config');
 
 var postcss = {
 
-  build: {
+  dev: {
     options: {
       processors: [
+        cssImport({
+          path: [
+            'node_modules/leaflet/dist'
+          ]
+
+        }),
         precss(),
         autoprefixer({'browsers': 'last 2 versions'}) // vendor prefix as needed
       ]
     },
-    src: config.src + '/tablist/hazdev-tablist.scss',
-    dest: config.build + '/' + config.src + '/hazdev-tablist.css'
+    expand: true,
+    cwd: config.src + '/htdocs',
+    src: [
+      '**/*.css',
+      '!**/_*.css'
+    ],
+    dest: config.build + '/' + config.src + '/htdocs'
   },
 
   dist: {
@@ -25,8 +37,12 @@ var postcss = {
         cssnano({zindex: false}) // minify
       ]
     },
-    src: config.build + '/' + config.src + '/hazdev-tablist.css',
-    dest: config.dist + '/hazdev-tablist.css'
+    expand: true,
+    src: [
+      '**/*.css'
+    ],
+    cwd: config.build + '/' + config.src + '/htdocs',
+    dest: config.dist + '/htdocs'
   }
 };
 
