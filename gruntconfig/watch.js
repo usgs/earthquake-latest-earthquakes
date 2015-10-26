@@ -5,17 +5,17 @@ var config = require('./config');
 var watch = {
   scripts: {
     files: [config.src + '/htdocs/js/**/*.js'],
-    tasks: ['concurrent:scripts'],
     options: {
       livereload: config.liveReloadPort
     }
   },
-  scss: {
+  css: {
     files: [config.src + '/htdocs/css/**/*.scss'],
+    tasks: ['postcss:build'],
+    livereload: config.liveReloadPort
   },
   tests: {
-    files: [config.test + '/*.html', config.test + '/**/*.js'],
-    tasks: ['concurrent:tests']
+    files: [config.test + '/*.html', config.test + '/**/*.js']
   },
   livereload: {
     options: {
