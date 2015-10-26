@@ -9,9 +9,9 @@ var htmlmin = {
     },
     files: [{
       expand: true,
-      cwd: [config.src],
+      cwd: config.build + '/' + config.src,
       src: '**/*.html',
-      dest: [config.dist]
+      dest: config.dist
     }]
   }
 };
