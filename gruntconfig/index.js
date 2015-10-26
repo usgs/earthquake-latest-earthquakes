@@ -4,7 +4,6 @@
     config: require('./config'),
 
     clean: require('./clean'),
-    compass: require('./compass'),
     concurrent: require('./concurrent'),
     connect: require('./connect'),
     copy: require('./copy'),
@@ -23,7 +22,6 @@
     'grunt-connect-proxy',
     'grunt-connect-rewrite',
     'grunt-contrib-clean',
-    'grunt-contrib-compass',
     'grunt-contrib-connect',
     'grunt-contrib-copy',
     'grunt-contrib-cssmin',

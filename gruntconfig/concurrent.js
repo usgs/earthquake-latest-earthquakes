@@ -6,7 +6,6 @@ var concurrent = {
   predist: [
     'jshint:scripts',
     'jshint:tests',
-    'compass',
     'copy'
   ],
   dist: [

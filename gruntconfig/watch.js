@@ -12,7 +12,6 @@ var watch = {
   },
   scss: {
     files: [config.src + '/htdocs/css/**/*.scss'],
-    tasks: ['compass:dev']
   },
   tests: {
     files: [config.test + '/*.html', config.test + '/**/*.js'],
