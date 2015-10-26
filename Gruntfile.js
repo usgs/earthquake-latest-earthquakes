@@ -26,15 +26,14 @@
       'replace:leaflet_jakefile',
       'exec:build_leaflet',
       'copy:leaflet_custom',
-      'concurrent:predist',
       'requirejs:dist',
-      'concurrent:dist',
       'replace:html',
       'replace:javascript',
       'replace:leaflet_shim_dist',
       'replace:leaflet_jakefile',
       'configureRewriteRules',
-      'connect:dist'
+      'connect:dist',
+      'postcss:build'
     ];
 
     if (task === 'legacy') {
@@ -47,34 +46,39 @@
   //remove "copy:jakefile", and "replace:leaflet_jakefile"
   //  when Jakefile.js is upgraded with next release.
   grunt.registerTask('default', [
-    'clean:dist',
-    'copy:jakefile',
-    'copy:dev',
-    'requirejs:dev',
-    'replace:leaflet_jakefile',
-    'exec:build_leaflet',
-    'copy:leaflet', //copies leaflet css
-    'copy:leaflet_custom', //copies leaflet js
+    'clean:dev',
+    'dev',
+    'test',
     'configureRewriteRules',
-    'connect:test',
     'connect:dev',
     'watch'
   ]);
 
   grunt.registerTask('dist', [
-    'copy:jakefile',
-    'copy:dev',
-    'requirejs:dev',
-    'replace:leaflet_jakefile',
-    'exec:build_leaflet',
-    'copy:leaflet', //copies leaflet css
-    'copy:leaflet_custom', //copies leaflet js
+    'clean:dist',
+    'dev',
     'copy:dist',
-    'cssmin',
+    'postcss:dist',
     'htmlmin',
     'uglify',
     'configureRewriteRules',
     'connect:dist:keepalive'
+  ]);
 
+  grunt.registerTask('test', [
+    'copy:test',
+    'requirejs:test',
+    'connect:test',
+    'mocha_phantomjs'
+  ]);
+
+  grunt.registerTask('dev', [
+    'copy:jakefile',
+    'replace:leaflet_jakefile',
+    'exec:build_leaflet',
+    'copy:dev',
+    'postcss:dev',
+    'requirejs:dev',
+    'copy:leaflet_custom', //copies leaflet js
   ]);
 };
