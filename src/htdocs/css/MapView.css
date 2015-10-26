@@ -1,4 +1,4 @@
-@import url('/leaflet/dist/leaflet.css');
+@import url('/lib/leaflet/leaflet.css');
 
 .mapView {
 	background-color:#fff;
