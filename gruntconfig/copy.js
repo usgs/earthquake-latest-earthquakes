@@ -62,15 +62,16 @@ var copy = {
     src: [
       'img/**/*.{png,gif,jpg,jpeg}',
       '**/*.php',
-      '**/*.html',
-      'css/**/*.css'
+      '**/*.html'
     ]
   },
-  leaflet: {
+  test: {
     expand: true,
-    cwd: 'node_modules/leaflet/dist',
-    dest: config.build + '/' + config.src + '/htdocs/lib/leaflet',
-    src: 'leaflet.css'
+    cwd: config.test,
+    dest: config.build + '/' + config.test,
+    src: [
+      'test.html'
+    ]
   }
 };
 
