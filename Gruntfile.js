@@ -43,7 +43,8 @@
     'clean:dev',
     'dev',
     'test',
-    'configureRewriteRules',
+    'connect:template',
+    'configureProxies:dev',
     'connect:dev',
     'watch'
   ]);
@@ -65,7 +66,8 @@
     'postcss:dist',
     'htmlmin',
     'uglify',
-    'configureRewriteRules',
+    'connect:template',
+    'configureProxies:dist',
     'connect:dist:keepalive'
   ]);
 

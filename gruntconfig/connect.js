@@ -2,7 +2,6 @@
 
 var config = require('./config');
 
-var rewriteRulesSnippet = require('grunt-connect-rewrite/lib/utils').rewriteRequest;
 var gateway = require('gateway');
 
 
@@ -20,8 +19,15 @@ var connect = {
   options: {
     hostname: '*'
   },
-  rules: [
-    {from: '^/theme/(.*)$', to: '/hazdev-template/dist/htdocs/$1'}
+  proxies: [
+    {
+      context: '/theme/',
+      host: 'localhost',
+      port: config.templatePort,
+      rewrite: {
+        '^/theme': ''
+      }
+    }
   ],
   dev: {
     options: {
@@ -32,8 +38,8 @@ var connect = {
       open: 'http://localhost:' + config.devPort,
       middleware: function (connect, options, middlewares) {
         middlewares.unshift(
-          mountPHP(options.base[0]),
-          rewriteRulesSnippet
+          require('grunt-connect-proxy/lib/utils').proxyRequest,
+          mountPHP(options.base[0])
         );
         return middlewares;
       }
@@ -57,6 +63,18 @@ var connect = {
         );
         return middlewares;
       }
+    }
+  },
+  template: {
+    options: {
+      base: ['node_modules/hazdev-template/dist/htdocs'],
+      port: config.templatePort
+    },
+    middleware: function (connect, options, middlewares) {
+      middlewares.unshift(
+        mountPHP(options.base[0])
+      );
+      return middlewares;
     }
   },
   test: {
