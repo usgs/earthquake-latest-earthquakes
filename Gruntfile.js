@@ -66,8 +66,8 @@
     'postcss:dist',
     'htmlmin',
     'uglify',
-    'connect:template',
     'configureProxies:dist',
+    'connect:template',
     'connect:dist:keepalive'
   ]);
 

@@ -52,14 +52,14 @@ var connect = {
       open: 'http://localhost:' + config.distPort,
       middleware: function (connect, options, middlewares) {
         middlewares.unshift(
+          require('grunt-connect-proxy/lib/utils').proxyRequest,
           (function () {
             var gzip = require('connect-gzip');
             return gzip.gzip({
               matchType: /text|javascript|json|css/
             });
           })(),
-          mountPHP(options.base[0]),
-          rewriteRulesSnippet
+          mountPHP(options.base[0])
         );
         return middlewares;
       }
