@@ -11,12 +11,6 @@
     grunt.config(['jshint', 'scripts'], filepath);
   });
 
-  grunt.registerTask('test', [
-    'clean:dist',
-    'connect:test',
-    'mocha_phantomjs'
-  ]);
-
   //remove "copy:jakefile", and "replace:leaflet_jakefile"
   //  when Jakefile.js is upgraded with next release.
   grunt.registerTask('build', function (task) {
@@ -54,6 +48,16 @@
     'watch'
   ]);
 
+  grunt.registerTask('dev', [
+    'copy:jakefile',
+    'replace:leaflet_jakefile',
+    'exec:build_leaflet',
+    'copy:dev',
+    'postcss:dev',
+    'requirejs:dev',
+    'copy:leaflet_custom', //copies leaflet js
+  ]);
+
   grunt.registerTask('dist', [
     'clean:dist',
     'dev',
@@ -70,15 +74,5 @@
     'requirejs:test',
     'connect:test',
     'mocha_phantomjs'
-  ]);
-
-  grunt.registerTask('dev', [
-    'copy:jakefile',
-    'replace:leaflet_jakefile',
-    'exec:build_leaflet',
-    'copy:dev',
-    'postcss:dev',
-    'requirejs:dev',
-    'copy:leaflet_custom', //copies leaflet js
   ]);
 };

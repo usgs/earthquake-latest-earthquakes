@@ -3,6 +3,25 @@
 var config = require('./config');
 
 var copy = {
+  dev: {
+    expand: true,
+    cwd: config.src + '/htdocs',
+    dest: config.build + '/' + config.src + '/htdocs',
+    src: [
+      'img/**/*.{png,gif,jpg,jpeg}',
+      '**/*.php',
+      '**/*.html'
+    ]
+  },
+  dist: {
+    expand: true,
+    cwd: config.build + '/' + config.src + '/htdocs',
+    dest: config.dist + '/htdocs',
+    src: [
+      'img/**/*.{png,gif,jpg,jpeg}',
+      '**/*.php'
+    ]
+  },
   leaflet_custom: {
     files: [{
       expand: true,
@@ -25,15 +44,6 @@ var copy = {
       }
     }]
   },
-  dist: {
-    expand: true,
-    cwd: config.build + '/' + config.src + '/htdocs',
-    dest: config.dist + '/htdocs',
-    src: [
-      'img/**/*.{png,gif,jpg,jpeg}',
-      '**/*.php'
-    ]
-  },
   lib: {
     expand: true,
     cwd: config.src + '/lib',
@@ -54,16 +64,6 @@ var copy = {
     rename: function (dest, src) {
       return dest + src.replace('.js', '_custom.js');
     }
-  },
-  dev: {
-    expand: true,
-    cwd: config.src + '/htdocs',
-    dest: config.build + '/' + config.src + '/htdocs',
-    src: [
-      'img/**/*.{png,gif,jpg,jpeg}',
-      '**/*.php',
-      '**/*.html'
-    ]
   },
   test: {
     expand: true,
