@@ -68,13 +68,11 @@ var connect = {
   template: {
     options: {
       base: ['node_modules/hazdev-template/dist/htdocs'],
-      port: config.templatePort
-    },
-    middleware: function (connect, options, middlewares) {
-      middlewares.unshift(
-        mountPHP(options.base[0])
-      );
-      return middlewares;
+      port: config.templatePort,
+      middleware: function (connect, options, middlewares) {
+        middlewares.unshift(mountPHP(options.base[0]));
+        return middlewares;
+      }
     }
   },
   test: {
