@@ -1,5 +1,5 @@
 'use strict';
- module.exports = function (grunt) {
+module.exports = function (grunt) {
 
   var gruntconfig = require('./gruntconfig');
 
