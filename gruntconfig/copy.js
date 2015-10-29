@@ -10,7 +10,7 @@ var copy = {
     options: {mode: true},
     src: [
       '**/*',
-      '!**/*.js',
+      '!**/js/**/*',
       '!**/*.scss',
       '!**/*.css'
     ]
