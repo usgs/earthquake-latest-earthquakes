@@ -10,39 +10,38 @@ var config = require('./config');
 var postcss = {
 
   dev: {
+    cwd: config.src + '/htdocs',
+    dest: config.build + '/' + config.src + '/htdocs'
+    expand: true,
     options: {
       processors: [
         cssImport({
           path: [
             'node_modules/leaflet/dist'
           ]
-
         }),
         precss(),
         autoprefixer({'browsers': 'last 2 versions'}) // vendor prefix as needed
       ]
     },
-    expand: true,
-    cwd: config.src + '/htdocs',
     src: [
       '**/*.css',
       '!**/_*.css'
     ],
-    dest: config.build + '/' + config.src + '/htdocs'
   },
 
   dist: {
+    cwd: config.build + '/' + config.src + '/htdocs',
+    dest: config.dist + '/htdocs'
+    expand: true,
     options: {
       processors: [
         cssnano({zindex: false}) // minify
       ]
     },
-    expand: true,
     src: [
       '**/*.css'
     ],
-    cwd: config.build + '/' + config.src + '/htdocs',
-    dest: config.dist + '/htdocs'
   }
 };
 
