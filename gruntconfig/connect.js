@@ -82,8 +82,7 @@ var connect = {
         config.build + '/' + config.src + '/htdocs',
         'node_modules'
       ],
-      port: config.testPort,
-      open: 'http://localhost:' + config.testPort + '/test.html'
+      port: config.testPort
     }
   }
 };
