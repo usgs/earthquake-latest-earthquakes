@@ -4,9 +4,10 @@ var config = require('./config');
 
 var copy = {
   dev: {
-    expand: true,
     cwd: config.src,
     dest: config.build + '/' + config.src,
+    expand: true,
+    options: {mode: true},
     src: [
       '**/*',
       '!**/*.js',
@@ -15,9 +16,10 @@ var copy = {
     ]
   },
   dist: {
-    expand: true,
     cwd: config.build + '/' + config.src,
     dest: config.dist,
+    expand: true,
+    options: {mode: true},
     src: [
       '**/*',
       '!**/*.js',
@@ -28,24 +30,24 @@ var copy = {
   },
   leaflet_custom: {
     files: [{
-      expand: true,
-      dot: true,
       cwd: 'node_modules/leaflet/dist',
       dest: 'node_modules/leaflet/dist/',
-      src: 'leaflet-custom-src.js',
+      dot: true,
+      expand: true,
       rename: function (dest, src) {
         return dest + src.replace('-custom-src', '-src');
-      }
+      },
+      src: 'leaflet-custom-src.js'
     },
     {
-      expand: true,
-      dot: true,
       cwd: 'node_modules/leaflet/dist',
       dest: 'node_modules/leaflet/dist/',
-      src: 'leaflet-custom.js',
+      dot: true,
+      expand: true,
       rename: function (dest, src) {
         return dest + src.replace('-custom', '');
-      }
+      },
+      src: 'leaflet-custom.js'
     }]
   },
   jakefile: {
