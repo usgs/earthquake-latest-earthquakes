@@ -6,9 +6,9 @@
 }
 
 .settingsView h1 {
-  font-size:1.5em;
+  font-size: 1.5em;
   margin: 16px 0;
-  padding-top:0;
+  padding-top: 0;
 }
 
 .settingsView h2 {
@@ -27,24 +27,24 @@
   max-width: 400px;
   padding: 0;
   /*
-  need this to compensate for -webkit-overflow-scrolling:touch,
+  need this to compensate for -webkit-overflow-scrolling: touch,
   which otherwise prevents a redraw
   */
   -webkit-transform: translate3d(0,0,0);
 }
 
-.settingsView section:first-child {
-  margin-top:0;
+.settingsView section: first-child {
+  margin-top: 0;
 }
 
 
 .settingsView ul,
 .settingsView ol,
 .settingsView li {
-  list-style:none;
-  margin:0;
-  overflow:hidden;
-  padding:0;
+  list-style: none;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
 }
 
 
@@ -61,65 +61,65 @@
 .settingsView li a {
   border-bottom: 1px solid #ddd;
   cursor: pointer;
-  display:block;
-  font-size:1.08em;
+  display: block;
+  font-size: 1.08em;
   line-height: 1.08;
-  padding:10px;
+  padding: 10px;
 }
-.settingsView li:last-child label,
-.settingsView li:last-child a {
-  border-bottom:none;
+.settingsView li: last-child label,
+.settingsView li: last-child a {
+  border-bottom: none;
 }
 
 /** make room for radio/checkbox. */
 .settingsView li {
-  position:relative;
+  position: relative;
 }
 .settingsView label {
-  padding-left:30px;
+  padding-left: 30px;
 }
 .settingsView input {
-  left:10px;
-  margin:0;
-  padding:0;
-  position:absolute;
-  top:10px;
+  left: 10px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 10px;
 }
 
-@media screen and (min-width:640px) {
+@media screen and (min-width: 640px) {
   .settingsView label {
-    padding:5px 5px 5px 30px;
+    padding: 5px 5px 5px 30px;
   }
   .settingsView input {
-    top:5px;
+    top: 5px;
   }
 
   .settingsView li a {
-    padding:5px 10px;
+    padding: 5px 10px;
   }
 }
 
 .settingsView > section > h1 > .help {
-  color:#333;
-  display:block;
-  font-size:.8em;
+  color: #333;
+  display: block;
+  font-size: .8em;
 }
 .settingsView .resetToDefaults {
   background-color: #c00;
-  color:#fff;
+  color: #fff;
   font-weight: bold;
   text-align: center;
 }
 .settingsview-searchwrapper {
-  background-color:#090;
-  border:1px solid #bbb;
-  padding:4px;
-  text-align:center;
+  background-color: #090;
+  border: 1px solid #bbb;
+  padding: 4px;
+  text-align: center;
 }
 .settingsview-searchwrapper .help {
-  color:#fafafa;
-  display:block;
-  font-size:.9em;
+  color: #fafafa;
+  display: block;
+  font-size: .9em;
 }
 .settingsview-searchbutton {
   margin-top: .5em;

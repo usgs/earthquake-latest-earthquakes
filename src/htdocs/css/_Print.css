@@ -1,7 +1,7 @@
 @media print {
 
   body {
-    background-color:#fff !important;
+    background-color: #fff !important;
   }
 
   .app-header,
@@ -11,7 +11,7 @@
   .app-footer,
   .listView .downloads,
   .listView .listFooter {
-    display:none !important;
+    display: none !important;
   }
 
 
@@ -25,22 +25,22 @@
   /** event list **/
 
   .listview {
-    display:block !important;
-    height:auto !important;
+    display: block !important;
+    height: auto !important;
     margin-top: 15px;
     overflow-y: visible !important;
-    position:static !important;
-    width:100%;
+    position: static !important;
+    width: 100%;
   }
 
   .listView ol,
   .listView li{
-    border:none;
-    clear:left;
-    float:left;
-    height:auto;
-    padding:0;
-    width:100%;
+    border: none;
+    clear: left;
+    float: left;
+    height: auto;
+    padding: 0;
+    width: 100%;
   }
 
   .listView .listHeader,
@@ -54,32 +54,32 @@
   .listView li .place,
   .listView li .time,
   .listView li .depth {
-    color:#000;
-    float:left;
+    color: #000;
+    float: left;
     font-size: 10px !important;
-    height:auto;
-    line-height:2px;
-    padding:5px;
-    position:static;
-    top:auto;left:auto;right:auto;bottom:auto;
+    height: auto;
+    line-height: 2px;
+    padding: 5px;
+    position: static;
+    top: auto;left: auto;right: auto;bottom: auto;
   }
 
   .listView .mag {
     text-align: right !important;
-    width:3% !important;
+    width: 3% !important;
   }
 
   .listView .place {
-    padding-left:5px !important;
-    width:49% !important;
+    padding-left: 5px !important;
+    width: 49% !important;
   }
 
   .listView .time {
-    width:30% !important;
+    width: 30% !important;
   }
 
   .listView .depth {
     text-align: right !important;
-    width:15% !important;
+    width: 15% !important;
   }
 }

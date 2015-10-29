@@ -1,31 +1,31 @@
 .modesView {
-  height:34px;
-  overflow:hidden;
+  height: 34px;
+  overflow: hidden;
 }
 .modesView ol,
 .modesView li {
-  list-style:none;
-  margin:0;
-  padding:0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .modesView ol {
-  float:right;
+  float: right;
 }
 
 .modesView li {
-  float:left;
+  float: left;
 }
 
 .modesView input {
-  left:-10000px;
+  left: -10000px;
   position: absolute;
 }
 
 .modesView label {
   background-color: #fff;
   cursor: pointer;
-  float:left;
+  float: left;
 }
 
 .mode-map label[for="mode-map-checkbox"],
@@ -35,17 +35,17 @@
   background-color: #090;
 }
 
-@media screen and (min-width:640px) {
+@media screen and (min-width: 640px) {
 
   .modesView input {
-    left:0;
-    margin-right:5px;
-    position:relative;
-    top:-2px;
+    left: 0;
+    margin-right: 5px;
+    position: relative;
+    top: -2px;
   }
 
   .modesView label {
-    padding-bottom:7px;
+    padding-bottom: 7px;
   }
 
 }

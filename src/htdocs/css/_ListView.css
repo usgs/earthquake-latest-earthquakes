@@ -3,7 +3,7 @@
    * This prevents default state from showing through when there are no quakes
    * in the current data feed.
    */
-  background-color:#ddd;
+  background-color: #ddd;
 }
 
 .listview .downloads {
@@ -20,40 +20,40 @@
  */
 
 .listHeader {
-  border-bottom:1px solid #BBB;
-  box-shadow:0 2px 5px #CCC;
-  display:block;
-  font-size:12px;
-  margin:0; padding:8px;
+  border-bottom: 1px solid #BBB;
+  box-shadow: 0 2px 5px #CCC;
+  display: block;
+  font-size: 12px;
+  margin: 0; padding: 8px;
 }
 
 .listHeader h1,
 .listHeader .updated,
 .listHeader .showing {
-  display:block;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .listHeader h1 {
-  font-size:16px;
-  margin:0;
+  font-size: 16px;
+  margin: 0;
 }
 .listHeader .updated,
 .listHeader .timezone {
-  color:#494949;
-  font-size:11px;
+  color: #494949;
+  font-size: 11px;
 }
 .listHeader .total {
-  color:#000;
-  padding-left:8px;
+  color: #000;
+  padding-left: 8px;
 }
 .listHeader .showing {
-  display:none;
-  margin-top:8px;
+  display: none;
+  margin-top: 8px;
 }
 .filtered .listHeader .showing {
-  display:block;
+  display: block;
 }
 
 /**
@@ -61,30 +61,30 @@
  */
 
 .listView .nodata {
-  color:#900;
-  font-size:14px;
-  padding:0 8px;
+  color: #900;
+  font-size: 14px;
+  padding: 0 8px;
 }
 .listContent,
 .listContent li {
-  list-style:none;
-  margin:0;
-  padding:0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 
 .listContent li {
   background: #fff;
   border-bottom: 1px solid #DFDFDF;
-  color:#333;
-  font-size:.8em;
-  padding:0.375em 0.375em 1.5em 3.2em;
-  position:relative;
+  color: #333;
+  font-size: .8em;
+  padding: 0.375em 0.375em 1.5em 3.2em;
+  position: relative;
 
   /** bottom is room for time, depth; left is room for mag  */
   -webkit-text-size-adjust: none;
   /*
-  need this to compensate for -webkit-overflow-scrolling:touch,
+  need this to compensate for -webkit-overflow-scrolling: touch,
   which otherwise prevents a redraw
   */
   -webkit-transform: translate3d(0,0,0);
@@ -95,24 +95,24 @@
  */
 
 .listFooter {
-  display:block;
-  font-size:11px;
-  margin:0; padding:0 8px 8px;
+  display: block;
+  font-size: 11px;
+  margin: 0; padding: 0 8px 8px;
 }
 
 .listFooter h5 {
   font-size: 13px;
-  margin:0 -8px;
-  padding:10px 5px;
+  margin: 0 -8px;
+  padding: 10px 5px;
 }
 
 .listFooter .help {
-  list-style:none;
-  margin:0;padding:0;
+  list-style: none;
+  margin: 0;padding: 0;
 }
 .listFooter .help li {
-  margin:0;
-  padding:5px 0;
+  margin: 0;
+  padding: 5px 0;
 }
 
 .listContent li.links ol#help > li a{
@@ -121,40 +121,40 @@
 
 
 /** make list look like a table. */
-@media screen and (min-width:640px) {
+@media screen and (min-width: 640px) {
 
   .list .listContent li {
-    clear:left;
-    float:left;
-    padding:0;
-    width:100%;
+    clear: left;
+    float: left;
+    padding: 0;
+    width: 100%;
   }
 
   .list .listContent .mag,
   .list .listContent .place,
   .list .listContent .time {
-    float:left;
-    height:auto;
+    float: left;
+    height: auto;
     line-height: inherit;
-    padding:5px;
-    position:static;
-    top:auto;left:auto;right:auto;bottom:auto;
+    padding: 5px;
+    position: static;
+    top: auto;left: auto;right: auto;bottom: auto;
   }
 
   .list .listContent .mag {
-    width:4%
+    width: 4%
   }
 
   .list .listContent .place {
-    width:48%;
+    width: 48%;
   }
 
   .list .listContent .time {
-    width:25%;
+    width: 25%;
   }
 
   .list .listContent .depth {
-    bottom:auto;
-    top:5px;
+    bottom: auto;
+    top: 5px;
   }
 }

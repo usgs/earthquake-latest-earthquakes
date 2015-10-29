@@ -1,48 +1,48 @@
 .leaflet-bottom {
-  width:50%;
+  width: 50%;
 }
 
 .leaflet-control-container .leaflet-control-legendview {
-  position:absolute;
-  top:0; left:-72px; /* left = 1/2 width */
-  width:144px;
+  position: absolute;
+  top: 0; left: -72px; /* left = 1/2 width */
+  width: 144px;
 }
 
 .leaflet-control-container .leaflet-control-legendview {
-  height:44px;
-  margin:0 0 10px 0;
+  height: 44px;
+  margin: 0 0 10px 0;
 }
 
 .leaflet-control-legendview h5  {
-  display:block;
-  font-size:10px;
+  display: block;
+  font-size: 10px;
   font-weight: normal;
-  margin:0 0 2px 0;
-  padding:0 1px;
+  margin: 0 0 2px 0;
+  padding: 0 1px;
 }
 
-.eq-age-hour {background-color:#F00;}
-.eq-age-day {background-color:#F90;}
-.eq-age-week {background-color:#FF0;}
-.eq-age-month {background-color:#FFF;}
+.eq-age-hour {background-color: #F00;}
+.eq-age-day {background-color: #F90;}
+.eq-age-week {background-color: #FF0;}
+.eq-age-month {background-color: #FFF;}
 
 .leaflet-control-legendview > ol {
-  float:left;
-  list-style:none;
-  margin:0;
-  padding:0;
+  float: left;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .leaflet-control-legendview > ol li {
-  font-size:0.8em;
-  float:left;
-  list-style:none;
-  padding:0 3px 0 0;
-  text-align:center;
+  font-size: 0.8em;
+  float: left;
+  list-style: none;
+  padding: 0 3px 0 0;
+  text-align: center;
 }
 
-.leaflet-control-legendview > ol li:last-child {
-  margin-right:0;
+.leaflet-control-legendview > ol li: last-child {
+  margin-right: 0;
 }
 
 .leaflet-control-legendview > ol > .age-color-legendView {
@@ -50,65 +50,65 @@
 }
 
 .leaflet-control-legendview .color-bar {
-  display:block;
-  height:5px;
-  margin:0 auto;
-  position:static;
-  width:30px;
+  display: block;
+  height: 5px;
+  margin: 0 auto;
+  position: static;
+  width: 30px;
 }
 
 .mode-map .leaflet-control-container .leaflet-control-scale {
-  clear:left;
-  float:left;
+  clear: left;
+  float: left;
 }
 
 .mode-map .leaflet-control-container .leaflet-control-mouseposition,
 .mode-map .leaflet-control-container .leaflet-control-legendview {
-  clear:right;
-  display:none;
-  float:right;
-  margin-right:10px;
+  clear: right;
+  display: none;
+  float: right;
+  margin-right: 10px;
 }
 
 .mode-map .leaflet-control-container .leaflet-bottom .leaflet-control-scale.leaflet-control {
-  margin-bottom:5px;
-  margin-left:5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
 }
 
 /* Medium screens */
-@media screen and (min-width:420px) {
+@media screen and (min-width: 420px) {
   .mode-map .leaflet-control-container .leaflet-bottom .leaflet-control-scale.leaflet-control {
     margin-bottom: 12px;
-    margin-left:10px;
+    margin-left: 10px;
   }
 
   .mode-map .leaflet-control-container .leaflet-control-scale {
-    clear:none;
-    display:block;
-    float:left;
-    position:relative;
+    clear: none;
+    display: block;
+    float: left;
+    position: relative;
   }
 
   .mode-map .leaflet-control-container .leaflet-bottom .leaflet-control-legendview {
-    display:block;
+    display: block;
   }
 
   .desktop .mode-map .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition {
-    clear:none;
-    display:block;
-    float:right;
+    clear: none;
+    display: block;
+    float: right;
     margin-top: 16px;
-    position:relative;
+    position: relative;
   }
 }
 
 
 
-@media screen and (min-width:421px) and (max-width:740px) {
+@media screen and (min-width: 421px) and (max-width: 740px) {
   .mode-list .leaflet-control-container .leaflet-bottom .leaflet-control-scale,
   .mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-scale {
-    clear:left;
-    float:left;
+    clear: left;
+    float: left;
   }
 
   /* Two modes enabled (including map), window is below 740px. Stack the leaflet controls. */
@@ -118,22 +118,22 @@
   .desktop .mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
   .mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
   .mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-legendview {
-    display:none;
+    display: none;
   }
 }
 
 
 
 
-@media screen and (min-width:721px) and (max-width:1050px) {
+@media screen and (min-width: 721px) and (max-width: 1050px) {
   /* All three modes enabled, window is below 1050px.  Stack the leaflet controls. */
   .mode-list.mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
   .mode-list.mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-legendview {
-    display:none;
+    display: none;
   }
 
   .mode-list.mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-scale {
-    clear:left;
-    float:left;
+    clear: left;
+    float: left;
   }
 }

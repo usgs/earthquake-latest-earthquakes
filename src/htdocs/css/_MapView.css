@@ -1,36 +1,36 @@
 @import url('leaflet.css');
 
 .mapView {
-  background-color:#fff;
+  background-color: #fff;
 }
 
 .mapView .loading {
-  background-color:#333;
-  color:#fff;
-  left:0;
-  height:100%;
-  margin:0;
-  padding:1em;
-  position:absolute;
-  top:0;
-  width:100%;
+  background-color: #333;
+  color: #fff;
+  left: 0;
+  height: 100%;
+  margin: 0;
+  padding: 1em;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 .mapView .leaflet-container {
   cursor: default;
-  height:100%;
-  width:100%;
+  height: 100%;
+  width: 100%;
 }
 
 .mapView .leaflet-control-background,
 .mapView .leaflet-control-scale { /* This is baked into Leaflet core. */
-    background-color:#666;
-    background-color:rgba(0,0,0,0.25);
-    border-radius:7px;
-    color:#FFF;
-    font-size:10px;
-    padding:6px;
-    text-shadow:1px 1px 1px #333;
+    background-color: #666;
+    background-color: rgba(0,0,0,0.25);
+    border-radius: 7px;
+    color: #FFF;
+    font-size: 10px;
+    padding: 6px;
+    text-shadow: 1px 1px 1px #333;
 }
 
 .mapView .leaflet-control-scale-line {
@@ -39,90 +39,90 @@
 
 .eq-icon,
 .non-eq-icon {
-  border:1px solid #333;
-  display:block;
-  position:absolute;
+  border: 1px solid #333;
+  display: block;
+  position: absolute;
 }
 
 .eq-icon {
-  border-radius:20px;
+  border-radius: 20px;
 }
 
-.eq-age-hour {background-color:#F00;}
-.eq-age-day {background-color:#F90;}
-.eq-age-week {background-color:#FF0;}
-.eq-age-month {background-color:#FFF;}
+.eq-age-hour {background-color: #F00;}
+.eq-age-day {background-color: #F90;}
+.eq-age-week {background-color: #FF0;}
+.eq-age-month {background-color: #FFF;}
 
 .mapView .selected {
-  background-color:#bff;
-  z-index:9999999999 !important;
+  background-color: #bff;
+  z-index: 9999999999 !important;
 }
 
 .zoomedout .eq-mag-unknown,
 .zoomednormal .eq-mag-unknown,
 .zoomedin .eq-mag-unknown {
-    border:1px dotted #333;
-    border-radius:0;
-    height:9px;
-    margin-left:-5px;
-    margin-top:-5px;
-    width:9px;
+    border: 1px dotted #333;
+    border-radius: 0;
+    height: 9px;
+    margin-left: -5px;
+    margin-top: -5px;
+    width: 9px;
 }
 
 /* Zoomed out is the same for desktop and mobile */
-.zoomedout .eq-mag-7 {width:25px;height:25px;margin-left:-13px;margin-top:-13px;}
-.zoomedout .eq-mag-6 {width:21px;height:21px;margin-left:-11px;margin-top:-11px;}
-.zoomedout .eq-mag-5 {width:17px;height:17px;margin-left:-9px;margin-top:-9px;}
-.zoomedout .eq-mag-4 {width:13px;height:13px;margin-left:-7px;margin-top:-7px;}
-.zoomedout .eq-mag-3 {width:11px;height:11px;margin-left:-6px;margin-top:-6px;}
-.zoomedout .eq-mag-2 {width:9px;height:9px;margin-left:-5px;margin-top:-5px;}
-.zoomedout .eq-mag-1 {width:7px;height:7px;margin-left:-4px;margin-top:-4px;}
-.zoomedout .eq-mag-0 {width:5px;height:5px;margin-left:-3px;margin-top:-3px;}
+.zoomedout .eq-mag-7 {width: 25px;height: 25px;margin-left: -13px;margin-top: -13px;}
+.zoomedout .eq-mag-6 {width: 21px;height: 21px;margin-left: -11px;margin-top: -11px;}
+.zoomedout .eq-mag-5 {width: 17px;height: 17px;margin-left: -9px;margin-top: -9px;}
+.zoomedout .eq-mag-4 {width: 13px;height: 13px;margin-left: -7px;margin-top: -7px;}
+.zoomedout .eq-mag-3 {width: 11px;height: 11px;margin-left: -6px;margin-top: -6px;}
+.zoomedout .eq-mag-2 {width: 9px;height: 9px;margin-left: -5px;margin-top: -5px;}
+.zoomedout .eq-mag-1 {width: 7px;height: 7px;margin-left: -4px;margin-top: -4px;}
+.zoomedout .eq-mag-0 {width: 5px;height: 5px;margin-left: -3px;margin-top: -3px;}
 
 /* Zoomed normal, Mobile */
-.zoomednormal .eq-mag-7 {width:38px;height:38px;margin-left:-19px;margin-top:-19px;}
-.zoomednormal .eq-mag-6 {width:31px;height:31px;margin-left:-16px;margin-top:-16px;}
-.zoomednormal .eq-mag-5 {width:26px;height:26px;margin-left:-13px;margin-top:-13px;}
-.zoomednormal .eq-mag-4 {width:20px;height:20px;margin-left:-10px;margin-top:-10px;}
-.zoomednormal .eq-mag-3 {width:16px;height:16px;margin-left:-8px;margin-top:-8px;}
-.zoomednormal .eq-mag-2 {width:14px;height:14px;margin-left:-7px;margin-top:-7px;}
-.zoomednormal .eq-mag-1 {width:12px;height:12px;margin-left:-6px;margin-top:-6px;}
-.zoomednormal .eq-mag-0 {width:11px;height:11px;margin-left:-6px;margin-top:-6px;}
+.zoomednormal .eq-mag-7 {width: 38px;height: 38px;margin-left: -19px;margin-top: -19px;}
+.zoomednormal .eq-mag-6 {width: 31px;height: 31px;margin-left: -16px;margin-top: -16px;}
+.zoomednormal .eq-mag-5 {width: 26px;height: 26px;margin-left: -13px;margin-top: -13px;}
+.zoomednormal .eq-mag-4 {width: 20px;height: 20px;margin-left: -10px;margin-top: -10px;}
+.zoomednormal .eq-mag-3 {width: 16px;height: 16px;margin-left: -8px;margin-top: -8px;}
+.zoomednormal .eq-mag-2 {width: 14px;height: 14px;margin-left: -7px;margin-top: -7px;}
+.zoomednormal .eq-mag-1 {width: 12px;height: 12px;margin-left: -6px;margin-top: -6px;}
+.zoomednormal .eq-mag-0 {width: 11px;height: 11px;margin-left: -6px;margin-top: -6px;}
 
 /* Zoomed normal, Desktop (Should this be a media query better?) */
-.desktop .zoomednormal .eq-mag-7 {width:26px;height:26px;margin-left:-13px;margin-top:-13px;}
-.desktop .zoomednormal .eq-mag-6 {width:22px;height:22px;margin-left:-11px;margin-top:-11px;}
-.desktop .zoomednormal .eq-mag-5 {width:18px;height:18px;margin-left:-9px;margin-top:-9px;}
-.desktop .zoomednormal .eq-mag-4 {width:14px;height:14px;margin-left:-7px;margin-top:-7px;}
-.desktop .zoomednormal .eq-mag-3 {width:12px;height:12px;margin-left:-6px;margin-top:-6px;}
-.desktop .zoomednormal .eq-mag-2 {width:10px;height:10px;margin-left:-5px;margin-top:-5px;}
-.desktop .zoomednormal .eq-mag-1 {width:8px;height:8px;margin-left:-4px;margin-top:-4px;}
-.desktop .zoomednormal .eq-mag-0 {width:6px;height:6px;margin-left:-3px;margin-top:-3px;}
+.desktop .zoomednormal .eq-mag-7 {width: 26px;height: 26px;margin-left: -13px;margin-top: -13px;}
+.desktop .zoomednormal .eq-mag-6 {width: 22px;height: 22px;margin-left: -11px;margin-top: -11px;}
+.desktop .zoomednormal .eq-mag-5 {width: 18px;height: 18px;margin-left: -9px;margin-top: -9px;}
+.desktop .zoomednormal .eq-mag-4 {width: 14px;height: 14px;margin-left: -7px;margin-top: -7px;}
+.desktop .zoomednormal .eq-mag-3 {width: 12px;height: 12px;margin-left: -6px;margin-top: -6px;}
+.desktop .zoomednormal .eq-mag-2 {width: 10px;height: 10px;margin-left: -5px;margin-top: -5px;}
+.desktop .zoomednormal .eq-mag-1 {width: 8px;height: 8px;margin-left: -4px;margin-top: -4px;}
+.desktop .zoomednormal .eq-mag-0 {width: 6px;height: 6px;margin-left: -3px;margin-top: -3px;}
 
 /* Zoomed in, Mobile */
-.zoomedin .eq-mag-7 {width:45px;height:45px;margin-left:-23px;margin-top:-23px;}
-.zoomedin .eq-mag-6 {width:38px;height:38px;margin-left:-19px;margin-top:-19px;}
-.zoomedin .eq-mag-5 {width:32px;height:32px;margin-left:-16px;margin-top:-16px;}
-.zoomedin .eq-mag-4 {width:26px;height:26px;margin-left:-13px;margin-top:-13px;}
-.zoomedin .eq-mag-3 {width:22px;height:22px;margin-left:-11px;margin-top:-11px;}
-.zoomedin .eq-mag-2 {width:20px;height:20px;margin-left:-10px;margin-top:-10px;}
-.zoomedin .eq-mag-1 {width:18px;height:18px;margin-left:-9px;margin-top:-9px;}
-.zoomedin .eq-mag-0 {width:17px;height:17px;margin-left:-9px;margin-top:-9px;}
+.zoomedin .eq-mag-7 {width: 45px;height: 45px;margin-left: -23px;margin-top: -23px;}
+.zoomedin .eq-mag-6 {width: 38px;height: 38px;margin-left: -19px;margin-top: -19px;}
+.zoomedin .eq-mag-5 {width: 32px;height: 32px;margin-left: -16px;margin-top: -16px;}
+.zoomedin .eq-mag-4 {width: 26px;height: 26px;margin-left: -13px;margin-top: -13px;}
+.zoomedin .eq-mag-3 {width: 22px;height: 22px;margin-left: -11px;margin-top: -11px;}
+.zoomedin .eq-mag-2 {width: 20px;height: 20px;margin-left: -10px;margin-top: -10px;}
+.zoomedin .eq-mag-1 {width: 18px;height: 18px;margin-left: -9px;margin-top: -9px;}
+.zoomedin .eq-mag-0 {width: 17px;height: 17px;margin-left: -9px;margin-top: -9px;}
 
 /* Zoomed in, Desktop (Should this be a media query better?) */
-.desktop .zoomedin .eq-mag-7 {width:27px;height:27px;margin-left:-14px;margin-top:-14px;}
-.desktop .zoomedin .eq-mag-6 {width:23px;height:23px;margin-left:-12px;margin-top:-12px;}
-.desktop .zoomedin .eq-mag-5 {width:19px;height:19px;margin-left:-10px;margin-top:-10px;}
-.desktop .zoomedin .eq-mag-4 {width:15px;height:15px;margin-left:-8px;margin-top:-8px;}
-.desktop .zoomedin .eq-mag-3 {width:13px;height:13px;margin-left:-7px;margin-top:-7px;}
-.desktop .zoomedin .eq-mag-2 {width:11px;height:11px;margin-left:-6px;margin-top:-6px;}
-.desktop .zoomedin .eq-mag-1 {width:9px;height:9px;margin-left:-5px;margin-top:-5px;}
-.desktop .zoomedin .eq-mag-0 {width:7px;height:7px;margin-left:-4px;margin-top:-4px;}
+.desktop .zoomedin .eq-mag-7 {width: 27px;height: 27px;margin-left: -14px;margin-top: -14px;}
+.desktop .zoomedin .eq-mag-6 {width: 23px;height: 23px;margin-left: -12px;margin-top: -12px;}
+.desktop .zoomedin .eq-mag-5 {width: 19px;height: 19px;margin-left: -10px;margin-top: -10px;}
+.desktop .zoomedin .eq-mag-4 {width: 15px;height: 15px;margin-left: -8px;margin-top: -8px;}
+.desktop .zoomedin .eq-mag-3 {width: 13px;height: 13px;margin-left: -7px;margin-top: -7px;}
+.desktop .zoomedin .eq-mag-2 {width: 11px;height: 11px;margin-left: -6px;margin-top: -6px;}
+.desktop .zoomedin .eq-mag-1 {width: 9px;height: 9px;margin-left: -5px;margin-top: -5px;}
+.desktop .zoomedin .eq-mag-0 {width: 7px;height: 7px;margin-left: -4px;margin-top: -4px;}
 
 /* 39px height. */
 .legendView .eq-size-massive,
 .zoomednormal .eq-size-large,
 .zoomedin .eq-size-large,
 .zoomedin .eq-size-medium {
-  margin-top:1px;
+  margin-top: 1px;
 }

@@ -1,37 +1,37 @@
 .eventSummaryView {
-  background-color:#fff;
-  bottom:0;
+  background-color: #fff;
+  bottom: 0;
   box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.2);
-  display:block;
-  font-size:smaller;
-  left:0;
+  display: block;
+  font-size: smaller;
+  left: 0;
   overflow-y: auto;
-  position:absolute;
-  right:0;
+  position: absolute;
+  right: 0;
   z-index: 3;
 }
 
 
 .eventSummaryView > div {
-  padding:8px;
+  padding: 8px;
 }
 
 .eventSummaryView h1 {
-  font-size:medium;
-  font-weight:bold;
-  margin-right:46px;
-  margin-top:0;
+  font-size: medium;
+  font-weight: bold;
+  margin-right: 46px;
+  margin-top: 0;
 }
 
 .eventSummaryView dl {
-  margin:0;
+  margin: 0;
 }
 
 .eventSummaryView dt {
-  clear:left;
-  display:block;
-  float:left;
-  width:5em;
+  clear: left;
+  display: block;
+  float: left;
+  width: 5em;
 }
 
 /** summary PAGER/SM/DYFI buttons **/
@@ -50,66 +50,66 @@
 
 .roman,
 .intensity {
-  color:#333;
+  color: #333;
   font-family: Tahona, Tahoma, Verdana, Segoe, sans-serif;
 }
 
-.mmiI{background-color:#FFFFFF;}
-.mmiII{background-color:#ACD8E9;}
-.mmiIII{background-color:#ACD8E9;}
-.mmiIV{background-color:#83D0DA;}
-.mmiV{background-color:#7BC87F;}
-.mmiVI{background-color:#F9F518;}
-.mmiVII{background-color:#FAC611;}
-.mmiVIII{background-color:#FA8A11;}
-.mmiIX{background-color:#F7100C;}
-.mmiX{background-color:#C80F0A;}
-.mmiXI{background-color:#C80F0A;}
-.mmiXII{background-color:#C80F0A;}
+.mmiI{background-color: #FFFFFF;}
+.mmiII{background-color: #ACD8E9;}
+.mmiIII{background-color: #ACD8E9;}
+.mmiIV{background-color: #83D0DA;}
+.mmiV{background-color: #7BC87F;}
+.mmiVI{background-color: #F9F518;}
+.mmiVII{background-color: #FAC611;}
+.mmiVIII{background-color: #FA8A11;}
+.mmiIX{background-color: #F7100C;}
+.mmiX{background-color: #C80F0A;}
+.mmiXI{background-color: #C80F0A;}
+.mmiXII{background-color: #C80F0A;}
 
 
 .pager-alertlevel-green {
-  background-color:#00B04F;
+  background-color: #00B04F;
 }
 .pager-alertlevel-yellow {
-  background-color:#FFFF00;
+  background-color: #FFFF00;
 }
 .pager-alertlevel-orange {
-  background-color:#FF9900;
+  background-color: #FF9900;
 }
 .pager-alertlevel-red {
-  background-color:#FF0000;
-  color:#FFFFFF;
+  background-color: #FF0000;
+  color: #FFFFFF;
 }
 
 .quicksummary {
-  margin:1em 0 0.5em;
+  margin: 1em 0 0.5em;
 }
 
 .quicksummary > a {
-  display:inline-block;
+  display: inline-block;
   height: 26px;
-  margin-bottom:0.5em;
-  margin-right:0.5em;
+  margin-bottom: 0.5em;
+  margin-right: 0.5em;
   padding: 0.5em 1em;
   text-decoration: none;
 }
 
-.quicksummary > a:hover {
+.quicksummary > a: hover {
   background-image: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%,
       rgba(0,0,0,0.1) 100%);
-  color:#000;
+  color: #000;
 }
 
 .quicksummary > a > strong {
-  font-size:.9em;
+  font-size: .9em;
 }
 
 .quicksummary > a.tsunamilogo,
-.quicksummary > a.tsunamilogo:hover {
-  box-shadow:none;
-  margin:0;
-  padding:0;
+.quicksummary > a.tsunamilogo: hover {
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
   vertical-align: top;
 }
 

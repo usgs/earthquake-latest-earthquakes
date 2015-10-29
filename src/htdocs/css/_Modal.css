@@ -1,42 +1,42 @@
 .modalmask {
-  background-color:#EEE;
-  background-color:rgba(0,0,0,0.75);
-  bottom:0;
-  left:0;
-  margin:0;
-  overflow-y:auto;
-  padding:56px 0 61px;
-  position:absolute;
-  right:0;
-  top:0;
-  z-index:9999;
+  background-color: #EEE;
+  background-color: rgba(0,0,0,0.75);
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  overflow-y: auto;
+  padding: 56px 0 61px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 9999;
 }
 .modal {
-  background-color:#FFF;
-  border-radius:3px;
-  margin:0 auto;
-  overflow:hidden;
-  padding:0;
-  position:relative;
-  width:344px;
+  background-color: #FFF;
+  border-radius: 3px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  width: 344px;
 }
 .modal header {
-  background-color:#CCC;
-  border-bottom:1px solid #666;
-  border-radius:3px 3px 0 0;
-  color:#333;
+  background-color: #CCC;
+  border-bottom: 1px solid #666;
+  border-radius: 3px 3px 0 0;
+  color: #333;
 }
 .modal header h3 {
-  margin:0;
-  padding:4px 16px;
+  margin: 0;
+  padding: 4px 16px;
 }
 .modal section {
-  margin:0 0 0 16px;
-  max-height:540px;
-  overflow-y:auto;
-  padding:8px 16px 4px 0;
+  margin: 0 0 0 16px;
+  max-height: 540px;
+  overflow-y: auto;
+  padding: 8px 16px 4px 0;
 }
 .modal footer {
-  margin:4px 12px 0;
-  padding:4px 0 8px;
+  margin: 4px 12px 0;
+  padding: 4px 0 8px;
 }

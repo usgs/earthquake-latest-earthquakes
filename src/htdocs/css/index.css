@@ -25,30 +25,30 @@
 @import url("_Print.css");
 
 * {
-  box-sizing:border-box;
+  box-sizing: border-box;
 }
 
 body {
-  opacity:.99;
+  opacity: .99;
 }
 
 
 /** Shared styles thoughout the application. */
 abbr {
-    border-bottom:1px dotted #000;
-    cursor:help;
+    border-bottom: 1px dotted #000;
+    cursor: help;
 }
 
 .button-as-link {
-  background:none;
-  border:none;
-  color:#00C;
-  cursor:pointer;
-  display:inline;
-  font:normal 1em/1.5 'Arial';
-  margin:0;
-  padding:0;
-  text-decoration:underline;
+  background: none;
+  border: none;
+  color: #00C;
+  cursor: pointer;
+  display: inline;
+  font: normal 1em/1.5 'Arial';
+  margin: 0;
+  padding: 0;
+  text-decoration: underline;
 }
 
 .close-link {
@@ -72,6 +72,6 @@ abbr {
   width: 22px;
 }
 
-.close-link:hover {
-  color:#C00;
+.close-link: hover {
+  color: #C00;
 }

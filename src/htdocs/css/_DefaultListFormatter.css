@@ -1,29 +1,29 @@
 .listContent .depth {
-  bottom:5px;
-  color:#666;
-  display:block;
-  font-size:.85em;
-  position:absolute;
-  right:5px;
+  bottom: 5px;
+  color: #666;
+  display: block;
+  font-size: .85em;
+  position: absolute;
+  right: 5px;
 }
 
 .listContent .time {
-  bottom:5px;
-  color:#666;
-  display:block;
-  font-size:.85em;
-  position:absolute;
+  bottom: 5px;
+  color: #666;
+  display: block;
+  font-size: .85em;
+  position: absolute;
 }
 
 .listContent .mag {
-  height:40px;
-  font-size:14px;
-  left:0;
-  line-height:40px;
-  position:absolute;
-  text-align:center;
-  top:0;
-  width:40px;
+  height: 40px;
+  font-size: 14px;
+  left: 0;
+  line-height: 40px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 40px;
 }
 
 .listContent > li > .intensity,
@@ -46,19 +46,19 @@
 }
 
 .listContent .place {
-  display:block;
+  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .listContent .bigger {
-  border-bottom:1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 
 .listContent .big .place,
 .listContent .bigger .place {
-  font-weight:bold;
+  font-weight: bold;
   text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
 }
 

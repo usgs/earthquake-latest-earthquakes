@@ -2,18 +2,18 @@
 .default-state .listview,
 .default-state .settingsview,
 .default .feedDescriptionView {
-  display:none;
+  display: none;
 }
 
 .default-state,
 .defaultcontent,
 .mode-map .default-state .mapview {
-  bottom:0;
-  display:block;
-  left:0;
-  position:absolute;
-  right:0;
-  top:0;
+  bottom: 0;
+  display: block;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
   z-index: 1;
 }
 
@@ -21,18 +21,18 @@
   background-color: #fff;
 
   -webkit-form: translate3d(0,0,0);
-  -webkit-overflow-scrolling:touch
+  -webkit-overflow-scrolling: touch
 }
 
 .mode-list .default-state .listview,
 .mode-settings .default-state .settingsview {
-  display:block;
-  height:100%;
-  left:0;
+  display: block;
+  height: 100%;
+  left: 0;
   overflow-y: auto;
-  position:absolute;
-  top:0;
-  right:0;
+  position: absolute;
+  top: 0;
+  right: 0;
   z-index: 2;
 
   -webkit-overflow-scrolling: touch;
@@ -40,29 +40,29 @@
 }
 
 .mode-settings .app-footer .eventSummaryView {
-  display:none;
+  display: none;
 }
 
 .mode-list .app-footer .eventSummaryView,
 .mode-map .app-footer .eventSummaryView {
-  display:block;
+  display: block;
 }
 
 /* default content displayed when no mode is selected.     */
 /**                                                       **/
 .defaultcontent {
-  line-height:1.3;
-  overflow-y:auto;
-  padding:8px;
+  line-height: 1.3;
+  overflow-y: auto;
+  padding: 8px;
 }
 .defaultcontent h1 {
-  font-size:1.5em;
-  margin:.5em 0;
+  font-size: 1.5em;
+  margin: .5em 0;
 }
 
 .defaultcontent ul {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
 .defaultcontent li {
   margin: 0 40px 1em;
@@ -104,13 +104,13 @@ li a {
 
 .defaultcontent li {
   border-bottom: 1px solid #ddd;
-  display:block;
-  font-size:1.08em;
+  display: block;
+  font-size: 1.08em;
   line-height: 1.08;
 }
 
-.defaultcontent li:last-child a {
-  border-bottom:none;
+.defaultcontent li: last-child a {
+  border-bottom: none;
 }
 
 .defaultcontent .partners {
@@ -135,15 +135,15 @@ li a {
 .defaultcontent .lookatme {
   background: #090;
   border: 4px solid #090;
-  color:#fff;
-  font-weight:bold;
-  margin-top:3em;
-  padding:16px;
+  color: #fff;
+  font-weight: bold;
+  margin-top: 3em;
+  padding: 16px;
   position: relative;
-  text-align:center;
+  text-align: center;
 }
 
-.defaultcontent .lookatme:after, .lookatme:before {
+.defaultcontent .lookatme: after, .lookatme: before {
   border: solid transparent;
   bottom: 100%;
   content: " ";
@@ -153,14 +153,14 @@ li a {
   width: 0;
 }
 
-.defaultcontent .lookatme:after {
+.defaultcontent .lookatme: after {
   border-color: rgba(237, 102, 0, 0);
   border-bottom-color: #090;
   border-width: 30px;
   margin-left: -30px;
   right: 50px;
 }
-.defaultcontent .lookatme:before {
+.defaultcontent .lookatme: before {
   border-color: rgba(213, 92, 0, 0);
   border-bottom-color: #090;
   border-width: 36px;
@@ -169,13 +169,13 @@ li a {
 }
 
 
-@media screen and (min-width:640px) {
+@media screen and (min-width: 640px) {
 
   /* on large screens leave whitespace above arrow. */
   .defaultcontent ul {
     margin-left: 20px;
-    max-width:640px;
-    width:50%;
+    max-width: 640px;
+    width: 50%;
   }
 
   .defaultcontent li a {
@@ -183,36 +183,36 @@ li a {
   }
 
   .defaultcontent .lookatme {
-    position:absolute;
-    max-width:480px;
-    right:8px;
-    top:8px;
-    width:40%;
+    position: absolute;
+    max-width: 480px;
+    right: 8px;
+    top: 8px;
+    width: 40%;
   }
 
-  .defaultcontent .lookatme:before,
-  .defaultcontent .lookatme:after {
-    right:25px;
+  .defaultcontent .lookatme: before,
+  .defaultcontent .lookatme: after {
+    right: 25px;
   }
 
 
   .app-container {
-    padding-bottom:0px;
+    padding-bottom: 0px;
   }
 
   .app-container > footer {
-    height:0px;
+    height: 0px;
   }
 
   .mode-settings .default-state .listview {
-    right:320px;
-    width:auto;
+    right: 320px;
+    width: auto;
   }
 
   .mode-map .default-state .listview {
     box-shadow: 2px 0 2px #999;
-    right:auto;
-    width:320px;
+    right: auto;
+    width: 320px;
   }
 
 
@@ -222,9 +222,9 @@ li a {
 
   .mode-map .default-state .settingsview,
   .mode-list .default-state .settingsview {
-    left:auto;
-    right:0;
-    width:320px;
+    left: auto;
+    right: 0;
+    width: 320px;
   }
 
   .defaultcontent .partners li {
@@ -235,29 +235,29 @@ li a {
   }
 
   /**
-   * IE9 hack. Bug in IE9 when using box-sizing:border-box. Increase width to
+   * IE9 hack. Bug in IE9 when using box-sizing: border-box. Increase width to
    * adjust for double scrollbar-width overcompensation.
    */
   .ie9 .mode-map .default-state .settingsview,
   .ie9 .mode-list .default-state .settingsview,
   .ie9 .mode-map .default-state .listview {
-    width:336px;
+    width: 336px;
   }
 
   .mode-list .default-state .mapview {
-    left:320px;
+    left: 320px;
   }
 
   .default .mode-settings .eventSummaryView {
-    right:320px;
+    right: 320px;
   }
 
   .default .mode-map .eventSummaryView {
-    width:320px;
-    right:auto;
+    width: 320px;
+    right: auto;
   }
 
   .mode-settings .default-state .mapview {
-    right:320px;
+    right: 320px;
   }
 }
