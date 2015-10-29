@@ -32,7 +32,8 @@ var watch = {
       config.build + '/' + config.src + '/htdocs/img/**/*',
       config.build + '/' + config.src + '/htdocs/eq/MapViewDependencies.js',
       config.build + '/' + config.src + '/htdocs/js/index.js',
-      config.build + '/' + config.src + '/htdocs/*.*'
+      config.build + '/' + config.src + '/htdocs/*.*',
+      '!' + config.build + '/' + config.src + '/htdocs/*.inc.*'
     ],
     options: {
       livereload: config.liveReloadPort
@@ -46,6 +47,18 @@ var watch = {
     tasks: [
       'jshint:scripts',
       'requirejs:dev'
+    ]
+  },
+
+  static: {
+    files: [
+      config.src + '/**/*',
+      '!' + config.src + '/**/*.js',
+      '!' + config.src + '/**/*.scss',
+      '!' + config.src + '/**/*.css'
+    ],
+    tasks: [
+      'copy:dev'
     ]
   },
 
