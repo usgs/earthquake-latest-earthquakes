@@ -11,7 +11,7 @@ var postcss = {
 
   dev: {
     cwd: config.src + '/htdocs',
-    dest: config.build + '/' + config.src + '/htdocs'
+    dest: config.build + '/' + config.src + '/htdocs',
     expand: true,
     options: {
       processors: [
@@ -27,12 +27,12 @@ var postcss = {
     src: [
       '**/*.css',
       '!**/_*.css'
-    ],
+    ]
   },
 
   dist: {
     cwd: config.build + '/' + config.src + '/htdocs',
-    dest: config.dist + '/htdocs'
+    dest: config.dist + '/htdocs',
     expand: true,
     options: {
       processors: [
@@ -41,7 +41,7 @@ var postcss = {
     },
     src: [
       '**/*.css'
-    ],
+    ]
   }
 };
 
