@@ -1,31 +1,30 @@
 .pager-list > li > .no-pager {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-
-  width: 40px;
   height: 40px;
+  left: 0px;
   line-height: 40px;
+  position: absolute;
   text-align: center;
+  top: 0px;
+  width: 40px;
 }
 
 .pager-list > li > .maxintensity {
-  position: absolute;
   bottom: 5px;
-  right: 5px;
   color:#666;
   font-size: .85em;
+  position: absolute;
+  right: 5px;
 }
 
 .pager-list > li > .maxintensity > .intensity,
 .pager-list > li > .maxintensity > .no-intensity {
   display: inline-block;
   font-size: .9em;
-  width: 20px;
   height: 13px;
   line-height: 13px;
-  text-align: center;
   margin-left: 5px;
+  text-align: center;
+  width: 20px;
 }
 
 .pager-list > li > .maxintensity > .intensity {

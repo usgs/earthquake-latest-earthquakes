@@ -1,10 +1,9 @@
 .shakemap-list > li > .no-shakemap {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-
-  width: 40px;
   height: 40px;
+  left: 0px;
   line-height: 40px;
+  position: absolute;
   text-align: center;
+  top: 0px;
+  width: 40px;
 }

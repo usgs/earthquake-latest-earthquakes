@@ -24,10 +24,7 @@
 
 @import url("_Print.css");
 
-/* http://paulirish.com/2012/box-sizing-border-box-ftw/ */
 * {
-  -moz-box-sizing:border-box;
-  -webkit-box-sizing:border-box;
   box-sizing:border-box;
 }
 
@@ -41,44 +38,40 @@ abbr {
     border-bottom:1px dotted #000;
     cursor:help;
 }
+
 .button-as-link {
-  display:inline;
-  border:none;
   background:none;
-  text-decoration:none;
+  border:none;
+  color:#00C;
+  cursor:pointer;
+  display:inline;
+  font:normal 1em/1.5 'Arial';
   margin:0;
   padding:0;
-  font:normal 1em/1.5 'Arial';
-  cursor:pointer;
-  color:#00C;
   text-decoration:underline;
 }
 
 .close-link {
-    position: absolute;
-    top: 6px;
-    right: 5px;
-    display: block;
-    text-decoration: none;
-    color: #fff;
-    width: 22px;
-    height: 22px;
-    line-height: 1.222;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 2px;
-    box-shadow: inset 0px 0px 5px #ccc;
-    border: 1px solid #999;
-    cursor: pointer;
-
-    background: #aaaaaa; /* Old browsers */
-    background: -moz-linear-gradient(top, #aaaaaa 42%, #777777 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(42%,#aaaaaa), color-stop(100%,#777777)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #aaaaaa 42%,#777777 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #aaaaaa 42%,#777777 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #aaaaaa 42%,#777777 100%); /* IE10+ */
-    background: linear-gradient(to bottom, #aaaaaa 42%,#777777 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aaaaaa', endColorstr='#777777',GradientType=0 ); /* IE6-9 */
+  background: #aaaaaa;
+  background: linear-gradient(to bottom, #aaaaaa 42%,#777777 100%);
+  border: 1px solid #999;
+  border-radius: 2px;
+  box-shadow: inset 0px 0px 5px #ccc;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  font-size: 16px;
+  height: 22px;
+  line-height: 1.222;
+  position: absolute;
+  right: 5px;
+  text-decoration: none;
+  top: 6px;
+  text-align: center;
+  font-weight: bold;
+  width: 22px;
 }
-.close-link:hover {color:#C00;}
+
+.close-link:hover {
+  color:#C00;
+}

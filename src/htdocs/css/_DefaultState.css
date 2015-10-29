@@ -8,17 +8,18 @@
 .default-state,
 .defaultcontent,
 .mode-map .default-state .mapview {
-  display:block;
-  position:absolute;
-  left:0;
-  top:0;
-  right:0;
   bottom:0;
+  display:block;
+  left:0;
+  position:absolute;
+  right:0;
+  top:0;
   z-index: 1;
 }
 
 .default-state {
   background-color: #fff;
+
   -webkit-form: translate3d(0,0,0);
   -webkit-overflow-scrolling:touch
 }
@@ -26,15 +27,16 @@
 .mode-list .default-state .listview,
 .mode-settings .default-state .settingsview {
   display:block;
-  position:absolute;
+  height:100%;
   left:0;
+  overflow-y: auto;
+  position:absolute;
   top:0;
   right:0;
-  height:100%;
-  overflow-y: auto;
+  z-index: 2;
+
   -webkit-overflow-scrolling: touch;
   -webkit-tap-highlight-color: transparent;
-  z-index: 2;
 }
 
 .mode-settings .app-footer .eventSummaryView {
@@ -49,9 +51,9 @@
 /* default content displayed when no mode is selected.     */
 /**                                                       **/
 .defaultcontent {
-  padding:8px;
   line-height:1.3;
   overflow-y:auto;
+  padding:8px;
 }
 .defaultcontent h1 {
   font-size:1.5em;
@@ -68,9 +70,9 @@
 
 /* Version number display */
 .defaultcontent h1 small {
-  font-weight: normal;
-  font-size: 0.61em;
   display: block;
+  font-size: 0.61em;
+  font-weight: normal;
 }
 
 /* Links and Logos */
@@ -82,8 +84,8 @@
 .defaultcontent li {
   list-style: none;
   margin: 0 0 8px 0;
-  padding: 10px 0;
   overflow: auto;
+  padding: 10px 0;
 }
 
 li a {
@@ -91,19 +93,19 @@ li a {
 }
 
 .defaultcontent .modeIcon {
-  width: 34px;
-  height: 34px;
   display: block;
-  float: left;
-  margin-right: 10px;
   font-size: 0;
+  float: left;
+  height: 34px;
+  margin-right: 10px;
   text-indent: -9999px;
+  width: 34px;
 }
 
 .defaultcontent li {
+  border-bottom: 1px solid #ddd;
   display:block;
   font-size:1.08em;
-  border-bottom: 1px solid #ddd;
   line-height: 1.08;
 }
 
@@ -116,10 +118,10 @@ li a {
 }
 
 .defaultcontent .partners li {
-  float: left;
-  width: 33%;
   border-bottom: none;
+  float: left;
   text-align: center;
+  width: 33%;
 }
 
 .defaultcontent .partners li img {
@@ -131,39 +133,39 @@ li a {
 
 /* box with arrow pointing to mode toggles. */
 .defaultcontent .lookatme {
-  position: relative;
   background: #090;
   border: 4px solid #090;
-  text-align:center;
   color:#fff;
   font-weight:bold;
   margin-top:3em;
   padding:16px;
+  position: relative;
+  text-align:center;
 }
 
 .defaultcontent .lookatme:after, .lookatme:before {
-  bottom: 100%;
   border: solid transparent;
+  bottom: 100%;
   content: " ";
   height: 0;
-  width: 0;
-  position: absolute;
   pointer-events: none;
+  position: absolute;
+  width: 0;
 }
 
 .defaultcontent .lookatme:after {
   border-color: rgba(237, 102, 0, 0);
   border-bottom-color: #090;
   border-width: 30px;
-  right: 50px;
   margin-left: -30px;
+  right: 50px;
 }
 .defaultcontent .lookatme:before {
   border-color: rgba(213, 92, 0, 0);
   border-bottom-color: #090;
   border-width: 36px;
-  right: 50px;
   margin-left: -36px;
+  right: 50px;
 }
 
 
@@ -171,9 +173,9 @@ li a {
 
   /* on large screens leave whitespace above arrow. */
   .defaultcontent ul {
+    margin-left: 20px;
     max-width:640px;
     width:50%;
-    margin-left: 20px;
   }
 
   .defaultcontent li a {
@@ -182,10 +184,10 @@ li a {
 
   .defaultcontent .lookatme {
     position:absolute;
+    max-width:480px;
     right:8px;
     top:8px;
     width:40%;
-    max-width:480px;
   }
 
   .defaultcontent .lookatme:before,
@@ -203,14 +205,14 @@ li a {
   }
 
   .mode-settings .default-state .listview {
-    width:auto;
     right:320px;
+    width:auto;
   }
 
   .mode-map .default-state .listview {
-    width:320px;
-    right:auto;
     box-shadow: 2px 0 2px #999;
+    right:auto;
+    width:320px;
   }
 
 
@@ -220,16 +222,16 @@ li a {
 
   .mode-map .default-state .settingsview,
   .mode-list .default-state .settingsview {
-    width:320px;
     left:auto;
     right:0;
+    width:320px;
   }
 
   .defaultcontent .partners li {
-    float: none;
     border-bottom: 1px solid #ddd;
-    width: auto;
+    float: none;
     text-align: left;
+    width: auto;
   }
 
   /**

@@ -1,50 +1,44 @@
 /* reset styles */
 
 html, body {
-  width:100%;
   height:100%;
   margin:0;
   padding:0;
+  width:100%;
 }
 
 
 /* container styles. */
 
 .app-container {
-  width:100%;
-  height:100%;
-  margin:0;
-  padding:0;
-  /* make padding (for header/footer) subtract from size */
   box-sizing:border-box;
-  -webkit-box-sizing:border-box;
-  -moz-box-sizing:border-box;
-  -ie-box-sizing:border-box;
-  -o-box-sizing:border-box;
+  height:100%;
+  padding:0;
+  margin:0;
+  width:100%;
 }
 
 
 .app-container > header {
-  position:absolute;
-  top:0;
   left:0;
+  position:absolute;
   right:0;
+  top:0;
   z-index:2;
 }
 
 .app-container > section {
-  position:relative;
-  z-index:1;
-  height:100%;
-  width:100%;
   bottom: 0;
+  height:100%;
+  position:relative;
+  width:100%;
+  z-index:1;
 }
 
 .app-container > footer {
-  position:absolute;
-  /*bottom:5px;*/
   left:0;
   right:0;
+  position:absolute;
   z-index:2;
 }
 
@@ -52,42 +46,40 @@ html, body {
 /* loading styles */
 
 .app-container > .loading-spinner {
-  position:absolute;
+  background-color:#999;
+  height:100%;
   left:0;
+  opacity:.8;
+  position:absolute;
   top:0;
   width:100%;
-  height:100%;
-  background-color:#999;
-  opacity:.8;
   z-index:3;
 }
 
 
 .app-container > .loading-spinner > div {
-  position:absolute;
-  left:50%;
-  top:50%;
-
-  width:11em;
+  background-color:#333;
+  border:1px solid #fff;
+  color:#fff;
   height:auto;
+  left:50%;
   margin-left:-5em;
   margin-top:-1.5em;
-
-  vertical-align: middle;
-  text-align: center;
-  background-color:#333;
-  color:#fff;
   padding:.5em;
-  border:1px solid #fff;
+  position:absolute;
+  text-align: center;
+  top:50%;
+  vertical-align: middle;
+  width:11em;
 }
 
 .app-container > .loading-spinner > div > p {
-  display:block;
-  margin-top:1em;
-  padding:8px;
   background-color: #eee;
   color:#111;
+  display:block;
   font-size:smaller;
+  margin-top:1em;
+  padding:8px;
 }
 
 /* customizations */
@@ -114,9 +106,9 @@ body.default {
 
 .app-container > header .logo {
   display:block;
+  float:left;
   margin:5px 0;
   padding:0 5px;
-  float:left;
 }
 
 .app-container > header .logo img {
@@ -124,11 +116,11 @@ body.default {
 }
 
 .map-state, .mapView {
-  position:absolute;
+  height:100%;
   left:0;
+  position:absolute;
   top:0;
   width:100%;
-  height:100%;
 }
 
 

@@ -12,20 +12,19 @@
   float: left;
 }
 .leaflet-control-scale-line {
+  background-color: transparent;
   border: 2px solid #f5f5f5;
   border-top:0;
+  box-shadow:none !important;
   color: #fff;
   line-height: 1;
   text-shadow: 1px 1px 1px #333;
-  background-color: transparent;
-  /** override leaflet box shadow */
-  box-shadow:none !important;
 }
 .leaflet-control-scale-line:nth-child(2) {
   border-top: 2px solid #f5f5f5;
-  padding-top: 1px;
   border-bottom: 0px;
   margin-top: -2px;
+  padding-top: 1px;
 }
 .leaflet-control-scale.leaflet-control {
   margin-bottom: 10px;
@@ -34,27 +33,25 @@
 }
 
 .leaflet-zoomControl-jumplist {
-  margin-top: 5px;
-  margin-right: 5px;
   margin-bottom: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
 }
 .leaflet-zoomControl {
   background-color: #666;
   background-color: rgba(0, 0, 0, 0.25);
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
   border-radius: 5px;
 }
 .leaflet-zoomControl a {
-  width: 19px;
-  margin-top: 5px;
-  margin-bottom: 5px;
   border-right: 1px solid #888;
+  color: black;
+  float: left;
   height: 19px;
+  margin-bottom: 5px;
+  margin-top: 5px;
   text-align: center;
   text-decoration: none;
-  float: left;
-  color: black;
+  width: 19px;
 }
 .leaflet-zoomControl a, .leaflet-control-layers a {
   background-position: 50% 50%;
@@ -68,7 +65,7 @@
 .leaflet-zoomControl-box {
   background-color:#FFF;
   background-color:rgba(255,255,255,0.75);
-    display:none;
+  display:none;
 }
 .leaflet-zoomControl-in:hover,
 .leaflet-zoomControl-out:hover,
@@ -76,23 +73,19 @@
   background-color:#FFF;
 }
 .leaflet-zoomControl-in {
-  font: bold 18px/18px Arial, Helvetica, sans-serif;
-  border-radius: 0px 3px 3px 0px;
-  -webkit-border-radius: 0px 3px 3px 0px;
-  -moz-border-radius: 0px 3px 3px 0px;
-  border-top: 1px solid #888;
   border-bottom: 1px solid #888;
+  border-radius: 0px 3px 3px 0px;
   border-right: 1px solid #888;
+  border-top: 1px solid #888;
+  font: bold 18px/18px Arial, Helvetica, sans-serif;
   margin-right: 5px
 }
 .leaflet-zoomControl-out {
-  font: bold 23px/15px Tahoma, Verdana, sans-serif;
-  -webkit-border-radius: 3px 0px 0px 3px;
-  -moz-border-radius: 3px 0px 0px 3px;
-  border-radius: 3px 0px 0px 3px;
-  border-top: 1px solid #888;
   border-bottom: 1px solid #888;
+  border-top: 1px solid #888;
+  border-radius: 3px 0px 0px 3px;
   border-left: 1px solid #888;
+  font: bold 23px/15px Tahoma, Verdana, sans-serif;
   margin-left: 5px;
 }
 .leaflet-zoomControl-box {
@@ -100,8 +93,6 @@
   background-size:15px 15px;
   border: 1px solid #888;
   border-radius: 3px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
   margin-right: 5px;
 }
 .lt-ie9 .leaflet-zoomControl-box {

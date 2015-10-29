@@ -1,6 +1,6 @@
 .modesView {
-  overflow:hidden;
   height:34px;
+  overflow:hidden;
 }
 .modesView ol,
 .modesView li {
@@ -18,14 +18,14 @@
 }
 
 .modesView input {
-  position: absolute;
   left:-10000px;
+  position: absolute;
 }
 
 .modesView label {
-  float:left;
-  cursor: pointer;
   background-color: #fff;
+  cursor: pointer;
+  float:left;
 }
 
 .mode-map label[for="mode-map-checkbox"],
@@ -38,10 +38,10 @@
 @media screen and (min-width:640px) {
 
   .modesView input {
-    position:relative;
-    top:-2px;
     left:0;
     margin-right:5px;
+    position:relative;
+    top:-2px;
   }
 
   .modesView label {
@@ -51,10 +51,10 @@
 }
 
 .modesView label {
-  height: 34px;
-  width: 34px;
   font-size: 0;
+  height: 34px;
   text-indent: -9999px;
+  width: 34px;
 }
 
 .modeIcon {

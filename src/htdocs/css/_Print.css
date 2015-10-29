@@ -25,22 +25,22 @@
   /** event list **/
 
   .listview {
-    position:static !important;
-    height:auto !important;
     display:block !important;
-    overflow-y: visible !important;
+    height:auto !important;
     margin-top: 15px;
+    overflow-y: visible !important;
+    position:static !important;
     width:100%;
   }
 
   .listView ol,
   .listView li{
-    width:100%;
+    border:none;
+    clear:left;
+    float:left;
     height:auto;
     padding:0;
-    border:none;
-    float:left;
-    clear:left;
+    width:100%;
   }
 
   .listView .listHeader,
@@ -54,24 +54,24 @@
   .listView li .place,
   .listView li .time,
   .listView li .depth {
+    color:#000;
+    float:left;
+    font-size: 10px !important;
+    height:auto;
+    line-height:2px;
+    padding:5px;
     position:static;
     top:auto;left:auto;right:auto;bottom:auto;
-    float:left;
-    line-height:2px;
-    height:auto;
-    padding:5px;
-    font-size: 10px !important;
-    color:#000;
   }
 
   .listView .mag {
-    width:3% !important;
     text-align: right !important;
+    width:3% !important;
   }
 
   .listView .place {
-    width:49% !important;
     padding-left:5px !important;
+    width:49% !important;
   }
 
   .listView .time {
@@ -79,8 +79,7 @@
   }
 
   .listView .depth {
-    width:15% !important;
     text-align: right !important;
+    width:15% !important;
   }
-
 }

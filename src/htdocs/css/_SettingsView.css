@@ -6,7 +6,7 @@
 }
 
 .settingsView h1 {
-    font-size:1.5em;
+  font-size:1.5em;
   margin: 16px 0;
   padding-top:0;
 }
@@ -17,15 +17,15 @@
 }
 
 .settingsView h1 small {
-  font-weight: normal;
-  font-size: 0.61em;
   display: block;
+  font-size: 0.61em;
+  font-weight: normal;
 }
 
 .settingsView section {
+  margin: 16px 8px 0;
   max-width: 400px;
   padding: 0;
-  margin: 16px 8px 0;
   /*
   need this to compensate for -webkit-overflow-scrolling:touch,
   which otherwise prevents a redraw
@@ -43,8 +43,8 @@
 .settingsView li {
   list-style:none;
   margin:0;
-  padding:0;
   overflow:hidden;
+  padding:0;
 }
 
 
@@ -59,12 +59,12 @@
 /** settings "hit" targets */
 .settingsView label,
 .settingsView li a {
-  display:block;
-    font-size:1.08em;
-  padding:10px;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
+  display:block;
+  font-size:1.08em;
   line-height: 1.08;
+  padding:10px;
 }
 .settingsView li:last-child label,
 .settingsView li:last-child a {
@@ -79,11 +79,11 @@
   padding-left:30px;
 }
 .settingsView input {
-  position:absolute;
   left:10px;
-  top:10px;
-  padding:0;
   margin:0;
+  padding:0;
+  position:absolute;
+  top:10px;
 }
 
 @media screen and (min-width:640px) {
@@ -100,9 +100,9 @@
 }
 
 .settingsView > section > h1 > .help {
+  color:#333;
   display:block;
   font-size:.8em;
-  color:#333;
 }
 .settingsView .resetToDefaults {
   background-color: #c00;
@@ -111,15 +111,15 @@
   text-align: center;
 }
 .settingsview-searchwrapper {
-  text-align:center;
   background-color:#090;
   border:1px solid #bbb;
   padding:4px;
+  text-align:center;
 }
 .settingsview-searchwrapper .help {
+  color:#fafafa;
   display:block;
   font-size:.9em;
-  color:#fafafa;
 }
 .settingsview-searchbutton {
   margin-top: .5em;

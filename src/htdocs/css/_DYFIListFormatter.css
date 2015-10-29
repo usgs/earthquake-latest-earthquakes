@@ -1,20 +1,18 @@
 .dyfi-list > li > .no-dyfi {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-
-  width: 40px;
   height: 40px;
+  left: 0;
   line-height: 40px;
+  position: absolute;
   text-align: center;
+  top: 0;
+  width: 40px;
 }
 
 .dyfi-list > li > .responses {
-  display: block;
-  position: absolute;
   bottom: 5px;
-  right: 7px;
-
   color: #666;
+  display: block;
   font-size: .85em;
+  position: absolute;
+  right: 7px;
 }
