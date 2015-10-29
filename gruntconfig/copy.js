@@ -5,21 +5,25 @@ var config = require('./config');
 var copy = {
   dev: {
     expand: true,
-    cwd: config.src + '/htdocs',
-    dest: config.build + '/' + config.src + '/htdocs',
+    cwd: config.src,
+    dest: config.build + '/' + config.src,
     src: [
-      'img/**/*.{png,gif,jpg,jpeg}',
-      '**/*.php',
-      '**/*.html'
+      '**/*',
+      '!**/*.js',
+      '!**/*.scss',
+      '!**/*.css'
     ]
   },
   dist: {
     expand: true,
-    cwd: config.build + '/' + config.src + '/htdocs',
-    dest: config.dist + '/htdocs',
+    cwd: config.build + '/' + config.src,
+    dest: config.dist,
     src: [
-      'img/**/*.{png,gif,jpg,jpeg}',
-      '**/*.php'
+      '**/*',
+      '!**/*.js',
+      '!**/*.scss',
+      '!**/*.css',
+      '!**/*.html'
     ]
   },
   leaflet_custom: {
@@ -43,17 +47,6 @@ var copy = {
         return dest + src.replace('-custom', '');
       }
     }]
-  },
-  lib: {
-    expand: true,
-    cwd: config.src + '/lib',
-    dest: config.dist + '/lib',
-    src: [
-      '**/*'
-    ],
-    options: {
-      mode: true
-    }
   },
   jakefile: {
     expand: true,
