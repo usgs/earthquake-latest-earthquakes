@@ -4,7 +4,8 @@ var config = require('./config');
 
 var clean = {
   dist: [config.dist],
-  dev: [config.build]
+  dev: [config.build + '/' + config.src],
+  test: [config.build + '/' + config.test]
 };
 
 module.exports = clean;
