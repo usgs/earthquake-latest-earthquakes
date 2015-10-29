@@ -8,7 +8,7 @@ var watch = {
       config.src + '/htdocs/css/**/*.css'
     ],
     tasks: [
-      'postcss:build'
+      'postcss:dev'
     ]
   },
 
@@ -27,7 +27,12 @@ var watch = {
 
   livereload: {
     files: [
-      config.build + '/' + config.src + '/htdocs/**/*'
+      config.build + '/' + config.src + '/htdocs/css/**/*',
+      config.build + '/' + config.src + '/htdocs/images/**/*',
+      config.build + '/' + config.src + '/htdocs/img/**/*',
+      config.build + '/' + config.src + '/htdocs/eq/MapViewDependencies.js',
+      config.build + '/' + config.src + '/htdocs/js/index.js',
+      config.build + '/' + config.src + '/htdocs/*.*'
     ],
     options: {
       livereload: config.liveReloadPort
