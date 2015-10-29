@@ -25,7 +25,6 @@ var watch = {
       config.src + '/htdocs/**/*.html',
       config.src + '/htdocs/css/**/*.css',
       config.src + '/htdocs/img/**/*.{png,jpg,jpeg,gif}',
-      '.tmp/css/**/*.css'
     ]
   },
   gruntfile: {

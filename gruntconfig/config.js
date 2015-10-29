@@ -12,7 +12,6 @@ var config = {
   templatePort: basePort + 3,
   test: 'test',
   testPort: basePort + 1,
-  tmp: '.tmp',
   src: 'src'
 };
 

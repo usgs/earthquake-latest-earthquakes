@@ -7,9 +7,7 @@
         "earthquake-latest-earthquakes.sublime-workspace"
       ],
       "folder_exclude_patterns": [
-        ".sass-cache",
         "node_modules",
-        ".tmp"
       ]
     }
   ],

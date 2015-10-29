@@ -1,6 +1,4 @@
 .DS_Store
-.tmp
-.sass-cache
 dist
 node_modules
 *.sublime-workspace
