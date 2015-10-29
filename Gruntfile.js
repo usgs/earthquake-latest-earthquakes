@@ -13,32 +13,6 @@ module.exports = function (grunt) {
 
   //remove "copy:jakefile", and "replace:leaflet_jakefile"
   //  when Jakefile.js is upgraded with next release.
-  grunt.registerTask('build', function (task) {
-    var tasks = [
-      'clean:dist',
-      'copy:jakefile',
-      'replace:leaflet_jakefile',
-      'exec:build_leaflet',
-      'copy:leaflet_custom',
-      'requirejs:dist',
-      'replace:html',
-      'replace:javascript',
-      'replace:leaflet_shim_dist',
-      'replace:leaflet_jakefile',
-      'configureRewriteRules',
-      'connect:dist',
-      'postcss:build'
-    ];
-
-    if (task === 'legacy') {
-      tasks.splice(-2, 0, 'replace:legacyTemplate');
-    }
-
-    grunt.task.run(tasks);
-  });
-
-  //remove "copy:jakefile", and "replace:leaflet_jakefile"
-  //  when Jakefile.js is upgraded with next release.
   grunt.registerTask('builddev', [
     'clean:dev',
     'copy:jakefile',
@@ -55,7 +29,9 @@ module.exports = function (grunt) {
     'copy:dist',
     'postcss:dist',
     'htmlmin',
-    'uglify'
+    'uglify',
+    'replace:html', // use build time as cache buster
+    'replace:javascript'
   ]);
 
   grunt.registerTask('buildtest', [
@@ -68,7 +44,9 @@ module.exports = function (grunt) {
 
   grunt.registerTask('dev', [
     'builddev',
+
     'test',
+
     'configureProxies:dev',
     'connect:template',
     'connect:dev',
@@ -78,6 +56,7 @@ module.exports = function (grunt) {
   grunt.registerTask('dist', [
     'builddev',
     'builddist',
+
     'connect:template',
     'configureProxies:dist',
     'connect:dist:keepalive'
