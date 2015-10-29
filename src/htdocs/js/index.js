@@ -14,6 +14,5 @@ require(
     _application = new EarthquakeApp({
       el: document.getElementById('application')
     });
-
   }
 );
