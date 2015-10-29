@@ -4,7 +4,6 @@ require.config({
 });
 
 
-
 var _application;
 
 require(
