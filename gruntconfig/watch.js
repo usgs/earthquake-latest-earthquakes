@@ -3,33 +3,56 @@
 var config = require('./config');
 
 var watch = {
-  scripts: {
-    files: [config.src + '/htdocs/js/**/*.js'],
+  css: {
+    files: [
+      config.src + '/htdocs/css/**/*.css'
+    ],
+    tasks: [
+      'postcss:build'
+    ]
+  },
+
+  gruntfile: {
+    files: [
+      'Gruntfile.js',
+      'gruntconfig/**/*.js'
+    ],
+    options: {
+      reload: true
+    },
+    tasks: [
+      'jshint:gruntfile'
+    ]
+  },
+
+  livereload: {
+    files: [
+      config.build + '/' + config.src + '/htdocs/**/*'
+    ],
     options: {
       livereload: config.liveReloadPort
     }
   },
-  css: {
-    files: [config.src + '/htdocs/css/**/*.scss'],
-    tasks: ['postcss:build'],
-    livereload: config.liveReloadPort
-  },
-  tests: {
-    files: [config.test + '/*.html', config.test + '/**/*.js']
-  },
-  livereload: {
-    options: {
-      livereload: config.liveReloadPort
-    },
+
+  scripts: {
     files: [
-      config.src + '/htdocs/**/*.html',
-      config.src + '/htdocs/css/**/*.css',
-      config.src + '/htdocs/img/**/*.{png,jpg,jpeg,gif}',
+      config.src + '/htdocs/js/**/*.js'
+    ],
+    tasks: [
+      'jshint:scripts',
+      'requirejs:dev'
     ]
   },
-  gruntfile: {
-    files: ['Gruntfile.js'],
-    tasks: ['jshint:gruntfile']
+
+  tests: {
+    files: [
+      config.test + '/*.html',
+      config.test + '/**/*.js'
+    ],
+    tasks: [
+      'copy:test',
+      'requirejs:test'
+    ]
   }
 };
 
