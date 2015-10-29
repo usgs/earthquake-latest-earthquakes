@@ -15,7 +15,7 @@ var requirejs = {
       generateSourceMaps: true,
       // for bundling require library in to index.js
       paths: {
-        requireLib: '../../../node_modules/requirejs/require',
+        requireLib: '../../../node_modules/grunt-contrib-requirejs/node_modules/requirejs/require',
         leaflet: '../../../node_modules/leaflet/dist/leaflet'
       },
 
@@ -57,7 +57,7 @@ var requirejs = {
       removeCombined: true,
       optimize: 'none',
       paths: {
-        requireLib: '../node_modules/requirejs/require'
+        requireLib: '../node_modules/grunt-contrib-requirejs/node_modules/requirejs/require'
       },
 
       modules: [
