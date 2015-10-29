@@ -34,15 +34,16 @@ var connect = {
       base: [
         config.build + '/' + config.src + '/htdocs'
       ],
-      port: config.devPort,
-      open: 'http://localhost:' + config.devPort,
+      livereload: config.liveReloadPort,
       middleware: function (connect, options, middlewares) {
         middlewares.unshift(
           require('grunt-connect-proxy/lib/utils').proxyRequest,
           mountPHP(options.base[0])
         );
         return middlewares;
-      }
+      },
+      open: 'http://localhost:' + config.devPort,
+      port: config.devPort
     }
   },
   dist: {
