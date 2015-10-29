@@ -38,9 +38,11 @@ define([
 
 
   var EarthquakeApp = function(options) {
-    // take over the page
+    // take over the application
     var body = document.getElementsByTagName('body')[0];
-    Util.empty(body);
+    if (options.el) {
+      Util.empty(options.el);
+    }
 
     var _this = this;
     var _settings = new EarthquakeAppSettings(
