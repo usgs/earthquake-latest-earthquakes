@@ -11,6 +11,8 @@ var requirejs = {
       useStrict: true,
       wrap: false,
       removeCombined: true,
+      optimize: 'none',
+      generateSourceMaps: true,
       // for bundling require library in to index.js
       paths: {
         requireLib: '../../../node_modules/requirejs/require',
