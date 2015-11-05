@@ -143,7 +143,7 @@ li a {
   text-align: center;
 }
 
-.defaultcontent .lookatme: after, .lookatme: before {
+.defaultcontent .lookatme:after, .lookatme:before {
   border: solid transparent;
   bottom: 100%;
   content: " ";
@@ -153,14 +153,14 @@ li a {
   width: 0;
 }
 
-.defaultcontent .lookatme: after {
+.defaultcontent .lookatme:after {
   border-color: rgba(237, 102, 0, 0);
   border-bottom-color: #090;
   border-width: 30px;
   margin-left: -30px;
   right: 50px;
 }
-.defaultcontent .lookatme: before {
+.defaultcontent .lookatme:before {
   border-color: rgba(213, 92, 0, 0);
   border-bottom-color: #090;
   border-width: 36px;
@@ -190,8 +190,8 @@ li a {
     width: 40%;
   }
 
-  .defaultcontent .lookatme: before,
-  .defaultcontent .lookatme: after {
+  .defaultcontent .lookatme:before,
+  .defaultcontent .lookatme:after {
     right: 25px;
   }
 
