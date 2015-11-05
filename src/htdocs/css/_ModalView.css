@@ -47,7 +47,7 @@
   top: 9px;
   width: 25px;
 }
-.modal-close-link: hover {color: #C10C0C;}
+.modal-close-link:hover {color: #C10C0C;}
 .modal-content {
   margin: 0 0 0 16px;
   max-height: 540px;

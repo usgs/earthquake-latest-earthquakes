@@ -109,7 +109,7 @@ li a {
   line-height: 1.08;
 }
 
-.defaultcontent li: last-child a {
+.defaultcontent li:last-child a {
   border-bottom: none;
 }
 

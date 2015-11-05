@@ -95,7 +95,7 @@
   text-decoration: none;
 }
 
-.quicksummary > a: hover {
+.quicksummary > a:hover {
   background-image: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%,
       rgba(0,0,0,0.1) 100%);
   color: #000;
@@ -106,7 +106,7 @@
 }
 
 .quicksummary > a.tsunamilogo,
-.quicksummary > a.tsunamilogo: hover {
+.quicksummary > a.tsunamilogo:hover {
   box-shadow: none;
   margin: 0;
   padding: 0;
