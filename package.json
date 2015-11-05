@@ -34,7 +34,7 @@
     "grunt-mocha-phantomjs": "^2.0.0",
     "grunt-postcss": "^0.7.0",
     "grunt-text-replace": "~0.4.0",
-    "hazdev-template": "usgs/hazdev-template",
+    "hazdev-template": "~0.1.0",
     "jshint": "~2.8.0",
     "leaflet": "~0.7.0",
     "matchdep": "~1.0.0",
