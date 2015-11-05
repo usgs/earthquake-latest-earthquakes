@@ -33,7 +33,7 @@
   -webkit-transform: translate3d(0,0,0);
 }
 
-.settingsView section: first-child {
+.settingsView section:first-child {
   margin-top: 0;
 }
 
@@ -66,8 +66,8 @@
   line-height: 1.08;
   padding: 10px;
 }
-.settingsView li: last-child label,
-.settingsView li: last-child a {
+.settingsView li:last-child label,
+.settingsView li:last-child a {
   border-bottom: none;
 }
 
