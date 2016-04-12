@@ -5,7 +5,7 @@ var config = require('./config');
 var watch = {
   css: {
     files: [
-      config.src + '/htdocs/css/**/*.css'
+      config.src + '/htdocs/**/*.css'
     ],
     tasks: [
       'postcss:dev'
@@ -27,13 +27,7 @@ var watch = {
 
   livereload: {
     files: [
-      config.build + '/' + config.src + '/htdocs/css/**/*',
-      config.build + '/' + config.src + '/htdocs/images/**/*',
-      config.build + '/' + config.src + '/htdocs/img/**/*',
-      config.build + '/' + config.src + '/htdocs/eq/MapViewDependencies.js',
-      config.build + '/' + config.src + '/htdocs/js/index.js',
-      config.build + '/' + config.src + '/htdocs/*.*',
-      '!' + config.build + '/' + config.src + '/htdocs/*.inc.*'
+      config.build + '/' + config.src + '/htdocs/**/*'
     ],
     options: {
       livereload: config.liveReloadPort
@@ -42,11 +36,12 @@ var watch = {
 
   scripts: {
     files: [
-      config.src + '/htdocs/js/**/*.js'
+      config.src + '/htdocs/**/*.js'
     ],
     tasks: [
       'jshint:scripts',
-      'requirejs:dev'
+      'browserify:index',
+      'browserify:bundle'
     ]
   },
 
@@ -54,8 +49,7 @@ var watch = {
     files: [
       config.src + '/**/*',
       '!' + config.src + '/**/*.js',
-      '!' + config.src + '/**/*.scss',
-      '!' + config.src + '/**/*.css'
+      '!' + config.src + '/**/*.scss'
     ],
     tasks: [
       'copy:dev'
@@ -69,7 +63,7 @@ var watch = {
     ],
     tasks: [
       'copy:test',
-      'requirejs:test'
+      'browserify:test'
     ]
   }
 };

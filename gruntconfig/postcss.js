@@ -5,10 +5,11 @@ var autoprefixer = require('autoprefixer'),
     cssImport = require('postcss-import'),
     precss = require('precss');
 
+
 var config = require('./config');
 
-var postcss = {
 
+var postcss = {
   dev: {
     cwd: config.src + '/htdocs',
     dest: config.build + '/' + config.src + '/htdocs',
@@ -17,7 +18,7 @@ var postcss = {
       processors: [
         cssImport({
           path: [
-            'node_modules/leaflet/dist'
+            // TODO: node_modules dependencies
           ]
         }),
         precss(),
@@ -25,9 +26,11 @@ var postcss = {
       ]
     },
     src: [
-      '**/*.css',
-      '!**/_*.css'
-    ]
+      '**/*.scss',
+      '!**/_*.scss'
+    ],
+    ext: '.css',
+    extDot: 'last'
   },
 
   dist: {
@@ -44,5 +47,6 @@ var postcss = {
     ]
   }
 };
+
 
 module.exports = postcss;

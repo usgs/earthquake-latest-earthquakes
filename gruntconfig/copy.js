@@ -29,38 +29,27 @@ var copy = {
       '!**/*.html'
     ]
   },
-  leaflet_custom: {
-    files: [{
-      cwd: 'node_modules/leaflet/dist',
-      dest: 'node_modules/leaflet/dist/',
-      dot: true,
-      expand: true,
-      rename: function (dest, src) {
-        return dest + src.replace('-custom-src', '-src');
-      },
-      src: 'leaflet-custom-src.js'
-    },
-    {
-      cwd: 'node_modules/leaflet/dist',
-      dest: 'node_modules/leaflet/dist/',
-      dot: true,
-      expand: true,
-      rename: function (dest, src) {
-        return dest + src.replace('-custom', '');
-      },
-      src: 'leaflet-custom.js'
-    }]
-  },
-  jakefile: {
+
+  leaflet: {
     expand: true,
-    dot: true,
-    cwd: 'node_modules/leaflet',
-    dest: 'node_modules/leaflet/',
-    src: 'Jakefile.js',
+    cwd: 'node_modules/leaflet/dist',
+    dest: config.build + '/' + config.src + '/htdocs/lib/leaflet-0.7.7',
     rename: function (dest, src) {
-      return dest + src.replace('.js', '_custom.js');
-    }
+      var newName;
+
+      // swap -src version to be default and add -min to compressed version
+      // this is nice for debugging but allows production to use default
+      // version as compressed
+      newName = src.replace('leaflet.js', 'leaflet-min.js');
+      newName = newName.replace('leaflet-src.js', 'leaflet.js');
+
+      return dest + '/' + newName;
+    },
+    src: [
+      '**/*'
+    ]
   },
+
   test: {
     expand: true,
     cwd: config.test,
