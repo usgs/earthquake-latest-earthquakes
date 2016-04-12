@@ -1,6 +1,8 @@
 'use strict';
 
-var el;
+var LatestEarthquakes = require('LatestEarthquakes');
 
-el = document.querySelector('#latest-earthquakes');
-el.innerHTML = 'Hello';
+
+LatestEarthquakes({
+  el: document.querySelector('#latest-earthquakes')
+});
