@@ -2,10 +2,15 @@
 
 var config = require('./config');
 
+
 var clean = {
-  dist: [config.dist],
-  dev: [config.build + '/' + config.src],
-  test: [config.build + '/' + config.test]
+  build: [
+    config.build
+  ],
+  dist: [
+    config.dist
+  ]
 };
+
 
 module.exports = clean;

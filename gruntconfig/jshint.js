@@ -7,7 +7,7 @@ var jshint = {
     jshintrc: '.jshintrc'
   },
   gruntfile: ['Gruntfile.js'],
-  scripts: [config.src + '/htdocs/js/**/*.js'],
+  scripts: [config.src + '/**/*.js'],
   tests: [config.test + '/**/*.js']
 };
 

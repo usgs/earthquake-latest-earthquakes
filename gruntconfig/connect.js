@@ -19,6 +19,7 @@ var connect = {
   options: {
     hostname: '*'
   },
+
   proxies: [
     {
       context: '/theme/',
@@ -29,6 +30,7 @@ var connect = {
       }
     }
   ],
+
   dev: {
     options: {
       base: [
@@ -46,6 +48,7 @@ var connect = {
       port: config.devPort
     }
   },
+
   dist: {
     options: {
       base: [config.dist + '/htdocs'],
@@ -66,6 +69,32 @@ var connect = {
       }
     }
   },
+
+  example: {
+    options: {
+      base: [
+        config.example,
+        config.etc,
+        config.build + '/' + config.src
+      ],
+      port: config.examplePort,
+      open: 'http://localhost:' + config.examplePort + '/example.php',
+      middleware: function (connect, options, middlewares) {
+        middlewares.unshift(
+          require('grunt-connect-proxy/lib/utils').proxyRequest,
+          (function () {
+            var gzip = require('connect-gzip');
+            return gzip.gzip({
+              matchType: /text|javascript|json|css/
+            });
+          })(),
+          mountPHP(options.base[0])
+        );
+        return middlewares;
+      }
+    }
+  },
+
   template: {
     options: {
       base: ['node_modules/hazdev-template/dist/htdocs'],
@@ -76,11 +105,13 @@ var connect = {
       }
     }
   },
+
   test: {
     options: {
       base: [
         config.build + '/' + config.test,
         config.build + '/' + config.src + '/htdocs',
+        config.etc,
         'node_modules'
       ],
       port: config.testPort

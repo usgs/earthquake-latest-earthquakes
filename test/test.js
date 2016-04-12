@@ -1,24 +1,15 @@
 /* jshint global chai, mocha, sinon */
+'use strict';
 
-(function () {
-  mocha.setup('bdd');
-  require.config({
-    baseUrl: '..',
-  });
+mocha.setup('bdd');
 
-  require([
-  ], function (
-  ) {
-    'use strict';
-    // Add each test class here as they are implemented
-    require([
-      'spec/ExampleTest'
-    ], function () {
-      if (window.mochaPhantomJS) {
-        window.mochaPhantomJS.run();
-      } else {
-        mocha.run();
-      }
-    });
-  });
-})();
+
+// Add each test class here as they are implemented
+require('./spec/ExampleTest');
+
+
+if (window.mochaPhantomJS) {
+  window.mochaPhantomJS.run();
+} else {
+  mocha.run();
+}

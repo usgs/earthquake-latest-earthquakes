@@ -8,11 +8,15 @@ var config = {
   devPort: basePort,
   dist: 'dist',
   distPort: basePort + 2,
+  etc: 'etc',
+  example: 'example',
+  examplePort: basePort + 4,
   liveReloadPort: basePort + 9,
   templatePort: basePort + 3,
   test: 'test',
   testPort: basePort + 1,
   src: 'src'
 };
+
 
 module.exports = config;

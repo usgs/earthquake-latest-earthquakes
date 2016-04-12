@@ -1,18 +1,6 @@
-require.config({
-  baseUrl: 'js',
-  urlArgs: 'stamp=' + (new Date()).getTime()
-});
+'use strict';
 
+var el;
 
-var _application;
-
-require(
-  ['eq/EarthquakeApp'],
-  function(EarthquakeApp) {
-    'use strict';
-
-    _application = new EarthquakeApp({
-      el: document.getElementById('application')
-    });
-  }
-);
+el = document.querySelector('#latest-earthquakes');
+el.innerHTML = 'Hello';

@@ -1,6 +1,0 @@
-.toggle-content {
-  display: none;
-}
-.toggle-expanded > .toggle-content {
-  display: block;
-}
