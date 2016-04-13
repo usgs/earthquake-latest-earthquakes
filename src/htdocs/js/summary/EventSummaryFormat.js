@@ -34,14 +34,18 @@ var EventSummaryFormat = function (options) {
         cdi,
         coordinates,
         depth,
+        el,
         impactBuf,
         latitude,
+        location,
         longitude,
         mmi,
         properties,
         time,
         tsunami;
 
+    el = document.createElement('div');
+    el.className = 'event-summary';
 
     properties = eq.properties;
     alertlevel = properties.alert;
@@ -50,14 +54,9 @@ var EventSummaryFormat = function (options) {
     tsunami = properties.tsunami;
     time = Date(properties.time);
 
-    coordinates = eq.geometry.coordinates;
-    depth = coordinates[2];
-    latitude = coordinates[1];
-    longitude = coordinates[0];
-
     buf = [];
     impactBuf = [];
-    buf.className = 'event-summary';
+
     buf.push(
       '<h1>',
         '<a href="', properties.url, '">',
@@ -118,26 +117,14 @@ var EventSummaryFormat = function (options) {
           '</div>');
     }
 
-    if (time !== 'undefined' && time !== null) {
-      time = _formatter.datetime(time, 0, false);
-    } else {
-      time = '&ndash;';
-    }
-    if (latitude !== 'undefined' && latitude !== null) {
-      latitude = _formatter.latitude(latitude);
-    } else {
-      latitude = '&ndash;';
-    }
-    if (longitude !== 'undefined' && longitude !== null) {
-      longitude = _formatter.longitude(longitude);
-    } else {
-      longitude = '&ndash;';
-    }
-    if (depth !== 'undefined' && depth !== null) {
-      depth = _formatter.depth(depth, 'km');
-    } else {
-      depth = '&ndash;';
-    }
+    coordinates = eq.geometry.coordinates;
+    depth = coordinates[2];
+    latitude = coordinates[1];
+    longitude = coordinates[0];
+
+    time = _formatter.datetime(time, 0, false);
+    location = _formatter.location(latitude, longitude);
+    depth = depth = _formatter.depth(depth, 'km');
 
     buf.push(
       '<dl>',
@@ -150,16 +137,15 @@ var EventSummaryFormat = function (options) {
           '</time>',
         '</dd>',
         '<dt>Location</dt>',
-          '<dd>', latitude, ' ',
-              longitude,
+          '<dd>', location,
           '</dd>',
         '<dt>Depth</dt>',
-          '<dd>', depth, ' km</dd>',
+          '<dd>', depth, '</dd>',
       '</dl>'
     );
 
-
-    return buf.join('');
+    el.innerHTML = buf.join('');
+    return el;
   };
 
   _initialize(options);
