@@ -57,6 +57,14 @@ var EventSummaryFormat = function (options) {
 
     buf = [];
     impactBuf = [];
+    buf.className = 'event-summary';
+    buf.push(
+      '<h1>',
+        '<a href="', properties.url, '">',
+          properties.title,
+        '</a>',
+      '</h1>'
+    );
 
     if (typeof cdi !== 'undefined' && cdi !== null) {
       cdi = _formatter.mmi(cdi);
