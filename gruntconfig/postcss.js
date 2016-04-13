@@ -2,33 +2,39 @@
 
 var autoprefixer = require('autoprefixer'),
     cssnano = require('cssnano'),
+    calc = require('postcss-calc'),
     cssImport = require('postcss-import'),
     precss = require('precss');
 
 
-var config = require('./config');
+var config = require('./config'),
+    CWD = '.',
+    NODE_MODULES = CWD + '/node_modules';
 
 
 var postcss = {
   dev: {
-    cwd: config.src + '/htdocs',
-    dest: config.build + '/' + config.src + '/htdocs',
-    expand: true,
     options: {
+      map: true,
       processors: [
         cssImport({
           path: [
+            CWD + '/' + config.src + '/htdocs'
             // TODO: node_modules dependencies
           ]
         }),
         precss(),
+        calc(),
         autoprefixer({'browsers': 'last 2 versions'}) // vendor prefix as needed
       ]
     },
+    expand: true,
+    cwd: config.src + '/htdocs',
     src: [
       '**/*.scss',
       '!**/_*.scss'
     ],
+    dest: config.build + '/' + config.src + '/htdocs',
     ext: '.css',
     extDot: 'last'
   },
