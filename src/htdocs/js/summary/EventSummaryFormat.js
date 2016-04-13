@@ -28,6 +28,14 @@ var EventSummaryFormat = function (options) {
     _formatter = null;
   }, _this.destroy);
 
+  /**
+   * Formats earthquake data for the list.
+   *
+   * @param eq {Object}
+   *    a featured object from the summary feed.
+   * @return {DOMElement}
+   *    dom element with formatted information.
+   */
   _this.format = function (eq) {
     var alertlevel,
         buf,
