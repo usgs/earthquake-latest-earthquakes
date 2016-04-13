@@ -14,6 +14,10 @@ NODE_MODULES = CWD + '/node_modules';
 
 
 ALL_CLASSES = [
+  JS + '/core/Formatter.js:core/Formatter',
+  JS + '/summary/EventSummaryFormat.js:summary/EventSummaryFormat',
+
+  NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr'
 ];
 
 

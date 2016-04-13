@@ -75,7 +75,7 @@ var connect = {
       base: [
         config.example,
         config.etc,
-        config.build + '/' + config.src
+        config.build + '/' + config.src + '/htdocs'
       ],
       port: config.examplePort,
       open: 'http://localhost:' + config.examplePort + '/example.php',
