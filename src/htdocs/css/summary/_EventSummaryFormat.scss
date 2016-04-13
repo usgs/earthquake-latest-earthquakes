@@ -109,38 +109,22 @@
 .mmiXI{background-color: #C80F0A;}
 .mmiXII{background-color: #C80F0A;}
 
+
 .event-summary {
-  background-color: #fff;
-  bottom: 0;
-  box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.2);
-  display: block;
-  font-size: smaller;
-  left: 0;
-  overflow-y: auto;
-  position: absolute;
-  right: 0;
-  z-index: 3;
-}
+  > h1 {
+    font-size: medium;
+    font-weight: bold;
+    margin-right: 46px;
+    margin-top: 0;
+  }
 
-
-.event-summary > div {
-  padding: 8px;
-}
-
-.event-summary h1 {
-  font-size: medium;
-  font-weight: bold;
-  margin-right: 46px;
-  margin-top: 0;
-}
-
-.event-summary dl {
-  margin: 0;
-}
-
-.event-summary dt {
-  clear: left;
-  display: block;
-  float: left;
-  width: 5em;
+  > dl {
+    > dt {
+      clear: left;
+      display: block;
+      float: left;
+      font-weight: normal;
+      width: 5em;
+    }
+  }
 }
