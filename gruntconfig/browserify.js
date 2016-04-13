@@ -40,6 +40,7 @@ ALL_CLASSES = getAliases(JS, [
 
   'list/DefaultListFormat',
   'list/PagerListFormat',
+  'list/ShakeMapListFormat',
 
   'summary/EventSummaryFormat'
 ]).concat(getAliases(NODE_MODULES + '/hazdev-webutils/src', [
