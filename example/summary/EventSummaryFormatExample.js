@@ -12,7 +12,7 @@ Xhr.ajax({
     eventSummaryFormat = EventSummaryFormat();
     markup = eventSummaryFormat.format(data.features[0]);
 
-    document.querySelector('#event-summary-format-example').innerHTML = markup;
+    document.querySelector('#event-summary-format-example').appendChild(markup);
   },
   error: function (e) {
     document.querySelector('#event-summary-format-example').innerHTML = [
