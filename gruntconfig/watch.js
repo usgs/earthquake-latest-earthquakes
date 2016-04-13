@@ -5,7 +5,7 @@ var config = require('./config');
 var watch = {
   css: {
     files: [
-      config.src + '/htdocs/**/*.css'
+      config.src + '/htdocs/**/*.scss'
     ],
     tasks: [
       'postcss:dev'

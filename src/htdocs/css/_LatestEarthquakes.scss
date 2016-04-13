@@ -1,0 +1,89 @@
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+
+/* TODO: remove */
+.latest-earthquakes > *,
+.latest-earthquakes-content > * {
+  outline: 1px solid #ccc;
+}
+
+
+/***** layout for header, content, footer *****/
+.latest-earthquakes {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.latest-earthquakes-footer,
+.latest-earthquakes-header {
+  display: block;
+  height: 50px;
+}
+
+.latest-earthquakes-content {
+  display: flex;
+  flex: 1;
+}
+
+
+/***** layout for content views *****/
+
+/** hide views by default. */
+.latest-earthquakes-list,
+.latest-earthquakes-map,
+.latest-earthquakes-settings {
+  display: none;
+}
+
+/** show views when mode enabled. */
+.mode-list > .latest-earthquakes-list,
+.mode-map > .latest-earthquakes-map,
+.mode-settings > .latest-earthquakes-settings {
+  display: block;
+}
+
+/* list and settings are 100% wide by default */
+/* list is 320px wide */
+.latest-earthquakes-list {
+  width: 100%;
+}
+
+/** map fills rest of screen by default. */
+.latest-earthquakes-map {
+  flex: 1;
+}
+
+/* hide other views on smaller screens */
+.mode-list > .latest-earthquakes-map,
+.mode-settings > .latest-earthquakes-map,
+.mode-list > .latest-earthquakes-settings {
+  display: none;
+}
+
+
+/* 641 leaves room for list and settings at 320px plus 1px for map */
+@media screen and (min-width: 641px) {
+  /* when map is visible restrict list to 320px */
+  .mode-map > .latest-earthquakes-list,
+  /* when list or map are visible restrict settings to 320px */
+  .mode-list > .latest-earthquakes-settings,
+  .mode-map > .latest-earthquakes-settings {
+    width: 320px;
+  }
+
+  /** show views when mode enabled (reset for hide rules). */
+  .mode-list > .latest-earthquakes-list,
+  .mode-map > .latest-earthquakes-map,
+  .mode-settings > .latest-earthquakes-settings {
+    display: block;
+  }
+}
