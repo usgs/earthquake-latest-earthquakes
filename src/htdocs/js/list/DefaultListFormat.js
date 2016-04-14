@@ -27,7 +27,7 @@ var _DEFAULTS = {
  * - getSubheaderMarkup(Feature) :: String
  *
  */
-var DefaultListFormatter = function (options) {
+var DefaultListFormat = function (options) {
   var _this,
       _initialize,
 
@@ -62,6 +62,7 @@ var DefaultListFormatter = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
 
     _idPrefix = options.idPrefix;
+
     _formatter = options.formatter || Formatter();
   };
 
@@ -250,4 +251,4 @@ var DefaultListFormatter = function (options) {
 };
 
 
-module.exports = DefaultListFormatter;
+module.exports = DefaultListFormat;

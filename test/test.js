@@ -13,7 +13,6 @@ require('./spec/list/DefaultListFormatTest');
 require('./spec/list/PagerListFormatTest');
 
 
-
 if (window.mochaPhantomJS) {
   window.mochaPhantomJS.run();
 } else {
