@@ -101,11 +101,17 @@ var DefaultListFormat = function (options) {
   };
 
   _this.getHeaderMarkup = function (eq) {
-    return _this.getProperty(eq, 'place') || 'Unknown Event';
-  };
+    var place,
+        type;
 
-  _this.getId = function (eq) {
-    return _idPrefix + '-' + eq.id;
+    place = _this.getProperty(eq, 'place') || 'Unknown Place';
+    type = _this.getProperty(eq, 'type') || 'earthquake';
+
+    if (type !== 'earthquake') {
+      place = type + ' ' + place;
+    }
+
+    return place;
   };
 
   _this.getProperty = function (eq, property) {
@@ -118,7 +124,7 @@ var DefaultListFormat = function (options) {
   };
 
   _this.getSubheaderMarkup = function (eq) {
-    return _formatter.datetime(new Date(_this.getProperty(eq, 'time')));
+    return _formatter.datetime(_this.getProperty(eq, 'time'));
   };
 
 
