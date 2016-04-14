@@ -1,4 +1,4 @@
-/* jshint global chai, mocha, sinon */
+/* global mocha */
 'use strict';
 
 mocha.setup('bdd');
@@ -6,8 +6,11 @@ mocha.setup('bdd');
 
 // Add each test class here as they are implemented
 require('./spec/EventSummaryFormatTest');
-require('./spec/ExampleTest');
-require('./spec/FormatterTest');
+
+require('./spec/core/FormatterTest');
+
+require('./spec/list/PagerListFormatTest');
+
 
 
 if (window.mochaPhantomJS) {
