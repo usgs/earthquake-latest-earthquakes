@@ -15,7 +15,10 @@ Xhr.ajax({
     list = document.createElement('ul');
     list.classList.add('no-style');
     (data.features || []).forEach(function (feature) {
-      list.appendChild(defaultListFormat.format(feature));
+      var item;
+
+      item = list.appendChild(document.createElement('li'));
+      item.appendChild(defaultListFormat.format(feature));
     });
 
     document.querySelector('#default-list-format-example').appendChild(list);

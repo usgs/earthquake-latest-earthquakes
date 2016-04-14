@@ -46,7 +46,7 @@ var DefaultListFormatter = function (options) {
   _this.format = function (eq) {
     var item;
 
-    item = document.createElement('li');
+    item = document.createElement('div');
     item.id = _this.getId(eq);
     _this.getClasses({eq: eq, classes: []}).classes.forEach(
     function (className) {
