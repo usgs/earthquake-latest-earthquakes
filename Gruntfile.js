@@ -29,8 +29,6 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['dev']);
 
   grunt.registerTask('dev', [
-    'builddev',
-
     'test',
 
     'configureProxies:dev',
@@ -54,6 +52,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('test', [
+    'builddev',
     'buildtest',
     'connect:test',
     'mocha_phantomjs'
