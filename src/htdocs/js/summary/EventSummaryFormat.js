@@ -3,10 +3,15 @@
 var Formatter = require('core/Formatter'),
     Util = require('util/Util');
 
+
 var _DEFAULTS = {
 
 };
 
+/**
+ * Formats an event summary
+ * @param options {Object}
+ */
 var EventSummaryFormat = function (options) {
   var _this,
       _initialize,
@@ -16,16 +21,17 @@ var EventSummaryFormat = function (options) {
 
   _this = {};
 
-  _initialize = function(options) {
+  _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
     _formatter = options.formatter || Formatter();
   };
 
-  _this.destroy = Util.compose(function () {
-    _this = null;
-    _initialize = null;
 
+  _this.destroy = Util.compose(function () {
     _formatter = null;
+
+    _initialize = null;
+    _this = null;
   }, _this.destroy);
 
   /**
@@ -60,7 +66,16 @@ var EventSummaryFormat = function (options) {
     cdi = properties.cdi;
     mmi = properties.mmi;
     tsunami = properties.tsunami;
-    time = Date(properties.time);
+    time = new Date(properties.time);
+
+    coordinates = eq.geometry.coordinates;
+    depth = coordinates[2];
+    latitude = coordinates[1];
+    longitude = coordinates[0];
+
+    time = _formatter.datetime(time, 0, false);
+    location = _formatter.location(latitude, longitude);
+    depth = _formatter.depth(depth, 'km');
 
     buf = [];
     impactBuf = [];
@@ -125,15 +140,6 @@ var EventSummaryFormat = function (options) {
           '</div>');
     }
 
-    coordinates = eq.geometry.coordinates;
-    depth = coordinates[2];
-    latitude = coordinates[1];
-    longitude = coordinates[0];
-
-    time = _formatter.datetime(time, 0, false);
-    location = _formatter.location(latitude, longitude);
-    depth = depth = _formatter.depth(depth, 'km');
-
     buf.push(
       '<dl>',
         '<dt>Time</dt>',
@@ -145,10 +151,10 @@ var EventSummaryFormat = function (options) {
           '</time>',
         '</dd>',
         '<dt>Location</dt>',
-          '<dd>', location,
+          '<dd class="location">', location,
           '</dd>',
         '<dt>Depth</dt>',
-          '<dd>', depth, '</dd>',
+          '<dd class="depth">', depth, '</dd>',
       '</dl>'
     );
 
@@ -156,9 +162,11 @@ var EventSummaryFormat = function (options) {
     return el;
   };
 
+
   _initialize(options);
   options = null;
   return _this;
 };
+
 
 module.exports = EventSummaryFormat;
