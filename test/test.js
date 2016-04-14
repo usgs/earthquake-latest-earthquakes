@@ -5,7 +5,7 @@ mocha.setup('bdd');
 
 
 // Add each test class here as they are implemented
-require('./spec/EventSummaryFormatTest');
+require('./spec/summary/EventSummaryFormatTest');
 
 require('./spec/core/FormatterTest');
 
