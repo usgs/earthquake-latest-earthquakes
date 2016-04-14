@@ -127,6 +127,7 @@ var connect = {
         config.etc,
         'node_modules'
       ],
+      open: 'http://localhost:' + config.testPort + '/test.html',
       port: config.testPort
     }
   }
