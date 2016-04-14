@@ -7,6 +7,14 @@ if (!isset($TEMPLATE)) {
   // Stuff that goes at the top of the page (in the <head>) (i.e. <link> tags)
   $HEAD = '
     <link rel="stylesheet" href="/css/index.css"/>
+        <style>
+    #shakemap-list-format-example > ul {
+      border: 1px solid #999;
+    }
+    #shakemap-list-format-example > ul > li + li {
+      border-top: 1px solid #ccc;
+    }
+    </style>
   ';
   // Stuff that goes at the bottom of the page (i.e. <script> tags)
   $FOOT = '
