@@ -11,6 +11,13 @@ var _DEFAULTS = {
 };
 
 
+/**
+ * List formatter class for the PAGER layout. Extends DefaultListFormat.
+ * Produces a formatted item with markup appropriate for those interested in
+ * PAGER-type information.
+ *
+ * @see DefaultListFormat
+ */
 var PagerListFormat = function (options) {
   var _this,
       _initialize,
@@ -35,6 +42,13 @@ var PagerListFormat = function (options) {
     _this = null;
   };
 
+  /**
+   * APIMethod.
+   *
+   * Uses the event "mmi" property to display a max-mmi value.
+   *
+   * @see DefaultListFormat#getAsideMarkup
+   */
   _this.getAsideMarkup = function (eq) {
     var markup,
         mmi;
@@ -52,6 +66,13 @@ var PagerListFormat = function (options) {
     return markup;
   };
 
+  /**
+   * APIMethod.
+   *
+   * Uses the "alert" property to display the pager alert level value.
+   *
+   * @see DefaultListFormat#getCalloutMarkup
+   */
   _this.getCalloutMarkup = function (eq) {
     var alert,
         markup;
@@ -68,6 +89,13 @@ var PagerListFormat = function (options) {
     return markup;
   };
 
+  /**
+   * APIMethod.
+   *
+   * Extends base class implementation to include a pager-list-item class.
+   *
+   * @see DefaultListFormat#getClasses
+   */
   _this.getClasses = Util.compose(_this.getClasses, function (params) {
     params = params || {};
     params.classes = params.classes || [];
@@ -77,6 +105,13 @@ var PagerListFormat = function (options) {
     return params;
   });
 
+  /**
+   * APIMethod.
+   *
+   * Uses the "place" property to display the event header value.
+   *
+   * @see DefaultListFormat#getHeaderMarkup
+   */
   _this.getHeaderMarkup = function (eq) {
     return _this.getProperty(eq, 'title');
   };
