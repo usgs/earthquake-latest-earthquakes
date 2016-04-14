@@ -7,6 +7,7 @@ mocha.setup('bdd');
 // Add each test class here as they are implemented
 require('./spec/core/FormatterTest');
 
+require('./spec/list/DefaultListFormatTest');
 require('./spec/list/PagerListFormatTest');
 
 
