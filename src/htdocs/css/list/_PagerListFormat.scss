@@ -1,9 +1,11 @@
 .pager-list-item {
   > .list-callout > .alert {
     background-color: inherit;
+    border: 1px solid #ccc;
     border-radius: 2px;
     margin: 0;
     padding: 0.25em 0.75em;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
   }
 
   > .list-aside {
@@ -12,7 +14,12 @@
     > .mmi {
       border-radius: 2px;
       font-size: .8em;
-      padding: 0.15em 0.25em;
+      padding: 0.15em 0.5em;
+    }
+
+    > abbr {
+      color: #999;
+      font-size: 0.75em;
     }
   }
 }
