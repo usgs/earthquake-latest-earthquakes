@@ -48,7 +48,8 @@ var DefaultListFormatter = function (options) {
 
     item = document.createElement('li');
     item.id = _this.getId(eq);
-    _this.getClasses(eq).forEach(function (className) {
+    _this.getClasses({eq: eq, classes: []}).classes.forEach(
+    function (className) {
       item.classList.add(className);
     });
 
@@ -78,8 +79,13 @@ var DefaultListFormatter = function (options) {
     return _formatter.magnitude(_this.getProperty(eq, 'mag'));
   };
 
-  _this.getClasses = function (eq) {
-    var classes;
+  _this.getClasses = function (params) {
+    var classes,
+        eq;
+
+    params = params || {};
+    eq = params.eq || {};
+    classes = params.classes || [];
 
     classes = ['eq-list-item'];
 
@@ -89,7 +95,9 @@ var DefaultListFormatter = function (options) {
       classes.push('big');
     }
 
-    return classes;
+    params.classes = classes;
+
+    return params;
   };
 
   _this.getHeaderMarkup = function (eq) {

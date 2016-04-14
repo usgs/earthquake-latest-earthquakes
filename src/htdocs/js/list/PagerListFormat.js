@@ -1,7 +1,8 @@
 'use strict';
 
 
-var Formatter = require('core/Formatter'),
+var DefaultListFormat = require('list/DefaultListFormat'),
+    Formatter = require('core/Formatter'),
     Util = require('util/Util');
 
 
@@ -17,11 +18,10 @@ var PagerListFormat = function (options) {
       _formatter;
 
 
-  _this = {
-    format: null
-  };
+  options = Util.extend({}, _DEFAULTS, options);
+  _this = DefaultListFormat(options);
 
-  _initialize = function (/*options*/) {
+  _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
 
     _formatter = options.formatter || Formatter();
@@ -35,21 +35,50 @@ var PagerListFormat = function (options) {
     _this = null;
   };
 
-  /**
-   * Format an item for the list.
-   *
-   * @param eq {Object}
-   *     a feature object (not model) from the summary feed.
-   * @return {DOMElement}
-   *     dom element with formatted information.
-   */
-  _this.format = function (eq) {
-    var container;
+  _this.getAsideMarkup = function (eq) {
+    var markup,
+        mmi;
 
-    container = document.createElement('pre');
-    container.innerHTML = JSON.stringify(eq, null, '  ');
+    mmi = _this.getProperty(eq, 'mmi');
 
-    return container;
+    if (mmi === null) {
+      markup = '&ndash;';
+    } else {
+      mmi = _formatter.mmi(mmi);
+      return '<span class="roman mmi mmi' + mmi + '">' + mmi + '</span>' +
+        ' <abbr title="Modified Mercalli Intensity">MMI</abbr>';
+    }
+
+    return markup;
+  };
+
+  _this.getCalloutMarkup = function (eq) {
+    var alert,
+        markup;
+
+    alert = _this.getProperty(eq, 'alert');
+
+    if (alert === null) {
+      markup = '&ndash;';
+    } else {
+      markup = '<span class="alert pager-alertlevel-' + alert.toLowerCase() +
+          '">' + alert.substring(0, 1).toUpperCase() + '</span>';
+    }
+
+    return markup;
+  };
+
+  _this.getClasses = Util.compose(_this.getClasses, function (params) {
+    params = params || {};
+    params.classes = params.classes || [];
+
+    params.classes.push('pager-list-item');
+
+    return params;
+  });
+
+  _this.getHeaderMarkup = function (eq) {
+    return _this.getProperty(eq, 'title');
   };
 
 

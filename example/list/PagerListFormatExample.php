@@ -6,6 +6,14 @@ if (!isset($TEMPLATE)) {
 
   $HEAD = '
     <link rel="stylesheet" href="/css/index.css"/>
+    <style>
+    #pager-list-format-example > ul {
+      border: 1px solid #999;
+    }
+    #pager-list-format-example > ul > li + li {
+      border-top: 1px solid #ccc;
+    }
+    </style>
   ';
 
   $FOOT = '
