@@ -5,14 +5,9 @@ var Formatter = require('core/Formatter'),
     Util = require('util/Util');
 
 
-var _DEFAULTS,
-    _ID_PREFIX;
-
-_DEFAULTS = {
-
+var _DEFAULTS = {
+  idPrefix: 'default-list-format'
 };
-
-_ID_PREFIX = 'default-list-format';
 
 
 var DefaultListFormatter = function (options) {
@@ -24,14 +19,21 @@ var DefaultListFormatter = function (options) {
 
 
   _this = {
-    format: null
+    destroy: null,
+    format: null,
+    getAsideMarkup: null,
+    getCalloutMarkup: null,
+    getClasses: null,
+    getHeaderMarkup: null,
+    getId: null,
+    getProperty: null,
+    getSubheaderMarkup: null
   };
 
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
 
-    _idPrefix = _ID_PREFIX;
-
+    _idPrefix = options.idPrefix;
     _formatter = options.formatter || Formatter();
   };
 
