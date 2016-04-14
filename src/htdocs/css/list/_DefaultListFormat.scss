@@ -1,0 +1,68 @@
+.eq-list-item {
+  padding: 0.5em 0.5em 0.5em 4em;
+  position: relative;
+
+  &.big,
+  &.bigger {
+    > .list-callout,
+    > .list-header {
+      font-weight: bold;
+    }
+  }
+
+  &.bigger {
+    > .list-callout,
+    > .list-header {
+      color: #c94749;
+    }
+  }
+
+  > .list-callout {
+    align-items: center;
+    bottom: 0.5em;
+    display: flex;
+    justify-content: center;
+    left: 0.5em;
+    position: absolute;
+    top: 0.5em;
+    width: 3em;
+  }
+
+  > .list-header,
+  > .list-subheader {
+    font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  > .list-header {
+    font-size: 1.1em;
+    margin-bottom: 0.25em;
+  }
+
+  > .list-subheader {
+    margin-right: 6em;
+  }
+
+  > .list-subheader,
+  > .list-aside {
+    color: #666;
+    font-size: .9em;
+  }
+
+  > .list-aside {
+    background-color: #fff;
+    bottom: 0.5em;
+    overflow: hidden;
+    padding-left: 0.5em;
+    position: absolute;
+    right: 0.5em;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 4.5em;
+  }
+}

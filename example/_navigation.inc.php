@@ -1,10 +1,11 @@
 <?php
-
-  echo navGroup('Examples',
-      navItem('#example1', 'TODO')
-      );
   echo navGroup('Summary',
-    navItem('summary/EventSummaryFormatExample.php', 'EventSummaryFormat')
+    navItem('/summary/EventSummaryFormatExample.php', 'EventSummaryFormat')
+  );
+
+  echo navGroup('List',
+    navItem('/list/DefaultListFormatExample.php', 'DefaultListFormat') .
+    navItem('/list/PagerListFormatExample.php', 'PagerListFormat')
   );
 
 ?>
