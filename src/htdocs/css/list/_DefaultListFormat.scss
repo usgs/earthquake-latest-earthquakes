@@ -40,11 +40,10 @@
 
   > .list-header {
     font-size: 1.1em;
-    margin-bottom: 0.25em;
   }
 
   > .list-subheader {
-    margin-right: 6em;
+    background-color: #fff;
   }
 
   > .list-subheader,
@@ -63,6 +62,5 @@
     text-align: right;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 4.5em;
   }
 }
