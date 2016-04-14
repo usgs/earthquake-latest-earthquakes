@@ -89,6 +89,7 @@ var DefaultListFormat = function (options) {
     var item;
 
     item = document.createElement('div');
+
     _this.getClasses({eq: eq, classes: []}).classes.forEach(
     function (className) {
       item.classList.add(className);
