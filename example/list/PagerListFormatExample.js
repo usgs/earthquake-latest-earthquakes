@@ -7,7 +7,8 @@ var PagerListFormat = require('list/PagerListFormat'),
 
 
 Xhr.ajax({
-  url: '/feeds/2.5_week.json',
+  // url: '/feeds/2.5_week.json',
+  url: 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson',
   success: function (data) {
     var list,
         pagerListFormat;
