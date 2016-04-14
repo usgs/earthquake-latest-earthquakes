@@ -25,4 +25,9 @@ if (!isset($TEMPLATE)) {
 }
 ?>
 
+<p class="alert">
+  Note: Borders added on the example page in order to highlight DOM element
+  extents, margin and padding. Borders are not included as part of the format
+  style. If borders are desired, this list itself should add such borders.
+</p>
 <div id="pager-list-format-example"></div>

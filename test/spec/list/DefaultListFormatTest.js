@@ -27,6 +27,7 @@ describe('DefaultListFormat', function () {
     defaultListFormat = DefaultListFormat({formatter: formatter});
   });
 
+
   describe('constructor', function () {
     it('is defined', function () {
       expect(typeof DefaultListFormat).to.equal('function');
