@@ -1,6 +1,8 @@
 'use strict';
 
-var Util = require('util/Util');
+var DefaultListFormat = require('list/DefaultListFormat'),
+    Formatter = require('core/Formatter'),
+    Util = require('util/Util');
 
 var _DEFAULTS = {
 
@@ -10,60 +12,49 @@ var ShakeMapListFormat = function (options) {
   var _this,
       _initialize,
 
-      _prefix,
-      _settings;
+      _formatter;
 
-  _this = {};
+  options = Util.extend({}, _DEFAULTS, options);
+  _this = DefaultListFormat(options);
 
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
 
-    _prefix = options.idprefix;
-    _settings = options.settings;
+    _formatter = options.formatter || Formatter();
   };
 
-  _this.format = function (eq) {
-    var prop,
-        coord,
-        highlightClass,
-        mmi,
-        mmiClass;
+  _this.destroy = function () {
+    _formatter = null;
 
-    prop = eq.properties;
-    coord = eq.properties.coordinates;
-    highlightClass = '';
+    _initialize = null;
+    _this = null;
+  };
 
-    if (prop.mmi !== null) {
-      // mmi = Format.mmi(prop.mmi);
-      mmiClass = 'intensity mmi' + mmi;
+  _this.getCalloutMarkup = function (eq) {
+    var mmi,
+        markup;
+
+    mmi = _this.getProperty(eq, 'mmi');
+
+    if (mmi === null) {
+      markup = '&ndash;';
     } else {
-      mmi = '&ndash';
-      mmiClass = 'no-shakemap';
+      mmi = _formatter.mmi(mmi);
+      return '<span class="roman mmi mmi' + mmi + '">' + mmi + '</span>' +
+        ' <abbr title="Modified Mercalli Intensity">MMI</abbr>';
     }
 
-    if (prop.sig >= 600) {
-      highlightClass = ' class="bigger"';
-    } else if (prop.mag >= 4.5) {
-      highlightClass = ' class="big"';
-    }
-
-    return '<li id="' + _prefix + eq.id + '"' + highlightClass + '>' +
-    '<span class="' + mmiClass +'">' +
-      mmi +
-    '</span> ' +
-    '<span class="place">' +
-      prop.title +
-    '</span> ' +
-    '<span class="time"> ' +
-      // Format.dateFromEvent(eq, _settings) +
-    '</span> ' +
-    '<span class="depth">' +
-      // Format.depth(coord[2]) +
-    ' km</span>' +
-    '</li>';
-
-
+    return markup;
   };
+
+  _this.getClasses = Util.compose(_this.getClasses, function (params) {
+    params = params || {};
+    params.classes = params.classes || [];
+
+    params.classes.push('shakemap-list-item');
+
+    return params;
+  });
 
   _initialize(options);
   options = null;
