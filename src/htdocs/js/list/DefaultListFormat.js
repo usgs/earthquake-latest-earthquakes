@@ -5,32 +5,33 @@ var Formatter = require('core/Formatter'),
     Util = require('util/Util');
 
 
-var _DEFAULTS,
-    _ID_PREFIX;
+var _DEFAULTS;
 
 _DEFAULTS = {
 
 };
 
-_ID_PREFIX = 'default-list-format';
 
-
-var DefaultListFormatter = function (options) {
+var DefaultListFormat = function (options) {
   var _this,
       _initialize,
 
-      _formatter,
-      _idPrefix;
+      _formatter;
 
 
   _this = {
-    format: null
+    destroy: null,
+    format: null,
+    getAsideMarkup: null,
+    getCalloutMarkup: null,
+    getClasses: null,
+    getHeaderMarkup: null,
+    getProperty: null,
+    getSubheaderMarkup: null
   };
 
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
-
-    _idPrefix = _ID_PREFIX;
 
     _formatter = options.formatter || Formatter();
   };
@@ -46,8 +47,7 @@ var DefaultListFormatter = function (options) {
   _this.format = function (eq) {
     var item;
 
-    item = document.createElement('li');
-    item.id = _this.getId(eq);
+    item = document.createElement('div');
     _this.getClasses({eq: eq, classes: []}).classes.forEach(
     function (className) {
       item.classList.add(className);
@@ -122,11 +122,10 @@ var DefaultListFormatter = function (options) {
   };
 
 
-
   _initialize(options);
   options = null;
   return _this;
 };
 
 
-module.exports = DefaultListFormatter;
+module.exports = DefaultListFormat;
