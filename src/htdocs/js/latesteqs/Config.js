@@ -32,50 +32,50 @@ var _DEFAULTS = {
     {
       'id': '1day_m25',
       'name' : '1 Day, Magnitude 2.5+ Worldwide',
-      'url' : '/earthquakes/feed/v1.0/summary/2.5_day.geojsonp',
+      'url' : '/earthquakes/feed/v1.0/summary/2.5_day.geojson',
       'autoUpdate': 60 * 1000
     },
     {
       'id': '1day_all',
       'name' : '1 Day, All Magnitudes Worldwide',
-      'url' : '/earthquakes/feed/v1.0/summary/all_day.geojsonp',
+      'url' : '/earthquakes/feed/v1.0/summary/all_day.geojson',
       'autoUpdate': 60 * 1000
     },
     {
       'id': '7day_m45',
       'name' : '7 Days, Magnitude 4.5+ Worldwide',
-      'url' : '/earthquakes/feed/v1.0/summary/4.5_week.geojsonp',
+      'url' : '/earthquakes/feed/v1.0/summary/4.5_week.geojson',
       'autoUpdate': 60 * 1000
     },
     {
       'id': '7day_m25',
       'name' : '7 Days, Magnitude 2.5+ Worldwide',
-      'url' : '/earthquakes/feed/v1.0/summary/2.5_week.geojsonp',
+      'url' : '/earthquakes/feed/v1.0/summary/2.5_week.geojson',
       'autoUpdate': 60 * 1000
     },
     {
       'id': '7day_all',
       'name' : '7 Days, All Magnitudes Worldwide',
-      'url' : '/earthquakes/feed/v1.0/summary/all_week.geojsonp',
+      'url' : '/earthquakes/feed/v1.0/summary/all_week.geojson',
       'autoUpdate': 60 * 1000
     },
     // Added Significant feed here
     {
       'id': '30day_sig',
       'name': '30 Days, Significant Worldwide',
-      'url': '/earthquakes/feed/v1.0/summary/significant_month.geojsonp',
+      'url': '/earthquakes/feed/v1.0/summary/significant_month.geojson',
       'autoUpdate': 15 * 60 * 1000
     },
     {
       'id': '30day_m45',
       'name' : '30 Days, Magnitude 4.5+ Worldwide',
-      'url' : '/earthquakes/feed/v1.0/summary/4.5_month.geojsonp',
+      'url' : '/earthquakes/feed/v1.0/summary/4.5_month.geojson',
       'autoUpdate': 15 * 60 * 1000
     },
     {
       'id': '30day_m25',
       'name' : '30 Days, Magnitude 2.5+ Worldwide',
-      'url' : '/earthquakes/feed/v1.0/summary/2.5_month.geojsonp',
+      'url' : '/earthquakes/feed/v1.0/summary/2.5_month.geojson',
       'autoUpdate': 15 * 60 * 1000
     }
   ],

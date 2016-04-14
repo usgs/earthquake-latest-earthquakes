@@ -1,7 +1,7 @@
 'use strict';
 
 // TODO: use real List, Map, and Settings views
-var Collection = require('mvc/Collection'),
+var Catalog = require('latesteqs/Catalog'),
     Config = require('latesteqs/Config'),
     Events = require('util/Events'),
     ListView = require('mvc/View'),
@@ -29,7 +29,9 @@ var _DEFAULT_SETTINGS = {
   feed: '1day_m25',
   listFormat: 'default',
   mapposition: [
-    [], []
+    // "conterminous" us
+    [60.0, -150.0],
+    [10.0, -50.0]
   ],
   overlays: {
     plates: true
@@ -78,15 +80,26 @@ var LatestEarthquakes = function (options) {
         '</div>' +
         '<footer class="latest-earthquakes-footer">footer</footer>';
 
-    _catalog = Collection();
     _config = Config(options.config);
     _content = el.querySelector('.latest-earthquakes-content');
+
+    // depends on config
+    _catalog = Catalog({
+      config: _config,
+      model: _this.model
+    });
 
     _listView = ListView({
       el: el.querySelector('.latest-earthquakes-list'),
       catalog: _catalog,
       config: _config,
       model: _this.model
+    });
+    // TODO: delete this once using the real list view
+    _catalog.on('reset', function () {
+      _listView.el.innerHTML = '<pre>' +
+          JSON.stringify(_catalog.data(), null, 2) +
+          '</pre>';
     });
 
     _mapView = MapView({
@@ -205,7 +218,6 @@ var LatestEarthquakes = function (options) {
     _this.setMode('map', modes.map);
     _this.setMode('settings', modes.settings);
 
-    // TODO: Check for changed feed, load catalog/search
     // TODO: Update url
   };
 

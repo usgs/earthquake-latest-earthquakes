@@ -11,6 +11,10 @@ var config = {
   etc: 'etc',
   example: 'example',
   examplePort: basePort + 4,
+  ini: {
+    // TODO: read this from a config file
+    OFFSITE_HOST: 'earthquake.usgs.gov'
+  },
   liveReloadPort: basePort + 9,
   templatePort: basePort + 3,
   test: 'test',

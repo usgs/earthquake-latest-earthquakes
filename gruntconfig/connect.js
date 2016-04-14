@@ -22,6 +22,19 @@ var connect = {
 
   proxies: [
     {
+      context: [
+        '/earthquakes/',
+        '/fdsnws/',
+        '/scenarios'
+      ],
+      headers: {
+        'accept-encoding': 'identity',
+        host: config.ini.OFFSITE_HOST
+      },
+      host: config.ini.OFFSITE_HOST,
+      port: 80
+    },
+    {
       context: '/theme/',
       host: 'localhost',
       port: config.templatePort,
