@@ -70,12 +70,12 @@ var connect = {
       middleware: function (connect, options, middlewares) {
         middlewares.unshift(
           require('grunt-connect-proxy/lib/utils').proxyRequest,
-          (function () {
-            var gzip = require('connect-gzip');
-            return gzip.gzip({
-              matchType: /text|javascript|json|css/
-            });
-          })(),
+          // (function () {
+          //   var gzip = require('connect-gzip');
+          //   return gzip.gzip({
+          //     matchType: /text|javascript|json|css/
+          //   });
+          // })(),
           mountPHP(options.base[0])
         );
         return middlewares;
@@ -95,12 +95,12 @@ var connect = {
       middleware: function (connect, options, middlewares) {
         middlewares.unshift(
           require('grunt-connect-proxy/lib/utils').proxyRequest,
-          (function () {
-            var gzip = require('connect-gzip');
-            return gzip.gzip({
-              matchType: /text|javascript|json|css/
-            });
-          })(),
+          // (function () {
+          //   var gzip = require('connect-gzip');
+          //   return gzip.gzip({
+          //     matchType: /text|javascript|json|css/
+          //   });
+          // })(),
           mountPHP(options.base[0])
         );
         return middlewares;
