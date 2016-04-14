@@ -7,7 +7,7 @@ var DefaultListFormat = require('list/DefaultListFormat'),
 
 
 var _DEFAULTS = {
-
+  idPrefix: 'pager-list-formatter'
 };
 
 

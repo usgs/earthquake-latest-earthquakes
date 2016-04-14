@@ -6,7 +6,7 @@ var Formatter = require('core/Formatter'),
 
 
 var _DEFAULTS = {
-  idPrefix: 'default-list-format'
+  idPrefix: 'default-list-formatter'
 };
 
 

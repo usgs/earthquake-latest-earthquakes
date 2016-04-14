@@ -146,7 +146,7 @@ describe('DefaultListFormat', function () {
       var result;
 
       result = defaultListFormat.getId({id: 'expected'});
-      expect(result).to.equal('default-list-format-expected');
+      expect(result).to.equal('default-list-formatter-expected');
     });
   });
 
