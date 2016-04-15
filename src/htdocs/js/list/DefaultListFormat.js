@@ -6,7 +6,6 @@ var Formatter = require('core/Formatter'),
 
 
 var _DEFAULTS = {
-  idPrefix: 'default-list-formatter'
 };
 
 
@@ -31,8 +30,7 @@ var DefaultListFormat = function (options) {
   var _this,
       _initialize,
 
-      _formatter,
-      _idPrefix;
+      _formatter;
 
 
   _this = {
@@ -42,7 +40,6 @@ var DefaultListFormat = function (options) {
     getCalloutMarkup: null,
     getClasses: null,
     getHeaderMarkup: null,
-    getId: null,
     getProperty: null,
     getSubheaderMarkup: null
   };
@@ -60,8 +57,6 @@ var DefaultListFormat = function (options) {
    */
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
-
-    _idPrefix = options.idPrefix;
 
     _formatter = options.formatter || Formatter();
   };
@@ -94,7 +89,6 @@ var DefaultListFormat = function (options) {
     var item;
 
     item = document.createElement('div');
-    item.id = _this.getId(eq);
     _this.getClasses({eq: eq, classes: []}).classes.forEach(
     function (className) {
       item.classList.add(className);
@@ -192,19 +186,6 @@ var DefaultListFormat = function (options) {
    */
   _this.getHeaderMarkup = function (eq) {
     return _this.getProperty(eq, 'place') || 'Unknown Event';
-  };
-
-  /**
-   * Helper method.
-   *
-   * @param eq {Feature}
-   *     The event information for which to generate an id.
-   *
-   * @return {String}
-   *     The string to use as the formatted HTMLElement's "id" property.
-   */
-  _this.getId = function (eq) {
-    return _idPrefix + '-' + eq.id;
   };
 
   /**

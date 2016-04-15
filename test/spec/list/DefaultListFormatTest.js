@@ -142,15 +142,6 @@ describe('DefaultListFormat', function () {
     });
   });
 
-  describe('getId', function () {
-    it('returns expected result', function () {
-      var result;
-
-      result = defaultListFormat.getId({id: 'expected'});
-      expect(result).to.equal('default-list-formatter-expected');
-    });
-  });
-
   describe('getProperty', function () {
     it('returns null when does not exist', function () {
       var result;
