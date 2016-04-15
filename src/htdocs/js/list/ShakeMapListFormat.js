@@ -40,8 +40,7 @@ var ShakeMapListFormat = function (options) {
       markup = '&ndash;';
     } else {
       mmi = _formatter.mmi(mmi);
-      return '<span class="roman mmi mmi' + mmi + '">' + mmi + '</span>' +
-        ' <abbr title="Modified Mercalli Intensity">MMI</abbr>';
+      return '<span class="roman mmi mmi' + mmi + '">' + mmi + '</span>';
     }
 
     return markup;
