@@ -41,7 +41,8 @@ var watch = {
     tasks: [
       'jshint:scripts',
       'browserify:index',
-      'browserify:bundle'
+      'browserify:bundle',
+      'mocha_phantomjs'
     ]
   },
 
@@ -63,7 +64,8 @@ var watch = {
     ],
     tasks: [
       'copy:test',
-      'browserify:test'
+      'browserify:test',
+      'mocha_phantomjs'
     ]
   }
 };
