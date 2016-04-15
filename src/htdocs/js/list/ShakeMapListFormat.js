@@ -8,6 +8,13 @@ var _DEFAULTS = {
 
 };
 
+/**
+ * List formatter class for the ShakeMap layout. Extends DefaultListFormat.
+ * Produces a formatted item with markup appropriate for those interested in
+ * ShakeMap-type information.
+ *
+ * @see DefaultListFormat
+ */
 var ShakeMapListFormat = function (options) {
   var _this,
       _initialize,
@@ -30,6 +37,13 @@ var ShakeMapListFormat = function (options) {
     _this = null;
   };
 
+  /**
+   * APIMethod.
+   *
+   * Uses the event "mmi" property to display a max-mmi value.
+   *
+   * @see DefaultListFormat#getCalloutMarkup
+   */
   _this.getCalloutMarkup = function (eq) {
     var mmi,
         markup;
@@ -46,6 +60,13 @@ var ShakeMapListFormat = function (options) {
     return markup;
   };
 
+  /**
+   * APIMethod.
+   *
+   * Extends base class implementation to include a shakemap-list-item class.
+   *
+   * @see DefaultListFormat#getClasses
+   */
   _this.getClasses = Util.compose(_this.getClasses, function (params) {
     params = params || {};
     params.classes = params.classes || [];
@@ -54,6 +75,17 @@ var ShakeMapListFormat = function (options) {
 
     return params;
   });
+
+  /**
+   * APIMethod.
+   *
+   * Uses the "title" property to display the event header value.
+   *
+   * @see DefaultListFormat#getHeaderMarkup
+   */
+  _this.getHeaderMarkup = function (eq) {
+    return _this.getProperty(eq, 'title');
+  };
 
   _initialize(options);
   options = null;
