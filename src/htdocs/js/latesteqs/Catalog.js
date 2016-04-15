@@ -33,7 +33,10 @@ var Catalog = function (options) {
     _config = options.config;
     _model = options.model;
 
-    _model.on('change:feed', _this.load);
+    if (_model) {
+      _model.on('change:feed', 'load', _this);
+    }
+
     // TODO: handle autoUpdate
 
     // keep track of whether there was a load error
@@ -49,7 +52,9 @@ var Catalog = function (options) {
       return;
     }
 
-    _model.off('change:feed', _this.load);
+    if (_model) {
+      _model.off('change:feed', 'load', _this);
+    }
 
     _config = null;
     _model = null;
@@ -64,6 +69,9 @@ var Catalog = function (options) {
         id,
         search;
 
+    if (!_model || !_config) {
+      throw new Error('Catalog.load requires model and config');
+    }
     id = _model.get('feed');
     feed = _config.feeds.get(id);
 
@@ -89,10 +97,13 @@ var Catalog = function (options) {
    *
    * @param url {String}
    *     catalog url.
+   * @param data {Object}
+   *     optional, data for ajax call.
    */
-  _this.loadUrl = function (url) {
+  _this.loadUrl = function (url, data) {
     Xhr.ajax({
       url: url,
+      data: data,
       success: _this.onLoadSuccess,
       error: _this.onLoadError
     });
@@ -112,7 +123,7 @@ var Catalog = function (options) {
    */
   _this.onLoadSuccess = function (data/*, xhr*/) {
     _this.error = false;
-    _this.reset(data);
+    _this.reset(data.features);
   };
 
 

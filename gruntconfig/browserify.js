@@ -13,16 +13,41 @@ JS = CWD + '/' + config.src + '/htdocs/js';
 NODE_MODULES = CWD + '/node_modules';
 
 
-ALL_CLASSES = [
-  JS + '/core/Formatter.js:core/Formatter',
+/**
+ * Function to build aliases for browserify.
+ *
+ * @param basePath {String}
+ *     directory containing classes.
+ * @param classes {Array<String>}
+ *     array of class names.
+ * @return {Array<String>}
+ *     alias map for browserify.
+ */
+var getAliases = function (basePath, classes) {
+  return classes.map(function (c) {
+    return basePath + '/' + c + '.js:' + c;
+  });
+};
 
-  JS + '/list/DefaultListFormat.js:list/DefaultListFormat',
-  JS + '/list/PagerListFormat.js:list/PagerListFormat',
 
-  JS + '/summary/EventSummaryFormat.js:summary/EventSummaryFormat',
+ALL_CLASSES = getAliases(JS, [
+  'LatestEarthquakes',
 
-  NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr'
-];
+  'core/Formatter',
+
+  'latesteqs/Catalog',
+  'latesteqs/Config',
+
+  'list/DefaultListFormat',
+  'list/PagerListFormat',
+
+  'summary/EventSummaryFormat'
+]).concat(getAliases(NODE_MODULES + '/hazdev-webutils/src', [
+  'mvc/Collection',
+  'mvc/Model',
+
+  'util/Xhr'
+]));
 
 
 var browserify = {

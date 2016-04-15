@@ -9,6 +9,8 @@ require('./spec/summary/EventSummaryFormatTest');
 
 require('./spec/core/FormatterTest');
 
+require('./spec/latesteqs/CatalogTest');
+
 require('./spec/list/DefaultListFormatTest');
 require('./spec/list/PagerListFormatTest');
 
