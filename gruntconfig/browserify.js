@@ -39,6 +39,7 @@ ALL_CLASSES = getAliases(JS, [
   'latesteqs/Config',
 
   'list/DefaultListFormat',
+  'list/DyfiListFormat',
   'list/PagerListFormat',
   'list/ShakeMapListFormat',
 
