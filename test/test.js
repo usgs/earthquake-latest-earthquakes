@@ -12,6 +12,7 @@ require('./spec/core/FormatterTest');
 require('./spec/latesteqs/CatalogTest');
 
 require('./spec/list/DefaultListFormatTest');
+require('./spec/list/DyfiListFormatTest');
 require('./spec/list/PagerListFormatTest');
 require('./spec/list/ShakeMapListFormatTest');
 
