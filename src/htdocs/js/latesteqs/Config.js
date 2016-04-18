@@ -247,7 +247,12 @@ var Config = function (options) {
     _this.sorts = Collection(options.sorts);
     _this.timezones = Collection(options.timezones);
 
+    _this.basemaps.on('select', _this.onBasemapSelect);
+    _this.feeds.on('select', _this.onFeedSelect);
+    _this.listFormats.on('select', _this.onListFormatSelect);
     _this.model.on('change', _this.onModelChange);
+    _this.sorts.on('select', _this.onSortSelect);
+    _this.timezones.on('select', _this.onTimezoneSelect);
   };
 
   /**
@@ -268,6 +273,33 @@ var Config = function (options) {
     _this.sorts.destroy();
     _this.timezones.destroy();
     _this = null;
+  };
+
+  /**
+   * Called when basemap collection selected changes.
+   */
+  _this.onBasemapSelect = function () {
+    _this.model.set({
+      'basemap': _this.basemaps.getSelected().id
+    });
+  };
+
+  /**
+   * Called when feeds collection selected changes.
+   */
+  _this.onFeedSelect = function () {
+    _this.model.set({
+      'feed': _this.feeds.getSelected().id
+    });
+  };
+
+  /**
+   * Called when listFormats collection selected changes.
+   */
+  _this.onListFormatSelect = function () {
+    _this.model.set({
+      'listFormat': _this.listFormats.getSelected().id
+    });
   };
 
   /**
@@ -307,12 +339,34 @@ var Config = function (options) {
   };
 
   /**
-   * Update the selected object in a collection based on its configured value.
+   * Called when sorts collection selected changes.
+   */
+  _this.onSortSelect = function () {
+    _this.model.set({
+      'sort': _this.sorts.getSelected().id
+    });
+  };
+
+  /**
+   * Called when basemap collection selected changes.
+   */
+  _this.onTimezoneSelect = function () {
+    _this.model.set({
+      'timezone': _this.timezones.getSelected().id
+    });
+  };
+
+  /**
+   * Update the selected object in a collection based on its configured value
    *
    * @param collection {Collection}
    *     collection to update.
    * @param configKey {String}
    *     corresponding key in configuration with current setting.
+   * @return {Object}
+   *     null if collection was successfully set.
+   *     Object with `configKey` set to id of first item in collection,
+   *     if model selection not found as id of object in collection.
    */
   _this.setSelected = function(collection, configKey) {
     var id,
@@ -346,6 +400,7 @@ var Config = function (options) {
 
     return toSet;
   };
+
 
   _initialize(options);
   options = null;
