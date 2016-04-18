@@ -27,6 +27,28 @@ describe('list/ListView', function () {
     });
   });
 
+  describe('createSkeleton', function () {
+    it('creates expected compontents', function () {
+      var view;
+
+      view = ListView();
+      view.createSkeleton();
+
+      /* jshint -W030 */
+      expect(view.el.querySelector('.list-view-header')).to.not.be.null;
+      expect(view.el.querySelector('.list-view-content')).to.not.be.null;
+      expect(view.el.querySelector('.list-view-list')).to.not.be.null;
+      expect(view.el.querySelector('.list-view-footer')).to.not.be.null;
+      /* jshint +W030 */
+
+      view.destroy();
+    });
+  });
+
+  describe.skip('onListClick', function () {
+    // TODO
+  });
+
   describe('render', function () {
     it('calls sub-render methods', function () {
       var view;
