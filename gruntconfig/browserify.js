@@ -36,6 +36,8 @@ ALL_CLASSES = getAliases(JS, [
   'core/Formatter',
   'core/GenericCollectionView',
 
+  'help/HelpView',
+
   'latesteqs/Catalog',
   'latesteqs/Config',
 
