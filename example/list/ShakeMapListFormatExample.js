@@ -13,17 +13,16 @@ Xhr.ajax({
 
     list = document.createElement('ul');
     list.classList.add('no-style');
-    list.appendChild((data.features||[]).reduce(function (fragment, feature) {
+
+    (data.features||[]).forEach(function (feature) {
       var item;
 
-      item = document.createElement('li');
+      item = list.appendChild(document.createElement('li'));
       item.appendChild(shakeMapListFormat.format(feature));
-
-      fragment.appendChild(item);
-      return fragment;
-    }, document.createDocumentFragment()));
+    });
 
     document.querySelector('#shakemap-list-format-example').appendChild(list);
+
   },
   error: function () {
     document.querySelector('#shakemap-list-format-example').innerHTML =
