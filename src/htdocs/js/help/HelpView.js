@@ -26,6 +26,7 @@ var _DEFAULTS = {
     _version = options.version || null;
   };
 
+
   _this.destroy = Util.compose(function () {
     _version = null;
 
@@ -33,6 +34,9 @@ var _DEFAULTS = {
     _this = null;
   }, _this.destroy);
 
+/**
+ * Creates markup for help page
+ */
   _this.helpView = function () {
     var anssLogo,
         buf,
