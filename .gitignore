@@ -5,5 +5,3 @@ node_modules
 src/conf/httpd.conf
 src/htdocs/lib/leaflet
 .build
-.tmp
-.sass-cache
