@@ -37,7 +37,6 @@ describe('list/ListView', function () {
       /* jshint -W030 */
       expect(view.el.querySelector('.list-view-header')).to.not.be.null;
       expect(view.el.querySelector('.list-view-content')).to.not.be.null;
-      expect(view.el.querySelector('.list-view-list')).to.not.be.null;
       expect(view.el.querySelector('.list-view-footer')).to.not.be.null;
       /* jshint +W030 */
 
