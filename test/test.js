@@ -13,6 +13,7 @@ require('./spec/latesteqs/CatalogTest');
 
 require('./spec/list/DefaultListFormatTest');
 require('./spec/list/PagerListFormatTest');
+require('./spec/list/ShakeMapListFormatTest');
 
 
 if (window.mochaPhantomJS) {

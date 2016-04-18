@@ -1,6 +1,11 @@
+
 @import '_LatestEarthquakes.scss';
+@import '_mmi-variables.scss';
+
+@import 'core/_Formatter.scss';
 
 @import 'list/_DefaultListFormat.scss';
 @import 'list/_PagerListFormat.scss';
+@import 'list/_ShakeMapListFormat.scss';
 
 @import 'summary/_EventSummaryFormat.scss';
