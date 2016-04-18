@@ -40,6 +40,7 @@ ALL_CLASSES = getAliases(JS, [
 
   'list/DefaultListFormat',
   'list/DyfiListFormat',
+  'list/ListView',
   'list/PagerListFormat',
   'list/ShakeMapListFormat',
 
