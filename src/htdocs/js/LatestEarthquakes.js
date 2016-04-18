@@ -80,8 +80,11 @@ var LatestEarthquakes = function (options) {
         '</div>' +
         '<footer class="latest-earthquakes-footer">footer</footer>';
 
-    _config = Config(options.config);
+    _config = Config(Util.extend({}, options.config, {
+      model: _this.model
+    }));
     _content = el.querySelector('.latest-earthquakes-content');
+
 
     // depends on config
     _catalog = Catalog({

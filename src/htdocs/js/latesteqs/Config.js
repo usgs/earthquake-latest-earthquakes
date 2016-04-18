@@ -198,6 +198,9 @@ var _DEFAULTS = {
  *       name {String} display name
  *       format {ListFormat}
  *           object with method `DOMElement obj.format(EQ)`
+ * @param options.model {Model}
+ *     model defines currently selected configuration.
+ *     used by Config to update selections in collections.
  * @param options.overlays {Array<Object>}
  *     overlays for map.
  *     each overlay object should have these properties:
@@ -237,11 +240,14 @@ var Config = function (options) {
     _this.basemaps = Collection(options.basemaps);
     _this.feeds = Collection(options.feeds);
     _this.listFormats = Collection(options.listFormats);
+    _this.model = options.model;
     _this.overlays = Collection(options.overlays);
     _this.searchForm = options.searchForm;
     _this.searchUrl = options.searchUrl;
     _this.sorts = Collection(options.sorts);
     _this.timezones = Collection(options.timezones);
+
+    _this.model.on('change', _this.onModelChange);
   };
 
   /**
@@ -252,15 +258,94 @@ var Config = function (options) {
       return;
     }
 
+    _this.model.off('change', _this.onModelChange);
+
     _this.basemaps.destroy();
     _this.feeds.destroy();
     _this.listFormats.destroy();
+    _this.model = null;
     _this.overlays.destroy();
     _this.sorts.destroy();
     _this.timezones.destroy();
     _this = null;
   };
 
+  /**
+   * Called when model changes.
+   *
+   * Update collection selections.
+   *
+   * @param changed {Object}
+   *     object with changed keys/values.
+   */
+  _this.onModelChange = function (changed) {
+    var toSet;
+
+    // anything that needs to be reset to a default
+    toSet = {};
+
+    if (!changed || changed.basemap) {
+      Util.extend(toSet, _this.setSelected(_this.basemaps, 'basemap'));
+    }
+    if (!changed || changed.feed) {
+      Util.extend(toSet, _this.setSelected(_this.feeds, 'feed'));
+    }
+    if (!changed || changed.listFormat) {
+      Util.extend(toSet, _this.setSelected(_this.listFormats, 'listFormat'));
+    }
+    if (!changed || changed.sort) {
+      Util.extend(toSet, _this.setSelected(_this.sorts, 'sort'));
+    }
+    if (!changed || changed.timezone) {
+      Util.extend(toSet, _this.setSelected(_this.timezones, 'timezone'));
+    }
+
+    if (Object.keys(toSet).length > 0) {
+      // updating to defaults
+      _this.model.set(toSet);
+    }
+  };
+
+  /**
+   * Update the selected object in a collection based on its configured value.
+   *
+   * @param collection {Collection}
+   *     collection to update.
+   * @param configKey {String}
+   *     corresponding key in configuration with current setting.
+   */
+  _this.setSelected = function(collection, configKey) {
+    var id,
+        obj,
+        toSet;
+
+    // get model setting
+    id = _this.model.get(configKey);
+    // corresponding collection object
+    obj = collection.get(id);
+    // whether anything needs to be set in model
+    toSet = null;
+
+    if (!obj) {
+      // does not exist, use first as default
+      obj = collection.data();
+      if (obj.length > 0) {
+        obj = obj[0];
+        id = obj.id;
+      } else {
+        obj = null;
+        id = null;
+      }
+
+      // update model to default
+      toSet = {};
+      toSet[configKey] = id;
+    }
+
+    collection.select(obj);
+
+    return toSet;
+  };
 
   _initialize(options);
   options = null;
