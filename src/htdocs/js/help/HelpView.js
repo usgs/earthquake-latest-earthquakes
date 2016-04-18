@@ -84,7 +84,7 @@ var _DEFAULTS = {
       '</ul>',
       // LINKS
       '<h2>Links</h2>',
-      '<ul class="links no-style separator">',
+      '<ul class="no-style separator">',
         '<li>',
           '<a href="/data/comcat/latest-eqs.php">',
             'Help - Latest Earthquakes',
@@ -109,7 +109,7 @@ var _DEFAULTS = {
       // LOGOS
       '<h2>In Partnership With</h2>',
       '<ul class="partners no-style separator">',
-        '<li>',
+        '<li class="anss">',
           '<a href="/monitoring/anss/" title="Advanced National Seismic System">',
             'ANSS - Advanced National Seismic System',
             '<img width="80" height="25" src="', anssLogo, '" alt="ANSS"/>',
