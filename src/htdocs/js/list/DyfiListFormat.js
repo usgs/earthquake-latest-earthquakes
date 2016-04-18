@@ -21,6 +21,13 @@ var DyfiListFormat = function (options) {
     _formatter = options.formatter || Formatter();
   };
 
+  _this.destroy = function () {
+    _formatter = null;
+
+    _initialize = null;
+    _this = null;
+  };
+
   _this.getAsideMarkup = function (eq) {
     var felt,
         responses;
@@ -31,7 +38,7 @@ var DyfiListFormat = function (options) {
       if (felt !== 1) {
         responses = felt + ' responses';
       } else {
-        responses = felt + ' responses';
+        responses = felt + ' response';
       }
     } else {
       responses = '&ndash; responses';
