@@ -1,21 +1,33 @@
 'use strict';
 
-var ListView = require('list/ListView'),
+var Collection = require('mvc/Collection'),
+    DefaultListFormat = require('list/DefaultListFormat'),
+    ListView = require('list/ListView'),
+    Model = require('mvc/Model'),
     Xhr = require('util/Xhr');
 
 
+var listView,
+    model;
+
+model = Model({
+  catalog: Collection(),
+  listFormat: DefaultListFormat()
+});
+
+listView = ListView({
+  el: document.querySelector('#list-view-example'),
+  model: model
+});
+
 Xhr.ajax({
   url: '/feeds/2.5_week.json',
-  success: function (/*data*/) {
-    var listView;
-
-    listView = ListView({
-      el: document.querySelector('#list-view-example')
-    });
-    listView.render();
+  success: function (data) {
+    model.get('catalog').reset(data.features || []);
+    model.trigger('change');
   },
   error: function () {
-    document.querySelector('#default-list-format-example').innerHTML =
-        '<p class="alert error">Failed to create default list format.</p>';
+    model.get('catalog').reset([]);
+    model.trigger('change');
   }
 });
