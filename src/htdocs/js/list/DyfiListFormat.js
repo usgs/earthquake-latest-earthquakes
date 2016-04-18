@@ -8,6 +8,13 @@ var _DEFAULTS = {
 
 };
 
+/**
+ * List formatter class for the DYFI layout. Extends DefaultListFormat.
+ * Produces a formatted item with markup appropriate for those interested in
+ * DYFI-type information.
+ *
+ * @see DefaultListFormat
+ */
 var DyfiListFormat = function (options) {
   var _this,
       _initialize,
@@ -28,6 +35,14 @@ var DyfiListFormat = function (options) {
     _this = null;
   };
 
+
+  /**
+   * APIMethod.
+   *
+   * Uses the event "felt" property to display a response value.
+   *
+   * @see DefaultListFormat#getAsideMarkup
+   */
   _this.getAsideMarkup = function (eq) {
     var felt,
         responses;
@@ -47,7 +62,13 @@ var DyfiListFormat = function (options) {
     return '<span class="responses">' + responses + '</span>';
   };
 
-
+  /**
+   * APIMethod.
+   *
+   * Uses the "cdi" property to display the dyfi intensity level.
+   *
+   * @see DefaultListFormat#getCalloutMarkup
+   */
   _this.getCalloutMarkup = function (eq) {
     var cdi,
         felt,
@@ -67,6 +88,14 @@ var DyfiListFormat = function (options) {
     return '<span class="' + mmiClass + '">' + cdi + '</span>';
   };
 
+/**
+   * APIMethod.
+   *
+   * Extends base class implementation to include a dyfi-list-item class.
+   *
+   * @see DefaultListFormat#getClasses
+   */
+
   _this.getClasses = Util.compose(_this.getClasses, function (params) {
     params = params || {};
     params.classes = params.classes || [];
@@ -79,7 +108,7 @@ var DyfiListFormat = function (options) {
   /**
    * APIMethod.
    *
-   * Uses the "place" property to display the event header value.
+   * Uses the "title" property to display the event header value.
    *
    * @see DefaultListFormat#getHeaderMarkup
    */
