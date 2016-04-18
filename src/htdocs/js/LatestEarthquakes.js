@@ -80,8 +80,11 @@ var LatestEarthquakes = function (options) {
         '</div>' +
         '<footer class="latest-earthquakes-footer">footer</footer>';
 
-    _config = Config(options.config);
+    _config = Config(Util.extend({}, options.config, {
+      model: _this.model
+    }));
     _content = el.querySelector('.latest-earthquakes-content');
+
 
     // depends on config
     _catalog = Catalog({
@@ -124,6 +127,7 @@ var LatestEarthquakes = function (options) {
 
     // update if URL changes
     Events.on('hashchange', _this.onHashChange);
+    _this.model.on('change', _this.onModelChange);
   };
 
   /**
@@ -173,6 +177,18 @@ var LatestEarthquakes = function (options) {
   _this.onHashChange = function () {
     // TODO: handle nested settings more gracefully
     _this.model.set(_this.getUrlSettings());
+  };
+
+  /**
+   * Called when model changes.
+   *
+   * Store settings in url.
+   */
+  _this.onModelChange = function () {
+    var encoded;
+
+    encoded = encodeURI(JSON.stringify(_this.model.toJSON()));
+    window.location = '#' + encoded;
   };
 
   /**
