@@ -34,6 +34,13 @@ var RadioOptionsView = function (options) {
     });
   };
 
+  _this.destroy = Util.compose(function () {
+    _section = null;
+
+    _initialize = null;
+    _this = null;
+  }, _this.destroy);
+
   _this.render = function () {
     var items,
         list;
