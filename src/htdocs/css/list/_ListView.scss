@@ -1,0 +1,25 @@
+.list-view-list {
+  border-bottom: 1px solid #999;
+  border-top: 1px solid #999;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list-view-list-item {
+  cursor: pointer;
+
+  +.list-view-list-item {
+    border-top: 1px solid #ccc;
+  }
+
+  &.selected,
+  &.selected > .eq-list-item > .list-aside {
+    background-color: #bff;
+  }
+}
+
+.list-view-default-format {
+  border: none;
+  margin: 0;
+}

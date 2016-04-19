@@ -15,6 +15,7 @@ var _DEFAULT_FORMAT = {
     var pre;
 
     pre = document.createElement('pre');
+    pre.classList.add('list-view-default-format');
     pre.innerHTML = JSON.stringify(feature, null, '  ');
 
     return pre;
@@ -90,6 +91,20 @@ var ListView = function (options) {
     _this = null;
   }, _this.destroy);
 
+  _this.getClickedItem = function (startNode) {
+    var item;
+
+    item = startNode;
+
+    if (item) {
+      do {
+        item = Util.getParentNode(item, 'li', _content);
+      } while (item && !item.classList.contains('list-view-list-item'));
+    }
+
+    return item;
+  };
+
   _this.onDeselect = function () {
     Array.prototype.forEach.call(_content.querySelectorAll('.selected'),
     function (node) {
@@ -98,9 +113,15 @@ var ListView = function (options) {
   };
 
   _this.onListClick = function (evt) {
-    if (evt && evt.target &&
-        evt.target.classList.contains('list-view-list-item')) {
-      console.log('Event clicked: ' + evt.target.getAttribute('data-id'));
+    var item;
+
+    if (evt && evt.target) {
+      item = _this.getClickedItem(evt.target);
+
+      if (item) {
+        console.log('Selecting item: ' + item.getAttribute('data-id'));
+        _catalog.selectById(item.getAttribute('data-id'));
+      }
     }
   };
 
@@ -163,10 +184,12 @@ var ListView = function (options) {
 
   _this.renderFooter = function () {
     // TODO :: usgs/earthquake-latest-earthquakes#64
+    _footer.innerHTML = '<p>Here is the ListView footer!</p>';
   };
 
   _this.renderHeader = function () {
     // TODO :: usgs/earthquake-latest-earthquakes#63
+    _header.innerHTML = '<p>Here is the ListView header!</p>';
   };
 
 

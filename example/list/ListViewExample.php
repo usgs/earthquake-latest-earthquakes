@@ -6,6 +6,11 @@ if (!isset($TEMPLATE)) {
 
   $HEAD = '
     <link rel="stylesheet" href="/css/index.css"/>
+    <style>
+    #list-view-example {
+      border: 1px solid #666;
+    }
+    </style>
   ';
 
   $FOOT = '
