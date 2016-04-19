@@ -9,8 +9,7 @@ var Collection = require('mvc/Collection'),
     Xhr = require('util/Xhr');
 
 
-var collection,
-    formats,
+var formats,
     listView,
 
     onFormatClick;
@@ -26,10 +25,8 @@ formats = {
 
 // -- Start basic usage example
 
-collection = Collection();
-
 listView = ListView({
-  collection: collection, // may be latesteqs/Catalog, but only need Collection
+  collection: Collection(),
   el: document.querySelector('#list-view-example')
 });
 
@@ -41,10 +38,10 @@ listView = ListView({
 Xhr.ajax({
   url: '/feeds/2.5_week.json',
   success: function (data) {
-    collection.reset(data.features || []);
+    listView.collection.reset(data.features || []);
   },
   error: function () {
-    collection.reset([]);
+    listView.collection.reset([]);
   }
 });
 

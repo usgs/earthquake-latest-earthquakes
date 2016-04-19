@@ -1,7 +1,7 @@
 'use strict';
 
 
-var GenericCollectionView = require('latesteqs/GenericCollectionView'),
+var GenericCollectionView = require('core/GenericCollectionView'),
     Util = require('util/Util');
 
 
@@ -22,6 +22,8 @@ _DEFAULT_FORMAT = {
 
 _DEFAULTS = {
   classPrefix: 'list-view',
+  containerNodeName: 'ol',
+  noDataMessage: 'There are no events in the current feed.',
   watchProperty: 'event'
 };
 

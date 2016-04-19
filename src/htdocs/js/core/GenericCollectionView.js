@@ -65,9 +65,11 @@ var GenericCollectionView = function (options) {
 
     item = document.createElement(_itemNodeName);
     item.classList.add(_classPrefix + '-item');
-    item.setAttribute('data-id', obj.id);
 
-    item.appendChild(_this.createCollectionItemContent(obj));
+    if (obj) {
+      item.setAttribute('data-id', obj.id);
+      item.appendChild(_this.createCollectionItemContent(obj));
+    }
 
     return item;
   };
@@ -120,7 +122,11 @@ var GenericCollectionView = function (options) {
     _this.collection.off('add', 'render', _this);
     _this.collection.off('remove', 'render', _this);
 
-// TODO :: Nullify all private vars ...
+    _classPrefix = null;
+    _containerNodeName = null;
+    _watchProperty = null;
+    _itemNodeName = null;
+    _noDataMessage = null;
 
     _initialize = null;
     _this = null;
@@ -193,7 +199,7 @@ var GenericCollectionView = function (options) {
         _this.onEvent(); // Make sure selected item remains selected
       }
     } catch (e) {
-      _this.content.innerHTMl = '<p class="alert error">' +
+      _this.content.innerHTML = '<p class="alert error">' +
           'An error occurred while rendering.\n' +
           '<!-- ' + (e.stack || e.message) + ' -->' +
         '</p>';

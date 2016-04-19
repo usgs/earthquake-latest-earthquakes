@@ -8,6 +8,7 @@ mocha.setup('bdd');
 require('./spec/summary/EventSummaryFormatTest');
 
 require('./spec/core/FormatterTest');
+require('./spec/core/GenericCollectionView');
 
 require('./spec/latesteqs/CatalogTest');
 
