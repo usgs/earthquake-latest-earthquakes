@@ -44,6 +44,43 @@ describe('list/ListView', function () {
     });
   });
 
+  describe('getClickedItem', function () {
+    it('finds the correct item', function () {
+      var clickTarget,
+          container,
+          expectedResult,
+          result,
+          view;
+
+      view = ListView();
+      container = document.createElement('div');
+      container.innerHTML = [
+        '<div>',
+          '<h2></h2>',
+          '<div>',
+            '<ul>',
+              '<li class="list-view-list-item">',
+                '<ol>',
+                  '<li>',
+                    '<span class="click-target"></span>',
+                  '</li>',
+                '</ol>',
+              '</li>',
+            '</ul>',
+          '</div>',
+        '</div>'
+      ];
+
+      clickTarget = container.querySelector('.click-target');
+      expectedResult = container.querySelector('.list-view-list-item');
+
+      result = view.getClickedItem(clickTarget, container);
+      expect(result).to.equal(expectedResult);
+
+      view.destroy();
+    });
+  });
+
   describe.skip('onListClick', function () {
     // TODO
   });

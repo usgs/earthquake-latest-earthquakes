@@ -91,15 +91,13 @@ var ListView = function (options) {
     _this = null;
   }, _this.destroy);
 
-  _this.getClickedItem = function (startNode) {
+  _this.getClickedItem = function (startNode, endNode) {
     var item;
 
     item = startNode;
 
-    if (item) {
-      do {
-        item = Util.getParentNode(item, 'li', _content);
-      } while (item && !item.classList.contains('list-view-list-item'));
+    while (item && !item.classList.contains('list-view-list-item')) {
+        item = Util.getParentNode(item.parentNode, 'li', endNode);
     }
 
     return item;
@@ -116,7 +114,7 @@ var ListView = function (options) {
     var item;
 
     if (evt && evt.target) {
-      item = _this.getClickedItem(evt.target);
+      item = _this.getClickedItem(evt.target, _content);
 
       if (item) {
         _catalog.selectById(item.getAttribute('data-id'));
