@@ -27,42 +27,47 @@ describe('list/ListView', function () {
     });
   });
 
-  describe.skip('onListClick', function () {
-    // TODO
-  });
-
-  describe.skip('render', function () {
-    it('calls sub-render methods', function () {
+  describe('createCollectionItemContent', function () {
+    it('tries to use the listFormat from the model', function () {
       var view;
 
       view = ListView();
+      sinon.spy(view.model, 'get');
 
-      sinon.spy(view, 'renderHeader');
-      sinon.spy(view, 'renderContent');
-      sinon.spy(view, 'renderFooter');
+      view.createCollectionItemContent();
+      expect(view.model.get.callCount).to.equal(1);
 
-      view.render();
+      view.model.get.restore();
+      view.destroy();
+    });
 
-      expect(view.renderHeader.callCount).to.equal(1);
-      expect(view.renderContent.callCount).to.equal(1);
-      expect(view.renderFooter.callCount).to.equal(1);
+    it('delegates to the listFormat', function () {
+      var listFormat,
+          view;
 
-      view.renderHeader.restore();
-      view.renderContent.restore();
-      view.renderFooter.restore();
+      view = ListView();
+      listFormat = {
+        format: sinon.spy()
+      };
+
+      view.model.set({'listFormat': listFormat});
+      view.createCollectionItemContent();
+
+      expect(listFormat.format.callCount).to.equal(1);
+
       view.destroy();
     });
   });
 
-  describe.skip('renderContent', function () {
-    // TODO
-  });
-
   describe.skip('renderFooter', function () {
-    // TODO
+    it('works as expected', function () {
+      // TODO :: usgs/earthquake-latest-earthquakes#64
+    });
   });
 
   describe.skip('renderHeader', function () {
-    // TODO
+    it('works as expected', function () {
+      // TODO :: usgs/earthquake-latest-earthquakes#63
+    });
   });
 });
