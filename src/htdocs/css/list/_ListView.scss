@@ -1,4 +1,4 @@
-.list-view-list {
+.list-view-container {
   border-bottom: 1px solid #999;
   border-top: 1px solid #999;
   list-style: none;
@@ -6,10 +6,10 @@
   padding: 0;
 }
 
-.list-view-list-item {
+.list-view-item {
   cursor: pointer;
 
-  +.list-view-list-item {
+  +.list-view-item {
     border-top: 1px solid #ccc;
   }
 

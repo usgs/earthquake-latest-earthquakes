@@ -29,7 +29,7 @@ formats = {
 collection = Collection();
 
 listView = ListView({
-  catalog: collection, // may be latesteqs/Catalog, but only need Collection
+  collection: collection, // may be latesteqs/Catalog, but only need Collection
   el: document.querySelector('#list-view-example')
 });
 
