@@ -25,8 +25,6 @@ var ShakeMapListFormat = function (options) {
   _this = DefaultListFormat(options);
 
   _initialize = function (options) {
-    options = Util.extend({}, _DEFAULTS, options);
-
     _formatter = options.formatter || Formatter();
   };
 
