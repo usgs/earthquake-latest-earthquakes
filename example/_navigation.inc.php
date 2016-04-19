@@ -1,6 +1,6 @@
 <?php
-  echo navGroup('Summary',
-    navItem('/summary/EventSummaryFormatExample.php', 'EventSummaryFormat')
+  echo navGroup('Core',
+    navItem('/core/GenericCollectionViewExample.php', 'GenericCollectionView')
   );
 
   echo navGroup('List',
@@ -11,4 +11,7 @@
     navItem('/list/ShakeMapListFormatExample.php', 'ShakeMapListFormat')
   );
 
+  echo navGroup('Summary',
+    navItem('/summary/EventSummaryFormatExample.php', 'EventSummaryFormat')
+  );
 ?>
