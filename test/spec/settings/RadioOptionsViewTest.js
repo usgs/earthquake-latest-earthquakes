@@ -1,4 +1,4 @@
-/* global chai, describe, it */
+/* global afterEach, beforeEach, chai, describe, it */
 'use strict';
 
 
@@ -13,27 +13,28 @@ var radioOptionsView;
 
 describe('RadioOptionsView', function () {
 
-  beforeAll(function () {
+  beforeEach(function () {
     radioOptionsView = RadioOptionsView({
       el: document.createElement('div'),
       collection: Collection([
-        Model({
-          'id': 'id-1',
+        {
+          'id': 1,
           'name': 'Option 1'
-        }),
-        Model({
-          'id': 'id-2',
+        },
+        {
+          'id': 2,
           'name': 'Option 2'
-        })
+        }
       ]),
       model: Model({
-        'feeds': 'id-2'
+        'feeds': {id: 2}
       }),
-      section: 'feeds'
+      section: 'feeds',
+      watchProperty: 'feeds'
     });
   });
 
-  afterAll(function () {
+  afterEach(function () {
     radioOptionsView.destroy();
   });
 
@@ -63,7 +64,7 @@ describe('RadioOptionsView', function () {
       input = radioOptionsView.el.querySelector('input:checked');
 
       expect(input.getAttribute('id')).to.be.equal('id-2');
-    };
+    });
   });
 
   describe('deselectAll', function () {
@@ -73,7 +74,7 @@ describe('RadioOptionsView', function () {
       radioOptionsView.deselectAll();
       input = radioOptionsView.el.querySelector('input:checked');
 
-      expect(input.getAttribute('id')).to.be.undefined;
+      expect(input).to.be.equal(null);
     });
   });
 
@@ -82,7 +83,7 @@ describe('RadioOptionsView', function () {
       var input;
 
       input = [];
-      radioOptionsView.setSelected({'id': 'id-1'});
+      radioOptionsView.setSelected({id: 1});
       input = radioOptionsView.el.querySelector('input:checked');
 
       expect(input.getAttribute('id')).to.equal('id-1');

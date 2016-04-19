@@ -17,4 +17,4 @@ if (!isset($TEMPLATE)) {
 }
 ?>
 
-<ul id="checkbox-options-view-example"></ul>
+<div id="checkbox-options-view-example"></div>

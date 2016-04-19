@@ -1,6 +1,6 @@
 'use strict';
 
-var GenericCollectionView = require('core/GenericCollectionView'),
+var GenericCollectionView = require('latesteqs/GenericCollectionView'),
     Util = require('util/Util');
 
 var _DEFAULTS = {};
@@ -24,14 +24,11 @@ var RadioOptionsView = function (options) {
   };
 
   _this.deselectAll = function () {
-    var radios;
-
-    radios = [];
-    radios = _this.el.querySelectorAll('input[type=radio]');
-
-    radios.forEach(function (radio) {
-      radio.checked = false;
-    });
+    Array.prototype.forEach.call(_this.el.querySelectorAll('input[type=radio]'),
+      function (radio) {
+        radio.checked = false;
+      }
+    );
   };
 
   _this.destroy = Util.compose(function () {
@@ -45,7 +42,7 @@ var RadioOptionsView = function (options) {
     var items,
         list;
 
-    items = _collection.data().slice(0) || [];
+    items = _this.collection.data().slice(0) || [];
 
     if (items.length) {
       list = document.createElement('ol');
@@ -56,17 +53,17 @@ var RadioOptionsView = function (options) {
         li = list.appendChild(document.createElement('li'));
         li.classList.add(_section);
         li.setAttribute('data-id', item.id);
-        li.innerHTML = '<input type="radio" id="id-' + item.id + '" value="' + item.id +
-              '" name="' + _section + '" />' +
+        li.innerHTML = '<input type="radio" id="id-' + item.id + '" value="' +
+              item.id + '" name="' + _section + '" />' +
             '<label for="id-' + item.id + '">' + item.name + '</label>';
       });
       // append list to the DOM
-      _this.el.appendChild(list);
+      _this.content.appendChild(list);
       // set the selected collection item
       _this.setSelected(_this.model.get(_section));
     } else {
-      _this.el.innerHTML = '<p class="alert error">There are no options to ' +
-          'display</p>';
+      _this.content.innerHTML = '<p class="alert error">There are no options ' +
+          'to display</p>';
     }
   };
 
@@ -80,7 +77,7 @@ var RadioOptionsView = function (options) {
     }
 
     id = obj.id;
-    el = document.querySelector('id-' + id);
+    el = _this.el.querySelector('#id-' + id);
 
     if (el) {
       el.checked = true;

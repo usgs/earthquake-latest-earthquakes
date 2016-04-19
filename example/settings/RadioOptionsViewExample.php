@@ -17,4 +17,4 @@ if (!isset($TEMPLATE)) {
 }
 ?>
 
-<ul id="radio-options-view-example"></ul>
+<div id="radio-options-view-example"></div>

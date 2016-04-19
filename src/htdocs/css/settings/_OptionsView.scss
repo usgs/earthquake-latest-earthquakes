@@ -10,5 +10,10 @@
     &:last-child {
       border-bottom: none;
     }
+
+    > label:before {
+      margin: 0.5em 1em;
+      vertical-align: middle;
+    }
   }
 }

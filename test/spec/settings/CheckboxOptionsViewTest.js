@@ -1,4 +1,4 @@
-/* global chai, describe, it */
+/* global afterEach, beforeEach, chai, describe, it */
 'use strict';
 
 
@@ -13,31 +13,32 @@ var checkboxOptionsView;
 
 describe('CheckboxOptionsView', function () {
 
-  beforeAll(function () {
+  beforeEach(function () {
     checkboxOptionsView = CheckboxOptionsView({
       el: document.createElement('div'),
       collection: Collection([
-        Model({
-          'id': 'id-1',
+        {
+          'id': 1,
           'name': 'Option 1'
-        }),
-        Model({
-          'id': 'id-2',
+        },
+        {
+          'id': 2,
           'name': 'Option 2'
-        }),
-        Model({
-          'id': 'id-3',
+        },
+        {
+          'id': 3,
           'name': 'Option 3'
-        })
+        }
       ]),
       model: Model({
-        'overlays': 'id-3'
+        'overlays': [{id: 3}]
       }),
-      section: 'overlays'
+      section: 'overlays',
+      watchProperty: 'overlays'
     });
   });
 
-  afterAll(function () {
+  afterEach(function () {
     checkboxOptionsView.destroy();
   });
 
@@ -67,7 +68,7 @@ describe('CheckboxOptionsView', function () {
       input = checkboxOptionsView.el.querySelector('input:checked');
 
       expect(input.getAttribute('id')).to.be.equal('id-3');
-    };
+    });
   });
 
   describe('deselectAll', function () {
@@ -77,7 +78,7 @@ describe('CheckboxOptionsView', function () {
       checkboxOptionsView.deselectAll();
       input = checkboxOptionsView.el.querySelector('input:checked');
 
-      expect(input.getAttribute('id')).to.be.undefined;
+      expect(input).to.be.equal(null);
     });
   });
 
@@ -86,9 +87,10 @@ describe('CheckboxOptionsView', function () {
       var input;
 
       input = [];
+      checkboxOptionsView.deselectAll();
       checkboxOptionsView.setSelected([
-        {'id': 'id-1'},
-        {'id': 'id-2'}
+        {'id': 1},
+        {'id': 2}
       ]);
       input = checkboxOptionsView.el.querySelectorAll('input:checked');
 
