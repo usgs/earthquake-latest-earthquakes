@@ -119,7 +119,6 @@ var ListView = function (options) {
       item = _this.getClickedItem(evt.target);
 
       if (item) {
-        console.log('Selecting item: ' + item.getAttribute('data-id'));
         _catalog.selectById(item.getAttribute('data-id'));
       }
     }
@@ -173,6 +172,7 @@ var ListView = function (options) {
 
         Util.empty(_content);
         _content.appendChild(list);
+        _this.onSelect(); // Make sure selected item is still selected
       }
     } catch (e) {
       _content.innerHTML = '<p class="alert error">' +
@@ -184,12 +184,12 @@ var ListView = function (options) {
 
   _this.renderFooter = function () {
     // TODO :: usgs/earthquake-latest-earthquakes#64
-    _footer.innerHTML = '<p>Here is the ListView footer!</p>';
+    _footer.innerHTML = '<p>TODO :: Here is the ListView footer!</p>';
   };
 
   _this.renderHeader = function () {
     // TODO :: usgs/earthquake-latest-earthquakes#63
-    _header.innerHTML = '<p>Here is the ListView header!</p>';
+    _header.innerHTML = '<p>TODO :: Here is the ListView header!</p>';
   };
 
 
