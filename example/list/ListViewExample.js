@@ -1,33 +1,30 @@
 'use strict';
 
 var Collection = require('mvc/Collection'),
-    DefaultListFormat = require('list/DefaultListFormat'),
     ListView = require('list/ListView'),
-    Model = require('mvc/Model'),
     Xhr = require('util/Xhr');
 
 
-var listView,
-    model;
+var collection,
+    listView;
 
-model = Model({
-  catalog: Collection(),
-  listFormat: DefaultListFormat()
-});
+
+collection = Collection();
 
 listView = ListView({
-  el: document.querySelector('#list-view-example'),
-  model: model
+  // listFormat: require('list/DefaultListFormat')(), // optional
+
+  catalog: collection, // may be latesteqs/Catalog, but only need Collection
+  el: document.querySelector('#list-view-example')
 });
+
 
 Xhr.ajax({
   url: '/feeds/2.5_week.json',
   success: function (data) {
-    model.get('catalog').reset(data.features || []);
-    model.trigger('change');
+    collection.reset(data.features || []);
   },
   error: function () {
-    model.get('catalog').reset([]);
-    model.trigger('change');
+    collection.reset([]);
   }
 });

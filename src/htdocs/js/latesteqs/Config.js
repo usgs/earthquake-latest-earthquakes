@@ -1,6 +1,7 @@
 'use strict';
 
 var Collection = require('mvc/Collection'),
+    Model = require('mvc/Model'),
     Util = require('util/Util');
 
 
@@ -240,7 +241,7 @@ var Config = function (options) {
     _this.basemaps = Collection(options.basemaps);
     _this.feeds = Collection(options.feeds);
     _this.listFormats = Collection(options.listFormats);
-    _this.model = options.model;
+    _this.model = options.model || Model();
     _this.overlays = Collection(options.overlays);
     _this.searchForm = options.searchForm;
     _this.searchUrl = options.searchUrl;

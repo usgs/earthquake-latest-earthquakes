@@ -1,7 +1,8 @@
 'use strict';
 
 
-var Util = require('util/Util'),
+var Collection = require('mvc/Collection'),
+    Util = require('util/Util'),
     View = require('mvc/View');
 
 
@@ -9,12 +10,25 @@ var _DEFAULTS = {
 
 };
 
+var _DEFAULT_FORMAT = {
+  format: function (feature) {
+    var pre;
+
+    pre = document.createElement('pre');
+    pre.innerHTML = JSON.stringify(feature, null, '  ');
+
+    return pre;
+  }
+};
+
 
 var ListView = function (options) {
   var _this,
       _initialize,
 
+      _catalog,
       _content,
+      _defaultListFormat,
       _footer,
       _header;
 
@@ -22,8 +36,21 @@ var ListView = function (options) {
   options = Util.extend({}, options, _DEFAULTS);
   _this = View(options);
 
-  _initialize = function (/*options*/) {
+  _initialize = function (options) {
+    _catalog = options.catalog || Collection();
+
+    _defaultListFormat = options.listFormat || _this.model.get('listFormat') ||
+        _DEFAULT_FORMAT;
+
     _this.createSkeleton();
+
+    // Only listen for interesting change events
+    _this.model.off('change', 'render', _this);
+    _this.model.on('change:listFormat', 'render', _this);
+
+    _catalog.on('reset', 'render', _this);
+    _catalog.on('select', 'onSelect', _this);
+    _catalog.on('deselect', 'onDeselect', _this);
   };
 
 
@@ -46,6 +73,13 @@ var ListView = function (options) {
   };
 
   _this.destroy = Util.compose(function () {
+    _this.model.off('change:listFormat', 'render', _this);
+    _this.model.on('change', 'render', _this);
+
+    _catalog.off('deselect', 'onDeselect', _this);
+    _catalog.off('select', 'onSelect', _this);
+    _catalog.off('reset', 'render', _this);
+
     _content.removeEventListener('click', _this.onListClick, _this);
 
     _content = null;
@@ -56,8 +90,33 @@ var ListView = function (options) {
     _this = null;
   }, _this.destroy);
 
-  _this.onListClick = function () {
-    console.log('list clicked!');
+  _this.onDeselect = function () {
+    Array.prototype.forEach.call(_content.querySelectorAll('.selected'),
+    function (node) {
+      node.classList.remove('selected');
+    });
+  };
+
+  _this.onListClick = function (evt) {
+    if (evt && evt.target &&
+        evt.target.classList.contains('list-view-list-item')) {
+      console.log('Event clicked: ' + evt.target.getAttribute('data-id'));
+    }
+  };
+
+  _this.onSelect = function () {
+    var item,
+        selected;
+
+    selected = _catalog.getSelected();
+
+    if (selected) {
+      item = _content.querySelector('[data-id="' + selected.id + '"]');
+
+      if (item) {
+        item.classList.add('selected');
+      }
+    }
   };
 
   _this.render = function () {
@@ -67,29 +126,26 @@ var ListView = function (options) {
   };
 
   _this.renderContent = function () {
-    var catalog,
+    var data,
         list,
         listFormat;
 
-    catalog = _this.model.get('catalog');
-    listFormat = _this.model.get('listFormat');
-
     try {
-      if (!catalog || catalog.data().length === 0) {
+      data = _catalog.data().slice(0) || [];
+      listFormat = _this.model.get('listFormat') || _defaultListFormat;
+
+      if (data.length === 0) {
         _content.innerHTML = '<p class="alert info">' +
             'No data to display.</p>';
-      } else if (!listFormat) {
-        _content.innerHTML = '<p class="alert info">' +
-            'No list format configured. Here&rsquo;s a data dump&hellip;</p>' +
-            '<pre>' + JSON.stringify(catalog.data(), null, '  ') + '</pre>';
       } else {
         list = document.createElement('ol');
         list.classList.add('list-view-list');
 
-        (catalog.data() || []).slice(0).forEach(function (feature) {
+        data.forEach(function (feature) {
           var item;
 
           item = list.appendChild(document.createElement('li'));
+          item.classList.add('list-view-list-item');
           item.setAttribute('data-id', feature.id);
           item.appendChild(listFormat.format(feature));
         });
@@ -98,8 +154,10 @@ var ListView = function (options) {
         _content.appendChild(list);
       }
     } catch (e) {
-      _content.innerHTML = '<p class="alert error">An error occurred ' +
-          'rendering the list of events.</p>';
+      _content.innerHTML = '<p class="alert error">' +
+          'An error occurred rendering the list of events.\n' +
+          '<!-- ' + (e.stack || e.message) + '-->' +
+        '</p>';
     }
   };
 
