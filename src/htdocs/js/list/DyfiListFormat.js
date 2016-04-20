@@ -1,12 +1,15 @@
 'use strict';
 
+
 var DefaultListFormat = require('list/DefaultListFormat'),
     Formatter = require('core/Formatter'),
     Util = require('util/Util');
 
+
 var _DEFAULTS = {
 
 };
+
 
 /**
  * List formatter class for the DYFI layout. Extends DefaultListFormat.
@@ -21,6 +24,7 @@ var DyfiListFormat = function (options) {
 
       _formatter;
 
+
   options = Util.extend({}, _DEFAULTS, options);
   _this = DefaultListFormat(options);
 
@@ -28,13 +32,13 @@ var DyfiListFormat = function (options) {
     _formatter = options.formatter || Formatter();
   };
 
+
   _this.destroy = function () {
     _formatter = null;
 
     _initialize = null;
     _this = null;
   };
-
 
   /**
    * APIMethod.
@@ -49,7 +53,7 @@ var DyfiListFormat = function (options) {
 
     felt = _this.getProperty(eq, 'felt');
 
-    if ( felt !== null) {
+    if (felt !== null) {
       if (felt !== 1) {
         responses = felt + ' responses';
       } else {
@@ -74,13 +78,13 @@ var DyfiListFormat = function (options) {
         felt,
         mmiClass;
 
-    felt = _this.getProperty(eq,'felt');
+    felt = _this.getProperty(eq, 'felt');
 
     if (felt === null) {
       cdi = '&ndash;';
       mmiClass = 'no-dyfi';
     } else {
-      cdi = _this.getProperty(eq,'cdi');
+      cdi = _this.getProperty(eq, 'cdi');
       cdi = _formatter.mmi(cdi);
       mmiClass = 'roman mmi mmi' + cdi;
     }
@@ -88,7 +92,7 @@ var DyfiListFormat = function (options) {
     return '<span class="' + mmiClass + '">' + cdi + '</span>';
   };
 
-/**
+  /**
    * APIMethod.
    *
    * Extends base class implementation to include a dyfi-list-item class.
@@ -121,5 +125,6 @@ var DyfiListFormat = function (options) {
   options = null;
   return _this;
 };
+
 
 module.exports = DyfiListFormat;

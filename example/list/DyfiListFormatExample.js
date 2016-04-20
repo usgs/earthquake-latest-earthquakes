@@ -26,6 +26,6 @@ Xhr.ajax({
   },
   error: function () {
     document.querySelector('#dyfi-list-format-example').innerHTML =
-        '<p class="alert error">Failed to create PAGER list format.</p>';
+        '<p class="alert error">Failed to create DYFI list format.</p>';
   }
 });

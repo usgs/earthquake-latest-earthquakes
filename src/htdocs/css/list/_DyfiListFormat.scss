@@ -1,21 +1,3 @@
-.dyfi-list-item .list-callout > .no-dyfi {
-  height: 40px;
-  left: 0;
-  line-height: 40px;
-  position: absolute;
-  text-align: center;
-  top: 0;
-  width: 40px;
-}
-
-/* TODO change to a fixed size? */
-.dyfi-list-item .list-callout > .mmi {
+.dyfi-list-item > .list-callout > .mmi {
   padding: .25em .75em;
-}
-
-.dyfi-list-item .list-aside > .responses {
-  bottom: 5px;
-  color: #666;
-  display: block;
-  font-size: .85em;
 }
