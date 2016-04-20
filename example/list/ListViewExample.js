@@ -2,7 +2,7 @@
 
 var Collection = require('mvc/Collection'),
     DefaultListFormat = require('list/DefaultListFormat'),
-    DYFIListFormat = require('list/DefaultListFormat'), // TODO
+    DYFIListFormat = require('list/DyfiListFormat'),
     ListView = require('list/ListView'),
     PagerListFormat = require('list/PagerListFormat'),
     ShakeMapListFormat = require('list/ShakeMapListFormat'),

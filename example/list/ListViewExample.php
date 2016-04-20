@@ -44,7 +44,7 @@ if (!isset($TEMPLATE)) {
     <button class="confirm green" data-format="default-format">JSON</button>
   </li>
   <li><button data-format="magnitude-format">Magnitude</button></li>
-  <li><button data-format="dyfi-format">DYFI (TODO)</button></li>
+  <li><button data-format="dyfi-format">DYFI</button></li>
   <li><button data-format="shakemap-format">ShakeMap</button></li>
   <li><button data-format="pager-format">PAGER</button></li>
 </ul>
