@@ -66,7 +66,7 @@ describe('CheckboxOptionsView', function () {
 
       input = checkboxOptionsView.el.querySelector('input:checked');
 
-      expect(input.getAttribute('id')).to.be.equal('id-3');
+      expect(input.getAttribute('id')).to.be.equal('overlays-3');
     });
   });
 
@@ -94,8 +94,8 @@ describe('CheckboxOptionsView', function () {
       input = checkboxOptionsView.el.querySelectorAll('input:checked');
 
       expect(input.length).to.equal(2);
-      expect(input[0].getAttribute('id')).to.equal('id-1');
-      expect(input[1].getAttribute('id')).to.equal('id-2');
+      expect(input[0].getAttribute('id')).to.equal('overlays-1');
+      expect(input[1].getAttribute('id')).to.equal('overlays-2');
     });
   });
 });

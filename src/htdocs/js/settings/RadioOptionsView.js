@@ -53,9 +53,13 @@ var RadioOptionsView = function (options) {
         li = list.appendChild(document.createElement('li'));
         li.classList.add(_watchProperty);
         li.setAttribute('data-id', item.id);
-        li.innerHTML = '<input type="radio" id="id-' + item.id + '" value="' +
-              item.id + '" name="' + _watchProperty + '" />' +
-            '<label for="id-' + item.id + '">' + item.name + '</label>';
+        li.innerHTML = '<input type="radio"' +
+              ' id="' + _watchProperty + '-' + item.id + '"' +
+              ' value="' + item.id + '"' +
+              ' name="' + _watchProperty + '" />' +
+            '<label for="' + _watchProperty + '-' + item.id + '">' +
+              item.name +
+            '</label>';
       });
       // append list to the DOM
       _this.content.appendChild(list);
@@ -77,7 +81,7 @@ var RadioOptionsView = function (options) {
     }
 
     id = obj.id;
-    el = _this.el.querySelector('#id-' + id);
+    el = _this.el.querySelector('#' + _watchProperty + '-' + id );
 
     if (el) {
       el.checked = true;

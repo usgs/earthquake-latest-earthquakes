@@ -62,7 +62,7 @@ describe('RadioOptionsView', function () {
 
       input = radioOptionsView.el.querySelector('input:checked');
 
-      expect(input.getAttribute('id')).to.be.equal('id-2');
+      expect(input.getAttribute('id')).to.be.equal('feeds-2');
     });
   });
 
@@ -85,7 +85,7 @@ describe('RadioOptionsView', function () {
       radioOptionsView.setSelected({id: 1});
       input = radioOptionsView.el.querySelector('input:checked');
 
-      expect(input.getAttribute('id')).to.equal('id-1');
+      expect(input.getAttribute('id')).to.equal('feeds-1');
     });
   });
 });
