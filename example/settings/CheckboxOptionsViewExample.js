@@ -44,5 +44,5 @@ checkboxOptionsView = CheckboxOptionsView({
   model: Model({
     overlays: [{id: 'faults'}]
   }),
-  watchProperty: 'ovelays'
+  watchProperty: 'overlays'
 });
