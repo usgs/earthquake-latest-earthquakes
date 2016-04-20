@@ -20,10 +20,10 @@ var ListViewFooter = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
   };
 
-  _this.destroy = Util.compose(function () {
+  _this.destroy = function () {
     _initialize = null;
     _this = null;
-  }, _this.destroy);
+  };
 
   /**
    * Creates markup for list footer
