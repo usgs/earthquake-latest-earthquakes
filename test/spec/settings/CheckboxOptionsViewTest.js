@@ -33,7 +33,6 @@ describe('CheckboxOptionsView', function () {
       model: Model({
         'overlays': [{id: 3}]
       }),
-      section: 'overlays',
       watchProperty: 'overlays'
     });
   });

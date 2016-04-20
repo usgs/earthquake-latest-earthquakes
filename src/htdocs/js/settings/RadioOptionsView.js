@@ -1,6 +1,6 @@
 'use strict';
 
-var GenericCollectionView = require('latesteqs/GenericCollectionView'),
+var GenericCollectionView = require('core/GenericCollectionView'),
     Util = require('util/Util');
 
 var _DEFAULTS = {};
@@ -10,7 +10,7 @@ var RadioOptionsView = function (options) {
   var _this,
       _initialize,
 
-      _section;
+      _watchProperty;
 
 
   _this = GenericCollectionView(options);
@@ -18,7 +18,7 @@ var RadioOptionsView = function (options) {
 
   _initialize = function (options) {
     // defines which setting to configure
-    _section = options.section || '';
+    _watchProperty = options.watchProperty || '';
 
     _this.render();
   };
@@ -32,7 +32,7 @@ var RadioOptionsView = function (options) {
   };
 
   _this.destroy = Util.compose(function () {
-    _section = null;
+    _watchProperty = null;
 
     _initialize = null;
     _this = null;
@@ -51,16 +51,16 @@ var RadioOptionsView = function (options) {
       items.forEach(function (item) {
         var li;
         li = list.appendChild(document.createElement('li'));
-        li.classList.add(_section);
+        li.classList.add(_watchProperty);
         li.setAttribute('data-id', item.id);
         li.innerHTML = '<input type="radio" id="id-' + item.id + '" value="' +
-              item.id + '" name="' + _section + '" />' +
+              item.id + '" name="' + _watchProperty + '" />' +
             '<label for="id-' + item.id + '">' + item.name + '</label>';
       });
       // append list to the DOM
       _this.content.appendChild(list);
       // set the selected collection item
-      _this.setSelected(_this.model.get(_section));
+      _this.setSelected(_this.model.get(_watchProperty));
     } else {
       _this.content.innerHTML = '<p class="alert error">There are no options ' +
           'to display</p>';

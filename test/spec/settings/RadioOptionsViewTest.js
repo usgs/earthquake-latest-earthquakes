@@ -29,7 +29,6 @@ describe('RadioOptionsView', function () {
       model: Model({
         'feeds': {id: 2}
       }),
-      section: 'feeds',
       watchProperty: 'feeds'
     });
   });

@@ -71,5 +71,5 @@ radioOptionsView = RadioOptionsView({
   model: Model({
     'feeds': {id: '7day_m25'}
   }),
-  section: 'feeds'
+  watchProperty: 'feeds'
 });
