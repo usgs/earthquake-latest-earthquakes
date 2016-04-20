@@ -17,4 +17,4 @@ if (!isset($TEMPLATE)) {
 }
 ?>
 
-<div id="help-view-example"
+<div id="help-view-example"></div>
