@@ -17,10 +17,10 @@ var formats,
 
 formats = {
   'default-format': null,
-  'magnitude-format': DefaultListFormat(),
-  'dyfi-format': DYFIListFormat(),
-  'shakemap-format': ShakeMapListFormat(),
-  'pager-format': PagerListFormat()
+  'magnitude-format': {format: DefaultListFormat()},
+  'dyfi-format': {format: DYFIListFormat()},
+  'shakemap-format': {format: ShakeMapListFormat()},
+  'pager-format': {format: PagerListFormat()}
 };
 
 // -- Start basic usage example
