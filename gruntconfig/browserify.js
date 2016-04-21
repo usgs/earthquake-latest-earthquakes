@@ -47,9 +47,13 @@ ALL_CLASSES = getAliases(JS, [
   'list/PagerListFormat',
   'list/ShakeMapListFormat',
 
+  'settings/CheckboxOptionsView',
+  'settings/RadioOptionsView',
+
   'summary/EventSummaryFormat'
 ]).concat(getAliases(NODE_MODULES + '/hazdev-webutils/src', [
   'mvc/Collection',
+  'mvc/CollectionView',
   'mvc/Model',
 
   'util/Xhr'

@@ -18,4 +18,10 @@
   echo navGroup('Summary',
     navItem('/summary/EventSummaryFormatExample.php', 'EventSummaryFormat')
   );
+
+  echo navGroup('Settings',
+    navItem('/settings/CheckboxOptionsViewExample.php', 'CheckboxOptionsView') .
+    navItem('/settings/RadioOptionsViewExample.php', 'RadioOptionsView')
+  );
+
 ?>

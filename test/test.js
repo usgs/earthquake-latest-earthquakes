@@ -20,6 +20,9 @@ require('./spec/list/ListViewTest');
 require('./spec/list/PagerListFormatTest');
 require('./spec/list/ShakeMapListFormatTest');
 
+require('./spec/settings/CheckboxOptionsViewTest');
+require('./spec/settings/RadioOptionsViewTest');
+
 
 if (window.mochaPhantomJS) {
   window.mochaPhantomJS.run();
