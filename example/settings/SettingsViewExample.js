@@ -16,8 +16,10 @@ settingsView = SettingsView({
     'basemaps': {id: 'terrain'},
     'feeds': {id: '7day_m25'},
     'listFormats': {id: 'dyfi'},
-    'overlays': {id: '7day_m25'},
+    'overlays': [{id: 'faults'}, {id: 'ushazard'}],
     'sorts': {id: 'oldest'},
     'timezones': {id: 'local'}
   })
 });
+
+settingsView.render();
