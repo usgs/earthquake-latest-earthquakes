@@ -24,7 +24,8 @@ var UrlManager = function (options) {
   var _this,
       _initialize,
 
-      _defaults;
+      _defaults,
+      _started;
 
 
   _this = {};
@@ -49,16 +50,6 @@ var UrlManager = function (options) {
     }
     _this.stop();
     _this = null;
-  };
-
-  /**
-   * Get settings from URL.
-   *
-   * @return {Object}
-   *     object with any settings that appear in the URL.
-   */
-  _this.getUrlSettings = function () {
-    return _this.parseHash(window.location.hash);
   };
 
   /**
@@ -104,6 +95,16 @@ var UrlManager = function (options) {
     }
 
     return settings;
+  };
+
+  /**
+   * Get settings from URL.
+   *
+   * @return {Object}
+   *     object with any settings that appear in the URL.
+   */
+  _this.getUrlSettings = function () {
+    return _this.parseHash(window.location.hash);
   };
 
   /**
@@ -223,6 +224,9 @@ var UrlManager = function (options) {
    * Set defaults, and start listening to hashchange and model change events.
    */
   _this.start = function () {
+    if (_started) {
+      return;
+    }
     // initialize model based on defaults and current url
     _this.setModelSettings(Util.extend({},
         _defaults,
@@ -231,14 +235,19 @@ var UrlManager = function (options) {
     // update if URL changes
     Events.on('hashchange', 'onHashChange', _this);
     _this.model.on('change', 'onModelChange', _this);
+    _started = true;
   };
 
   /**
    * Stop listening to hashchange and model change events.
    */
   _this.stop = function () {
+    if (!_started) {
+      return;
+    }
     Events.off('hashchange', 'onHashChange', _this);
     _this.model.off('change', 'onModelChange', _this);
+    _started = false;
   };
 
 

@@ -58,6 +58,8 @@ ALL_CLASSES = getAliases(JS, [
   'mvc/CollectionView',
   'mvc/Model',
 
+  'util/Events',
+  'util/Util',
   'util/Xhr'
 ]));
 
