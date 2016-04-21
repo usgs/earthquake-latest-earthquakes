@@ -35,7 +35,7 @@ var _DEFAULTS = {};
  *     `_initialize` method for complete details on all configuration
  *     options that may be provided.
  */
-var RadioOptionsView = function (options) {
+var CheckboxOptionsView = function (options) {
   var _this,
       _initialize,
 
@@ -168,4 +168,4 @@ var RadioOptionsView = function (options) {
   return _this;
 };
 
-module.exports = RadioOptionsView;
+module.exports = CheckboxOptionsView;
