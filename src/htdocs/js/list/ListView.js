@@ -93,8 +93,24 @@ var ListView = function (options) {
    *
    */
   _this.renderFooter = function () {
-    // TODO :: usgs/earthquake-latest-earthquakes#64
-    _this.footer.innerHTML = '<p>TODO :: Here is the ListView footer!</p>';
+    _this.footer.innerHTML =
+      '<h3>Didn&apos;t find what you were looking for?</h3>' +
+        '<ul class="no-style">' +
+          '<li>' +
+            'Check your &ldquo;Settings&rdquo;.' +
+          '</li>' +
+          '<li>' +
+            '<a href="/earthquakes/map/doc_whicheqs.php">' +
+              'Which earthquakes are included on the map and ' +
+              'list?' +
+            '</a>' +
+          '</li>' +
+          '<li>' +
+            '<a href="/earthquakes/eventpage/unknown#impact_tellus">' +
+              'Felt something not shown – report it here.' +
+            '</a>' +
+          '</li>' +
+      '</ul>';
   };
 
   /**
