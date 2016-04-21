@@ -93,7 +93,6 @@ var ListView = function (options) {
    *
    */
   _this.renderFooter = function () {
-    // TODO :: usgs/earthquake-latest-earthquakes#64
     _this.footer.innerHTML =
       '<h3>Didn&apos;t find what you were looking for?</h3>' +
         '<ul class="no-style">' +
