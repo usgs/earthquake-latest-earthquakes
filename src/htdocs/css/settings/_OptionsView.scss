@@ -5,10 +5,9 @@
   border: 1px solid #bbb;
 
   > li {
-    border-bottom: 1px solid #ddd;
 
-    &:last-child {
-      border-bottom: none;
+    + li {
+      border-top: 1px solid #ddd;
     }
 
     > label:before {
