@@ -10,6 +10,8 @@ require('./spec/summary/EventSummaryFormatTest');
 require('./spec/core/FormatterTest');
 require('./spec/core/GenericCollectionViewTest');
 
+require('./spec/help/HelpViewTest');
+
 require('./spec/latesteqs/CatalogTest');
 
 require('./spec/list/DefaultListFormatTest');
