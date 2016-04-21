@@ -29,6 +29,31 @@ var _DEFAULTS = {
     }
   ],
 
+  defaults: {
+    autoUpdate: true,
+    basemap: 'grayscale',
+    feed: '1day_m25',
+    listFormat: 'default',
+    mapposition: [
+      // "conterminous" us
+      [60.0, -150.0],
+      [10.0, -50.0]
+    ],
+    overlays: {
+      plates: true
+    },
+    restrictListToMap: true,
+    search: null,
+    sort: 'newest',
+    timeZone: 'utc',
+    viewModes: {
+      list: true,
+      map: true,
+      settings: false,
+      help: false
+    }
+  },
+
   feeds: [
     {
       'id': '1day_m25',
@@ -168,6 +193,25 @@ var _DEFAULTS = {
       'name': 'Local System Time',
       'offset': new Date().getTimezoneOffset()
     }
+  ],
+
+  viewModes: [
+    {
+      'id': 'list',
+      'name': 'List'
+    },
+    {
+      'id': 'map',
+      'name': 'Map'
+    },
+    {
+      'id': 'settings',
+      'name': 'Settings'
+    },
+    {
+      'id': 'help',
+      'name': 'Help'
+    }
   ]
 };
 
@@ -230,7 +274,9 @@ var _DEFAULTS = {
  */
 var Config = function (options) {
   var _this,
-      _initialize;
+      _initialize,
+
+      _search;
 
 
   _this = {};
@@ -238,22 +284,21 @@ var Config = function (options) {
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
 
-    _this.basemaps = Collection(options.basemaps);
-    _this.feeds = Collection(options.feeds);
-    _this.listFormats = Collection(options.listFormats);
     _this.model = options.model || Model();
-    _this.overlays = Collection(options.overlays);
-    _this.searchForm = options.searchForm;
-    _this.searchUrl = options.searchUrl;
-    _this.sorts = Collection(options.sorts);
-    _this.timezones = Collection(options.timezones);
+    _this.options = {
+      'basemap': Collection(options.basemaps),
+      'feed': Collection(options.feeds),
+      'listFormat': Collection(options.listFormats),
+      'overlays': Collection(options.overlays),
+      'sort': Collection(options.sorts),
+      'timezone': Collection(options.timezones),
+      'viewModes': Collection(options.viewModes)
+    };
 
-    _this.basemaps.on('select', _this.onBasemapSelect);
-    _this.feeds.on('select', _this.onFeedSelect);
-    _this.listFormats.on('select', _this.onListFormatSelect);
-    _this.model.on('change', _this.onModelChange);
-    _this.sorts.on('select', _this.onSortSelect);
-    _this.timezones.on('select', _this.onTimezoneSelect);
+    // search object is added to feed collection
+    _search = null;
+    // set defaults, existing url settings
+    _this.set(options.defaults);
   };
 
   /**
@@ -264,8 +309,6 @@ var Config = function (options) {
       return;
     }
 
-    _this.model.off('change', _this.onModelChange);
-
     _this.basemaps.destroy();
     _this.feeds.destroy();
     _this.listFormats.destroy();
@@ -273,133 +316,156 @@ var Config = function (options) {
     _this.overlays.destroy();
     _this.sorts.destroy();
     _this.timezones.destroy();
+    _this.viewModes.destroy();
     _this = null;
   };
 
   /**
-   * Called when basemap collection selected changes.
-   */
-  _this.onBasemapSelect = function () {
-    _this.model.set({
-      'basemap': _this.basemaps.getSelected().id
-    });
-  };
-
-  /**
-   * Called when feeds collection selected changes.
-   */
-  _this.onFeedSelect = function () {
-    _this.model.set({
-      'feed': _this.feeds.getSelected().id
-    });
-  };
-
-  /**
-   * Called when listFormats collection selected changes.
-   */
-  _this.onListFormatSelect = function () {
-    _this.model.set({
-      'listFormat': _this.listFormats.getSelected().id
-    });
-  };
-
-  /**
-   * Called when model changes.
+   * Get current configuration as object.
    *
-   * Update collection selections.
+   * @return {Object}
+   *     object containing current settings, using object ids.
+   */
+  _this.get = function () {
+    var collection,
+        key,
+        model,
+        setting,
+        settings,
+        value;
+
+    settings = {};
+    model = _this.model.get();
+    for (key in model) {
+      value = model[key];
+
+      if (key in _this.options) {
+        collection = _this.options[key];
+        if (key === 'overlays' || key === 'viewModes') {
+          setting = _this.getIdMap(value);
+        } else {
+          setting = value.id;
+        }
+      } else if (key === 'autoUpdate' ||
+          key === 'mapposition' ||
+          key === 'restrictListToMap' ||
+          key === 'search') {
+        setting = value;
+      } else {
+        // not a url config option, skip to be safe
+      }
+      settings[key] = setting;
+    }
+
+    return settings;
+  };
+
+  /**
+   * Convert array of values to object.
    *
-   * @param changed {Object}
-   *     object with changed keys/values.
+   * @param values {Array<Object>}
+   * @return {Object}
+   *     with key for id of every Object in values,
+   *     and values of true.
    */
-  _this.onModelChange = function (changed) {
-    var toSet;
+  _this.getIdMap = function (values) {
+    var map;
 
-    // anything that needs to be reset to a default
-    toSet = {};
-
-    if (!changed || changed.basemap) {
-      Util.extend(toSet, _this.setSelected(_this.basemaps, 'basemap'));
-    }
-    if (!changed || changed.feed) {
-      Util.extend(toSet, _this.setSelected(_this.feeds, 'feed'));
-    }
-    if (!changed || changed.listFormat) {
-      Util.extend(toSet, _this.setSelected(_this.listFormats, 'listFormat'));
-    }
-    if (!changed || changed.sort) {
-      Util.extend(toSet, _this.setSelected(_this.sorts, 'sort'));
-    }
-    if (!changed || changed.timezone) {
-      Util.extend(toSet, _this.setSelected(_this.timezones, 'timezone'));
-    }
-
-    if (Object.keys(toSet).length > 0) {
-      // updating to defaults
-      _this.model.set(toSet);
-    }
-  };
-
-  /**
-   * Called when sorts collection selected changes.
-   */
-  _this.onSortSelect = function () {
-    _this.model.set({
-      'sort': _this.sorts.getSelected().id
+    map = {};
+    values.forEach(function (item) {
+      map[item.id] = true;
     });
+
+    return map;
   };
 
   /**
-   * Called when basemap collection selected changes.
-   */
-  _this.onTimezoneSelect = function () {
-    _this.model.set({
-      'timezone': _this.timezones.getSelected().id
-    });
-  };
-
-  /**
-   * Update the selected object in a collection based on its configured value
+   * Extract objects from collection using idMap.
    *
    * @param collection {Collection}
-   *     collection to update.
-   * @param configKey {String}
-   *     corresponding key in configuration with current setting.
-   * @return {Object}
-   *     null if collection was successfully set.
-   *     Object with `configKey` set to id of first item in collection,
-   *     if model selection not found as id of object in collection.
+   *     collection with objects.
+   * @param idMap {Object}
+   *     object with keys that are ids of objects in collection,
+   *     and boolean values.  When value is true, object with id is included
+   *     in returned array.
+   * @return {Array<Object>}
+   *     array with matching objects.
    */
-  _this.setSelected = function(collection, configKey) {
+  _this.getValues = function (collection, idMap) {
     var id,
-        obj,
-        toSet;
+        object,
+        values;
 
-    // get model setting
-    id = _this.model.get(configKey);
-    // corresponding collection object
-    obj = collection.get(id);
-    // whether anything needs to be set in model
-    toSet = null;
-
-    if (!obj) {
-      // does not exist, use first as default
-      obj = collection.data();
-      if (obj.length > 0) {
-        obj = obj[0];
-        id = obj.id;
-      } else {
-        obj = null;
-        id = null;
+    values = [];
+    for (id in idMap) {
+      if (idMap[id]) {
+        object = collection.get(id);
+        if (object) {
+          values.push(object);
+        }
       }
-
-      // update model to default
-      toSet = {};
-      toSet[configKey] = id;
     }
 
-    collection.select(obj);
+    return values;
+  };
 
-    return toSet;
+  /**
+   * Update configuration using object.
+   *
+   * @param settings {Object}
+   *     object with settings to set.
+   *     for settings that are backed by a collection, the id of an object
+   *     should be used in place of that object.
+   */
+  _this.set = function (settings) {
+    var collection,
+        key,
+        setting,
+        toset,
+        value;
+
+    toset = {};
+    // translate setting values to model objects
+    for (key in settings) {
+      setting = settings[key];
+
+      if (key in _this.options) {
+        collection = _this.options[key];
+        if (key === 'overlays' || key === 'viewModes') {
+          // multi-select represented as an array of objects
+          value = _this.getValues(collection, setting);
+        } else if (key === 'feed') {
+          value = collection.get(setting);
+          if (!value) {
+            if (settings.search && settings.search.id === setting) {
+              // TODO: search should be part of feed collection...
+              value = settings.search;
+            } else {
+              value = collection.data()[0];
+            }
+          }
+        } else {
+          value = collection.get(setting);
+          if (!value) {
+            // default to first item if setting does not exist
+            value = collection.data()[0];
+          }
+        }
+      } else if (key === 'autoUpdate' ||
+          key === 'mapposition' ||
+          key === 'restrictListToMap' ||
+          key === 'search') {
+        // TODO: validate
+        value = setting;
+      } else {
+        // unknown config option, skip to be safe
+        continue;
+      }
+
+      toset[key] = value;
+    }
+
+    _this.model.set(toset);
   };
 
 

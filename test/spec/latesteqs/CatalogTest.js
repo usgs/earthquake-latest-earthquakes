@@ -52,41 +52,17 @@ describe('latesteqs/Catalog', function () {
   });
 
   describe('load', function () {
-    it('throws error if no model or config configured', function () {
-      var noConfig,
-          noModel;
-
-      noConfig = function () {
-        var catalog;
-        catalog = Catalog({
-          model: Model()
-        });
-        catalog.load();
-      };
-      expect(noConfig).to.throw(Error);
-
-      noModel = function () {
-        var catalog;
-        catalog = Catalog({
-          config: true
-        });
-        catalog.load();
-      };
-      expect(noModel).to.throw(Error);
-    });
-
     it('loads selected feed', function () {
       var args,
           catalog;
 
       catalog = Catalog({
-        model: Model({'feed': 'abc'}),
-        config: {
-          'feeds': Collection([{
+        model: Model({
+          'feed': {
             id: 'abc',
             url: 'test url'
-          }])
-        }
+          }
+        })
       });
 
       sinon.stub(catalog, 'loadUrl', function () {});
@@ -97,33 +73,6 @@ describe('latesteqs/Catalog', function () {
 
       catalog.loadUrl.restore();
       catalog.destroy();
-    });
-
-    it('sets default feed', function () {
-      var args,
-          catalog,
-          model;
-
-      model = Model();
-      catalog = Catalog({
-        model: model,
-        config: {
-          'feeds': Collection([{
-            id: 'abc',
-            url: 'test url'
-          }])
-        }
-      });
-
-      sinon.stub(model, 'set', function () {});
-      catalog.load();
-
-      args = model.set.getCall(0).args;
-      expect(args[0].feed).to.equal('abc');
-
-      model.set.restore();
-      catalog.destroy();
-      model.destroy();
     });
   });
 
