@@ -31,8 +31,6 @@ var getAliases = function (basePath, classes) {
 
 
 ALL_CLASSES = getAliases(JS, [
-  'LatestEarthquakes',
-
   'core/Config',
   'core/Formatter',
   'core/GenericCollectionView',
@@ -41,6 +39,7 @@ ALL_CLASSES = getAliases(JS, [
   'help/HelpView',
 
   'latesteqs/Catalog',
+  'latesteqs/LatestEarthquakes',
   'latesteqs/LatestEarthquakesConfig',
   'latesteqs/LatestEarthquakesUrlManager',
 
