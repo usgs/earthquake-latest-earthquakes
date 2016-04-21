@@ -54,6 +54,7 @@ ALL_CLASSES = getAliases(JS, [
 
   'settings/CheckboxOptionsView',
   'settings/RadioOptionsView',
+  'settings/SettingsView',
 
   'summary/EventSummaryFormat'
 ]).concat(getAliases(NODE_MODULES + '/hazdev-webutils/src', [

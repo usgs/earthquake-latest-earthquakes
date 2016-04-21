@@ -26,6 +26,7 @@ require('./spec/map/LegendControlTest');
 
 require('./spec/settings/CheckboxOptionsViewTest');
 require('./spec/settings/RadioOptionsViewTest');
+require('./spec/settings/SettingsViewTest');
 
 if (window.mochaPhantomJS) {
   window.mochaPhantomJS.run();

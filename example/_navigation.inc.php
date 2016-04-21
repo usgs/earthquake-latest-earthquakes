@@ -22,7 +22,8 @@
 
   echo navGroup('Settings',
     navItem('/settings/CheckboxOptionsViewExample.php', 'CheckboxOptionsView') .
-    navItem('/settings/RadioOptionsViewExample.php', 'RadioOptionsView')
+    navItem('/settings/RadioOptionsViewExample.php', 'RadioOptionsView') .
+    navItem('/settings/SettingsViewExample.php', 'SettingsView')
   );
 
   echo navGroup('Summary',
