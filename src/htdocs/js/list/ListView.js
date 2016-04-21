@@ -43,7 +43,9 @@ _DEFAULTS = {
  */
 var ListView = function (options) {
   var _this,
-      _initialize;
+      _initialize,
+
+      _listFormat;
 
 
   options = Util.extend({}, _DEFAULTS, options);
@@ -58,6 +60,7 @@ var ListView = function (options) {
    */
   _initialize = function (/*options*/) {
     _this.model.on('change:listFormat', 'render', _this);
+    _this.model.on('change:timezone', 'render', _this);
   };
 
 
@@ -72,7 +75,15 @@ var ListView = function (options) {
   _this.createCollectionItemContent = function (obj) {
     var listFormat;
 
-    listFormat = _this.model.get('listFormat') || _DEFAULT_FORMAT;
+    listFormat = _listFormat;
+    if (!listFormat) {
+      listFormat = _this.model.get('listFormat');
+      if (listFormat) {
+        listFormat = listFormat.format;
+      } else {
+        listFormat = _DEFAULT_FORMAT;
+      }
+    }
 
     return listFormat.format(obj);
   };
@@ -83,10 +94,36 @@ var ListView = function (options) {
    */
   _this.destroy = Util.compose(function () {
     _this.model.off('change:listFormat', 'render', _this);
+    _this.model.off('change:timezone', 'render', _this);
 
+    _listFormat = null;
     _initialize = null;
     _this = null;
   }, _this.destroy);
+
+  /**
+   * Override render to get a referene to current list format,
+   * and configure timezone before rendering.
+   */
+  _this.render = Util.compose(function () {
+    var listFormat,
+        timezoneOffset;
+
+    listFormat = _this.model.get('listFormat');
+    if (listFormat) {
+      listFormat = listFormat.format;
+
+      // set current timezone setting
+      timezoneOffset = _this.model.get('timezone');
+      if (timezoneOffset) {
+        listFormat.setTimezoneOffset(timezoneOffset.offset);
+      }
+    } else {
+      listFormat = _DEFAULT_FORMAT;
+    }
+
+    _listFormat = listFormat;
+  }, _this.render);
 
   /**
    * Render the footer information for this view into `_this.footer`.

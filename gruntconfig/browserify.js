@@ -31,15 +31,17 @@ var getAliases = function (basePath, classes) {
 
 
 ALL_CLASSES = getAliases(JS, [
-  'LatestEarthquakes',
-
+  'core/Config',
   'core/Formatter',
   'core/GenericCollectionView',
+  'core/UrlManager',
 
   'help/HelpView',
 
   'latesteqs/Catalog',
-  'latesteqs/Config',
+  'latesteqs/LatestEarthquakes',
+  'latesteqs/LatestEarthquakesConfig',
+  'latesteqs/LatestEarthquakesUrlManager',
 
   'list/DefaultListFormat',
   'list/DyfiListFormat',
@@ -56,6 +58,8 @@ ALL_CLASSES = getAliases(JS, [
   'mvc/CollectionView',
   'mvc/Model',
 
+  'util/Events',
+  'util/Util',
   'util/Xhr'
 ]));
 

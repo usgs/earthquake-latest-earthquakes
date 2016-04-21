@@ -1,6 +1,6 @@
 'use strict';
 
-var LatestEarthquakes = require('LatestEarthquakes');
+var LatestEarthquakes = require('latesteqs/LatestEarthquakes');
 
 
 LatestEarthquakes({

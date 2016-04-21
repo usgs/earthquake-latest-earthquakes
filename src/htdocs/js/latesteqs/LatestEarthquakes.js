@@ -2,25 +2,18 @@
 
 // TODO: use real List, Map, and Settings views
 var Catalog = require('latesteqs/Catalog'),
-    Config = require('latesteqs/Config'),
-    Events = require('util/Events'),
+    Config = require('latesteqs/LatestEarthquakesConfig'),
     ListView = require('list/ListView'),
     MapView = require('mvc/View'),
     SettingsView = require('mvc/View'),
+    UrlManager = require('latesteqs/LatestEarthquakesUrlManager'),
     Util = require('util/Util'),
     View = require('mvc/View');
 
 
 var _DEFAULTS = {
-  catalog: null,
   config: null,
   settings: null
-};
-
-var _DEFAULT_MODES = {
-  list: true,
-  map: true,
-  settings: false
 };
 
 var _DEFAULT_SETTINGS = {
@@ -38,9 +31,16 @@ var _DEFAULT_SETTINGS = {
   },
   restrictListToMap: true,
   search: null,
+  searchForm: '/earthquakes/search/',
+  searchUrl: '/fdsnws/event/1/query.geojson',
   sort: 'newest',
-  timeZone: 'utc',
-  viewModes: _DEFAULT_MODES
+  timezone: 'utc',
+  viewModes: {
+    list: true,
+    map: true,
+    settings: false,
+    help: false
+  }
 };
 
 
@@ -49,6 +49,11 @@ var _DEFAULT_SETTINGS = {
  *
  * @param options {Object}
  *     passed to View.
+ *
+ * @param options.config {OBject}
+ *     overrides for default config (collections of basemaps, etc)
+ * @param options.settings {Object}
+ *     overrides for default settings (default basemap, etc).
  */
 var LatestEarthquakes = function (options) {
   var _this,
@@ -59,7 +64,8 @@ var LatestEarthquakes = function (options) {
       _content,
       _listView,
       _mapView,
-      _settingsView;
+      _settingsView,
+      _urlManager;
 
 
   _this = View(options);
@@ -87,6 +93,10 @@ var LatestEarthquakes = function (options) {
       model: _this.model
     });
 
+    _config = Config(Util.extend({}, options.config, {
+      'event': _catalog
+    }));
+
     _listView = ListView({
       el: el.querySelector('.latest-earthquakes-list'),
       collection: _catalog,
@@ -105,18 +115,14 @@ var LatestEarthquakes = function (options) {
       model: _this.model
     });
 
-    // triggers initial render
-    _config = Config({
-      defaults: Util.extend({},
-          _DEFAULT_SETTINGS,
-          options.settings,
-          _this.getUrlSettings()),
+    _urlManager = UrlManager({
+      config: _config,
+      defaults: Util.extend({}, _DEFAULT_SETTINGS, options.settings),
       model: _this.model
     });
 
-    // update if URL changes
-    Events.on('hashchange', _this.onHashChange);
-    _this.model.on('change', _this.onModelChange);
+    // triggers initial model update (leading to render)
+    _urlManager.start();
   };
 
   /**
@@ -127,15 +133,12 @@ var LatestEarthquakes = function (options) {
       return;
     }
 
-    _this.model.off('change', _this.onModelChange);
-    Events.off('hashchange', _this.onHashChange);
+    _urlManager.destroy();
 
-    // destroy views
     _listView.destroy();
     _mapView.destroy();
     _settingsView.destroy();
 
-    // destroy collection of eqs
     _catalog.destroy();
     _config.destroy();
 
@@ -147,67 +150,9 @@ var LatestEarthquakes = function (options) {
     _mapView = null;
     _settingsView = null;
     _this = null;
+    _urlManager = null;
   }, _this.destroy);
 
-  /**
-   * Get any settings from the URL.
-   *
-   * @return {Object}
-   *     object with any settings that appear in the URL.
-   */
-  _this.getUrlSettings = function () {
-    return _this.parseHash(window.location.hash);
-  };
-
-  /**
-   * Called when hash changes.
-   *
-   * Loads settings from url.
-   */
-  _this.onHashChange = function () {
-    // TODO: handle nested settings more gracefully
-    _config.set(_this.getUrlSettings());
-  };
-
-  /**
-   * Called when model changes.
-   *
-   * Store settings in url.
-   */
-  _this.onModelChange = function () {
-    var encoded;
-
-    encoded = encodeURI(JSON.stringify(_config.get()));
-    window.location = '#' + encoded;
-  };
-
-  /**
-   * Parse a URL hash fragment.
-   *
-   * @param hash {String}
-   *     uri encoded json string.
-   */
-  _this.parseHash = function (hash) {
-    var parsed;
-
-    parsed = {};
-    if (hash) {
-      // remove leading hash fragment
-      hash = decodeURI(hash.replace('#', ''));
-      try {
-        parsed = JSON.parse(hash);
-      } catch (e) {
-        // some emails strip the last encoded '}'
-        try {
-          parsed = JSON.parse(hash + '}');
-        } catch (e) {
-          // ignore
-        }
-      }
-    }
-
-    return parsed;
-  };
 
   /**
    * Apply current settings.
@@ -219,7 +164,7 @@ var LatestEarthquakes = function (options) {
     var modes;
 
     // update modes
-    modes = Util.extend({}, _DEFAULT_MODES, _this.model.get('viewModes'));
+    modes = _this.model.get('viewModes') || {};
     _this.setMode('list', modes.list);
     _this.setMode('map', modes.map);
     _this.setMode('settings', modes.settings);
