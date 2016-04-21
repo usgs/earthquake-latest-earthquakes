@@ -72,7 +72,12 @@ var ListView = function (options) {
   _this.createCollectionItemContent = function (obj) {
     var listFormat;
 
-    listFormat = _this.model.get('listFormat') || _DEFAULT_FORMAT;
+    listFormat = _this.model.get('listFormat');
+    if (listFormat) {
+      listFormat = listFormat.format;
+    } else {
+      listFormat = _DEFAULT_FORMAT;
+    }
 
     return listFormat.format(obj);
   };

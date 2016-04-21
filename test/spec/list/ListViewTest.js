@@ -47,13 +47,15 @@ describe('list/ListView', function () {
 
       view = ListView();
       listFormat = {
-        format: sinon.spy()
+        format: {
+          format: sinon.spy()
+        }
       };
 
       view.model.set({'listFormat': listFormat});
       view.createCollectionItemContent();
 
-      expect(listFormat.format.callCount).to.equal(1);
+      expect(listFormat.format.format.callCount).to.equal(1);
 
       view.destroy();
     });

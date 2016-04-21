@@ -1,6 +1,10 @@
 'use strict';
 
 var Config = require('core/Config'),
+    DefaultListFormat = require('list/DefaultListFormat'),
+    DyfiListFormat = require('list/DyfiListFormat'),
+    PagerListFormat = require('list/PagerListFormat'),
+    ShakeMapListFormat = require('list/ShakeMapListFormat'),
     Util = require('util/Util');
 
 
@@ -87,22 +91,22 @@ var _DEFAULTS = {
     {
       'id': 'default',
       'name': 'Magnitude',
-      'format': null
+      'format': DefaultListFormat()
     },
     {
       'id': 'dyfi',
       'name': 'DYFI',
-      'format': null
+      'format': DyfiListFormat()
     },
     {
       'id': 'shakemap',
       'name': 'ShakeMap',
-      'format': null
+      'format': ShakeMapListFormat()
     },
     {
       'id': 'losspager',
       'name': 'PAGER',
-      'format': null
+      'format': PagerListFormat()
     }
   ],
 
