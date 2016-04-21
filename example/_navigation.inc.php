@@ -1,6 +1,7 @@
 <?php
   echo navGroup('Core',
     navItem('/core/GenericCollectionViewExample.php', 'GenericCollectionView')
+  );
 
   echo navGroup('Help',
     navItem('/help/HelpViewExample.php', 'HelpView')
