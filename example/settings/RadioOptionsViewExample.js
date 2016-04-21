@@ -73,3 +73,4 @@ radioOptionsView = RadioOptionsView({
   }),
   watchProperty: 'feeds'
 });
+radioOptionsView.render();

@@ -62,8 +62,6 @@ var CheckboxOptionsView = function (options) {
   _initialize = function (options) {
     // defines which setting to configure
     _watchProperty = options.watchProperty || '';
-
-    _this.render();
   };
 
   /**

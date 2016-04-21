@@ -35,6 +35,7 @@ describe('CheckboxOptionsView', function () {
       }),
       watchProperty: 'overlays'
     });
+    checkboxOptionsView.render();
   });
 
   afterEach(function () {

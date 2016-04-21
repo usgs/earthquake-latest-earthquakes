@@ -46,3 +46,4 @@ checkboxOptionsView = CheckboxOptionsView({
   }),
   watchProperty: 'overlays'
 });
+checkboxOptionsView.render();
