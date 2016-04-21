@@ -55,12 +55,26 @@ var Catalog = function (options) {
    * Fetch catalog based on config and model.
    */
   _this.load = function () {
-    var feed;
+    var feed,
+        params,
+        url;
 
     feed = _this.model.get('feed');
     if (feed) {
-      _this.loadUrl(feed.url);
+      if (feed.url) {
+        // feed
+        url = feed.url;
+        params = null;
+      } else {
+        // search
+        url = _this.model.get('searchUrl');
+        params = feed.params;
+      }
+
+      _this.loadUrl(url, params);
       return;
+    } else {
+      _this.onLoadError('no feed selected');
     }
   };
 
@@ -73,6 +87,9 @@ var Catalog = function (options) {
    *     optional, data for ajax call.
    */
   _this.loadUrl = function (url, data) {
+    // signal to listeners that a load is starting
+    _this.trigger('loading');
+
     Xhr.ajax({
       url: url,
       data: data,
