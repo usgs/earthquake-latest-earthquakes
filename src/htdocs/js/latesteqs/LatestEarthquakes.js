@@ -34,7 +34,7 @@ var _DEFAULT_SETTINGS = {
   searchForm: '/earthquakes/search/',
   searchUrl: '/fdsnws/event/1/query.geojson',
   sort: 'newest',
-  timeZone: 'utc',
+  timezone: 'utc',
   viewModes: {
     list: true,
     map: true,
