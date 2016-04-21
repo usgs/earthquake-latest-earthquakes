@@ -96,6 +96,7 @@ var ListView = function (options) {
     _this.model.off('change:listFormat', 'render', _this);
     _this.model.off('change:timezone', 'render', _this);
 
+    _listFormat = null;
     _initialize = null;
     _this = null;
   }, _this.destroy);
