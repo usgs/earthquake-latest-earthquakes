@@ -59,9 +59,17 @@ describe('list/ListView', function () {
     });
   });
 
-  describe.skip('renderFooter', function () {
-    it('works as expected', function () {
-      // TODO :: usgs/earthquake-latest-earthquakes#64
+  describe('renderFooter', function () {
+    var view;
+
+    before(function () {
+      view = ListView();
+    });
+
+    it('creates footer markup as expected', function () {
+      view.renderFooter();
+      expect(view.footer.innerHTML).to.not.equal('');
+      expect(view.footer.querySelectorAll('li').length).to.equal(3);
     });
   });
 
