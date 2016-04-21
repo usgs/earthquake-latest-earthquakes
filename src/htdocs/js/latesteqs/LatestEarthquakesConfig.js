@@ -168,7 +168,7 @@ var _DEFAULTS = {
     {
       'id': 'local',
       'name': 'Local System Time',
-      'offset': new Date().getTimezoneOffset()
+      'offset': -1 * new Date().getTimezoneOffset()
     }
   ]
 
