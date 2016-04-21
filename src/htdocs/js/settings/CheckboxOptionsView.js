@@ -1,9 +1,16 @@
 'use strict';
 
-var GenericCollectionView = require('core/GenericCollectionView'),
+var RadioOptionsView = require('settings/RadioOptionsView'),
     Util = require('util/Util');
 
-var _DEFAULTS = {};
+var _DEFAULTS = {
+  classPrefix: 'checkbox-options-view',
+  containerNodeName: 'ol',
+  itemNodeName: 'li',
+  noDataMessage: 'There is no data to display.',
+  watchProperty: ''
+};
+
 
 /**
  * Serves as a resuable view to display configuration options. This view
@@ -39,10 +46,12 @@ var CheckboxOptionsView = function (options) {
   var _this,
       _initialize,
 
+      _classPrefix,
+      _containerNodeName,
       _watchProperty;
 
 
-  _this = GenericCollectionView(options);
+  _this = RadioOptionsView(options);
   options = Util.extend({}, _DEFAULTS, options);
 
 
@@ -53,6 +62,9 @@ var CheckboxOptionsView = function (options) {
    *     Configuration options for this view.
    * @param options.collection {mvc/Collection}
    *     The collection for this view.
+   * @param options.containerNodeName {String}
+   *     The nodeName of the element to be created that will wrap all
+   *     the items in the collection. For example: 'ul'
    * @param options.model {mvc/Model}
    *     The model for this view.
    * @param options.watchProperty {String}
@@ -60,8 +72,9 @@ var CheckboxOptionsView = function (options) {
    *     subsequently trigger `onEvent`.
    */
   _initialize = function (options) {
-    // defines which setting to configure
-    _watchProperty = options.watchProperty || '';
+    _classPrefix = options.classPrefix;
+    _containerNodeName = options.containerNodeName;
+    _watchProperty = options.watchProperty;
   };
 
   /**
@@ -91,41 +104,36 @@ var CheckboxOptionsView = function (options) {
   }, _this.destroy);
 
   /**
-   * Called when the collection is reset (primarily), or when items are added
-   * to/removed from the collection. Renders the content.
+   * Creates and populates an element for the individual given `obj`.
    *
+   * @param obj {Object}
+   *     The item from the collection for which to create the element.
+   *
+   * @return {HTMLElement}
+   *     An HTMLElement based on the configured `options.itemNodeName`
+   *     property.
    */
-  _this.render = function () {
-    var items,
-        list;
+  _this.createCollectionItemContent = function (obj) {
+    var fragment,
+        input,
+        label;
 
-    items = _this.collection.data().slice(0) || [];
+    fragment = document.createDocumentFragment();
 
-    if (items.length) {
-      list = document.createElement('ol');
-      list.classList.add('checkbox-options-view');
-      list.classList.add('no-style');
-      items.forEach(function (item) {
-        var li;
-        li = list.appendChild(document.createElement('li'));
-        li.classList.add(_watchProperty);
-        li.setAttribute('data-id', item.id);
-        li.innerHTML = '<input type="checkbox"' +
-              ' id="' + _watchProperty + '-' + item.id + '"' +
-              ' value="' + item.id + '"' +
-              ' name="' + _watchProperty + '" />' +
-            '<label for="' + _watchProperty + '-' + item.id + '">' +
-              item.name +
-            '</label>';
-      });
-      // append list to the DOM
-      _this.content.appendChild(list);
-      // set the selected collection item
-      _this.setSelected(_this.model.get(_watchProperty));
-    } else {
-      _this.content.innerHTML = '<p class="alert error">There are no options ' +
-          'to display</p>';
-    }
+    input = document.createElement('input');
+    input.setAttribute('id', _watchProperty + '-' + obj.id);
+    input.setAttribute('name', _watchProperty);
+    input.setAttribute('type', 'checkbox');
+    input.setAttribute('value', obj.id);
+
+    label = document.createElement('label');
+    label.setAttribute('for', _watchProperty + '-' + obj.id);
+    label.innerHTML = obj.name;
+
+    fragment.appendChild(input);
+    fragment.appendChild(label);
+
+    return fragment;
   };
 
   /**
@@ -145,15 +153,10 @@ var CheckboxOptionsView = function (options) {
       return;
     }
 
-    if (!objs.length) {
-      throw new Error('The settings model property: ' + _watchProperty +
-          ' should be represented as an array of objects.');
-    }
-
     // select each checkbox
     Array.prototype.forEach.call(objs, function (obj) {
       id = obj.id;
-      el = _this.content.querySelector('#' + _watchProperty + '-' + id);
+      el = _this.content.querySelector('[data-id="' + id + '"] > input');
 
       if (el) {
         el.checked = true;
