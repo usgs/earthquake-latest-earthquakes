@@ -30,7 +30,8 @@ var DefaultListFormat = function (options) {
   var _this,
       _initialize,
 
-      _formatter;
+      _formatter,
+      _timezoneOffset;
 
 
   _this = {
@@ -59,6 +60,7 @@ var DefaultListFormat = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
 
     _formatter = options.formatter || Formatter();
+    _timezoneOffset = options.timezoneOffset || 0;
   };
 
 
@@ -223,7 +225,17 @@ var DefaultListFormat = function (options) {
    *     The value to display as the item's "subheader" information.
    */
   _this.getSubheaderMarkup = function (eq) {
-    return _formatter.datetime(new Date(_this.getProperty(eq, 'time')));
+    return _formatter.datetime(_this.getProperty(eq, 'time'), _timezoneOffset);
+  };
+
+  /**
+   * APIMethod.
+   *
+   * @param offset {Number}
+   *     the timezone offset to use when formatting dates.
+   */
+  _this.setTimezoneOffset = function (offset) {
+    _timezoneOffset = offset || 0;
   };
 
 

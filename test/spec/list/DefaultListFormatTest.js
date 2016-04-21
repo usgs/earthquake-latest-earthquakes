@@ -172,4 +172,17 @@ describe('DefaultListFormat', function () {
       timeSpy.restore();
     });
   });
+
+  describe('setTimezoneOffset', function () {
+    it('sets timezone offset that is passed to datetime format', function () {
+      var timeSpy;
+
+      timeSpy = sinon.spy(formatter, 'datetime');
+      defaultListFormat.setTimezoneOffset(12345);
+      defaultListFormat.getSubheaderMarkup();
+
+      expect(timeSpy.getCall(0).args[1]).to.equal(12345);
+      timeSpy.restore();
+    });
+  });
 });
