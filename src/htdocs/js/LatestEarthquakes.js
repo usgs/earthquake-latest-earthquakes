@@ -80,22 +80,16 @@ var LatestEarthquakes = function (options) {
         '</div>' +
         '<footer class="latest-earthquakes-footer">footer</footer>';
 
-    _config = Config(Util.extend({}, options.config, {
-      model: _this.model
-    }));
     _content = el.querySelector('.latest-earthquakes-content');
-
 
     // depends on config
     _catalog = Catalog({
-      config: _config,
       model: _this.model
     });
 
     _listView = ListView({
       el: el.querySelector('.latest-earthquakes-list'),
       catalog: _catalog,
-      config: _config,
       model: _this.model
     });
     // TODO: delete this once using the real list view
@@ -108,22 +102,23 @@ var LatestEarthquakes = function (options) {
     _mapView = MapView({
       el: el.querySelector('.latest-earthquakes-map'),
       catalog: _catalog,
-      config: _config,
       model: _this.model
     });
 
     _settingsView = SettingsView({
       el: el.querySelector('.latest-earthquakes-settings'),
       catalog: _catalog,
-      config: _config,
       model: _this.model
     });
 
-    // load default settings, also triggers initial render
-    _this.model.set(Util.extend({},
-        _DEFAULT_SETTINGS,
-        options.settings,
-        _this.getUrlSettings()));
+    // triggers initial render
+    _config = Config({
+      defaults: Util.extend({},
+          _DEFAULT_SETTINGS,
+          options.settings,
+          _this.getUrlSettings()),
+      model: _this.model
+    });
 
     // update if URL changes
     Events.on('hashchange', _this.onHashChange);
@@ -138,6 +133,7 @@ var LatestEarthquakes = function (options) {
       return;
     }
 
+    _this.model.off('change', _this.onModelChange);
     Events.off('hashchange', _this.onHashChange);
 
     // destroy views
@@ -176,7 +172,7 @@ var LatestEarthquakes = function (options) {
    */
   _this.onHashChange = function () {
     // TODO: handle nested settings more gracefully
-    _this.model.set(_this.getUrlSettings());
+    _config.set(_this.getUrlSettings());
   };
 
   /**
@@ -187,7 +183,7 @@ var LatestEarthquakes = function (options) {
   _this.onModelChange = function () {
     var encoded;
 
-    encoded = encodeURI(JSON.stringify(_this.model.toJSON()));
+    encoded = encodeURI(JSON.stringify(_config.get()));
     window.location = '#' + encoded;
   };
 
@@ -233,8 +229,6 @@ var LatestEarthquakes = function (options) {
     _this.setMode('list', modes.list);
     _this.setMode('map', modes.map);
     _this.setMode('settings', modes.settings);
-
-    // TODO: Update url
   };
 
   /**
