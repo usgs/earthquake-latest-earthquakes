@@ -4,7 +4,7 @@
 var Catalog = require('latesteqs/Catalog'),
     Config = require('latesteqs/Config'),
     Events = require('util/Events'),
-    ListView = require('mvc/View'),
+    ListView = require('list/ListView'),
     MapView = require('mvc/View'),
     SettingsView = require('mvc/View'),
     Util = require('util/Util'),
@@ -89,14 +89,8 @@ var LatestEarthquakes = function (options) {
 
     _listView = ListView({
       el: el.querySelector('.latest-earthquakes-list'),
-      catalog: _catalog,
+      collection: _catalog,
       model: _this.model
-    });
-    // TODO: delete this once using the real list view
-    _catalog.on('reset', function () {
-      _listView.el.innerHTML = '<pre>' +
-          JSON.stringify(_catalog.data(), null, 2) +
-          '</pre>';
     });
 
     _mapView = MapView({
