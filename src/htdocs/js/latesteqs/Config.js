@@ -1,7 +1,11 @@
 'use strict';
 
 var Collection = require('mvc/Collection'),
+    DefaultListFormat = require('list/DefaultListFormat'),
+    DyfiListFormat = require('list/DyfiListFormat'),
     Model = require('mvc/Model'),
+    PagerListFormat = require('list/PagerListFormat'),
+    ShakeMapListFormat = require('list/ShakeMapListFormat'),
     Util = require('util/Util');
 
 
@@ -110,22 +114,22 @@ var _DEFAULTS = {
     {
       'id': 'default',
       'name': 'Magnitude',
-      'format': null
+      'format': DefaultListFormat().format
     },
     {
       'id': 'dyfi',
       'name': 'DYFI',
-      'format': null
+      'format': DyfiListFormat().format
     },
     {
       'id': 'shakemap',
       'name': 'ShakeMap',
-      'format': null
+      'format': ShakeMapListFormat().format
     },
     {
       'id': 'losspager',
       'name': 'PAGER',
-      'format': null
+      'format': PagerListFormat().format
     }
   ],
 
