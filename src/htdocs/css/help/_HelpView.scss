@@ -11,7 +11,9 @@
 }
 
 .partners{
-  > li > a > img {
-    margin-left: 1em;
+  > li > img {
+    display: block;
+    float: left;
+    margin-right: 1em;
   }
 }
