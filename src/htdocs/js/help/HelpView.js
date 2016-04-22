@@ -3,8 +3,8 @@
 var Util = require('util/Util');
 
 var _DEFAULTS = {
-  version: '<a href="https://github.com/usgs/earthquake-latest-earthquakes/blob/master/README.md">'+
-      'Version Info</a>'
+  version: '<a href="https://github.com/usgs/earthquake-latest-earthquakes' +
+      '/blob/master/README.md">Version Info</a>'
 };
 
 
@@ -73,9 +73,9 @@ var _DEFAULTS = {
         '<li>',
           '<i class="material-icons">settings</i>',
           '<p>',
-            'Clicking the options icon in the top right corner lets you change ',
-            'which earthquakes are displayed, and many other map and list ',
-            'options.',
+            'Clicking the options icon in the top right corner lets you ',
+            'change which earthquakes are displayed, and many other map ',
+            'and list options.',
           '</p>',
         '</li>',
         '<li>',
@@ -114,7 +114,8 @@ var _DEFAULTS = {
       '<h2>In Partnership With</h2>',
       '<ul class="partners no-style separator">',
         '<li class="anss">',
-          '<a href="/monitoring/anss/" title="Advanced National Seismic System">',
+          '<a href="/monitoring/anss/" ',
+              'title="Advanced National Seismic System">',
             'ANSS - Advanced National Seismic System',
             '<img width="80" height="25" src="', anssLogo, '" alt="ANSS"/>',
           '</a>',
@@ -126,7 +127,8 @@ var _DEFAULTS = {
           '</a>',
         '</li>',
         '<li class="nehrp">',
-          '<a href="http://www.nehrp.gov/" title="National Earthquake Hazards Reduction Program">',
+          '<a href="http://www.nehrp.gov/" ',
+              'title="National Earthquake Hazards Reduction Program">',
             'NEHRP National Earthquake Hazards Reduction Program',
             '<img width="44" height="25" src="', nehrpLogo, '" alt="NEHRP"/>',
           '</a>',
