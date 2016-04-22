@@ -3,8 +3,14 @@
 var Config = require('core/Config'),
     DefaultListFormat = require('list/DefaultListFormat'),
     DyfiListFormat = require('list/DyfiListFormat'),
+    EsriGrayscale = require('leaflet/layer/EsriGrayscale'),
+    EsriTerrain = require('leaflet/layer/EsriTerrain'),
+    OpenAerialMap = require('leaflet/layer/OpenAerialMap'),
+    OpenStreetMap = require('leaflet/layer/OpenStreetMap'),
     PagerListFormat = require('list/PagerListFormat'),
     ShakeMapListFormat = require('list/ShakeMapListFormat'),
+    TectonicPlates = require('leaflet/layer/TectonicPlates'),
+    UsFault = require('leaflet/layer/UsFault'),
     Util = require('util/Util');
 
 
@@ -14,22 +20,22 @@ var _DEFAULTS = {
     {
       'id': 'grayscale',
       'name': 'Grayscale',
-      'layer': null
+      'layer': EsriGrayscale()
     },
     {
       'id': 'terrain',
       'name': 'Terrain',
-      'layer': null
+      'layer': EsriTerrain()
     },
     {
       'id': 'street',
       'name': 'Street',
-      'layer': null
+      'layer': OpenStreetMap()
     },
     {
       'id': 'satellite',
       'name': 'Satellite',
-      'layer': null
+      'layer': OpenAerialMap()
     }
   ],
 
@@ -114,12 +120,12 @@ var _DEFAULTS = {
     {
       'id': 'plates',
       'name': 'Plate Boundaries',
-      'layer': null
+      'layer': TectonicPlates()
     },
     {
       'id': 'faults',
       'name': 'U.S. Faults',
-      'layer': null
+      'layer': UsFault()
     },
     {
       'id': 'ushazard',
