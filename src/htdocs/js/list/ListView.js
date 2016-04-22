@@ -143,7 +143,7 @@ var ListView = function (options) {
             '</a>' +
           '</li>' +
           '<li>' +
-            '<a href="/earthquakes/eventpage/unknown#impact_tellus">' +
+            '<a href="/earthquakes/eventpage/unknown#tellus">' +
               'Felt something not shown – report it here.' +
             '</a>' +
           '</li>' +
