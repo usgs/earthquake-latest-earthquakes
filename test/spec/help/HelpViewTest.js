@@ -5,7 +5,7 @@ var HelpView = require('help/HelpView');
 
 var expect = chai.expect;
 
-describe('help/HelpView', function () {
+describe.skip('help/HelpView', function () {
   describe('constructor', function () {
     it('is a function', function () {
       expect(typeof HelpView).to.equal('function');
