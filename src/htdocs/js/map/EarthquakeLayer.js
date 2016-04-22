@@ -1,8 +1,9 @@
 /* global L */
 'use strict';
 
-var Util = require('util/Util'),
-    View = require('mvc/View');
+var Catalog = require('latesteqs/Catalog'),
+    Model = require('mvc/Model'),
+    Util = require('util/Util');
 
 
 var _AGE_DAY,
@@ -64,18 +65,21 @@ var EarthquakeLayer = function (options) {
       _initialize;
 
 
-  _this = View(options);
+  _this = {};
 
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
 
+    _this.catalog = options.catalog || Catalog();
+    _this.el = options.el || document.createElement('div');
+    _this.model = options.model || Model();
+    _this.map = null;
+
     _this.el.classList.add('earthquake-layer');
     _this.el.classList.add('leaflet-zoom-hide');
 
-    _this.catalog = options.catalog;
-    _this.map = null;
-
     _this.catalog.on('reset', 'render', _this);
+    _this.el.addEventListener('click', _this.onClick);
     _this.model.on('change:event', 'onSelect', _this);
   };
 
@@ -84,6 +88,7 @@ var EarthquakeLayer = function (options) {
    */
   _this.destroy = Util.compose(function () {
     _this.catalog.off('reset', 'render', _this);
+    _this.el.removeEventListener('click', _this.onClick);
     _this.model.off('change:event', 'onSelect', _this);
 
     _this = null;
@@ -104,6 +109,9 @@ var EarthquakeLayer = function (options) {
 
     classes = ['earthquake-marker'];
     props = eq.properties;
+    if (!props) {
+      return classes;
+    }
 
     age = new Date().getTime() - props.time;
     mag = props.mag;
@@ -226,9 +234,7 @@ var EarthquakeLayer = function (options) {
    */
   _this.onAdd = function (map) {
     map.getPanes().overlayPane.appendChild(_this.el);
-    map.on('click', _this.onClick);
     map.on('viewreset', _this.render);
-    map.on('moveend', _this.render);
     map.on('zoomend', _this.render);
     _this.map = map;
     _this.render();
@@ -237,14 +243,13 @@ var EarthquakeLayer = function (options) {
   /**
    * Click handler for layer.
    *
-   * Leaflet automatically calls this method when layer is on map.
+   * @param e {MouseEvent}
+   *     the click event.
    */
   _this.onClick = function (e) {
     var eq,
         id,
         target;
-
-    e = e.originalEvent;
 
     eq = null;
     // get clicked eq
@@ -265,8 +270,6 @@ var EarthquakeLayer = function (options) {
    */
   _this.onRemove = function (map) {
     map.getPanes().overlayPane.removeChild(_this.el);
-    map.off('click', _this.onClick);
-    map.off('moveend', _this.render);
     map.off('viewreset', _this.render);
     map.off('zoomend', _this.render);
     _this.map = null;
@@ -322,7 +325,7 @@ var EarthquakeLayer = function (options) {
     lngMin = center - 180;
     lngMax = center + 180;
 
-    for (i = data.length - 1; i > 0; i--) {
+    for (i = data.length - 1; i >= 0; i--) {
       eq = data[i];
 
       // create element
