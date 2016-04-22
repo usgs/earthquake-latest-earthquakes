@@ -4,7 +4,7 @@
 var Catalog = require('latesteqs/Catalog'),
     Config = require('latesteqs/LatestEarthquakesConfig'),
     ListView = require('list/ListView'),
-    MapView = require('mvc/View'),
+    MapView = require('map/MapView'),
     SettingsView = require('mvc/View'),
     UrlManager = require('latesteqs/LatestEarthquakesUrlManager'),
     Util = require('util/Util'),
