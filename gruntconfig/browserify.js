@@ -49,6 +49,7 @@ ALL_CLASSES = getAliases(JS, [
   'list/PagerListFormat',
   'list/ShakeMapListFormat',
 
+  'map/EarthquakeLayer',
   'map/LegendControl',
 
   'settings/CheckboxOptionsView',
@@ -63,6 +64,9 @@ ALL_CLASSES = getAliases(JS, [
   'util/Events',
   'util/Util',
   'util/Xhr'
+])).concat(getAliases(NODE_MODULES + '/hazdev-leaflet/src', [
+  'leaflet/layer/EsriGrayscale',
+  'leaflet/layer/EsriTerrain'
 ]));
 
 

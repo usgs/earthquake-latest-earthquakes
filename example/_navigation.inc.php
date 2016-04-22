@@ -16,6 +16,7 @@
   );
 
   echo navGroup('Map',
+    navItem('/map/EarthquakeLayerExample.php', 'EarthquakeLayer') .
     navItem('/map/LegendControlExample.php', 'LegendControl')
   );
 

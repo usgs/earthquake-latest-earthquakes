@@ -92,7 +92,7 @@ var Catalog = function (options) {
 
     Xhr.ajax({
       url: url,
-      data: data,
+      data: data || null,
       success: _this.onLoadSuccess,
       error: _this.onLoadError
     });
