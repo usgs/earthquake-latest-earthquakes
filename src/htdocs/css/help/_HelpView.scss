@@ -10,10 +10,8 @@
   }
 }
 
-.partners{
-  > li > img {
-    display: block;
-    float: left;
-    margin-right: 1em;
-  }
+.logo-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
