@@ -15,6 +15,10 @@
     navItem('/list/ShakeMapListFormatExample.php', 'ShakeMapListFormat')
   );
 
+  echo navGroup('Map',
+    navItem('/map/LegendControlExample.php', 'LegendControl')
+  );
+
   echo navGroup('Summary',
     navItem('/summary/EventSummaryFormatExample.php', 'EventSummaryFormat')
   );
