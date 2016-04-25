@@ -49,6 +49,8 @@ ALL_CLASSES = getAliases(JS, [
   'list/PagerListFormat',
   'list/ShakeMapListFormat',
 
+  'map/LegendControl',
+
   'settings/CheckboxOptionsView',
   'settings/RadioOptionsView',
 
