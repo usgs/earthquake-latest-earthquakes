@@ -1,0 +1,98 @@
+.leaflet-bottom {
+  width: 50%;
+}
+
+.leaflet-control-legendview {
+  position: absolute;
+  top: 0; left: -72px; /* left = 1/2 width */
+  width: 144px;
+  top: -35px;
+}
+
+.leaflet-control-legendview {
+  height: 44px;
+  margin: 0 0 10px 0;
+}
+
+.leaflet-control-legendview h5  {
+  display: block;
+  font-size: 10px;
+  font-weight: normal;
+  margin: 0 0 2px 0;
+  padding: 0 1px;
+}
+
+.eq-age-hour {background-color: #F00;}
+.eq-age-day {background-color: #F90;}
+.eq-age-week {background-color: #FF0;}
+.eq-age-month {background-color: #FFF;}
+
+.leaflet-control-legendview > ol {
+  float: left;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.leaflet-control-legendview > ol li {
+  font-size: 0.8em;
+  float: left;
+  list-style: none;
+  padding: 0 3px 0 0;
+  text-align: center;
+}
+
+.leaflet-control-legendview > ol li:last-child {
+  margin-right: 0;
+}
+
+.leaflet-control-legendview > ol > .age-color-legendView {
+  margin: 0px;
+}
+
+.map .leaflet-control-background { /* This is baked into Leaflet core. */
+    background-color: #666;
+    background-color: rgba(0,0,0,0.25);
+    border-radius: 7px;
+    color: #FFF;
+    font-size: 10px;
+    padding: 6px;
+    text-shadow: 1px 1px 1px #333;
+}
+
+.leaflet-control-legendview .color-bar {
+  display: block;
+  height: 5px;
+  margin: 0 auto;
+  position: static;
+  width: 30px;
+}
+
+.leaflet-control-legendview {
+  clear: right;
+  display: none;
+  float: right;
+  margin-right: 10px;
+}
+
+
+/* Medium screens */
+@media screen and (min-width: 420px) {
+  .leaflet-control-legendview {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 421px) and (max-width: 740px) {
+  /* Two modes enabled (including map), window is below 740px. Stack the leaflet controls. */
+  .leaflet-control-legendview {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 721px) and (max-width: 1050px) {
+  /* All three modes enabled, window is below 1050px.  Stack the leaflet controls. */
+  .leaflet-control-legendview {
+    display: none;
+  }
+}
