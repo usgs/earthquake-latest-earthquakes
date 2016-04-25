@@ -1,7 +1,8 @@
 'use strict';
 
 
-var GenericCollectionView = require('core/GenericCollectionView'),
+var Accordion = require('accordion/Accordion'),
+    GenericCollectionView = require('core/GenericCollectionView'),
     Util = require('util/Util');
 
 
@@ -155,9 +156,40 @@ var ListView = function (options) {
    *
    */
   _this.renderHeader = function () {
-    // TODO :: usgs/earthquake-latest-earthquakes#63
-    _this.header.innerHTML = '<p>TODO :: Here is the ListView header!</p>';
+    var collection,
+        displayCount,
+        headerTitle,
+        restrict,
+        totalCount;
+
+    metadata = _this.collection.metadata;
+    headerTitle = metadata.title;
+    totalCount = metadata.count;
+    displayCount = _this.collection.data().length;
+    updateTime = metadata.generated;
+
+    restrict = _this.model.get('restrictListToMap');
+
+    if (restrict) {
+      info = displayCount + ' of ' + totalCount + ' in map area.';
+    } else {
+      info = totalCount + ' earthquakes';
+    }
+
+
+
+    _this.header.innerHTML =
+      '<div class="column title">' +
+        '<h3>' + headerTitle + '</h3>',
+      '</div>'
+      '<div class="column number-of-earthquakes">',
+        '<p>' + info + '</p>' +
+      '</div>' +
+      '<div class="column one-of-one earthquake-info">' +
+        'More Info' +
+      '</div>';
   };
+
 
 
   _initialize(options);
