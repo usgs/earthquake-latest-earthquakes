@@ -1,11 +1,17 @@
 /* global L */
 'use strict';
 
+/**
+ * Legend Control for latest earthquakes map.
+ */
 var LegendControl = L.Control.extend({
   options:{
     position: 'bottomright'
   },
 
+  /**
+   * Creates a control, to later be added to the map.
+   */
   onAdd: function (/* map */) {
     // create the control container with a particular class name¬
     var container = L.DomUtil.create(
