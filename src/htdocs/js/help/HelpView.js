@@ -41,7 +41,7 @@ var HelpView = function (options) {
   /**
   * Creates markup for help page
   */
-  _this.helpViewMarkup = function () {
+  _this.render = function () {
     var anssLogo,
         el,
         gsnLogo,
@@ -115,39 +115,47 @@ var HelpView = function (options) {
         // LOGOS
         '<h2>In Partnership With</h2>',
         '<ul class="partners no-style separator">',
-          '<li class="anss">',
-            '<img width="80" height="25" src="', anssLogo, '" ',
-                'aria-describedby="ANSS"/>',
-            '<a href="/monitoring/anss/" ',
-                'title="Advanced National Seismic System" ',
-                'id="ANSS">',
-              'ANSS - Advanced National Seismic System',
-            '</a>',
+          '<li class="anss row">',
+            '<div class="column mobile-one-of-five logo-image">',
+              '<img width="80" height="25" src="', anssLogo, '" ',
+                  'aria-describedby="ANSS"/>',
+            '</div>',
+            '<div class="column mobile-four-of-five">',
+              '<a href="/monitoring/anss/" ',
+                  'title="Advanced National Seismic System" ',
+                  'id="ANSS">',
+                'ANSS - Advanced National Seismic System',
+              '</a>',
+            '</div>',
           '</li>',
-          '<li class="gsn">',
-            '<img width="25" height="30" src="', gsnLogo, '" ',
-                'aria-describedby="GSN"/>',
-            '<a href="/monitoring/gsn/" title="Global Seismographic Network" ',
-                'id="GSN">',
-              'Global Seismographic Network',
-            '</a>',
+          '<li class="gsn row">',
+            '<div class="column mobile-one-of-five logo-image">',
+              '<img width="25" height="30" src="', gsnLogo, '" ',
+                  'aria-describedby="GSN"/>',
+            '</div>',
+            '<div class="column mobile-four-of-five">',
+              '<a href="/monitoring/gsn/" title="Global Seismographic Network" ',
+                  'id="GSN">',
+                'Global Seismographic Network',
+              '</a>',
+            '</div>',
           '</li>',
-          '<li class="nehrp">',
-            '<img width="44" height="25" src="', nehrpLogo, '" ',
-                'aria-describedby="NEHRP"/>',
-            '<a href="http://www.nehrp.gov/" ',
-                'title="National Earthquake Hazards Reduction Program" ',
-                'id="NEHRP">',
-              'NEHRP National Earthquake Hazards Reduction Program',
-            '</a>',
+          '<li class="nehrp row">',
+            '<div class="column mobile-one-of-five logo-image">',
+              '<img width="44" height="25" src="', nehrpLogo, '" ',
+                  'aria-describedby="NEHRP"/>',
+            '</div>',
+            '<div class="column mobile-four-of-five">',
+              '<a href="http://www.nehrp.gov/" ',
+                  'title="National Earthquake Hazards Reduction Program" ',
+                  'id="NEHRP">',
+                'NEHRP National Earthquake Hazards Reduction Program',
+              '</a>',
+            '</div>',
           '</li>',
         '</ul>',
       '</div>'
     ].join('');
-  };
-
-  _this.render = function () {
-    _this.helpViewMarkup();
   };
 
 
