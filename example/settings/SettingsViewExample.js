@@ -13,12 +13,14 @@ settingsView = SettingsView({
   el: el,
   config: Config(),
   model: Model({
+    'autoUpdate': [{id: 'autoUpdate'}],
     'basemaps': {id: 'terrain'},
     'feeds': {id: '7day_m25'},
+    'filterMap': [{id: 'filterMap'}],
     'listFormats': {id: 'dyfi'},
     'overlays': [{id: 'faults'}, {id: 'ushazard'}],
     'sorts': {id: 'oldest'},
-    'timezones': {id: 'local'}
+    'timezone': {id: 'local'}
   })
 });
 

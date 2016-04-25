@@ -13,7 +13,14 @@ var SettingsView = function (options) {
   var _this,
       _initialize,
 
-      _watchProperty;
+      _autoUpdateEl,
+      _feedsEl,
+      _filterMapEl,
+      _listFormatEl,
+      _listSortEl,
+      _mapLayersEl,
+      _mapOverlaysEl,
+      _timezoneEl;
 
 
   _this = View(options);
@@ -34,14 +41,32 @@ var SettingsView = function (options) {
     _this.header = _this.el.querySelector('.settings-header');
     _this.content = _this.el.querySelector('.settings-content');
     _this.footer = _this.el.querySelector('.settings-footer');
+
+    // create sections
+    _autoUpdateEl = document.createElement('section');
+    _feedsEl = document.createElement('section');
+    _filterMapEl = document.createElement('section');
+    _listFormatEl = document.createElement('section');
+    _listSortEl = document.createElement('section');
+    _mapLayersEl = document.createElement('section');
+    _mapOverlaysEl = document.createElement('section');
+    _timezoneEl = document.createElement('section');
+
+    // append sections to _this.content
+    _this.content.appendChild(_autoUpdateEl);
+    _this.content.appendChild(_feedsEl);
+    _this.content.appendChild(_listFormatEl);
+    _this.content.appendChild(_listSortEl);
+    _this.content.appendChild(_filterMapEl);
+    _this.content.appendChild(_mapLayersEl);
+    _this.content.appendChild(_mapOverlaysEl);
+    _this.content.appendChild(_timezoneEl);
   };
 
   /**
    * Frees resources associated with this view.
    */
   _this.destroy = Util.compose(function () {
-    _watchProperty = null;
-
     _initialize = null;
     _this = null;
   }, _this.destroy);
@@ -56,75 +81,91 @@ var SettingsView = function (options) {
   };
 
   _this.renderContent = function () {
-    var autoUpdateEl,
-        feedsEl,
-        filterMapEl,
-        listFormatEl,
-        listSortEl,
-        mapLayersEl,
-        mapOverlaysEl,
-        timezoneEl;
+    var autoUpdateView,
+        feedsView,
+        filterMapView,
+        listFormatView,
+        listSortView,
+        mapLayersView,
+        mapOverlaysView,
+        timezoneView;
 
-    // create sections
-    autoUpdateEl = document.createElement('section');
-    feedsEl = document.createElement('section');
-    filterMapEl = document.createElement('section');
-    listFormatEl = document.createElement('section');
-    listSortEl = document.createElement('section');
-    mapLayersEl = document.createElement('section');
-    mapOverlaysEl = document.createElement('section');
-    timezoneEl = document.createElement('section');
-
-    // append sections to _this.content
-    _this.content.appendChild(autoUpdateEl);
-    _this.content.appendChild(feedsEl);
-    _this.content.appendChild(filterMapEl);
-    _this.content.appendChild(listFormatEl);
-    _this.content.appendChild(listSortEl);
-    _this.content.appendChild(mapLayersEl);
-    _this.content.appendChild(mapOverlaysEl);
-    _this.content.appendChild(timezoneEl);
-
-    // build options views
-    RadioOptionsView({
-      el: feedsEl,
-      collection: Config().options.feed,
+    // Auto Update
+    autoUpdateView = CheckboxOptionsView({
+      el: _autoUpdateEl,
+      collection: Config().options.autoUpdate,
       model: _this.model,
       title: 'Earthquakes',
+      watchProperty: 'autoUpdate'
+    });
+    autoUpdateView.render();
+
+    // Earthquake Feeds
+    feedsView = RadioOptionsView({
+      el: _feedsEl,
+      collection: Config().options.feed,
+      model: _this.model,
       watchProperty: 'feeds'
     });
+    feedsView.render();
 
-    RadioOptionsView({
-      el: listFormatEl,
+    // Filter results to Map
+    filterMapView = CheckboxOptionsView({
+      el: _filterMapEl,
+      collection: Config().options.filterMap,
+      model: _this.model,
+      watchProperty: 'filterMap'
+    });
+    filterMapView.render();
+
+    // List Formats
+    listFormatView = RadioOptionsView({
+      el: _listFormatEl,
       collection: Config().options.listFormat,
       model: _this.model,
       title: 'List Format',
       watchProperty: 'listFormats'
     });
+    listFormatView.render();
 
-    RadioOptionsView({
-      el: listSortEl,
+    // List Sort
+    listSortView = RadioOptionsView({
+      el: _listSortEl,
       collection: Config().options.sort,
       model: _this.model,
       title: 'List Sort Order',
       watchProperty: 'sorts'
     });
+    listSortView.render();
 
-    RadioOptionsView({
-      el: mapLayersEl,
+    // Map Layers
+    mapLayersView = RadioOptionsView({
+      el: _mapLayersEl,
       collection: Config().options.basemap,
       model: _this.model,
       title: 'Map Layers',
       watchProperty: 'basemaps'
     });
+    mapLayersView.render();
 
-    CheckboxOptionsView({
-      el: mapOverlaysEl,
+    // Map Overlays
+    mapOverlaysView = CheckboxOptionsView({
+      el: _mapOverlaysEl,
       collection: Config().options.overlays,
       model: _this.model,
       watchProperty: 'overlays'
     });
+    mapOverlaysView.render();
 
+    // Time Zone
+    timezoneView = RadioOptionsView({
+      el: _timezoneEl,
+      collection: Config().options.timezone,
+      model: _this.model,
+      title: 'Time Zone',
+      watchProperty: 'timezone'
+    });
+    timezoneView.render();
   };
 
   _this.renderFooter = function () {
@@ -132,7 +173,7 @@ var SettingsView = function (options) {
   };
 
   _this.renderHeader = function () {
-    _this.header.innerHTML = '<h3>Settings</h3>' +
+    _this.header.innerHTML = '<h2>Settings</h2>' +
         '<small>Bookmark to return to map/list with the same settings</small>';
   };
 

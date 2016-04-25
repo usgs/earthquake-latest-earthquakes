@@ -8,7 +8,8 @@ var GenericCollectionView = require('core/GenericCollectionView'),
 var _DEFAULTS = {
   classPrefix: 'radio-options-view',
   containerNodeName: 'ol',
-  inputType: 'radio'
+  inputType: 'radio',
+  title: null
 };
 
 
@@ -46,6 +47,7 @@ var RadioOptionsView = function (options) {
    */
   _initialize = function (options) {
     _this.inputType = options.inputType;
+    _this.title = options.title;
   };
 
 
@@ -144,6 +146,13 @@ var RadioOptionsView = function (options) {
         _this.updateModel(obj);
       }
     }
+  };
+
+  _this.renderHeader = function () {
+    if (!_this.title) {
+      return;
+    }
+    _this.header.innerHTML = '<h3>' + _this._title + '</h3>'; // By default, no content
   };
 
   /**
