@@ -3,6 +3,7 @@
 var Util = require('util/Util'),
     View = require('mvc/View');
 
+
 var _DEFAULTS = {
   version: '<a href="https://github.com/usgs/earthquake-latest-earthquakes' +
       '/blob/master/README.md">Version Info</a>'
@@ -149,9 +150,11 @@ var HelpView = function (options) {
     _this.helpViewMarkup();
   };
 
+
   _initialize(options);
   options = null;
   return _this;
 };
+
 
 module.exports = HelpView;
