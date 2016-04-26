@@ -33,12 +33,9 @@
   margin-left: 1em;
 }
 
-.list-view-footer {
-  margin-left: 1em;
-  > ul {
-    font-size: .8em;
-    margin-bottom: 1em;
-  }
+.list-view-header > .header-count {
+  border-left: 0;
+  border-right: 0;
 }
 
 .header-update-time {
@@ -49,7 +46,10 @@
   border: 0;
 }
 
-.list-view-header > .header-count {
-  border-right: 0;
-  border-left: 0;
+.list-view-footer {
+  margin-left: 1em;
+  > ul {
+    font-size: .8em;
+    margin-bottom: 1em;
+  }
 }
