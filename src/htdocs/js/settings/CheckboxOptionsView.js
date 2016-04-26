@@ -98,10 +98,10 @@ var CheckboxOptionsView = function (options) {
     input.setAttribute('name', _watchProperty);
     input.setAttribute('type', 'checkbox');
     input.setAttribute('value', obj.id);
-    input.setAttribute('aria-labelledby', _watchProperty + '-' + obj.id);
+    input.setAttribute('id', _watchProperty + '-' + obj.id);
 
     label = document.createElement('label');
-    label.setAttribute('id', _watchProperty + '-' + obj.id);
+    label.setAttribute('for', _watchProperty + '-' + obj.id);
     label.innerHTML = obj.name;
 
     fragment.appendChild(input);

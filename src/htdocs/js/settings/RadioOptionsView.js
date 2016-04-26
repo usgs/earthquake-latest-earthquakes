@@ -46,7 +46,9 @@ var RadioOptionsView = function (options) {
 
       _classPrefix,
       _containerNodeName,
-      _watchProperty;
+      _watchProperty,
+
+      _onContentClick;
 
 
   _this = GenericCollectionView(options);
@@ -114,10 +116,10 @@ var RadioOptionsView = function (options) {
     input.setAttribute('name', _watchProperty);
     input.setAttribute('type', 'radio');
     input.setAttribute('value', obj.id);
-    input.setAttribute('aria-labelledby', _watchProperty + '-' + obj.id);
+    input.setAttribute('id', _watchProperty + '-' + obj.id);
 
     label = document.createElement('label');
-    label.setAttribute('id', _watchProperty + '-' + obj.id);
+    label.setAttribute('for', _watchProperty + '-' + obj.id);
     label.innerHTML = obj.name;
 
     fragment.appendChild(input);
@@ -144,11 +146,37 @@ var RadioOptionsView = function (options) {
    *
    */
   _this.destroy = Util.compose(function () {
+    _onContentClick = null;
+
     _watchProperty = null;
 
     _initialize = null;
     _this = null;
   }, _this.destroy);
+
+  /**
+   * Called via event delegation when the user clicks anywhere withing
+   * `_this.content`. Finds the clicked element and uses its "data-id"
+   * attribute to find the corresponding item in the collection and then
+   * selects the `_watchProperty` on `_this.model` to that item.
+   *
+   *
+   * @param evt {ClickEvent}
+   *     The event the caused this method to be called.
+   */
+  _this.onContentClick = function (evt) {
+    var item,
+        obj;
+
+    if (evt && evt.target && evt.target.nodeName === 'INPUT') {
+      item = _this.getClickedItem(evt.target, _this.content);
+
+      if (item && _watchProperty) {
+        obj = _this.collection.get(item.getAttribute('data-id'));
+        _this.updateModel(obj);
+      }
+    }
+  };
 
   /**
    * Method to update an element in `_this.content`, whose id

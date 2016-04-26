@@ -1,7 +1,7 @@
 'use strict';
 
 var Collection = require('mvc/Collection'),
-    Config = require('latesteqs/Config'),
+    Config = require('latesteqs/LatestEarthquakesConfig'),
     Model = require('mvc/Model'),
     CheckboxOptionsView = require('settings/CheckboxOptionsView');
 
@@ -12,7 +12,9 @@ var collection,
     checkboxOptionsView;
 
 collection = Collection();
-config = Config();
+config = Config({
+  'event': {}
+});
 
 overlays = config.options.overlays.data();
 collection.addAll(overlays);

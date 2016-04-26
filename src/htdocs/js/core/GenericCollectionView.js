@@ -55,9 +55,11 @@ var GenericCollectionView = function (options) {
 
       _classPrefix,
       _containerNodeName,
-      _watchProperty,
       _itemNodeName,
-      _noDataMessage;
+      _noDataMessage,
+      _watchProperty,
+
+      _onContentClick;
 
 
   options = Util.extend({}, _DEFAULTS, options);
@@ -108,6 +110,14 @@ var GenericCollectionView = function (options) {
     _this.collection.on('remove', 'render', _this);
   };
 
+  /**
+   * Call _this.onContentClick when a click is fired. This is done so that
+   * _this.onContentClick can be overridden in the sub classes.
+   *
+   */
+  _onContentClick = function () {
+    _this.onContentClick.apply(this, arguments);
+  };
 
   /**
    * Creates the container element by which all the items in the collection
@@ -192,7 +202,7 @@ var GenericCollectionView = function (options) {
     _this.content = el.querySelector('.' + _classPrefix + '-content');
     _this.footer = el.querySelector('.' + _classPrefix + '-footer');
 
-    _this.content.addEventListener('click', _this.onContentClick, _this);
+    _this.content.addEventListener('click', _onContentClick);
   };
 
   /**
@@ -227,6 +237,8 @@ var GenericCollectionView = function (options) {
     _this.collection.off('reset', 'render', _this);
     _this.collection.off('add', 'render', _this);
     _this.collection.off('remove', 'render', _this);
+
+    _onContentClick = null;
 
     _classPrefix = null;
     _containerNodeName = null;
