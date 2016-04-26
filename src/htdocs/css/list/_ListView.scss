@@ -1,4 +1,5 @@
 .list-view-container {
+  background-color: #fff;
   border-bottom: 1px solid #999;
   border-top: 1px solid #999;
 }
@@ -24,6 +25,16 @@
   margin: 0;
 }
 
+.latest-earthquakes-list {
+  background-color: #f4f4f4;
+}
+
 .header-title {
   margin-left: 1em;
+}
+
+.accordion-content {
+  > button {
+    text-align: center;
+  }
 }

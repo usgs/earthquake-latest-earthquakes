@@ -84,8 +84,8 @@ var ListView = function (options) {
     _this.header.classList.add('accordion-closed');
 
     _this.header.innerHTML =
-      '<h3 class="header-title"></h3>' +
-      '<h4 class="header-count accordion-toggle"></h4>' +
+      '<h4 class="header-title"></h4>' +
+      '<h5 class="header-count accordion-toggle"></h5>' +
       '<div class="accordion-content">' +
         '<p class="header-update-time"></p>' +
         '<button type="button">Download</button>' +
@@ -231,7 +231,7 @@ var ListView = function (options) {
 
     _headerTitle.innerHTML = headerTitle;
     _headerCount.innerHTML = headerCount;
-    _headerUpdateTime.innerHTML = updateTime;
+    _headerUpdateTime.innerHTML = 'Updated: ' + updateTime;
 
   };
 
@@ -239,7 +239,8 @@ var ListView = function (options) {
     var countInfo;
 
     if (restrict) {
-      countInfo = displayCount + ' of ' + totalCount + ' earthquakes in map area.';
+      countInfo = displayCount + ' of ' + totalCount + 
+          ' earthquakes in map area.';
     } else {
       countInfo = totalCount + ' earthquakes';
     }
