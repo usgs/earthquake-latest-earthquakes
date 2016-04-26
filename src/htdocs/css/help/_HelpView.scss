@@ -1,12 +1,20 @@
 .help-view {
-  > ul > li > .material-icons {
-    background-color: #000;
-    border: 1px solid #ccc;
-    color: #fff;
-    display: block;
-    float: left;
-    margin: 1em 1em 1em 0;
-    padding: .25em;
+  > ul > li {
+    overflow: hidden;
+
+    > .material-icons {
+      background-color: #000;
+      border: 1px solid #ccc;
+      color: #fff;
+      display: block;
+      float: left;
+      margin: 0.25em 1em 0.25em 0;
+      padding: .25em;
+    }
+
+    > p {
+      margin: 0;
+    }
   }
 }
 
