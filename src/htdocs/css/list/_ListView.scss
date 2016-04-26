@@ -33,8 +33,10 @@
   margin-left: 1em;
 }
 
-.accordion-content {
-  > button {
-    text-align: center;
+.list-view-footer {
+  margin-left: 1em;
+  > ul {
+    font-size: .8em;
+    margin-bottom: 1em;
   }
 }
