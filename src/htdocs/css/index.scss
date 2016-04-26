@@ -4,6 +4,8 @@
 
 @import 'core/_Formatter.scss';
 
+@import 'help/_HelpView.scss';
+
 @import 'list/_DefaultListFormat.scss';
 @import 'list/_DyfiListFormat.scss';
 @import 'list/_ListView.scss';
@@ -13,5 +15,3 @@
 @import 'settings/_OptionsView.scss';
 
 @import 'summary/_EventSummaryFormat.scss';
-
-@import 'help/_HelpView.scss';

@@ -15,12 +15,16 @@ describe('help/HelpView', function () {
   describe('Help View', function () {
     var view;
 
-    before(function () {
-      view = HelpView();
-    });
+    view = HelpView();
 
-    it('returns markup', function () {
-      expect(view.helpView()).to.not.equal(null);
+    view.render();
+
+    it('Creates markup as expected', function () {
+      expect(view.el).to.not.equal('');
+      expect(view.el.querySelectorAll('ul').length).to.equal(3);
+      expect(view.el.querySelectorAll('li').length).to.equal(12);
+      expect(view.el.querySelectorAll('i').length).to.equal(4);
+      expect(view.el.querySelectorAll('img').length).to.equal(3);
     });
   });
 });

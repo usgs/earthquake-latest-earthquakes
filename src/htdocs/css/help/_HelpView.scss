@@ -1,17 +1,17 @@
 .help-view {
   > ul > li > .material-icons {
-    float: left;
-    margin: 1em 1em 1em 0;
-    display: block;
-    padding: .25em;
+    background-color: #000;
     border: 1px solid #ccc;
     color: #fff;
-    background-color: #000;
+    display: block;
+    float: left;
+    margin: 1em 1em 1em 0;
+    padding: .25em;
   }
 }
 
-.partners{
-  > li > a > img {
-    margin-left: 1em;
-  }
+.logo-image {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
