@@ -62,14 +62,12 @@ describe('list/ListView', function () {
   });
 
   describe('renderFooter', function () {
-    var view;
-
-    before(function () {
-      view = ListView();
-    });
-
     it('creates footer markup as expected', function () {
+      var view;
+
+      view = ListView();
       view.renderFooter();
+
       expect(view.footer.innerHTML).to.not.equal('');
       expect(view.footer.querySelectorAll('li').length).to.equal(3);
     });
