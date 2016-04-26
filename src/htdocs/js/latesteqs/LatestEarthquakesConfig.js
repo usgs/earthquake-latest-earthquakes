@@ -16,6 +16,13 @@ var Config = require('core/Config'),
 
 var _DEFAULTS = {
 
+  autoUpdate: [
+    {
+      'id': 'autoUpdate',
+      'name': 'Auto Update'
+    }
+  ],
+
   basemap: [
     {
       'id': 'grayscale',
@@ -39,7 +46,7 @@ var _DEFAULTS = {
     }
   ],
 
-  'event': null,
+  'event': {},
 
   feed: [
     {
@@ -131,6 +138,13 @@ var _DEFAULTS = {
       'id': 'ushazard',
       'name': 'U.S. Hazard',
       'layer': null
+    }
+  ],
+
+  restrictListToMap: [
+    {
+      'id': 'restrictListToMap',
+      'name': 'Only List Earthquakes Shown on Map'
     }
   ],
 

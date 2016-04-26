@@ -2,10 +2,10 @@
 
 // TODO: use real List, Map, and Settings views
 var Catalog = require('latesteqs/Catalog'),
-    Config = require('latesteqs/LatestEarthquakesConfig'),
+    LatestEarthquakesConfig = require('latesteqs/LatestEarthquakesConfig'),
     ListView = require('list/ListView'),
     MapView = require('map/MapView'),
-    SettingsView = require('mvc/View'),
+    SettingsView = require('settings/SettingsView'),
     UrlManager = require('latesteqs/LatestEarthquakesUrlManager'),
     Util = require('util/Util'),
     View = require('mvc/View');
@@ -17,7 +17,9 @@ var _DEFAULTS = {
 };
 
 var _DEFAULT_SETTINGS = {
-  autoUpdate: true,
+  autoUpdate: {
+    autoUpdate: true
+  },
   basemap: 'grayscale',
   feed: '1day_m25',
   listFormat: 'default',
@@ -27,9 +29,13 @@ var _DEFAULT_SETTINGS = {
     [10.0, -50.0]
   ],
   overlays: {
-    plates: true
+    plates: true,
+    faults: true,
+    ushazard: true
   },
-  restrictListToMap: true,
+  restrictListToMap: {
+    restrictListToMap: true
+  },
   search: null,
   searchForm: '/earthquakes/search/',
   searchUrl: '/fdsnws/event/1/query.geojson',
@@ -38,7 +44,7 @@ var _DEFAULT_SETTINGS = {
   viewModes: {
     list: true,
     map: true,
-    settings: false,
+    settings: true,
     help: false
   }
 };
@@ -93,7 +99,7 @@ var LatestEarthquakes = function (options) {
       model: _this.model
     });
 
-    _config = Config(Util.extend({}, options.config, {
+    _config = LatestEarthquakesConfig(Util.extend({}, options.config, {
       'event': _catalog
     }));
 

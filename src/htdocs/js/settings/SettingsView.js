@@ -1,7 +1,7 @@
 'use strict';
 
 var CheckboxOptionsView = require('settings/CheckboxOptionsView'),
-    Config = require('latesteqs/Config'),
+    Config = require('latesteqs/LatestEarthquakesConfig'),
     RadioOptionsView = require('settings/RadioOptionsView'),
     Util = require('util/Util'),
     View = require('mvc/View');
@@ -14,8 +14,9 @@ var SettingsView = function (options) {
       _initialize,
 
       _autoUpdateEl,
+      _config,
       _feedsEl,
-      _filterMapEl,
+      _restrictListToMapEl,
       _listFormatEl,
       _listSortEl,
       _mapLayersEl,
@@ -28,6 +29,7 @@ var SettingsView = function (options) {
 
 
   _initialize = function (/*options*/) {
+    _config = options.config || Config();
     // initialize the view
     _this.createSkeleton();
   };
@@ -45,7 +47,7 @@ var SettingsView = function (options) {
     // create sections
     _autoUpdateEl = document.createElement('section');
     _feedsEl = document.createElement('section');
-    _filterMapEl = document.createElement('section');
+    _restrictListToMapEl = document.createElement('section');
     _listFormatEl = document.createElement('section');
     _listSortEl = document.createElement('section');
     _mapLayersEl = document.createElement('section');
@@ -57,7 +59,7 @@ var SettingsView = function (options) {
     _this.content.appendChild(_feedsEl);
     _this.content.appendChild(_listFormatEl);
     _this.content.appendChild(_listSortEl);
-    _this.content.appendChild(_filterMapEl);
+    _this.content.appendChild(_restrictListToMapEl);
     _this.content.appendChild(_mapLayersEl);
     _this.content.appendChild(_mapOverlaysEl);
     _this.content.appendChild(_timezoneEl);
@@ -83,7 +85,7 @@ var SettingsView = function (options) {
   _this.renderContent = function () {
     var autoUpdateView,
         feedsView,
-        filterMapView,
+        restrictListToMapView,
         listFormatView,
         listSortView,
         mapLayersView,
@@ -93,7 +95,7 @@ var SettingsView = function (options) {
     // Auto Update
     autoUpdateView = CheckboxOptionsView({
       el: _autoUpdateEl,
-      collection: Config().options.autoUpdate,
+      collection: _config.options.autoUpdate,
       model: _this.model,
       title: 'Earthquakes',
       watchProperty: 'autoUpdate'
@@ -103,64 +105,64 @@ var SettingsView = function (options) {
     // Earthquake Feeds
     feedsView = RadioOptionsView({
       el: _feedsEl,
-      collection: Config().options.feed,
+      collection: _config.options.feed,
       model: _this.model,
-      watchProperty: 'feeds'
+      watchProperty: 'feed'
     });
     feedsView.render();
 
     // Filter results to Map
-    filterMapView = CheckboxOptionsView({
-      el: _filterMapEl,
-      collection: Config().options.filterMap,
+    restrictListToMapView = CheckboxOptionsView({
+      el: _restrictListToMapEl,
+      collection: _config.options.restrictListToMap,
       model: _this.model,
-      watchProperty: 'filterMap'
+      watchProperty: 'restrictListToMap'
     });
-    filterMapView.render();
+    restrictListToMapView.render();
 
     // List Formats
     listFormatView = RadioOptionsView({
       el: _listFormatEl,
-      collection: Config().options.listFormat,
+      collection: _config.options.listFormat,
       model: _this.model,
       title: 'List Format',
-      watchProperty: 'listFormats'
+      watchProperty: 'listFormat'
     });
     listFormatView.render();
 
     // List Sort
     listSortView = RadioOptionsView({
       el: _listSortEl,
-      collection: Config().options.sort,
+      collection: _config.options.sort,
       model: _this.model,
       title: 'List Sort Order',
-      watchProperty: 'sorts'
+      watchProperty: 'sort'
     });
     listSortView.render();
 
     // Map Layers
     mapLayersView = RadioOptionsView({
       el: _mapLayersEl,
-      collection: Config().options.basemap,
+      collection: _config.options.basemap,
       model: _this.model,
       title: 'Map Layers',
-      watchProperty: 'basemaps'
+      watchProperty: 'basemap'
     });
     mapLayersView.render();
 
     // Map Overlays
     mapOverlaysView = CheckboxOptionsView({
       el: _mapOverlaysEl,
-      collection: Config().options.overlays,
+      collection: _config.options.overlays,
       model: _this.model,
-      watchProperty: 'overlays'
+      watchProperty: 'overlay'
     });
     mapOverlaysView.render();
 
     // Time Zone
     timezoneView = RadioOptionsView({
       el: _timezoneEl,
-      collection: Config().options.timezone,
+      collection: _config.options.timezone,
       model: _this.model,
       title: 'Time Zone',
       watchProperty: 'timezone'

@@ -2,7 +2,8 @@
 .checkbox-options-view-container,
 .radio-options-view-container {
   background-color: #fafafa;
-  border: 1px solid #bbb;
+  border: 1px solid #ddd;
+  font-size: 0.88em;
 
   > li {
 
@@ -10,9 +11,14 @@
       border-top: 1px solid #ddd;
     }
 
-    > label:before {
-      margin: 0.5em 1em;
-      vertical-align: middle;
+    > label {
+      margin: 0.5em 1em 0.5em 3em;
+      text-indent: -3em;
+
+      &:before {
+        margin: 0.5em 1em;
+        vertical-align: middle;
+      }
     }
   }
 }

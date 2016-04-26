@@ -1,63 +1,14 @@
-/* General */
-.settingsview {
-  background-color: #ddd;
-  font-size: 12px;
+.latest-earthquakes-settings {
+  padding: 1em;
 }
 
-.settingsView h1 {
-  font-size: 1.5em;
-  margin: 16px 0;
-  padding-top: 0;
-}
+.settings-header {
 
-.settingsView h2 {
-  font-size: 1.33em;
-  margin: 0 0 12px 0;
-}
+  > h2 {
+    margin-top: 0.5em;
+  }
 
-.settingsView h1 small {
-  display: block;
-  font-size: 0.61em;
-  font-weight: normal;
-}
-
-.settingsView section {
-  margin: 16px 8px 0;
-  max-width: 400px;
-  padding: 0;
-  /*
-  need this to compensate for -webkit-overflow-scrolling: touch,
-  which otherwise prevents a redraw
-  */
-  -webkit-transform: translate3d(0,0,0);
-}
-
-.settingsView section:first-child {
-  margin-top: 0;
-}
-
-.settingsView > section > h1 > .help {
-  color: #333;
-  display: block;
-  font-size: .8em;
-}
-.settingsView .resetToDefaults {
-  background-color: #c00;
-  color: #fff;
-  font-weight: bold;
-  text-align: center;
-}
-.settingsview-searchwrapper {
-  background-color: #090;
-  border: 1px solid #bbb;
-  padding: 4px;
-  text-align: center;
-}
-.settingsview-searchwrapper .help {
-  color: #fafafa;
-  display: block;
-  font-size: .9em;
-}
-.settingsview-searchbutton {
-  margin-top: .5em;
+  > small {
+    color: #777;
+  }
 }
