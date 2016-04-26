@@ -239,10 +239,10 @@ var ListView = function (options) {
     var countInfo;
 
     if (restrict) {
-      countInfo = displayCount + ' of ' + totalCount + 
+      countInfo = displayCount + ' of ' + totalCount +
           ' earthquakes in map area.';
     } else {
-      countInfo = totalCount + ' earthquakes';
+      countInfo = totalCount + ' earthquakes.';
     }
 
     return countInfo;

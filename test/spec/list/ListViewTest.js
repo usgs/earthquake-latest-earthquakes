@@ -2,7 +2,8 @@
 'use strict';
 
 
-var ListView = require('list/ListView');
+var Catalog = require('latesteqs/Catalog'),
+    ListView = require('list/ListView');
 
 
 var expect = chai.expect;
@@ -70,12 +71,49 @@ describe('list/ListView', function () {
 
       expect(view.footer.innerHTML).to.not.equal('');
       expect(view.footer.querySelectorAll('li').length).to.equal(3);
+
+      view.destroy();
     });
   });
 
-  describe.skip('renderHeader', function () {
-    it('works as expected', function () {
-      // TODO :: usgs/earthquake-latest-earthquakes#63
+  describe.only('renderHeader', function () {
+    it('creates header markup as expected', function (done) {
+      var catalog,
+          view;
+
+      catalog = Catalog();
+
+      view = ListView({
+        collection: catalog
+      });
+
+      catalog.on('reset', function () {
+        expect(view.header.querySelector('.header-title').innerHTML).to.equal('USGS Magnitude 2.5+ Earthquakes, Past Week');
+        expect(view.header.querySelector('.header-count').innerHTML).to.equal('245 earthquakes.');
+        expect(view.header.querySelector('.header-update-time').innerHTML).to.equal('Updated: 2016-04-12 21:50:46 (UTC)');
+
+        view.destroy();
+        done();
+      });
+
+      catalog.loadUrl('/feeds/2.5_week.json');
+
     });
+  });
+
+  describe('formatCountInfo', function () {
+    var view;
+
+    view = ListView();
+
+    it('shows X of Y earthquakes if restrict is true', function () {
+      expect(view.formatCountInfo(9, 3, true)).to.equal('3 of 9 earthquakes in map area.');
+    });
+
+    it('shows Y earthquakes if restrict is False', function () {
+      expect(view.formatCountInfo(9, 3, false)).to.equal('9 earthquakes.');
+    });
+
+    view.destroy();
   });
 });
