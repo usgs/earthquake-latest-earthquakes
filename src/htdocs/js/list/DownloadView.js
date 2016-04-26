@@ -58,7 +58,7 @@ var _DEFAULTS = {
 /**
  * Produces a view to download feeds.
  */
-var DownLoadView = function (options) {
+var DownloadView = function (options) {
   var _initialize,
       _formats,
       _this;
@@ -147,4 +147,4 @@ var DownLoadView = function (options) {
   return _this;
 };
 
-module.exports = DownLoadView;
+module.exports = DownloadView;
