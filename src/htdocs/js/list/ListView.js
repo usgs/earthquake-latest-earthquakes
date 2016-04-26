@@ -88,7 +88,7 @@ var ListView = function (options) {
     _this.header.innerHTML =
       '<h4 class="header-title"></h4>' +
       '<h5 class="header-count accordion-toggle"></h5>' +
-      '<div class="accordion-content">' +
+      '<div class="accordion-content header-info-content">' +
         '<p class="header-update-time"></p>' +
         '<button type="button">Download</button>' +
       '</div>';

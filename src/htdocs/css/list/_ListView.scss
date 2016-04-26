@@ -40,3 +40,16 @@
     margin-bottom: 1em;
   }
 }
+
+.header-update-time {
+  font-size: .9em;
+}
+
+.header-info-content {
+  border: 0;
+}
+
+.list-view-header > .header-count {
+  border-right: 0;
+  border-left: 0;
+}
