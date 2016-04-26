@@ -17,6 +17,7 @@ require('./spec/help/HelpViewTest');
 require('./spec/latesteqs/CatalogTest');
 
 require('./spec/list/DefaultListFormatTest');
+require('./spec/list/DownloadViewTest');
 require('./spec/list/DyfiListFormatTest');
 require('./spec/list/ListViewTest');
 
