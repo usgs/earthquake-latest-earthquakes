@@ -78,7 +78,9 @@ var ListView = function (options) {
     _createScaffold();
   };
 
-
+  /**
+   * Creates scaffolding for list view header.
+   */
   _createScaffold = function () {
     _this.header.classList.add('accordion');
     _this.header.classList.add('accordion-closed');
@@ -150,10 +152,22 @@ var ListView = function (options) {
    *
    */
   _this.destroy = Util.compose(function () {
+    _downloadButton.removeEventListener('click', _this.onButtonClick);
+
     _this.model.off('change:listFormat', 'render', _this);
     _this.model.off('change:timezone', 'render', _this);
 
+    _downloadButton = null;
+    _downloadModal = null;
+    _downloadView = null;
+    _formatter = null;
+    _headerCount = null;
+    _headerTitle = null;
+    _headerUpdateTime = null;
     _listFormat = null;
+
+    _createScaffold = null;
+
     _initialize = null;
     _this = null;
   }, _this.destroy);
@@ -185,7 +199,6 @@ var ListView = function (options) {
 
   /**
    * Render the footer information for this view into `_this.footer`.
-   *
    */
   _this.renderFooter = function () {
     _this.footer.innerHTML =
@@ -209,8 +222,7 @@ var ListView = function (options) {
   };
 
   /**
-   * Render the header information for this view into `_this.header`.
-   *
+   * Render the header information.
    */
   _this.renderHeader = function () {
     var displayCount,
@@ -235,6 +247,16 @@ var ListView = function (options) {
 
   };
 
+  /**
+   * Formats earthquake count information
+   *
+   * @param number (totalCount)
+   *    number of total earthquakes.
+   * @param number (displayCount)
+   *    Number of earthquakes visable on map.
+   * @param boolean (restrict)
+   *    true or false.
+   */
   _this.formatCountInfo = function (totalCount, displayCount, restrict) {
     var countInfo;
 
@@ -248,6 +270,9 @@ var ListView = function (options) {
     return countInfo;
   };
 
+  /**
+   * Shows download view when button is clicked.
+   */
   _this.onButtonClick = function () {
     _downloadModal.show();
   };
