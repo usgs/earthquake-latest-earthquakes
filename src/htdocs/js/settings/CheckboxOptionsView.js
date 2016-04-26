@@ -171,12 +171,20 @@ var CheckboxOptionsView = function (options) {
    */
   _this.updateModel = function (obj) {
     var index,
+        properties,
         toSet;
 
     toSet = {};
-    toSet[_watchProperty] = _this.model.get(_watchProperty);
-    index = toSet[_watchProperty].indexOf(obj);
+    properties = _this.model.get(_watchProperty);
 
+    if (properties) {
+      toSet[_watchProperty] = properties.slice(0);
+    } else {
+      toSet[_watchProperty] = [];
+    }
+
+    // check model already contains selected object
+    index = toSet[_watchProperty].indexOf(obj);
     if (index === -1) {
       // does not contain object, add it
       toSet[_watchProperty].push(obj);

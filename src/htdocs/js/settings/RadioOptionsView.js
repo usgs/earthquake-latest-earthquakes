@@ -76,30 +76,6 @@ var RadioOptionsView = function (options) {
   };
 
   /**
-   * Deselects all the radio button inputs in `_this.content`.
-   *
-   */
-  _this.deselectAll = function () {
-    Array.prototype.forEach.call(
-      _this.content.querySelectorAll('input[type=radio]'),
-      function (radio) {
-        radio.checked = false;
-      }
-    );
-  };
-
-  /**
-   * Frees resources associated with this view.
-   *
-   */
-  _this.destroy = Util.compose(function () {
-    _watchProperty = null;
-
-    _initialize = null;
-    _this = null;
-  }, _this.destroy);
-
-  /**
    * Creates the container element by which all the items in the collection
    * are wrapped.
    *
@@ -149,6 +125,30 @@ var RadioOptionsView = function (options) {
 
     return fragment;
   };
+
+  /**
+   * Deselects all the radio button inputs in `_this.content`.
+   *
+   */
+  _this.deselectAll = function () {
+    Array.prototype.forEach.call(
+      _this.content.querySelectorAll('input[type=radio]'),
+      function (radio) {
+        radio.checked = false;
+      }
+    );
+  };
+
+  /**
+   * Frees resources associated with this view.
+   *
+   */
+  _this.destroy = Util.compose(function () {
+    _watchProperty = null;
+
+    _initialize = null;
+    _this = null;
+  }, _this.destroy);
 
   /**
    * Method to update an element in `_this.content`, whose id
