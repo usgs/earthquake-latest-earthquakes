@@ -26,6 +26,18 @@ describe('core/GenericCollectionView', function () {
 
       expect(view.destroy).to.not.throw(Error);
     });
+
+    it('creates the scaffolding', function () {
+      var view;
+
+      view = GenericCollectionView();
+
+      expect(view.header).to.be.instanceOf(HTMLElement);
+      expect(view.content).to.be.instanceOf(HTMLElement);
+      expect(view.footer).to.be.instanceOf(HTMLElement);
+
+      view.destroy();
+    });
   });
 
   describe('createCollectionContainer', function () {
@@ -87,21 +99,6 @@ describe('core/GenericCollectionView', function () {
       result = view.createCollectionItemContent();
 
       expect(result).to.be.instanceOf(HTMLElement);
-      view.destroy();
-    });
-  });
-
-  describe('createScaffold', function () {
-    it('defines the view sub-elements', function () {
-      var view;
-
-      view = GenericCollectionView();
-      view.createScaffold();
-
-      expect(view.header).to.be.instanceOf(HTMLElement);
-      expect(view.content).to.be.instanceOf(HTMLElement);
-      expect(view.footer).to.be.instanceOf(HTMLElement);
-
       view.destroy();
     });
   });
