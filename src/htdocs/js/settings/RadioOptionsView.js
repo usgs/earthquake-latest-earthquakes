@@ -76,9 +76,7 @@ var RadioOptionsView = function (options) {
   };
 
   /**
-   * Deselects all the items in `_this.content`. An implementing sub-class
-   * may want to override this method if selection is not done by toggling
-   * a "selected" class on the item element.
+   * Deselects all the radio button inputs in `_this.content`.
    *
    */
   _this.deselectAll = function () {
@@ -103,7 +101,7 @@ var RadioOptionsView = function (options) {
 
   /**
    * Creates the container element by which all the items in the collection
-   * are wraped.
+   * are wrapped.
    *
    * @return {HTMLElement}
    *     An HTMLElement based on the configured `options.containerNodeName`

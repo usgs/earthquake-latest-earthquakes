@@ -278,17 +278,14 @@ var GenericCollectionView = function (options) {
    */
   _this.onContentClick = function (evt) {
     var item,
-        toSet;
+        obj;
 
     if (evt && evt.target) {
       item = _this.getClickedItem(evt.target, _this.content);
 
       if (item && _watchProperty) {
-        toSet = {};
-        toSet[_watchProperty] =
-            _this.collection.get(item.getAttribute('data-id'));
-
-        _this.model.set(toSet);
+        obj = _this.collection.get(item.getAttribute('data-id'));
+        _this.updateModel(obj);
       }
     }
   };
@@ -398,6 +395,22 @@ var GenericCollectionView = function (options) {
         item.classList.add('selected');
       }
     }
+  };
+
+  /**
+   * Update model based on newly selected item in the options view.
+   * This method is called by onContentClick.
+   *
+   * @param obj {Object}
+   *     Configuration option that was selected.
+   */
+  _this.updateModel = function (obj) {
+    var toSet;
+
+    toSet = {};
+    toSet[_watchProperty] = obj;
+
+    _this.model.set(toSet);
   };
 
 

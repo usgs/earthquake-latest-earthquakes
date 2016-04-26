@@ -78,32 +78,6 @@ var CheckboxOptionsView = function (options) {
   };
 
   /**
-   * Deselects all the items in `_this.content`. An implementing sub-class
-   * may want to override this method if selection is not done by toggling
-   * a "selected" class on the item element.
-   *
-   */
-  _this.deselectAll = function () {
-    Array.prototype.forEach.call(
-      _this.content.querySelectorAll('input[type=checkbox]'),
-      function (checkbox) {
-        checkbox.checked = false;
-      }
-    );
-  };
-
-  /**
-   * Frees resources associated with this view.
-   *
-   */
-  _this.destroy = Util.compose(function () {
-    _watchProperty = null;
-
-    _initialize = null;
-    _this = null;
-  }, _this.destroy);
-
-  /**
    * Creates and populates an element for the individual given `obj`.
    *
    * @param obj {Object}
@@ -137,6 +111,30 @@ var CheckboxOptionsView = function (options) {
   };
 
   /**
+   * Deselects all the checkbox inputs in `_this.content`.
+   *
+   */
+  _this.deselectAll = function () {
+    Array.prototype.forEach.call(
+      _this.content.querySelectorAll('input[type=checkbox]'),
+      function (checkbox) {
+        checkbox.checked = false;
+      }
+    );
+  };
+
+  /**
+   * Frees resources associated with this view.
+   *
+   */
+  _this.destroy = Util.compose(function () {
+    _watchProperty = null;
+
+    _initialize = null;
+    _this = null;
+  }, _this.destroy);
+
+  /**
    * Method to update an element in `_this.content`, whose id
    * matches the given value "id" attribute, to appear selected.
    *
@@ -163,6 +161,33 @@ var CheckboxOptionsView = function (options) {
       }
     });
   };
+
+  /**
+   * Update model based on newly selected item in the options view.
+   * This method is called by onContentClick.
+   *
+   * @param obj {Object}
+   *     Configuration option that was selected.
+   */
+  _this.updateModel = function (obj) {
+    var index,
+        toSet;
+
+    toSet = {};
+    toSet[_watchProperty] = _this.model.get(_watchProperty);
+    index = toSet[_watchProperty].indexOf(obj);
+
+    if (index === -1) {
+      // does not contain object, add it
+      toSet[_watchProperty].push(obj);
+    } else {
+      // contains object, remove it
+      toSet[_watchProperty].splice(index, 1);
+    }
+
+    _this.model.set(toSet);
+  };
+
 
   _initialize(options);
   options = null;
