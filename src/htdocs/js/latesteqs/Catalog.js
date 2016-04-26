@@ -104,6 +104,7 @@ var Catalog = function (options) {
   _this.onLoadError = function (err/*, xhr */) {
     // TODO: check error info on xhr object.
     _this.error = err;
+    _this.metadata = null;
     _this.reset([]);
   };
 
@@ -112,6 +113,7 @@ var Catalog = function (options) {
    */
   _this.onLoadSuccess = function (data/*, xhr*/) {
     _this.error = false;
+    _this.metadata = data.metadata;
     _this.reset(data.features);
   };
 
