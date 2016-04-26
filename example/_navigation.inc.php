@@ -9,6 +9,7 @@
 
   echo navGroup('List',
     navItem('/list/DefaultListFormatExample.php', 'DefaultListFormat') .
+    navItem('/list/DownloadViewExample.php', 'DownloadView') .
     navItem('/list/DyfiListFormatExample.php', 'DyfiListFormat') .
     navItem('/list/ListViewExample.php', 'ListView') .
     navItem('/list/PagerListFormatExample.php', 'PagerListFormat') .
