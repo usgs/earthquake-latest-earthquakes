@@ -76,7 +76,7 @@ describe('list/ListView', function () {
     });
   });
 
-  describe.only('renderHeader', function () {
+  describe('renderHeader', function () {
     it('creates header markup as expected', function (done) {
       var catalog,
           view;
