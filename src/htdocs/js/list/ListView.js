@@ -2,7 +2,10 @@
 
 
 var Accordion = require('accordion/Accordion'),
+    DownloadView = require('mvc/View'), //TODO: use download view
+    Formatter = require('core/Formatter'),
     GenericCollectionView = require('core/GenericCollectionView'),
+    ModalView = require('mvc/ModalView'),
     Util = require('util/Util');
 
 
@@ -46,7 +49,16 @@ var ListView = function (options) {
   var _this,
       _initialize,
 
-      _listFormat;
+      _downloadButton,
+      _downloadModal,
+      _downloadView,
+      _formatter,
+      _headerCount,
+      _headerTitle,
+      _headerUpdateTime,
+      _listFormat,
+
+      _createScaffold;
 
 
   options = Util.extend({}, _DEFAULTS, options);
@@ -59,9 +71,46 @@ var ListView = function (options) {
    *
    * @see core/GenericCollectionView#_initialize
    */
-  _initialize = function (/*options*/) {
+  _initialize = function (options) {
+    _formatter = options.formatter || Formatter();
     _this.model.on('change:listFormat', 'render', _this);
     _this.model.on('change:timezone', 'render', _this);
+    _createScaffold();
+  };
+
+
+  _createScaffold = function () {
+    _this.header.innerHTML =
+      '<h3 class="header-title"></h3>' +
+      '<h4 class="header-count"></h4>' +
+      '<div class="accordion-content">' +
+        '<p class="header-update-time"></p>' +
+        '<button type="button">Download</button>' +
+      '</div>';
+
+    _headerTitle = _this.header.querySelector('.header-title');
+    _headerCount = _this.header.querySelector('.header-count');
+    _headerUpdateTime = _this.header.querySelector('.header-update-time');
+    _downloadButton = _this.header.querySelector('button');
+
+    _downloadView = DownloadView({
+      model: _this.model
+    });
+
+    //delet this later
+    _downloadView.render = function () {
+      _downloadView.el.innerHTML = '<pre>' +
+          JSON.stringify(_this.model.get('feed'), null, '  ') +
+        '</pre>';
+    };
+
+    _downloadView.render();
+
+    _downloadModal = ModalView(_downloadView.el, {
+      title: 'Download'
+    });
+
+    _downloadButton.addEventListener('click', _this.onButtonClick);
   };
 
 
@@ -126,6 +175,7 @@ var ListView = function (options) {
     _listFormat = listFormat;
   }, _this.render);
 
+
   /**
    * Render the footer information for this view into `_this.footer`.
    *
@@ -156,38 +206,42 @@ var ListView = function (options) {
    *
    */
   _this.renderHeader = function () {
-    var collection,
-        displayCount,
+    var displayCount,
+        headerCount,
         headerTitle,
+        metadata,
         restrict,
-        totalCount;
+        totalCount,
+        updateTime;
 
-    metadata = _this.collection.metadata;
-    headerTitle = metadata.title;
-    totalCount = metadata.count;
+    metadata = _this.collection.metadata || {};
+    headerTitle = metadata.title || 'Latest Earthquakes';
+    totalCount = metadata.hasOwnProperty('count') ? metadata.count : '&ndash;';
     displayCount = _this.collection.data().length;
-    updateTime = metadata.generated;
-
     restrict = _this.model.get('restrictListToMap');
+    headerCount = _this.formatCountInfo(totalCount, displayCount, restrict);
+    updateTime = _formatter.datetime(metadata.generated, false);
+
+    _headerTitle.innerHTML = headerTitle;
+    _headerCount.innerHTML = headerCount;
+    _headerUpdateTime.innerHTML = updateTime;
+
+  };
+
+  _this.formatCountInfo = function (totalCount, displayCount, restrict) {
+    var countInfo;
 
     if (restrict) {
-      info = displayCount + ' of ' + totalCount + ' in map area.';
+      countInfo = displayCount + ' of ' + totalCount + ' earthquakes in map area.';
     } else {
-      info = totalCount + ' earthquakes';
+      countInfo = totalCount + ' earthquakes';
     }
 
+    return countInfo;
+  };
 
-
-    _this.header.innerHTML =
-      '<div class="column title">' +
-        '<h3>' + headerTitle + '</h3>',
-      '</div>'
-      '<div class="column number-of-earthquakes">',
-        '<p>' + info + '</p>' +
-      '</div>' +
-      '<div class="column one-of-one earthquake-info">' +
-        'More Info' +
-      '</div>';
+  _this.onButtonClick = function () {
+    _downloadModal.show();
   };
 
 
