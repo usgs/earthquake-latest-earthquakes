@@ -80,13 +80,20 @@ var ListView = function (options) {
 
 
   _createScaffold = function () {
+    _this.header.classList.add('accordion');
+    _this.header.classList.add('accordion-closed');
+
     _this.header.innerHTML =
       '<h3 class="header-title"></h3>' +
-      '<h4 class="header-count"></h4>' +
+      '<h4 class="header-count accordion-toggle"></h4>' +
       '<div class="accordion-content">' +
         '<p class="header-update-time"></p>' +
         '<button type="button">Download</button>' +
       '</div>';
+
+    Accordion({
+      el: _this.header
+    });
 
     _headerTitle = _this.header.querySelector('.header-title');
     _headerCount = _this.header.querySelector('.header-count');
