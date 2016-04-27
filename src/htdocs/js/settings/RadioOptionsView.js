@@ -50,25 +50,6 @@ var RadioOptionsView = function (options) {
     _this.title = options.title;
   };
 
-
-  /**
-   * Creates the container element by which all the items in the collection
-   * are wrapped.
-   *
-   * @return {HTMLElement}
-   *     An HTMLElement based on the configured `options.containerNodeName`
-   *     property.
-   */
-  _this.createCollectionContainer = Util.compose(
-      _this.createCollectionContainer, function (container) {
-
-    if (container) {
-      container.classList.add('no-style');
-    }
-
-    return container;
-  });
-
   /**
    * Creates and populates an element for the individual given `obj`.
    *
