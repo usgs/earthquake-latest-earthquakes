@@ -33,12 +33,12 @@ settingsView = SettingsView({
   config: Config(),
   model: Model({
     'autoUpdate': [autoUpdate[0]],
-    'basemaps': basemaps[1],
-    'feeds': feeds[1],
+    'basemap': basemaps[1],
+    'feed': feeds[1],
     'restrictListToMap': [restrictListToMap[0]],
-    'listFormats': listFormats[1],
-    'overlays': [overlays[1],overlays[2]],
-    'sorts': sorts[1],
+    'listFormat': listFormats[1],
+    'overlay': [overlays[1],overlays[2]],
+    'sort': sorts[1],
     'timezone': timezone[1]
   })
 });
