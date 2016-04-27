@@ -21,6 +21,7 @@ var SettingsView = function (options) {
       _listSortEl,
       _mapLayersEl,
       _mapOverlaysEl,
+      _searchButton,
       _timezoneEl;
 
 
@@ -69,6 +70,19 @@ var SettingsView = function (options) {
    * Frees resources associated with this view.
    */
   _this.destroy = Util.compose(function () {
+    _searchButton.removeEventListener('click', _this.onSearchButtonClick, _this);
+
+    _autoUpdateEl = null;
+    _config = null;
+    _feedsEl = null;
+    _restrictListToMapEl = null;
+    _listFormatEl = null;
+    _listSortEl = null;
+    _mapLayersEl = null;
+    _mapOverlaysEl = null;
+    _searchButton = null;
+    _timezoneEl = null;
+
     _initialize = null;
     _this = null;
   }, _this.destroy);
@@ -79,6 +93,7 @@ var SettingsView = function (options) {
   _this.render = function () {
     _this.renderHeader();
     _this.renderContent();
+    _this.renderSearchButton();
   };
 
   _this.renderContent = function () {
@@ -172,6 +187,24 @@ var SettingsView = function (options) {
   _this.renderHeader = function () {
     _this.header.innerHTML = '<h2>Settings</h2>' +
         '<small>Bookmark to return to map/list with the same settings</small>';
+  };
+
+  _this.renderSearchButton = function () {
+    var el;
+
+    el = _feedsEl.querySelector('.radio-options-view-footer');
+
+    _searchButton = document.createElement('button');
+    _searchButton.addEventListener('click', _this.onSearchButtonClick, _this);
+    _searchButton.classList.add('search-button');
+    _searchButton.classList.add('blue');
+    _searchButton.innerHTML = 'Search Earthquake Catalog';
+
+    el.appendChild(_searchButton);
+  };
+
+  _this.onSearchButtonClick = function () {
+    window.location = '/earthquakes/search/' + window.location.hash;
   };
 
   _initialize(options);

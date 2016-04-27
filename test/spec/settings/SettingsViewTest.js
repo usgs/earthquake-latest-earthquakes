@@ -19,6 +19,7 @@ describe('SettingsView', function () {
       config: LatestEarthquakesConfig(),
       model: Model()
     });
+    settingsView.render();
   });
 
   afterEach(function () {
@@ -37,12 +38,27 @@ describe('SettingsView', function () {
 
   describe('render', function () {
     it('generates all requisite checkbox/radio option views', function () {
-      var content,
+      var checkboxOptions,
+          content,
+          radioOptions;
+
+      content = settingsView.el.querySelector('.settings-content');
+      checkboxOptions = content.querySelectorAll('.checkbox-options-view-content');
+      radioOptions = content.querySelectorAll('.radio-options-view-content');
+
+      expect(checkboxOptions.length).to.equal(3);
+      expect(radioOptions.length).to.equal(5);
+    });
+
+    it('generates the search button', function () {
+      var button,
+          content,
           views;
 
       content = settingsView.el.querySelector('.settings-content');
+      button = settingsView.el.querySelector('.search-button');
       views = content.querySelectorAll('section');
-      expect(views.length).to.equal(8);
+      expect(button.nodeName).to.equal('BUTTON');
     });
   });
 
