@@ -57,7 +57,6 @@ var GenericCollectionView = function (options) {
       _containerNodeName,
       _itemNodeName,
       _noDataMessage,
-      _watchProperty,
 
       _onContentClick;
 
@@ -95,14 +94,14 @@ var GenericCollectionView = function (options) {
     _classPrefix = options.classPrefix;
     _containerNodeName = options.containerNodeName;
     _itemNodeName = options.itemNodeName;
-    _watchProperty = options.watchProperty;
+    _this.watchProperty = options.watchProperty;
     _noDataMessage = options.noDataMessage;
 
     _this.createScaffold();
 
     _this.model.off('change', 'render', _this);
-    if (_watchProperty) {
-      _this.model.on('change:' + _watchProperty, 'onEvent', _this);
+    if (_this.watchProperty) {
+      _this.model.on('change:' + _this.watchProperty, 'onEvent', _this);
     }
 
     _this.collection.on('reset', 'render', _this);
@@ -227,8 +226,8 @@ var GenericCollectionView = function (options) {
   _this.destroy = Util.compose(function () {
     _this.content.removeEventListener('click', _this.onContentClick, _this);
 
-    if (_watchProperty) {
-      _this.model.off('change:' + _watchProperty, 'onEvent', _this);
+    if (_this.watchProperty) {
+      _this.model.off('change:' + _this.watchProperty, 'onEvent', _this);
     }
     _this.model.on('change', 'render', _this);
 
@@ -240,7 +239,7 @@ var GenericCollectionView = function (options) {
 
     _classPrefix = null;
     _containerNodeName = null;
-    _watchProperty = null;
+    _this.watchProperty = null;
     _itemNodeName = null;
     _noDataMessage = null;
 
@@ -280,7 +279,7 @@ var GenericCollectionView = function (options) {
    * Called via event delegation when the user clicks anywhere withing
    * `_this.content`. Finds the clicked element and uses its "data-id"
    * attribute to find the corresponding item in the collection and then
-   * selects the `_watchProperty` on `_this.model` to that item.
+   * selects the `_this.watchProperty` on `_this.model` to that item.
    *
    *
    * @param evt {ClickEvent}
@@ -293,7 +292,7 @@ var GenericCollectionView = function (options) {
     if (evt && evt.target) {
       item = _this.getClickedItem(evt.target, _this.content);
 
-      if (item && _watchProperty) {
+      if (item && _this.watchProperty) {
         obj = _this.collection.get(item.getAttribute('data-id'));
         _this.updateModel(obj);
       }
@@ -301,15 +300,15 @@ var GenericCollectionView = function (options) {
   };
 
   /**
-   * Called when the `_watchProperty` on `_this.model` is changed. Ensures
+   * Called when the `_this.watchProperty` on `_this.model` is changed. Ensures
    * the proper corresponding rendered element(s) appear selected.
    *
    */
   _this.onEvent = function () {
     var value;
 
-    if (_watchProperty) {
-      value = _this.model.get(_watchProperty);
+    if (_this.watchProperty) {
+      value = _this.model.get(_this.watchProperty);
       _this.deselectAll();
       _this.setSelected(value);
     }
@@ -417,7 +416,7 @@ var GenericCollectionView = function (options) {
     var toSet;
 
     toSet = {};
-    toSet[_watchProperty] = value;
+    toSet[_this.watchProperty] = value;
 
     _this.model.set(toSet);
   };

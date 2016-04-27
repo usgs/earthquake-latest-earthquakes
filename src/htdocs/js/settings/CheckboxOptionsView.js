@@ -42,46 +42,12 @@ var _DEFAULTS = {
  *     options that may be provided.
  */
 var CheckboxOptionsView = function (options) {
-  var _this,
-      _initialize,
-
-      _watchProperty;
+  var _this;
 
 
   options = Util.extend({}, _DEFAULTS, options);
   _this = RadioOptionsView(options);
 
-  /**
-   * Constructor.
-   *
-   * @param options {Object}
-   *     Configuration options for this view.
-   * @param options.collection {mvc/Collection}
-   *     The collection for this view.
-   * @param options.containerNodeName {String}
-   *     The nodeName of the element to be created that will wrap all
-   *     the items in the collection. For example: 'ul'
-   * @param options.model {mvc/Model}
-   *     The model for this view.
-   * @param options.watchProperty {String}
-   *     The name of the property on the model to watch for changes and
-   *     subsequently trigger `onEvent`.
-   */
-  _initialize = function (options) {
-    _watchProperty = options.watchProperty;
-  };
-
-
-  /**
-   * Frees resources associated with this view.
-   *
-   */
-  _this.destroy = Util.compose(function () {
-    _watchProperty = null;
-
-    _initialize = null;
-    _this = null;
-  }, _this.destroy);
 
   /**
    * Method to update an element in `_this.content`, whose id
@@ -128,29 +94,28 @@ var CheckboxOptionsView = function (options) {
         toSet;
 
     toSet = {};
-    properties = _this.model.get(_watchProperty);
+    properties = _this.model.get(_this.watchProperty);
 
     if (properties) {
-      toSet[_watchProperty] = properties.slice(0);
+      toSet[_this.watchProperty] = properties.slice(0);
     } else {
-      toSet[_watchProperty] = [];
+      toSet[_this.watchProperty] = [];
     }
 
     // check model already contains selected object
-    index = toSet[_watchProperty].indexOf(obj);
+    index = toSet[_this.watchProperty].indexOf(obj);
     if (index === -1) {
       // does not contain object, add it
-      toSet[_watchProperty].push(obj);
+      toSet[_this.watchProperty].push(obj);
     } else {
       // contains object, remove it
-      toSet[_watchProperty].splice(index, 1);
+      toSet[_this.watchProperty].splice(index, 1);
     }
 
     _this.model.set(toSet);
   };
 
 
-  _initialize(options);
   options = null;
   return _this;
 };

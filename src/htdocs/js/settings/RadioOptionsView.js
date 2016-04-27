@@ -26,9 +26,7 @@ var _DEFAULTS = {
  */
 var RadioOptionsView = function (options) {
   var _this,
-      _initialize,
-
-      _watchProperty;
+      _initialize;
 
 
   options = Util.extend({}, _DEFAULTS, options);
@@ -38,20 +36,15 @@ var RadioOptionsView = function (options) {
    * Constructor.
    *
    * @param options {Object}
-   *     Configuration options for this view.
-   * @param options.collection {mvc/Collection}
-   *     The collection for this view.
-   * @param options.containerNodeName {String}
-   *     The nodeName of the element to be created that will wrap all
-   *     the items in the collection. For example: 'ul'
-   * @param options.model {mvc/Model}
-   *     The model for this view.
-   * @param options.watchProperty {String}
-   *     The name of the property on the model to watch for changes and
-   *     subsequently trigger `onEvent`.
+   *     Configuration options for this view. In addition to what is defined
+   *     in {core/GenericCollectionView}, options may include the following:
+   * @param options.inputType {String}
+   *     They value to use for the "type" attribute when creating the
+   *     inputs for this view.
+   *
+   * @see core/GenericCollectionView
    */
   _initialize = function (options) {
-    _watchProperty = options.watchProperty;
     _this.inputType = options.inputType;
   };
 
@@ -92,13 +85,13 @@ var RadioOptionsView = function (options) {
     fragment = document.createDocumentFragment();
 
     input = document.createElement('input');
-    input.setAttribute('name', _watchProperty);
+    input.setAttribute('name', _this.watchProperty);
     input.setAttribute('type', _this.inputType);
     input.setAttribute('value', obj.id);
-    input.setAttribute('id', _watchProperty + '-' + obj.id);
+    input.setAttribute('id', _this.watchProperty + '-' + obj.id);
 
     label = document.createElement('label');
-    label.setAttribute('for', _watchProperty + '-' + obj.id);
+    label.setAttribute('for', _this.watchProperty + '-' + obj.id);
     label.innerHTML = obj.name;
 
     fragment.appendChild(input);
@@ -125,7 +118,7 @@ var RadioOptionsView = function (options) {
    *
    */
   _this.destroy = Util.compose(function () {
-    _watchProperty = null;
+    _this.watchProperty = null;
 
     _initialize = null;
     _this = null;
@@ -135,7 +128,7 @@ var RadioOptionsView = function (options) {
    * Called via event delegation when the user clicks anywhere withing
    * `_this.content`. Finds the clicked element and uses its "data-id"
    * attribute to find the corresponding item in the collection and then
-   * selects the `_watchProperty` on `_this.model` to that item.
+   * selects the `_this.watchProperty` on `_this.model` to that item.
    *
    *
    * @param evt {ClickEvent}
@@ -148,7 +141,7 @@ var RadioOptionsView = function (options) {
     if (evt && evt.target && evt.target.nodeName === 'INPUT') {
       item = _this.getClickedItem(evt.target, _this.content);
 
-      if (item && _watchProperty) {
+      if (item && _this.watchProperty) {
         obj = _this.collection.get(item.getAttribute('data-id'));
         _this.updateModel(obj);
       }
