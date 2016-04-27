@@ -16,30 +16,12 @@ var _DEFAULTS = {
  * accepts (among other things) a collection and a model on the configuration
  * options at time of construction.
  *
- * The collection provides a list of all items for the collection view to
- * render. The view listens to "add", "remove", and "reset" events on the
- * provided collection and calls the render method when such events occur.
- * The view does not listen to select/deselect on the collection...
- *
- * The model provides information regarding the currently selected values
- * for various properties. By default, this view only listens for changes to
- * the configured `options.watchProperty` property, and when that property
- * changes, the view calls its `onEvent` method.
- *
- * All messaging to/from this view should occur view events/method calls on
- * the provided model.
- *
- * Implementing sub-classes may override any public method for customized
- * behavior, however, typical extension points may involve overriding the
- * following methods:
- *
- * - deselectAll
- * - setSelected
- *
  * @param options {Object}
  *     Configuration options for this view. See documentation on the
  *     `_initialize` method for complete details on all configuration
  *     options that may be provided.
+ *
+ * @see settings/RadioOptionsView
  */
 var CheckboxOptionsView = function (options) {
   var _this;

@@ -118,8 +118,6 @@ var RadioOptionsView = function (options) {
    *
    */
   _this.destroy = Util.compose(function () {
-    _this.watchProperty = null;
-
     _initialize = null;
     _this = null;
   }, _this.destroy);
