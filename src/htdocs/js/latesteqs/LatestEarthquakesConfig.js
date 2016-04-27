@@ -123,6 +123,29 @@ var _DEFAULTS = {
     }
   ],
 
+  viewModes: [
+    {
+      'id': 'list',
+      'name': 'List',
+      'icon': 'list'
+    },
+    {
+      'id': 'map',
+      'name': 'Map',
+      'icon': 'language'
+    },
+    {
+      'id': 'settings',
+      'name': 'settings',
+      'icon': 'settings'
+    },
+    {
+      'id': 'help',
+      'name': 'Help',
+      'icon': 'help_outlline'
+    }
+  ],
+
   overlays: [
     {
       'id': 'plates',
