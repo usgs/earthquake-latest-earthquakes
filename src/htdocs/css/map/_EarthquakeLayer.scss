@@ -1,0 +1,48 @@
+
+.earthquake-marker {
+  border: 1px solid #333;
+  cursor: pointer;
+  display: block;
+  position: absolute;
+
+  &.selected {
+    background-color: #0ff;
+    z-index: 1000000;
+  }
+}
+
+
+.eq-age-hour {
+  background-color: #F00;
+}
+.eq-age-day {
+  background-color: #F90;
+}
+.eq-age-week {
+  background-color: #FF0;
+}
+.eq-age-month {
+  background-color: #FFF;
+}
+.eq-age-older {
+  background-color: #ccc;
+}
+
+.eq-mag-7 {width: 38px;height: 38px;margin-left: -19px;margin-top: -19px;}
+.eq-mag-6 {width: 31px;height: 31px;margin-left: -16px;margin-top: -16px;}
+.eq-mag-5 {width: 26px;height: 26px;margin-left: -13px;margin-top: -13px;}
+.eq-mag-4 {width: 20px;height: 20px;margin-left: -10px;margin-top: -10px;}
+.eq-mag-3 {width: 16px;height: 16px;margin-left: -8px;margin-top: -8px;}
+.eq-mag-2 {width: 14px;height: 14px;margin-left: -7px;margin-top: -7px;}
+.eq-mag-1 {width: 12px;height: 12px;margin-left: -6px;margin-top: -6px;}
+.eq-mag-0 {width: 11px;height: 11px;margin-left: -6px;margin-top: -6px;}
+
+
+
+.eq-type-eq {
+  border-radius: 20px;
+}
+
+.eq-type-other {
+
+}

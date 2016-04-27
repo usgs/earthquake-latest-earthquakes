@@ -183,16 +183,16 @@ var UrlManager = function (options) {
       if (key in config.options) {
         // collection based-setting
         collection = config.options[key];
-        if (typeof setting === 'string') {
-          // treat as id for object in collection
-          value = collection.get(setting);
-        } else {
+        if (setting !== null && typeof setting === 'object') {
           value = [];
           for (i in setting) {
             if (setting[i] === true) {
               value.push(collection.get(i));
             }
           }
+        } else if (typeof setting === 'string') {
+          // treat as id for object in collection
+          value = collection.get(setting);
         }
       } else if (!(key in model) && allowNewProperties !== true) {
         // ignore settings not already in model

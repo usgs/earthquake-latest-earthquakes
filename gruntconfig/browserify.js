@@ -49,6 +49,7 @@ ALL_CLASSES = getAliases(JS, [
   'list/PagerListFormat',
   'list/ShakeMapListFormat',
 
+  'map/EarthquakeLayer',
   'map/LegendControl',
 
   'settings/CheckboxOptionsView',
@@ -63,6 +64,13 @@ ALL_CLASSES = getAliases(JS, [
   'util/Events',
   'util/Util',
   'util/Xhr'
+])).concat(getAliases(NODE_MODULES + '/hazdev-leaflet/src', [
+  'leaflet/layer/EsriGrayscale',
+  'leaflet/layer/EsriTerrain',
+  'leaflet/layer/OpenAerialMap',
+  'leaflet/layer/OpenStreetMap',
+  'leaflet/layer/TectonicPlates',
+  'leaflet/layer/UsFault'
 ]));
 
 
@@ -72,6 +80,7 @@ var browserify = {
       debug: true,
       paths: [
         JS,
+        NODE_MODULES + '/hazdev-leaflet/src',
         NODE_MODULES + '/hazdev-webutils/src'
       ]
     }
