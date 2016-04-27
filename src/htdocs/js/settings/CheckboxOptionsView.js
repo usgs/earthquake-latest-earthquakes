@@ -71,7 +71,8 @@ var CheckboxOptionsView = function (options) {
    *     Configuration option that was clicked
    */
   _this.updateModel = function (obj) {
-    var index,
+    var i,
+        index,
         items,
         properties,
         toSet;
@@ -88,7 +89,7 @@ var CheckboxOptionsView = function (options) {
     index = -1;
     items = toSet[_this.watchProperty];
     // check if model already contains selected object
-    for (var i = 0; i < items.length; i++) {
+    for (i = 0; i < items.length; i++) {
       if (obj.id === items[i].id) {
         index = i;
       }

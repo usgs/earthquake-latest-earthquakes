@@ -2,8 +2,7 @@
 'use strict';
 
 
-var Collection = require('mvc/Collection'),
-    LatestEarthquakesConfig = require('latesteqs/LatestEarthquakesConfig'),
+var LatestEarthquakesConfig = require('latesteqs/LatestEarthquakesConfig'),
     Model = require('mvc/Model'),
     SettingsView = require('settings/SettingsView');
 

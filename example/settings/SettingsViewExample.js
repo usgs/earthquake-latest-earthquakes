@@ -37,7 +37,7 @@ settingsView = SettingsView({
     'feed': feeds[1],
     'restrictListToMap': [restrictListToMap[0]],
     'listFormat': listFormats[1],
-    'overlay': [overlays[1],overlays[2]],
+    'overlays': [overlays[1], overlays[2]],
     'sort': sorts[1],
     'timezone': timezone[1]
   })
