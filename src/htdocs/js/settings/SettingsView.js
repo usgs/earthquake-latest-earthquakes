@@ -170,10 +170,6 @@ var SettingsView = function (options) {
     timezoneView.render();
   };
 
-  _this.renderFooter = function () {
-    // TODO, anything??
-  };
-
   _this.renderHeader = function () {
     _this.header.innerHTML = '<h2>Settings</h2>' +
         '<small>Bookmark to return to map/list with the same settings</small>';
