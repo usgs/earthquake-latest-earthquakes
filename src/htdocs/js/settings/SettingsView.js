@@ -79,7 +79,6 @@ var SettingsView = function (options) {
   _this.render = function () {
     _this.renderHeader();
     _this.renderContent();
-    _this.renderFooter();
   };
 
   _this.renderContent = function () {
