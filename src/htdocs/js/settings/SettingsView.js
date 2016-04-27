@@ -155,7 +155,7 @@ var SettingsView = function (options) {
       el: _mapOverlaysEl,
       collection: _config.options.overlays,
       model: _this.model,
-      watchProperty: 'overlay'
+      watchProperty: 'overlays'
     });
     mapOverlaysView.render();
 
