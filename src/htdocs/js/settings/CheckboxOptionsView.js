@@ -3,12 +3,11 @@
 var RadioOptionsView = require('settings/RadioOptionsView'),
     Util = require('util/Util');
 
+
+// These defaults override defaults configured in settings/RadioOptionsView
 var _DEFAULTS = {
   classPrefix: 'checkbox-options-view',
-  containerNodeName: 'ol',
-  itemNodeName: 'li',
-  noDataMessage: 'There is no data to display.',
-  watchProperty: ''
+  inputType: 'checkbox'
 };
 
 
@@ -46,14 +45,11 @@ var CheckboxOptionsView = function (options) {
   var _this,
       _initialize,
 
-      _classPrefix,
-      _containerNodeName,
       _watchProperty;
 
 
-  _this = RadioOptionsView(options);
   options = Util.extend({}, _DEFAULTS, options);
-
+  _this = RadioOptionsView(options);
 
   /**
    * Constructor.
@@ -72,56 +68,9 @@ var CheckboxOptionsView = function (options) {
    *     subsequently trigger `onEvent`.
    */
   _initialize = function (options) {
-    _classPrefix = options.classPrefix;
-    _containerNodeName = options.containerNodeName;
     _watchProperty = options.watchProperty;
   };
 
-  /**
-   * Creates and populates an element for the individual given `obj`.
-   *
-   * @param obj {Object}
-   *     The item from the collection for which to create the element.
-   *
-   * @return {HTMLElement}
-   *     An HTMLElement based on the configured `options.itemNodeName`
-   *     property.
-   */
-  _this.createCollectionItemContent = function (obj) {
-    var fragment,
-        input,
-        label;
-
-    fragment = document.createDocumentFragment();
-
-    input = document.createElement('input');
-    input.setAttribute('name', _watchProperty);
-    input.setAttribute('type', 'checkbox');
-    input.setAttribute('value', obj.id);
-    input.setAttribute('id', _watchProperty + '-' + obj.id);
-
-    label = document.createElement('label');
-    label.setAttribute('for', _watchProperty + '-' + obj.id);
-    label.innerHTML = obj.name;
-
-    fragment.appendChild(input);
-    fragment.appendChild(label);
-
-    return fragment;
-  };
-
-  /**
-   * Deselects all the checkbox inputs in `_this.content`.
-   *
-   */
-  _this.deselectAll = function () {
-    Array.prototype.forEach.call(
-      _this.content.querySelectorAll('input[type=checkbox]'),
-      function (checkbox) {
-        checkbox.checked = false;
-      }
-    );
-  };
 
   /**
    * Frees resources associated with this view.
@@ -138,7 +87,7 @@ var CheckboxOptionsView = function (options) {
    * Method to update an element in `_this.content`, whose id
    * matches the given value "id" attribute, to appear selected.
    *
-   * @param value Array<{Mixed}>
+   * @param objs {Array<Mixed>}
    *     Typically an array of objects with an "id" attribute which corresponds
    *     to the "id" attribute of some input in `_this.content`.
    *
@@ -152,7 +101,7 @@ var CheckboxOptionsView = function (options) {
     }
 
     // select each checkbox
-    Array.prototype.forEach.call(objs, function (obj) {
+    objs.forEach(function (obj) {
       id = obj.id;
       el = _this.content.querySelector('[data-id="' + id + '"] > input');
 
@@ -163,11 +112,15 @@ var CheckboxOptionsView = function (options) {
   };
 
   /**
-   * Update model based on newly selected item in the options view.
+   * Update model based on newly clicked item in the options view. If
+   * the clicked item was previously set as a value on the `watchProperty` for
+   * `_this.model` then that item is removed from the `watchProperty` value;
+   * otherwise the item is added to the `watchProperty` value.
+   *
    * This method is called by onContentClick.
    *
    * @param obj {Object}
-   *     Configuration option that was selected.
+   *     Configuration option that was clicked
    */
   _this.updateModel = function (obj) {
     var index,
@@ -201,5 +154,6 @@ var CheckboxOptionsView = function (options) {
   options = null;
   return _this;
 };
+
 
 module.exports = CheckboxOptionsView;

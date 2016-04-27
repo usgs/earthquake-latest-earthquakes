@@ -127,10 +127,8 @@ var GenericCollectionView = function (options) {
    *     An HTMLElement based on the configured `options.containerNodeName`
    *     property.
    */
-  _this.createCollectionContainer = function () {
-    var container;
-
-    container = document.createElement(_containerNodeName);
+  _this.createCollectionContainer = function (container) {
+    container = container || document.createElement(_containerNodeName);
     container.classList.add(_classPrefix + '-container');
 
     return container;
@@ -410,17 +408,16 @@ var GenericCollectionView = function (options) {
   };
 
   /**
-   * Update model based on newly selected item in the options view.
-   * This method is called by onContentClick.
+   * Update the `watchProperty` of `_this.model` to be the given value.
    *
-   * @param obj {Object}
-   *     Configuration option that was selected.
+   * @param value {Object}
+   *     The value to which to set the `watchProperty` on `_this.model`.
    */
-  _this.updateModel = function (obj) {
+  _this.updateModel = function (value) {
     var toSet;
 
     toSet = {};
-    toSet[_watchProperty] = obj;
+    toSet[_watchProperty] = value;
 
     _this.model.set(toSet);
   };

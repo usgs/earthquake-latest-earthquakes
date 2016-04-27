@@ -3,10 +3,12 @@
 var GenericCollectionView = require('core/GenericCollectionView'),
     Util = require('util/Util');
 
+
+// These defaults override defaults configured in core/GenericCollectionView
 var _DEFAULTS = {
   classPrefix: 'radio-options-view',
   containerNodeName: 'ol',
-  watchProperty: ''
+  inputType: 'radio'
 };
 
 
@@ -15,45 +17,22 @@ var _DEFAULTS = {
  * accepts (among other things) a collection and a model on the configuration
  * options at time of construction.
  *
- * The collection provides a list of all items for the collection view to
- * render. The view listens to "add", "remove", and "reset" events on the
- * provided collection and calls the render method when such events occur.
- * The view does not listen to select/deselect on the collection...
- *
- * The model provides information regarding the currently selected values
- * for various properties. By default, this view only listens for changes to
- * the configured `options.watchProperty` property, and when that property
- * changes, the view calls its `onEvent` method.
- *
- * All messaging to/from this view should occur view events/method calls on
- * the provided model.
- *
- * Implementing sub-classes may override any public method for customized
- * behavior, however, typical extension points may involve overriding the
- * following methods:
- *
- * - deselectAll
- * - setSelected
- *
  * @param options {Object}
  *     Configuration options for this view. See documentation on the
  *     `_initialize` method for complete details on all configuration
  *     options that may be provided.
+ &
+ * @see core/GenericCollectionView
  */
 var RadioOptionsView = function (options) {
   var _this,
       _initialize,
 
-      _classPrefix,
-      _containerNodeName,
-      _watchProperty,
-
-      _onContentClick;
+      _watchProperty;
 
 
-  _this = GenericCollectionView(options);
   options = Util.extend({}, _DEFAULTS, options);
-
+  _this = GenericCollectionView(options);
 
   /**
    * Constructor.
@@ -72,10 +51,10 @@ var RadioOptionsView = function (options) {
    *     subsequently trigger `onEvent`.
    */
   _initialize = function (options) {
-    _classPrefix = options.classPrefix;
-    _containerNodeName = options.containerNodeName;
     _watchProperty = options.watchProperty;
+    _this.inputType = options.inputType;
   };
+
 
   /**
    * Creates the container element by which all the items in the collection
@@ -85,15 +64,15 @@ var RadioOptionsView = function (options) {
    *     An HTMLElement based on the configured `options.containerNodeName`
    *     property.
    */
-  _this.createCollectionContainer = function () {
-    var container;
+  _this.createCollectionContainer = Util.compose(
+      _this.createCollectionContainer, function (container) {
 
-    container = document.createElement(_containerNodeName);
-    container.classList.add(_classPrefix);
-    container.classList.add('no-style');
+    if (container) {
+      container.classList.add('no-style');
+    }
 
     return container;
-  };
+  });
 
   /**
    * Creates and populates an element for the individual given `obj`.
@@ -114,7 +93,7 @@ var RadioOptionsView = function (options) {
 
     input = document.createElement('input');
     input.setAttribute('name', _watchProperty);
-    input.setAttribute('type', 'radio');
+    input.setAttribute('type', _this.inputType);
     input.setAttribute('value', obj.id);
     input.setAttribute('id', _watchProperty + '-' + obj.id);
 
@@ -129,14 +108,14 @@ var RadioOptionsView = function (options) {
   };
 
   /**
-   * Deselects all the radio button inputs in `_this.content`.
+   * Deselects all the inputs in `_this.content`.
    *
    */
   _this.deselectAll = function () {
     Array.prototype.forEach.call(
-      _this.content.querySelectorAll('input[type=radio]'),
-      function (radio) {
-        radio.checked = false;
+      _this.content.querySelectorAll('input[type="' + _this.inputType + '"]'),
+      function (input) {
+        input.checked = false;
       }
     );
   };
@@ -146,8 +125,6 @@ var RadioOptionsView = function (options) {
    *
    */
   _this.destroy = Util.compose(function () {
-    _onContentClick = null;
-
     _watchProperty = null;
 
     _initialize = null;
@@ -202,6 +179,7 @@ var RadioOptionsView = function (options) {
       el.checked = true;
     }
   };
+
 
   _initialize(options);
   options = null;
