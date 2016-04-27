@@ -20,6 +20,10 @@
     navItem('/map/LegendControlExample.php', 'LegendControl')
   );
 
+  echo navGroup('Modes',
+    navItem('/modes/ModesViewExample.php', 'ModesView')
+  );
+
   echo navGroup('Settings',
     navItem('/settings/CheckboxOptionsViewExample.php', 'CheckboxOptionsView') .
     navItem('/settings/RadioOptionsViewExample.php', 'RadioOptionsView') .
