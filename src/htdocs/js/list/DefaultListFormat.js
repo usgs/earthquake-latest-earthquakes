@@ -188,7 +188,35 @@ var DefaultListFormat = function (options) {
    *     The value to display as the item's "header" information.
    */
   _this.getHeaderMarkup = function (eq) {
-    return _this.getProperty(eq, 'place') || 'Unknown Event';
+    var place,
+        type;
+
+    type = _this.getProperty(eq, 'type') || null;
+    place = _this.getProperty(eq, 'place') || 'Unknown Event';
+
+    if (type === null || type.toLowerCase() === 'earthquake') {
+      return place;
+    } else {
+      type = type.toLowerCase();
+      if (type === 'quarry') {
+        type = 'Quarry Blast';
+      } else if (type === 'nuke') {
+        type = 'Nuclear Explosion';
+      } else if (type === 'rockfall') {
+        type = 'Rockslide';
+      } else if (type === 'rockburst') {
+        type = 'Rockslide';
+      } else if (type === 'sonicboom') {
+        type = 'Sonic Boom';
+      } else {
+        type = type.replace(/\w\S*/g,
+            function (txt) {
+              return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            }
+        );
+      }
+    }
+    return type + ' ' + place;
   };
 
   /**

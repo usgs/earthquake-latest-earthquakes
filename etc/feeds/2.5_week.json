@@ -9808,6 +9808,86 @@
         ]
       },
       "id": "us20005fpn"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 0.89,
+        "place": "14km SSE of Home Gardens, CA",
+        "time": 1461718127550,
+        "updated": 1461769895625,
+        "tz": -420,
+        "url": "http://earthquake.usgs.gov/earthquakes/eventpage/ci37336767",
+        "detail": "http://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/ci37336767.geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 12,
+        "net": "ci",
+        "code": "37336767",
+        "ids": ",ci37336767,",
+        "sources": ",ci,",
+        "types": ",general-link,geoserve,nearby-cities,origin,phase-data,scitech-link,",
+        "nst": 37,
+        "dmin": 0.01742,
+        "rms": 0.24,
+        "gap": 67,
+        "magType": "ml",
+        "type": "quarry blast",
+        "title": "M 0.9 Quarry Blast - 14km SSE of Home Gardens, CA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.4576667,
+          33.7673333,
+          -0.5
+          ]
+      },
+      "id": "ci37336767"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.1,
+        "place": "2km SE of Selah, Washington",
+        "time": 1461193700820,
+        "updated": 1461686477698,
+        "tz": -420,
+        "url": "http://earthquake.usgs.gov/earthquakes/eventpage/uw61128842",
+        "detail": "http://earthquake.usgs.gov/fdsnws/event/1/query?eventid=uw61128842&format=geojson",
+        "felt": 2,
+        "cdi": 3.1,
+        "mmi": 2.36,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 68,
+        "net": "uw",
+        "code": "61128842",
+        "ids": ",uw61128842,",
+        "sources": ",uw,",
+        "types": ",dyfi,general-link,geoserve,nearby-cities,origin,phase-data,shakemap,",
+        "nst": 13,
+        "dmin": 0.1152,
+        "rms": 0.34,
+        "gap": 102,
+        "magType": "ml",
+        "type": "chemical explosion",
+        "title": "M 2.1 Chemical Explosion - 2km SE of Selah, Washington"
+      },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -120.5001667,
+        46.6396667,
+        -0.66
+        ]
+    },
+    "id": "uw61128842"
     }
   ],
   "bbox": [

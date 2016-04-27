@@ -124,14 +124,14 @@ describe('DefaultListFormat', function () {
   });
 
   describe('getHeaderMarkup', function () {
-    it('pulls place property off object and falls back', function () {
+    it('pulls place & type property off object and falls back', function () {
       var propertySpy,
           result;
 
       propertySpy = sinon.spy(defaultListFormat, 'getProperty');
       result = defaultListFormat.getHeaderMarkup();
 
-      expect(propertySpy.callCount).to.equal(1);
+      expect(propertySpy.callCount).to.equal(2);
       /* jshint -W030 */
       expect(propertySpy.calledWith(undefined, 'place')).to.be.true;
       /* jshint +W030 */
