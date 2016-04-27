@@ -1,6 +1,7 @@
 /* global L */
 'use strict';
 
+
 var Catalog = require('latesteqs/Catalog'),
     Model = require('mvc/Model'),
     Util = require('util/Util');
@@ -82,6 +83,7 @@ var EarthquakeLayer = function (options) {
     _this.el.addEventListener('click', _this.onClick);
     _this.model.on('change:event', 'onSelect', _this);
   };
+
 
   /**
    * Free referenes and unbind events.
@@ -225,6 +227,7 @@ var EarthquakeLayer = function (options) {
    */
   _this.addTo = function (map) {
     map.addLayer(_this);
+    return _this;
   };
 
   /**

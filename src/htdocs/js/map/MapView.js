@@ -1,6 +1,7 @@
 /* global L */
 'use strict';
 
+
 var EarthquakeLayer = require('map/EarthquakeLayer'),
     Util = require('util/Util'),
     View = require('mvc/View');
