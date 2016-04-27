@@ -1,31 +1,40 @@
-.leaflet-bottom {
-  width: 50%;
-}
-
-.leaflet-control-legendview {
-  position: absolute;
-  top: 0; left: -72px; /* left = 1/2 width */
-  width: 144px;
-  top: -35px;
-}
-
-.leaflet-control-legendview {
-  height: 44px;
-  margin: 0 0 10px 0;
-}
-
-.leaflet-control-legendview h5  {
+.color-bar {
   display: block;
-  font-size: 10px;
-  font-weight: normal;
-  margin: 0 0 2px 0;
-  padding: 0 1px;
+  height: 7px;
+  margin: 0 auto;
+  position: static;
+  width: 30px;
+  border: 1px solid #000;
 }
 
 .eq-age-hour {background-color: #F00;}
 .eq-age-day {background-color: #F90;}
 .eq-age-week {background-color: #FF0;}
 .eq-age-month {background-color: #FFF;}
+
+.leaflet-bottom {
+  width: 50%;
+}
+
+.leaflet-control-legendview {
+  clear: right;
+  display: none;
+  float: right;
+  height: 44px;
+  left: -72px; /* left = 1/2 width */
+  margin: 0 10px 10px 0;
+  position: absolute;
+  top: -35px;
+  width: 144px;
+}
+
+.leaflet-control-legendview > h5 {
+  display: block;
+  font-size: 10px;
+  font-weight: normal;
+  margin: 0 0 2px 0;
+  padding: 0 1px;
+}
 
 .leaflet-control-legendview > ol {
   float: left;
@@ -34,7 +43,11 @@
   padding: 0;
 }
 
-.leaflet-control-legendview > ol li {
+.leaflet-control-legendview > ol > .age-color-legendView {
+  margin: 0px;
+}
+
+.leaflet-control-legendview > ol > li {
   font-size: 0.8em;
   float: left;
   list-style: none;
@@ -42,37 +55,16 @@
   text-align: center;
 }
 
-.leaflet-control-legendview > ol li:last-child {
+.leaflet-control-legendview > ol > li:last-child {
   margin-right: 0;
 }
 
-.leaflet-control-legendview > ol > .age-color-legendView {
-  margin: 0px;
-}
 
 .map .leaflet-control-background { /* This is baked into Leaflet core. */
-    background-color: #666;
-    background-color: rgba(0,0,0,0.25);
+    background-color: #FFF;
     border-radius: 7px;
-    color: #FFF;
     font-size: 10px;
     padding: 6px;
-    text-shadow: 1px 1px 1px #333;
-}
-
-.leaflet-control-legendview .color-bar {
-  display: block;
-  height: 5px;
-  margin: 0 auto;
-  position: static;
-  width: 30px;
-}
-
-.leaflet-control-legendview {
-  clear: right;
-  display: none;
-  float: right;
-  margin-right: 10px;
 }
 
 
