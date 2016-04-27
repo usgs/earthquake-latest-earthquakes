@@ -52,6 +52,8 @@ ALL_CLASSES = getAliases(JS, [
   'map/EarthquakeLayer',
   'map/LegendControl',
 
+  'modes/ModesView',
+
   'settings/CheckboxOptionsView',
   'settings/RadioOptionsView',
   'settings/SettingsView',
