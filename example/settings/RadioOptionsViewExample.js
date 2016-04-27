@@ -69,8 +69,8 @@ radioOptionsView = RadioOptionsView({
   el: el,
   collection: collection,
   model: Model({
-    'feeds': {id: '7day_m25'}
+    'feed': {id: '7day_m25'}
   }),
-  watchProperty: 'feeds'
+  watchProperty: 'feed'
 });
 radioOptionsView.render();
