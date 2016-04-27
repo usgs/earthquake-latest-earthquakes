@@ -129,7 +129,8 @@ var GenericCollectionView = function (options) {
   _this.createCollectionContainer = function (container) {
     container = container || document.createElement(_containerNodeName);
     container.classList.add(_classPrefix + '-container');
-
+    container.classList.add('no-style');
+    
     return container;
   };
 
