@@ -1,27 +1,22 @@
 'use strict';
 
+
 var GenericCollectionView = require('core/GenericCollectionView'),
     Util = require('util/Util');
+
 
 var _DEFAULTS = {
   classPrefix: 'modes-view'
 };
 
+
 var ModesView = function (options) {
-  var _this,
-      _initialize;
+  var _this;
+
 
   options = Util.extend({}, _DEFAULTS, options);
   _this = GenericCollectionView(options);
 
-
-  /**
-   * Destroy all the things.
-   */
-  _this.destroy = Util.compose(function () {
-   _initialize = null;
-   _this = null;
-  }, _this.destroy);
 
   /**
    * Creates content for view.
@@ -109,8 +104,10 @@ var ModesView = function (options) {
     _this.model.set(toSet);
   };
 
+
   options = null;
   return _this;
 };
+
 
 module.exports = ModesView;
