@@ -1,6 +1,12 @@
+.modes-view-content {
+  display: flex;
+  align-items: center;
+}
+
 .modes-view-container {
   align-items: center;
   display: flex;
+  margin: 0;
 
   > li {
     align-items: center;
