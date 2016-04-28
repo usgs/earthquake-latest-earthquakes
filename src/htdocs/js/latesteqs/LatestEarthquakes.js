@@ -18,9 +18,9 @@ var _DEFAULTS = {
 };
 
 var _DEFAULT_SETTINGS = {
-  autoUpdate: {
-    autoUpdate: true
-  },
+  autoUpdate: [
+    'autoUpdate'
+  ],
   basemap: 'grayscale',
   feed: '1day_m25',
   listFormat: 'default',
@@ -29,25 +29,23 @@ var _DEFAULT_SETTINGS = {
     [60.0, -150.0],
     [10.0, -50.0]
   ],
-  overlays: {
-    plates: true,
-    faults: true,
-    ushazard: true
-  },
-  restrictListToMap: {
-    restrictListToMap: true
-  },
+  overlays: [
+    'plates',
+    'faults',
+    'ushazard'
+  ],
+  restrictListToMap: [
+    'restrictListToMap'
+  ],
   search: null,
   searchForm: '/earthquakes/search/',
   searchUrl: '/fdsnws/event/1/query.geojson',
   sort: 'newest',
   timezone: 'utc',
-  viewModes: {
-    list: true,
-    map: true,
-    settings: false,
-    help: false
-  }
+  viewModes: [
+    'list',
+    'map'
+  ]
 };
 
 
