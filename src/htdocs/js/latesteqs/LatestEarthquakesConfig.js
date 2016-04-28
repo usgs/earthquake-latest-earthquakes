@@ -142,7 +142,7 @@ var _DEFAULTS = {
     {
       'id': 'help',
       'name': 'Help',
-      'icon': 'help_outlline'
+      'icon': 'help_outline'
     }
   ],
 
