@@ -14,6 +14,7 @@ if (!isset($TEMPLATE)) {
   ';
 
   $FOOT = '
+    <script src="/lib/leaflet-0.7.7/leaflet.js"></script>
     <script src="/js/bundle.js"></script>
     <script src="ModesViewExample.js"></script>
   ';
