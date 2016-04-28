@@ -76,6 +76,52 @@ describe('latesteqs/Catalog', function () {
     });
   });
 
+  describe('sort', function () {
+    it('sorts the selected feed', function () {
+      var catalog;
+
+      catalog = Catalog();
+      catalog.reset([
+        {
+          id: '1',
+          properties: {
+            'time': 1
+          }
+        },
+        {
+          id: '2',
+          properties: {
+            'time': 2
+          }
+        },
+        {
+          id: '3',
+          properties: {
+            'time': 3
+          }
+        },
+      ]);
+
+      catalog.sort({
+        'id': 'newest',
+        'name' : 'Newest first',
+        'sort' : function (a, b) {
+          return b.properties.time - a.properties.time;
+        }
+      });
+      expect(catalog.data()[0].id).to.equal('3')
+
+      catalog.sort({
+        'id': 'oldest',
+        'name' : 'Oldest first',
+        'sort' : function (a, b) {
+          return a.properties.time - b.properties.time;
+        }
+      });
+      expect(catalog.data()[0].id).to.equal('1')
+    });
+  });
+
   describe('loadUrl', function () {
     it('calls Xhr.ajax correctly', function () {
       var args,
