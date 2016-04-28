@@ -57,7 +57,7 @@ describe('modes/ModesView', function () {
     });
   });
 
-  describe('render', function () {
+  describe('createCollectionItemContent', function () {
     it('creates icons', function () {
       var options;
 
@@ -67,30 +67,18 @@ describe('modes/ModesView', function () {
       expect(options.length).to.be.equal(4);
     });
 
-    it('selects an mode based on the model value', function () {
+    it('selects a mode based on the model value', function () {
       var icon;
 
       icon = modesView.el.querySelector('i');
 
-      expect(icon.getAttribute('value')).to.be.equal('test');
+      expect(icon.innerHTML).to.be.equal('list');
     });
   });
 
-  describe.skip('setSelected', function () {
+  describe('setSelected', function () {
     it('selects the correct mode', function () {
-      var input;
 
-      input = [];
-      modesView.deselectAll();
-      modesView.setSelected([
-        {'id': 'list'},
-        {'id': 'map'}
-      ]);
-      input = modesView.el.querySelectorAll('.selected');
-
-      expect(input.length).to.equal(2);
-      expect(input[0].getAttribute('value')).to.equal('list');
-      expect(input[1].getAttribute('value')).to.equal('map');
-    });
+    })
   });
 });
