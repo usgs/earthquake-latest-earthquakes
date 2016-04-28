@@ -29,6 +29,28 @@ body {
   height: 50px;
 }
 
+.latest-earthquakes-header {
+  align-items: center;
+  background-color: #000;
+  display: flex;
+  padding: 10px;
+
+  > .latest-earthquakes-logo {
+    flex-grow: 1;
+    height: 28px;
+    overflow: hidden;
+
+    > img {
+      border: none;
+      height: 140%;
+    }
+  }
+
+  > .latest-earthquakes-modes {
+    flex-grow: 0;
+  }
+}
+
 .latest-earthquakes-content {
   display: flex;
   flex: 1;

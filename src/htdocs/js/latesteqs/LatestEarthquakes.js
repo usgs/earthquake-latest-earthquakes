@@ -5,6 +5,7 @@ var Catalog = require('latesteqs/Catalog'),
     LatestEarthquakesConfig = require('latesteqs/LatestEarthquakesConfig'),
     ListView = require('list/ListView'),
     MapView = require('map/MapView'),
+    ModesView = require('modes/ModesView'),
     SettingsView = require('settings/SettingsView'),
     UrlManager = require('latesteqs/LatestEarthquakesUrlManager'),
     Util = require('util/Util'),
@@ -17,9 +18,9 @@ var _DEFAULTS = {
 };
 
 var _DEFAULT_SETTINGS = {
-  autoUpdate: {
-    autoUpdate: true
-  },
+  autoUpdate: [
+    'autoUpdate'
+  ],
   basemap: 'grayscale',
   feed: '1day_m25',
   listFormat: 'default',
@@ -28,25 +29,23 @@ var _DEFAULT_SETTINGS = {
     [60.0, -150.0],
     [10.0, -50.0]
   ],
-  overlays: {
-    plates: true,
-    faults: true,
-    ushazard: true
-  },
-  restrictListToMap: {
-    restrictListToMap: true
-  },
+  overlays: [
+    'plates',
+    'faults',
+    'ushazard'
+  ],
+  restrictListToMap: [
+    'restrictListToMap'
+  ],
   search: null,
   searchForm: '/earthquakes/search/',
   searchUrl: '/fdsnws/event/1/query.geojson',
   sort: 'newest',
   timezone: 'utc',
-  viewModes: {
-    list: true,
-    map: true,
-    settings: true,
-    help: false
-  }
+  viewModes: [
+    'list',
+    'map'
+  ]
 };
 
 
@@ -70,6 +69,7 @@ var LatestEarthquakes = function (options) {
       _content,
       _listView,
       _mapView,
+      _modesView,
       _settingsView,
       _urlManager;
 
@@ -84,7 +84,12 @@ var LatestEarthquakes = function (options) {
 
     el.classList.add('latest-earthquakes');
     el.innerHTML =
-        '<header class="latest-earthquakes-header">header</header>' +
+        '<header class="latest-earthquakes-header">' +
+          '<a href="/" class="latest-earthquakes-logo">' +
+            '<img src="/theme/images/usgs-logo.svg" alt="USGS"/>' +
+          '</a>' +
+          '<div class="latest-earthquakes-modes"></div>' +
+        '</header>' +
         '<div class="latest-earthquakes-content">' +
           '<div class="latest-earthquakes-list">list</div>' +
           '<div class="latest-earthquakes-map">map</div>' +
@@ -102,6 +107,13 @@ var LatestEarthquakes = function (options) {
     _config = LatestEarthquakesConfig(Util.extend({}, options.config, {
       'event': _catalog
     }));
+
+    _modesView = ModesView({
+      collection: _config.options.viewModes,
+      el: el.querySelector('.latest-earthquakes-modes'),
+      model: _this.model
+    });
+    _modesView.render();
 
     _listView = ListView({
       el: el.querySelector('.latest-earthquakes-list'),
@@ -143,6 +155,7 @@ var LatestEarthquakes = function (options) {
 
     _listView.destroy();
     _mapView.destroy();
+    _modesView.destroy();
     _settingsView.destroy();
 
     _catalog.destroy();
@@ -154,11 +167,11 @@ var LatestEarthquakes = function (options) {
     _content = null;
     _listView = null;
     _mapView = null;
+    _modesView = null;
     _settingsView = null;
     _this = null;
     _urlManager = null;
   }, _this.destroy);
-
 
   /**
    * Apply current settings.
@@ -170,10 +183,13 @@ var LatestEarthquakes = function (options) {
     var modes;
 
     // update modes
-    modes = _this.model.get('viewModes') || {};
-    _this.setMode('list', modes.list);
-    _this.setMode('map', modes.map);
-    _this.setMode('settings', modes.settings);
+    modes = (_this.model.get('viewModes') || []).map(function (mode) {
+      return mode.id;
+    });
+
+    _config.options.viewModes.data().forEach(function (mode) {
+      _this.setMode(mode.id, (modes.indexOf(mode.id) !== -1));
+    });
   };
 
   /**

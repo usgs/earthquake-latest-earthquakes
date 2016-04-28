@@ -80,9 +80,9 @@ var UrlManager = function (options) {
       if (key in config.options) {
         if (Array.isArray(value)) {
           // multi-select
-          setting = {};
+          setting = [];
           for (i = 0, len = value.length; i < len; i++) {
-            setting[value[i].id] = true;
+            setting.push(value[i].id);
           }
         } else if (value && value.id) {
           setting = value.id;
@@ -183,12 +183,10 @@ var UrlManager = function (options) {
       if (key in config.options) {
         // collection based-setting
         collection = config.options[key];
-        if (setting !== null && typeof setting === 'object') {
+        if (Array.isArray(setting)) {
           value = [];
-          for (i in setting) {
-            if (setting[i] === true) {
-              value.push(collection.get(i));
-            }
+          for (i = 0; i < setting.length; i++) {
+            value.push(collection.get(setting[i]));
           }
         } else if (typeof setting === 'string') {
           // treat as id for object in collection
