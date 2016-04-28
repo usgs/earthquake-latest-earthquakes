@@ -4,7 +4,7 @@ var GenericCollectionView = require('core/GenericCollectionView'),
     Util = require('util/Util');
 
 var _DEFAULTS = {
-
+  classPrefix: 'modes-view'
 };
 
 var ModesView = function (options) {
@@ -14,9 +14,6 @@ var ModesView = function (options) {
   options = Util.extend({}, _DEFAULTS, options);
   _this = GenericCollectionView(options);
 
-  _initialize = function () {
-    _this.el.classList.add('modes-view');
-  };
 
   /**
    * Destroy all the things.
@@ -112,7 +109,6 @@ var ModesView = function (options) {
     _this.model.set(toSet);
   };
 
-  _initialize(options);
   options = null;
   return _this;
 };

@@ -97,6 +97,7 @@ var GenericCollectionView = function (options) {
     _this.watchProperty = options.watchProperty;
     _noDataMessage = options.noDataMessage;
 
+    _this.el.classList.add(_classPrefix);
     _this.createScaffold();
 
     _this.model.off('change', 'render', _this);
@@ -130,7 +131,7 @@ var GenericCollectionView = function (options) {
     container = container || document.createElement(_containerNodeName);
     container.classList.add(_classPrefix + '-container');
     container.classList.add('no-style');
-    
+
     return container;
   };
 
