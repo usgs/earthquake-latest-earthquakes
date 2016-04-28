@@ -26,6 +26,11 @@ var ModesView = function (options) {
    _this = null;
   }, _this.destroy);
 
+  /**
+   * Creates content for view.
+   * @param obj {Object}
+   *    Configuration object
+   */
   _this.createCollectionItemContent = function (obj) {
     var icon;
 
@@ -37,6 +42,11 @@ var ModesView = function (options) {
     return icon;
   };
 
+  /**
+   * addes selected class to icons when selectec
+   * @param obj {Object}
+   *    Configuration option that was clicked
+   */
   _this.setSelected = function (objs) {
     var el,
         id;
@@ -67,7 +77,9 @@ var ModesView = function (options) {
    *     Configuration option that was clicked
    */
   _this.updateModel = function (obj) {
-    var index,
+    var i,
+        index,
+        items,
         properties,
         toSet;
 
@@ -80,8 +92,15 @@ var ModesView = function (options) {
       toSet[_this.watchProperty] = [];
     }
 
-    // check model already contains selected object
-    index = toSet[_this.watchProperty].indexOf(obj);
+    index = -1;
+    items = toSet[_this.watchProperty];
+    // check if model already contains selected object
+    for (i = 0; i < items.length; i++) {
+      if (obj.id === items[i].id) {
+        index = i;
+      }
+    }
+
     if (index === -1) {
       // does not contain object, add it
       toSet[_this.watchProperty].push(obj);

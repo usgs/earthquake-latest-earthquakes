@@ -66,19 +66,32 @@ describe('modes/ModesView', function () {
 
       expect(options.length).to.be.equal(4);
     });
-
-    it('selects a mode based on the model value', function () {
-      var icon;
-
-      icon = modesView.el.querySelector('i');
-
-      expect(icon.innerHTML).to.be.equal('list');
-    });
   });
 
   describe('setSelected', function () {
-    it('selects the correct mode', function () {
+    it('ssets selected class', function () {
+      modesView.setSelected();
+      expect(modesView.el.classList.contains('selected'));
+    });
+  });
 
-    })
+  describe('updateModel', function () {
+    it('deselects mode in  the model', function () {
+      modesView.updateModel({id: 'help'});
+
+      var modes = modesView.model.get('viewModes');
+
+      expect(modes.length).to.equal(0);
+    });
+
+    it('selects a mode in the model', function () {
+      modesView.updateModel({id: 'settings'});
+
+      var modes = modesView.model.get('viewModes');
+
+      expect(modes.length).to.equal(2);
+      expect(modes[0].id).to.equal('help');
+      expect(modes[1].id).to.equal('settings');
+    });
   });
 });
