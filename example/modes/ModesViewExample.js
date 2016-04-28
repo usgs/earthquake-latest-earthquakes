@@ -28,7 +28,7 @@ modesView = ModesView({
   el: el,
   collection: collection,
   model: Model({
-    viewModes: [viewModes[0], viewModes[1], viewModes[2], viewModes[3]],
+    viewModes: [viewModes[0], viewModes[1]],
   }),
   watchProperty: 'viewModes'
 });
