@@ -1,0 +1,24 @@
+.generic-collection-view-container {
+  align-items: center;
+  display: flex;
+
+  > li {
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+
+    + li {
+      margin-left: .5em;
+    }
+
+    &.selected > .material-icons {
+      color: green;
+    }
+
+    > .material-icons {
+      color: #fff;
+      height: 25px;
+      width: 25px;
+    }
+  }
+}
