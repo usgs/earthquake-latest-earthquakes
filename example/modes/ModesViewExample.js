@@ -29,8 +29,7 @@ modesView = ModesView({
   collection: collection,
   model: Model({
     viewModes: [viewModes[0], viewModes[1]],
-  }),
-  watchProperty: 'viewModes'
+  })
 });
 
 modesView.render();

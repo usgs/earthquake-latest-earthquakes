@@ -6,7 +6,8 @@ var GenericCollectionView = require('core/GenericCollectionView'),
 
 
 var _DEFAULTS = {
-  classPrefix: 'modes-view'
+  classPrefix: 'modes-view',
+  watchProperty: 'viewModes'
 };
 
 
@@ -20,6 +21,7 @@ var ModesView = function (options) {
 
   /**
    * Creates content for view.
+   *
    * @param obj {Object}
    *    Configuration object
    */
@@ -28,16 +30,18 @@ var ModesView = function (options) {
 
     icon = document.createElement('i');
     icon.classList.add('material-icons');
-    icon.setAttribute('title', obj.name);
-    icon.innerHTML = obj.icon;
+    icon.setAttribute('title', obj.name || 'Icon');
+    icon.innerHTML = obj.icon || 'crop_square';
 
     return icon;
   };
 
   /**
-   * addes selected class to icons when selectec
-   * @param obj {Object}
-   *    Configuration option that was clicked
+   * Adds selected class to icons when selected
+   *
+   * @param objs {Array<Object>}
+   *    An array of objects each with an "id" attribute corresponding to the
+   *    "data-id" attribute of some element in `_this.content`.
    */
   _this.setSelected = function (objs) {
     var el,
