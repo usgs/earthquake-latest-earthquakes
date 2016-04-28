@@ -6,6 +6,11 @@ if (!isset($TEMPLATE)) {
 
   $HEAD = '
     <link rel="stylesheet" href="/css/index.css"/>
+    <style>
+      .generic-collection-view-container {
+        background-color: #000;
+      }
+    </style>
   ';
 
   $FOOT = '
