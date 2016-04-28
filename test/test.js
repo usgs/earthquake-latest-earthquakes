@@ -24,6 +24,8 @@ require('./spec/list/ShakeMapListFormatTest');
 
 require('./spec/map/LegendControlTest');
 
+require('./spec/modes/ModesViewTest');
+
 require('./spec/settings/CheckboxOptionsViewTest');
 require('./spec/settings/RadioOptionsViewTest');
 require('./spec/settings/SettingsViewTest');
