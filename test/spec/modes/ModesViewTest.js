@@ -36,15 +36,17 @@ describe('modes/ModesView', function () {
         }
       ]),
       model: Model({
-        'viewModes': [{id: 'help'}]
-      }),
-      watchProperty: 'viewModes'
+        viewModes: []
+      })
     });
-    modesView.render();
   });
 
   afterEach(function () {
-    modesView.destroy();
+    try {
+      modesView.destroy();
+    } catch (e) {
+      // already destroyed...
+    }
   });
 
   describe('constructor', function () {
@@ -55,43 +57,70 @@ describe('modes/ModesView', function () {
     it('can be instantiated', function () {
       expect(ModesView).to.not.throw(Error);
     });
+
+    it('can be destroyed', function () {
+      expect(modesView.destroy).to.not.throw(Error);
+    });
   });
 
   describe('createCollectionItemContent', function () {
     it('creates icons', function () {
-      var options;
+      var info,
+          result;
 
-      options = [];
-      options = modesView.el.querySelectorAll('i');
+      info = {
+        id: 'test-icon',
+        name: 'Test Icon',
+        icon: 'test'
+      };
 
-      expect(options.length).to.be.equal(4);
+      result = modesView.createCollectionItemContent(info);
+
+      expect(result.nodeName.toUpperCase()).to.equal('I');
+      expect(result.classList.contains('material-icons')).to.equal(true);
+      expect(result.getAttribute('title')).to.equal(info.name);
+      expect(result.innerHTML).to.equal(info.icon);
     });
   });
 
   describe('setSelected', function () {
-    it('ssets selected class', function () {
-      modesView.setSelected();
-      expect(modesView.el.classList.contains('selected'));
+    it('sets selected class', function () {
+      var item;
+
+      // Need to do this to generate _this.content
+      modesView.renderContent();
+      // Select the "help" item
+      modesView.setSelected([{id: 'help'}]);
+
+      item = modesView.el.querySelector('[data-id="help"]');
+
+      /* jshint -W030 */
+      expect(item).to.not.be.null;
+      expect(item.classList.contains('selected')).to.be.true;
+      /* jshint +W030 */
     });
   });
 
   describe('updateModel', function () {
-    it('deselects mode in  the model', function () {
-      modesView.updateModel({id: 'help'});
+    it('toggles the viewModes value based on given option', function () {
+      var option;
 
-      var modes = modesView.model.get('viewModes');
+      option = {
+        'id': 'list',
+        'name': 'List',
+        'icon': 'list'
+      };
 
-      expect(modes.length).to.equal(0);
-    });
+      // Initially no items in model
+      expect(modesView.model.get('viewModes').length).to.equal(0);
 
-    it('selects a mode in the model', function () {
-      modesView.updateModel({id: 'settings'});
+      // Now toggle an option and ensure it is in model
+      modesView.updateModel(option);
+      expect(modesView.model.get('viewModes').length).to.equal(1);
 
-      var modes = modesView.model.get('viewModes');
-
-      expect(modes.length).to.equal(2);
-      expect(modes[0].id).to.equal('help');
-      expect(modes[1].id).to.equal('settings');
+      // Now toggle same option and ensure it is removed
+      modesView.updateModel(option);
+      expect(modesView.model.get('viewModes').length).to.equal(0);
     });
   });
 });
