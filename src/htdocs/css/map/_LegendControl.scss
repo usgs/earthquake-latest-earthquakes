@@ -1,88 +1,43 @@
-.age-color-legendView {
-  margin: 0px;
+.legend-control-header {
+  font-size: 10px;
+  font-weight: normal;
+  margin: 0 0 8px 0;
+  padding: 0 1px;
+}
+
+.legend-control-list {
+  display: flex;
+  margin: 0;
+}
+
+.legend-control-item {
+  font-size: 0.8em;
+  text-align: center;
+
+  + .legend-control-item {
+    margin-left: 2px;
+  }
 }
 
 .color-bar {
+  border: 1px solid #000;
   display: block;
   height: 7px;
-  margin: 0 auto;
-  position: static;
   width: 30px;
-  border: 1px solid #000;
 }
 
-.eq-age-hour {background-color: #F00;}
-.eq-age-day {background-color: #F90;}
-.eq-age-week {background-color: #FF0;}
-.eq-age-month {background-color: #FFF;}
-
-.leaflet-bottom {
-  width: 50%;
+.eq-age-hour {
+  background-color: #f00;
 }
 
-.leaflet-control-legendview {
-  clear: right;
-  display: none;
-  float: right;
-  height: 44px;
-  left: -72px; /* left = 1/2 width */
-  margin: 0 10px 10px 0;
-  position: absolute;
-  top: -35px;
-  width: 144px;
-
-  > h5 {
-    display: block;
-    font-size: 10px;
-    font-weight: normal;
-    margin: 0 0 2px 0;
-    padding: 0 1px;
-  }
-
-  > ol {
-    float: left;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-    > li {
-      font-size: 0.8em;
-      float: left;
-      list-style: none;
-      padding: 0 3px 0 0;
-      text-align: center;
-    }
-
-    > li:last-child {
-      margin-right: 0;
-    }
-  }
+.eq-age-day {
+  background-color: #f90;
 }
 
-.map .leaflet-control-background { /* This is baked into Leaflet core. */
-    background-color: #FFF;
-    border-radius: 7px;
-    font-size: 10px;
-    padding: 6px;
+.eq-age-week {
+  background-color: #ff0;
 }
 
-/* Medium screens */
-@media screen and (min-width: 420px) {
-  .leaflet-control-legendview {
-    display: block;
-  }
-}
-
-@media screen and (min-width: 421px) and (max-width: 740px) {
-  /* Two modes enabled (including map), window is below 740px. Stack the leaflet controls. */
-  .leaflet-control-legendview {
-    display: none;
-  }
-}
-
-@media screen and (min-width: 721px) and (max-width: 1050px) {
-  /* All three modes enabled, window is below 1050px.  Stack the leaflet controls. */
-  .leaflet-control-legendview {
-    display: none;
-  }
+.eq-age-month {
+  background-color: #fff;
 }

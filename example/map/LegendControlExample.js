@@ -1,7 +1,11 @@
 /* global L */
 'use strict';
 
+
+var EsriTerrain = require('leaflet/layer/EsriTerrain');
+
 require('map/LegendControl');
+
 
 var initialize = function () {
   var legendControl,
@@ -9,15 +13,17 @@ var initialize = function () {
       natgeo;
 
   map = L.map(document.querySelector('.map'), {
+      attributionControl: false,
       center: [40.0, -105.0],
-      zoom: 3
+      zoom: 3,
+      zoomControl: false
     });
   legendControl = L.control.legendControl();
-  natgeo = L.tileLayer('http://server.arcgisonline.com' +
-    '/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}');
+  natgeo = EsriTerrain();
 
   map.addLayer(natgeo);
   map.addControl(legendControl);
 };
+
 
 initialize();

@@ -1,35 +1,47 @@
-/* global chai, describe, it, L*/
+/* global chai, describe, it */
 'use strict';
 
-require('map/LegendControl');
+
+var LegendControl = require('map/LegendControl');
+
 
 var expect = chai.expect;
 
-var map = L.map(L.DomUtil.create('div', 'map'), {
-  center: [40.0, -105.0],
-  zoom: 3
-});
 
+describe('map/LegendControl', function () {
+  describe('constructor', function () {
+    it('Can be required', function () {
+      /* jshint -W030 */
+      expect(LegendControl).to.not.be.null;
+      /* jshint +W030 */
+    });
 
-describe('LegendControl', function () {
+    it('Can be instantiated', function () {
+      var control;
 
-  it('Can be required', function () {
-    /* jshint -W030 */
-    expect(L.control.legendControl).to.not.be.null;
-    /* jshint +W030 */
+      control = LegendControl();
+
+      /* jshint -W030 */
+      expect(control).to.not.be.null;
+      /* jshint +W030 */
+    });
   });
 
-  it('Can be instantiated', function () {
-    var control;
+  describe('onAdd', function () {
+    it('returns a container as expected', function () {
+      var control,
+          result;
 
-    control = L.control.legendControl();
+      control = LegendControl();
+      result = control.onAdd();
 
-    map.addControl(control);
-    /* jshint -W030 */
-    expect(control).to.not.be.null;
-    expect(control.options).to.not.be.null;
-    expect(control._map).to.not.be.undefined;
-    /* jshint +W030 */
+      /* jshint -W030 */
+      expect(result).to.be.instanceOf(HTMLElement);
+      expect(result.classList.contains('legend-control'))
+          .to.be.true;
+      expect(result.querySelectorAll('.legend-control-item').length)
+          .to.equal(4);
+      /* jshint +W030 */
+    });
   });
-
 });
