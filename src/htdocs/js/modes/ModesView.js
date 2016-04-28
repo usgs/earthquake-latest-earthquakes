@@ -14,6 +14,10 @@ var ModesView = function (options) {
   options = Util.extend({}, _DEFAULTS, options);
   _this = GenericCollectionView(options);
 
+  _initialize = function () {
+    _this.el.classList.add('modes-view');
+  };
+
   /**
    * Destroy all the things.
    */
@@ -27,7 +31,7 @@ var ModesView = function (options) {
 
     icon = document.createElement('i');
     icon.classList.add('material-icons');
-    icon.setAttribute('title', obj.title);
+    icon.setAttribute('title', obj.name);
     icon.innerHTML = obj.icon;
 
     return icon;
@@ -89,9 +93,9 @@ var ModesView = function (options) {
     _this.model.set(toSet);
   };
 
-
+  _initialize(options);
   options = null;
-return _this;
+  return _this;
 };
 
 module.exports = ModesView;
