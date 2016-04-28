@@ -1,7 +1,8 @@
 <?php
 
   if (!isset($TEMPLATE)) {
-    $TITLE = 'Example for ZoomTo Control';
+    $TITLE = 'Example for Legend Control';
+    $NAVIGATION = true;
     $HEAD = '
       <link rel="stylesheet" href="/lib/leaflet-0.7.7/leaflet.css"/>
       <link rel="stylesheet" href="/css/index.css"/>

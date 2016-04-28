@@ -31,7 +31,12 @@ var LegendControl = L.Control.extend({
 
     return container;
   }
-
 });
 
-module.exports = LegendControl;
+L.Control.LegendControl = LegendControl;
+
+L.control.legendControl = function (options) {
+  return new LegendControl(options);
+};
+
+module.exports = L.control.legendControl;
