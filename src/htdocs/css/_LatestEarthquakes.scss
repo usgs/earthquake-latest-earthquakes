@@ -21,7 +21,7 @@ body {
   box-shadow: 0 1px 8px rgba(0,0,0,0.5);
   display: block;
   height: 50px;
-  z-index: 2;
+  z-index: 3;
 }
 
 .latest-earthquakes-header {
@@ -62,6 +62,7 @@ body {
 .latest-earthquakes-map,
 .latest-earthquakes-settings {
   display: none;
+  min-width: 320px;
   overflow-y: auto;
   width: 100%;
 }
@@ -117,6 +118,10 @@ body {
   .latest-earthquakes-settings,
   .latest-earthquakes-list {
     box-shadow: 0 1px 8px rgba(0,0,0,0.5);
+    z-index: 2;
+  }
+
+  .latest-earthquakes-settings {
     z-index: 1;
   }
 }
