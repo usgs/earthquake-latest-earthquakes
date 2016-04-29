@@ -207,7 +207,6 @@ var GenericCollectionView = function (options) {
   };
 
   /**
-<<<<<<< 7da20bbc8d25c6164e7c0bb54f365701ab62f134
    * Called during initialization. Creates the base HTML structure into
    * which all rendering is later performed. Sets up event delegation on
    * `_this.content` to handle click events.
@@ -232,8 +231,6 @@ var GenericCollectionView = function (options) {
   };
 
   /**
-=======
->>>>>>> create scafolding is private
    * APIMethod
    *
    * Deselects all the items in `_this.content`. An implementing sub-class
