@@ -90,7 +90,9 @@ var ListView = function (options) {
       '<h5 class="header-count accordion-toggle"></h5>' +
       '<div class="accordion-content header-info-content">' +
         '<p class="header-update-time"></p>' +
-        '<button type="button">Download</button>' +
+        '<button class="download-button blue" type="button">' +
+          'Download Earthquakes' +
+        '</button>' +
       '</div>';
 
     Accordion({
@@ -202,8 +204,8 @@ var ListView = function (options) {
    */
   _this.renderFooter = function () {
     _this.footer.innerHTML =
-      '<h3>Didn&apos;t find what you were looking for?</h3>' +
-        '<ul class="no-style">' +
+      '<h4>Didn&apos;t find what you were looking for?</h4>' +
+        '<ul>' +
           '<li>' +
             'Check your &ldquo;Settings&rdquo;.' +
           '</li>' +
