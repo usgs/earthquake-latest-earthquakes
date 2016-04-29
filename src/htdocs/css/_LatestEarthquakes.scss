@@ -7,14 +7,6 @@ body {
   width: 100%;
 }
 
-
-/* TODO: remove */
-.latest-earthquakes > *,
-.latest-earthquakes-content > * {
-  outline: 1px solid #ccc;
-}
-
-
 /***** layout for header, content, footer *****/
 .latest-earthquakes {
   display: flex;
@@ -25,13 +17,15 @@ body {
 
 .latest-earthquakes-footer,
 .latest-earthquakes-header {
+  box-shadow: 0 1px 8px rgba(0,0,0,0.5);
   display: block;
   height: 50px;
+  z-index: 2;
 }
 
 .latest-earthquakes-header {
   align-items: center;
-  background-color: #000;
+  background-color: #3d5e80;
   display: flex;
   padding: 10px;
 
@@ -62,6 +56,7 @@ body {
 /***** layout for content views *****/
 
 /** hide views by default. */
+.latest-earthquakes-footer,
 .latest-earthquakes-list,
 .latest-earthquakes-map,
 .latest-earthquakes-settings {
@@ -110,5 +105,16 @@ body {
   .mode-map > .latest-earthquakes-map,
   .mode-settings > .latest-earthquakes-settings {
     display: block;
+  }
+
+  .latest-earthquakes-settings,
+  .latest-earthquakes-list {
+    box-shadow: 0 1px 8px rgba(0,0,0,0.5);
+  }
+
+  .latest-earthquakes-settings,
+  .latest-earthquakes-list {
+    box-shadow: 0 1px 8px rgba(0,0,0,0.5);
+    z-index: 1;
   }
 }

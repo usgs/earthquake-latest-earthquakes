@@ -1,6 +1,6 @@
 'use strict';
 
-var Collection = require('mvc/Collection'),
+var Catalog = require('latesteqs/Catalog'),
     DefaultListFormat = require('list/DefaultListFormat'),
     DYFIListFormat = require('list/DyfiListFormat'),
     ListView = require('list/ListView'),
@@ -9,7 +9,8 @@ var Collection = require('mvc/Collection'),
     Xhr = require('util/Xhr');
 
 
-var formats,
+var catalog,
+    formats,
     listView,
 
     onFormatClick;
@@ -24,26 +25,16 @@ formats = {
 };
 
 // -- Start basic usage example
+catalog = Catalog();
 
 listView = ListView({
-  collection: Collection(),
+  collection: catalog,
   el: document.querySelector('#list-view-example')
 });
 
 // -- End basic usage example
 
-
-
-
-Xhr.ajax({
-  url: '/feeds/2.5_week.json',
-  success: function (data) {
-    listView.collection.reset(data.features || []);
-  },
-  error: function () {
-    listView.collection.reset([]);
-  }
-});
+catalog.loadUrl('/feeds/2.5_week.json');
 
 onFormatClick = function (evt) {
   var format,

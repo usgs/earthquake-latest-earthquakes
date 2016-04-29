@@ -58,6 +58,7 @@ var GenericCollectionView = function (options) {
       _itemNodeName,
       _noDataMessage,
 
+      _createScaffold,
       _onContentClick;
 
 
@@ -118,6 +119,31 @@ var GenericCollectionView = function (options) {
   _onContentClick = function () {
     _this.onContentClick.apply(this, arguments);
   };
+
+  /**
+   * Called during initialization. Creates the base HTML structure into
+   * which all rendering is later performed. Sets up event delegation on
+   * `_this.content` to handle click events.
+   *
+   */
+  _createScaffold = function () {
+    var el;
+
+    el = _this.el;
+
+    el.innerHTML = [
+      '<header class="', _classPrefix, '-header"></header>',
+      '<section class="', _classPrefix, '-content"></section>',
+      '<footer class="', _classPrefix, '-footer"></footer>'
+    ].join('');
+
+    _this.header = el.querySelector('.' + _classPrefix + '-header');
+    _this.content = el.querySelector('.' + _classPrefix + '-content');
+    _this.footer = el.querySelector('.' + _classPrefix + '-footer');
+
+    _this.content.addEventListener('click', _this.onContentClick, _this);
+  };
+
 
   /**
    * Creates the container element by which all the items in the collection
@@ -244,6 +270,8 @@ var GenericCollectionView = function (options) {
     _this.watchProperty = null;
     _itemNodeName = null;
     _noDataMessage = null;
+
+    _createScaffold = null;
 
     _initialize = null;
     _this = null;

@@ -46,6 +46,7 @@ ALL_CLASSES = getAliases(JS, [
   'list/DefaultListFormat',
   'list/DyfiListFormat',
   'list/ListView',
+
   'list/PagerListFormat',
   'list/ShakeMapListFormat',
 
@@ -74,6 +75,8 @@ ALL_CLASSES = getAliases(JS, [
   'leaflet/layer/OpenStreetMap',
   'leaflet/layer/TectonicPlates',
   'leaflet/layer/UsFault'
+])).concat(getAliases(NODE_MODULES + '/hazdev-accordion/src', [
+  'accordion/Accordion'
 ]));
 
 
@@ -84,7 +87,8 @@ var browserify = {
       paths: [
         JS,
         NODE_MODULES + '/hazdev-leaflet/src',
-        NODE_MODULES + '/hazdev-webutils/src'
+        NODE_MODULES + '/hazdev-webutils/src',
+        NODE_MODULES + '/hazdev-accordion/src'
       ]
     }
   },

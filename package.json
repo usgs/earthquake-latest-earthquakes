@@ -32,6 +32,7 @@
     "grunt-mocha-phantomjs": "^3.0.0",
     "grunt-postcss": "^0.7.0",
     "hazdev-leaflet": "^0.1.2",
+    "hazdev-accordion": "^0.1.1",
     "hazdev-template": "~0.2.4",
     "hazdev-webutils": "^0.1.8",
     "leaflet": "~0.7.7",

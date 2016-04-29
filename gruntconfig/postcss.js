@@ -20,7 +20,9 @@ var postcss = {
         cssImport({
           path: [
             CWD + '/' + config.src + '/htdocs',
-            NODE_MODULES + '/hazdev-leaflet/src'
+            NODE_MODULES + '/hazdev-accordion/src',
+            NODE_MODULES + '/hazdev-leaflet/src',
+            NODE_MODULES + '/hazdev-webutils/src'
             // TODO: node_modules dependencies
           ]
         }),
