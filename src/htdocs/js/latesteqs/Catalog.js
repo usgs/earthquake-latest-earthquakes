@@ -33,7 +33,7 @@ var Catalog = function (options) {
 
     _this.model = options.model || Model();
     _this.model.on('change:feed', 'load', _this);
-    _this.model.on('change:sort', 'sort', _this);
+    _this.model.on('change:sort', 'onSort', _this);
 
     // TODO: handle autoUpdate
 
@@ -128,8 +128,14 @@ var Catalog = function (options) {
    * @param method {Object}
    *        the selected settings sort object from the model
    */
-  _this.sort = function (method, options) {
-    _parent.sort(method.sort, options);
+  _this.onSort = function (method) {
+    var sort;
+
+    sort = method.sort;
+
+    if (sort) {
+      _this.sort(sort);
+    }
   };
 
 

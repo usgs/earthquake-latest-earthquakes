@@ -78,9 +78,14 @@ describe('latesteqs/Catalog', function () {
 
   describe('sort', function () {
     it('sorts the selected feed', function () {
-      var catalog;
+      var catalog,
+          model;
 
-      catalog = Catalog();
+      model = Model();
+      catalog = Catalog({
+        model: model
+      });
+
       catalog.reset([
         {
           id: '1',
@@ -102,22 +107,28 @@ describe('latesteqs/Catalog', function () {
         },
       ]);
 
-      catalog.sort({
-        'id': 'newest',
-        'name' : 'Newest first',
-        'sort' : function (a, b) {
-          return b.properties.time - a.properties.time;
+      model.set({
+        'sort': {
+          'id': 'newest',
+          'name' : 'Newest first',
+          'sort' : function (a, b) {
+            return b.properties.time - a.properties.time;
+          }
         }
       });
+
       expect(catalog.data()[0].id).to.equal('3')
 
-      catalog.sort({
-        'id': 'oldest',
-        'name' : 'Oldest first',
-        'sort' : function (a, b) {
-          return a.properties.time - b.properties.time;
+      model.set({
+        'sort': {
+          'id': 'oldest',
+          'name' : 'Oldest first',
+          'sort' : function (a, b) {
+            return a.properties.time - b.properties.time;
+          }
         }
       });
+
       expect(catalog.data()[0].id).to.equal('1')
     });
   });
