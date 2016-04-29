@@ -133,7 +133,7 @@ var RadioOptionsView = function (options) {
     if (!_this.title) {
       return;
     }
-    _this.header.innerHTML = '<h3>' + _this.title + '</h3>'; // By default, no content
+    _this.header.innerHTML = '<h4>' + _this.title + '</h4>'; // By default, no content
   };
 
   /**

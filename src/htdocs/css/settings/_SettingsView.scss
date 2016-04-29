@@ -1,5 +1,5 @@
 .latest-earthquakes-settings {
-  padding: 1em;
+  padding: 0 1em;
   background: #f4f4f4;
 }
 
@@ -10,8 +10,8 @@
   }
 
   > small {
-    color: #777;
     display: block; /* required for line-height to apply */
+    margin: 1em 0;
   }
 }
 
@@ -19,7 +19,7 @@
 
   .search-button {
     background-color: #3d5e80;
-    margin: 1em 0 0;
+    margin: 0;
     width: 100%;
   }
 }

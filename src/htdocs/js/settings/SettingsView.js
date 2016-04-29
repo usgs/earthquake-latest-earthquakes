@@ -185,7 +185,7 @@ var SettingsView = function (options) {
   };
 
   _this.renderHeader = function () {
-    _this.header.innerHTML = '<h2>Settings</h2>' +
+    _this.header.innerHTML = '<h3>Settings</h3>' +
         '<small>Bookmark to return to map/list with the same settings</small>';
   };
 

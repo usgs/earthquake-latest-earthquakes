@@ -86,8 +86,8 @@ var ListView = function (options) {
     _this.header.classList.add('accordion-closed');
 
     _this.header.innerHTML =
-      '<h4 class="header-title"></h4>' +
-      '<h5 class="header-count accordion-toggle"></h5>' +
+      '<h3 class="header-title"></h3>' +
+      '<span class="header-count accordion-toggle"></span>' +
       '<div class="accordion-content header-info-content">' +
         '<p class="header-update-time"></p>' +
         '<button class="download-button blue" type="button">' +
