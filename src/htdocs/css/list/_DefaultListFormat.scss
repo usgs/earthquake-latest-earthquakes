@@ -1,5 +1,5 @@
 .eq-list-item {
-  padding: 0.5em 0.5em 0.5em 4em;
+  padding: 1em 1em 1em 4em;
   position: relative;
 
   &.big,
@@ -39,8 +39,8 @@
   }
 
   > .list-header {
-    font-size: 1.1em;
-    margin-bottom: 0.25em;
+    font-size: 1em;
+    margin-bottom: 0.1em;
   }
 
   > .list-subheader,
@@ -51,11 +51,11 @@
 
   > .list-aside {
     background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 1.0) 20%);
-    bottom: 0.5em;
+    bottom: 1em;
     overflow: hidden;
     padding-left: 1.5em;
     position: absolute;
-    right: 0.5em;
+    right: 1em;
     text-align: right;
     white-space: nowrap;
   }
