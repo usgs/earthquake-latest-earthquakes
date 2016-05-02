@@ -100,14 +100,14 @@ var EarthquakeLayer = function (options) {
   /**
    * Free referenes and unbind events.
    */
-  _this.destroy = Util.compose(function () {
+  _this.destroy = function () {
     _this.collection.off('reset', 'render', _this);
     _this.el.removeEventListener('click', _onClick);
     _this.model.off('change:event', 'onSelect', _this);
 
     _onClick = null;
     _this = null;
-  }, _this.destroy);
+  };
 
   /**
    * Get classes for marker.
