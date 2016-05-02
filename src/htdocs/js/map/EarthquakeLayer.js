@@ -110,6 +110,17 @@ var EarthquakeLayer = function (options) {
   };
 
   /**
+   * Leaflet convenience method.
+   *
+   * @param map {L.map}
+   *     map layer should be added to.
+   */
+  _this.addTo = function (map) {
+    map.addLayer(_this);
+    return _this;
+  };
+
+  /**
    * Get classes for marker.
    */
   _this.getClasses = function (eq) {
@@ -226,17 +237,6 @@ var EarthquakeLayer = function (options) {
     }
 
     return el;
-  };
-
-  /**
-   * Leaflet convenience method.
-   *
-   * @param map {L.map}
-   *     map layer should be added to.
-   */
-  _this.addTo = function (map) {
-    map.addLayer(_this);
-    return _this;
   };
 
   /**
