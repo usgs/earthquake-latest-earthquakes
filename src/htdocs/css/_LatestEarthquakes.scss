@@ -3,9 +3,9 @@ html,
 body {
   height: 100%;
   margin: 0;
+  overflow: hidden;
   padding: 0;
   width: 100%;
-  overflow: hidden;
 }
 
 /***** layout for header, content, footer *****/
@@ -63,8 +63,26 @@ body {
 .latest-earthquakes-settings {
   display: none;
   min-width: 320px;
-  overflow-y: auto;
+  overflow: hidden;
   width: 100%;
+}
+
+.latest-earthquakes-map {
+  position: relative;
+
+  > .map-view {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.latest-earthquakes-list,
+.latest-earthquakes-settings {
+  background: #f4f4f4;
+  overflow-y: auto;
 }
 
 /** show views when mode enabled. */
