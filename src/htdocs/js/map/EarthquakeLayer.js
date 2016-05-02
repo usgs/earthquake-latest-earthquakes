@@ -287,10 +287,10 @@ var EarthquakeLayer = function (options) {
         marker,
         selected;
 
-    selected = _this.el.querySelector('.selected');
-    if (selected) {
-      selected.classList.remove('selected');
-    }
+    selected = _this.el.querySelectorAll('.selected');
+    Array.prototype.forEach.call(selected, function (el) {
+      el.classList.remove('selected');
+    });
 
     eq = _this.model.get('event');
     if (eq) {
