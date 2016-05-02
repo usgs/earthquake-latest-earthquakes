@@ -47,17 +47,8 @@ describe('list/DownloadView', function () {
   describe('render', function () {
     it('displays completed anchors', function () {
       var catalog,
-          model,
           elements,
           view;
-
-      model = Model({
-        metadata:
-        {
-          url:
-          'earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson'
-        }
-      });
 
       catalog = Catalog();
       catalog.metadata = {
