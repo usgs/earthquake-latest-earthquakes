@@ -1,25 +1,40 @@
 'use strict';
 
-var DownloadView = require('list/DownloadView'),
-    Model = require('mvc/Model'),
-    Xhr = require('util/Xhr');
+var Catalog = require('latesteqs/Catalog'),
+    DownloadView = require('list/DownloadView');
 
 
-Xhr.ajax({
-  url: '/feeds/2.5_week.json',
-  success: function (data) {
-    var downloadView,
-        el;
+var initialize = function () {
+  var catalog,
+      downloadView,
+      el,
+      search;
 
-    el = document.querySelector('#download-view-example');
+  catalog = Catalog();
+  search = 'http://earthquake.usgs.gov/fdsnws/event/1/query' +
+      '?format=geojson&jsonerror=true' +
+      '&starttime=2016-04-21%2000%3A00%3A00' +
+      '&endtime=2016-04-28%2023%3A59%3A59' +
+      '&maxlatitude=50&minlatitude=24.6' +
+      '&maxlongitude=-65' +
+      '&minlongitude=-125' +
+      '&minmagnitude=3' +
+      '&orderby=time';
 
-    downloadView = DownloadView({el: el, model: Model(data)});
+  el = document.querySelector('#download-view-example');
 
-    downloadView.render();
+  downloadView = DownloadView(
+    {
+      el: el,
+      model: catalog.model,
+      collection: catalog
+    });
 
-  },
-  error: function () {
-    document.querySelector('#download-view-example').innerHTML =
-        '<p class="alert error">Failed to create download view example.</p>';
-  }
-});
+  // Comment out the following line, and uncomment the line after that.
+  // If you want to test the search functionality.
+  catalog.loadUrl('/feeds/2.5_week.json');
+  // catalog.loadUrl(search);
+};
+
+
+initialize();
