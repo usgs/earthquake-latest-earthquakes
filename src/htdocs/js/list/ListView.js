@@ -2,7 +2,7 @@
 
 
 var Accordion = require('accordion/Accordion'),
-    DownloadView = require('mvc/View'), //TODO: use download view
+    DownloadView = require('list/DownloadView'),
     Formatter = require('core/Formatter'),
     GenericCollectionView = require('core/GenericCollectionView'),
     ModalView = require('mvc/ModalView'),
@@ -105,17 +105,9 @@ var ListView = function (options) {
     _downloadButton = _this.header.querySelector('button');
 
     _downloadView = DownloadView({
-      model: _this.model
+      model: _this.model,
+      collection: _this.collection
     });
-
-    //delet this later
-    _downloadView.render = function () {
-      _downloadView.el.innerHTML = '<pre>' +
-          JSON.stringify(_this.model.get('feed'), null, '  ') +
-        '</pre>';
-    };
-
-    _downloadView.render();
 
     _downloadModal = ModalView(_downloadView.el, {
       title: 'Download'
