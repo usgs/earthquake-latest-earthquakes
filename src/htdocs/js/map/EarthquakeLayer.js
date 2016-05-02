@@ -63,7 +63,9 @@ var _DEFAULTS = {
  */
 var EarthquakeLayer = function (options) {
   var _this,
-      _initialize;
+      _initialize,
+
+      _onClick;
 
 
   _this = {};
@@ -80,19 +82,30 @@ var EarthquakeLayer = function (options) {
     _this.el.classList.add('leaflet-zoom-hide');
 
     _this.collection.on('reset', 'render', _this);
-    _this.el.addEventListener('click', _this.onClick);
+    _this.el.addEventListener('click', _onClick);
     _this.model.on('change:event', 'onSelect', _this);
   };
 
+  /**
+   * DOM event listener that delegates to (potentially subclassed)
+   * _this.onClick.
+   *
+   * @param e {DOMEvent}
+   *     the dom event.
+   */
+  _onClick = function (e) {
+    _this.onClick(e);
+  };
 
   /**
    * Free referenes and unbind events.
    */
   _this.destroy = Util.compose(function () {
     _this.collection.off('reset', 'render', _this);
-    _this.el.removeEventListener('click', _this.onClick);
+    _this.el.removeEventListener('click', _onClick);
     _this.model.off('change:event', 'onSelect', _this);
 
+    _onClick = null;
     _this = null;
   }, _this.destroy);
 
