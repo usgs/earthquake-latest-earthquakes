@@ -209,7 +209,6 @@ var EarthquakeLayer = function (options) {
       // cache element
       el = document.createElement('div');
       el.setAttribute('data-id', eq.id);
-      el.className = 'earthquake-marker';
       eq._marker = el;
     }
 
