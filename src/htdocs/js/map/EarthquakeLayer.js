@@ -247,7 +247,6 @@ var EarthquakeLayer = function (options) {
   _this.onAdd = function (map) {
     map.getPanes().overlayPane.appendChild(_this.el);
     map.on('viewreset', _this.render);
-    map.on('zoomend', _this.render);
     _this.map = map;
     _this.render();
   };
@@ -283,7 +282,6 @@ var EarthquakeLayer = function (options) {
   _this.onRemove = function (map) {
     map.getPanes().overlayPane.removeChild(_this.el);
     map.off('viewreset', _this.render);
-    map.off('zoomend', _this.render);
     _this.map = null;
   };
 
