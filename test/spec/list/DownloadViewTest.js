@@ -2,8 +2,7 @@
 'use strict';
 
 var Catalog = require('latesteqs/Catalog'),
-    DownloadView = require('list/DownloadView'),
-    Model = require('mvc/Model');
+    DownloadView = require('list/DownloadView');
 
 var expect = chai.expect;
 

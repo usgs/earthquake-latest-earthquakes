@@ -67,8 +67,8 @@ var DownloadView = function (options) {
       _formats,
       _this;
 
-  options = Util.extend({}, _DEFAULTS, options);
 
+  options = Util.extend({}, _DEFAULTS, options);
   _this = View(options);
 
   /**
@@ -96,6 +96,7 @@ var DownloadView = function (options) {
     _this.collection.on('reset', 'render', _this);
   };
 
+
   /**
    * Frees resources associated with this view.
    *
@@ -105,49 +106,6 @@ var DownloadView = function (options) {
     _initialize = null;
     _this = null;
   }, _this.destroy);
-
-  /**
-   * render
-   *    Renders the view.
-   */
-  _this.render = function () {
-    var downloads,
-        markup;
-
-    markup = [];
-
-    if (_this.collection.metadata !== undefined &&
-        _this.collection.metadata !== null &&
-        _this.collection.metadata.url !== null)
-    {
-      downloads = _this.getDownloadLinks();
-
-      markup.push('<ul class="download-view">');
-
-      for (var i = 0; i < downloads.length; i++) {
-        markup.push(
-          '<li> <a class="download" href="' +
-          downloads[i].href +
-          '">' +
-          downloads[i].title +
-          '</a>'
-        );
-        if (downloads[i].description) {
-            markup.push(
-              '<span class="download-description"> (' +
-              downloads[i].description +
-              ')</span>'
-            );
-          }
-        markup.push('</li>');
-      }
-      markup.push('</ul>');
-    } else {
-      markup.push('No data to download');
-    }
-
-    _this.el.innerHTML = markup.join('');
-  };
 
   /**
    * gets an array of download link objects,
@@ -201,6 +159,49 @@ var DownloadView = function (options) {
     }
 
     return downloads;
+  };
+
+  /**
+   * render
+   *    Renders the view.
+   */
+  _this.render = function () {
+    var downloads,
+        markup;
+
+    markup = [];
+
+    if (_this.collection.metadata !== undefined &&
+        _this.collection.metadata !== null &&
+        _this.collection.metadata.url !== null)
+    {
+      downloads = _this.getDownloadLinks();
+
+      markup.push('<ul class="download-view">');
+
+      for (var i = 0; i < downloads.length; i++) {
+        markup.push(
+          '<li> <a class="download" href="' +
+          downloads[i].href +
+          '">' +
+          downloads[i].title +
+          '</a>'
+        );
+        if (downloads[i].description) {
+            markup.push(
+              '<span class="download-description"> (' +
+              downloads[i].description +
+              ')</span>'
+            );
+          }
+        markup.push('</li>');
+      }
+      markup.push('</ul>');
+    } else {
+      markup.push('<p class="alert warning">No data to download.</p>');
+    }
+
+    _this.el.innerHTML = markup.join('');
   };
 
 
