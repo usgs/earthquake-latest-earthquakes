@@ -84,8 +84,10 @@ var DownloadView = function (options) {
    *      the title of the download file.
    *    description: {string}
    *      a description of why the file should be used.
+   *    search: {string}
+   *      the search code to be used if the url is a query
    *    extension: {string}
-   *      the extension of the file to be downloaded.
+   *      the extension of the file to be downloaded if the url is a feed
    */
   _initialize = function (options) {
     _this.collection = options.collection || Collection();
@@ -149,6 +151,13 @@ var DownloadView = function (options) {
     _this.el.appendChild(element);
   };
 
+  /**
+   * gets an array of download link objects,
+   *  based on the formats passed in,
+   *  differing by whether there's a feed or query url.
+   *
+   * @returns array of download link objects.
+   */
   _this.getDownloadLinks = function () {
     var downloads,
         format,
