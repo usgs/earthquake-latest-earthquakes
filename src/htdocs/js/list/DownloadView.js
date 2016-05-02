@@ -112,7 +112,6 @@ var DownloadView = function (options) {
    */
   _this.render = function () {
     var downloads,
-        element,
         markup;
 
     markup = [];
@@ -147,9 +146,7 @@ var DownloadView = function (options) {
       markup.push('No data to download');
     }
 
-    element = document.createElement('span');
-    element.innerHTML = markup.join('');
-    _this.el.appendChild(element);
+    _this.el.innerHTML = markup.join('');
   };
 
   /**
