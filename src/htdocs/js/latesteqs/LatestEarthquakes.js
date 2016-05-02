@@ -2,9 +2,11 @@
 
 // TODO: use real List, Map, and Settings views
 var Catalog = require('latesteqs/Catalog'),
+    HelpView = require('help/HelpView'),
     LatestEarthquakesConfig = require('latesteqs/LatestEarthquakesConfig'),
     ListView = require('list/ListView'),
     MapView = require('map/MapView'),
+    ModalView = require('mvc/ModalView'),
     ModesView = require('modes/ModesView'),
     SettingsView = require('settings/SettingsView'),
     UrlManager = require('latesteqs/LatestEarthquakesUrlManager'),
@@ -69,6 +71,7 @@ var LatestEarthquakes = function (options) {
       _catalog,
       _config,
       _content,
+      _helpView,
       _listView,
       _mapView,
       _modesView,
@@ -125,6 +128,14 @@ var LatestEarthquakes = function (options) {
     });
     _modesView.render();
 
+    _helpView = HelpView({
+      model: _this.model
+    });
+
+    _helpView = ModalView(_helpView.el, {
+      title: 'Help'
+    });
+
     _listView = ListView({
       el: el.querySelector('.list-view'),
       collection: _catalog,
@@ -163,6 +174,7 @@ var LatestEarthquakes = function (options) {
 
     _urlManager.destroy();
 
+    _helpView();
     _listView.destroy();
     _mapView.destroy();
     _modesView.destroy();
@@ -175,6 +187,7 @@ var LatestEarthquakes = function (options) {
     _catalog = null;
     _config = null;
     _content = null;
+    _helpView = null;
     _listView = null;
     _mapView = null;
     _modesView = null;
