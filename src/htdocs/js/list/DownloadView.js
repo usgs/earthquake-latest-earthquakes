@@ -1,59 +1,63 @@
 'use strict';
 
-var Util = require('util/Util'),
+
+var Collection = require('mvc/Collection'),
+    Util = require('util/Util'),
     View = require('mvc/View');
+
 
 var _DEFAULTS = {
   formats: [
     {
       title:'ATOM',
       description:'For Web Applications',
-      className: 'atom',
+      search: null,
       extension:'.atom'
     },
     {
       title:'CSV',
       description:'For spreadsheets',
-      className: 'csv',
+      search: 'csv',
       extension:'.csv'
     },
     {
       title:'GeoJson',
       description:'For web applications',
-      className: 'geojson',
+      search: 'geojson',
       extension:'.geojson'
     },
     {
       title:'KML - Color by Age',
       description:'For google maps',
-      className: 'age-kml',
+      search: 'kml&kmlcolorby=age',
       extension:'_age.kml'
     },
     {
       title:'KML - Color by Age (animated)',
       description:'For google maps',
-      className: 'age-animated-kml',
+      search: 'kml&kmlcolorby=age&kmlanimated=true',
       extension:'_age_animated.kml'
     },
     {
       title:'KML - Color by Depth',
       description:'For google maps',
-      className: 'depth-kml',
+      search: 'kml&kmlcolorby=depth',
       extension:'_depth.kml'
     },
     {
       title:'KML - Color by Depth (animated)',
       description:'For google maps',
-      className: 'depth-animated-kml',
+      search: 'kml&kmlcolorby=depth&kmlanimated=true',
       extension:'_depth_animated.kml'
     },
     {
       title:'QuakeML',
       description:'For google maps',
-      className: 'quakeml',
+      search: 'quakeml',
       extension:'.quakeml'
     }]
 };
+
 
 /**
  * Produces a view to download feeds.
@@ -72,6 +76,8 @@ var DownloadView = function (options) {
    *
    * @params options {Object}
    *    Configuration options. May Include:
+   * @params options.model
+   * @params options.collection
    * @params options.formats
    *    An array of objects which contain:
    *    title: {string}
@@ -82,36 +88,10 @@ var DownloadView = function (options) {
    *      the extension of the file to be downloaded.
    */
   _initialize = function (options) {
-    var element,
-        format,
-        markup;
-
+    _this.collection = options.collection || Collection();
     _formats = options.formats;
 
-    markup = '<ul class="download-view">';
-
-    for(var i = 0, len = _formats.length; i < len; i++) {
-      format = _formats[i];
-
-      markup += '<li> <a class="download ' +
-        format.className +
-        '">' +
-        format.title +
-        '</a>';
-      if (format.description) {
-          markup += '<span class="download-description ' +
-          format.className +
-          '"> (' +
-          format.description +
-          ')</span>';
-        }
-      markup += '</li>';
-    }
-    markup += '</ul>';
-
-    element = document.createElement('span');
-    element.innerHTML = markup;
-    _this.el.appendChild(element);
+    _this.collection.on('reset', 'render', _this);
   };
 
   /**
@@ -129,22 +109,98 @@ var DownloadView = function (options) {
    *    Renders the view.
    */
   _this.render = function () {
-    var el,
+    var downloads,
+        element,
+        markup;
+
+    markup = [];
+
+    if (_this.collection.metadata !== null &&
+        _this.collection.metadata.url !== null)
+    {
+      downloads = _this.getDownloadLinks();
+
+      markup.push('<ul class="download-view">');
+
+      for (var i = 0; i < downloads.length; i++) {
+        markup.push(
+          '<li> <a class="download" href="' +
+          downloads[i].href +
+          '">' +
+          downloads[i].title +
+          '</a>'
+        );
+        if (downloads[i].description) {
+            markup.push(
+              '<span class="download-description"> (' +
+              downloads[i].description +
+              ')</span>'
+            );
+          }
+        markup.push('</li>');
+      }
+      markup.push('</ul>');
+    } else {
+      markup.push('No data to download');
+    }
+
+    element = document.createElement('span');
+    element.innerHTML = markup.join('');
+    _this.el.appendChild(element);
+  };
+
+  _this.getDownloadLinks = function () {
+    var downloads,
         format,
+        href,
+        len,
+        search,
+        replace,
         url;
 
-    url = _this.model.get('metadata').url.replace('.geojson', '');
+    downloads = [];
+    url = _this.collection.metadata.url;
+    len = _formats.length;
 
-    for (var i = 0, len = _formats.length; i < len; i++) {
-      format = _formats[i];
-      el = _this.el.querySelector('.' + format.className);
-      el.setAttribute('href', url + format.extension);
+    if (url.substr(-'.geojson'.length) === '.geojson') {
+      search = false;
+      replace = '.geojson';
+    } else {
+      search = true;
+      replace = 'geojson';
     }
+
+    for (var i = 0; i < len; i++) {
+      format = _formats[i];
+      if (search && format.search !== null) {
+        href = url.replace(/&callback=[\w]+/, '')
+            .replace('&jsonerror=true', '');
+        href = href.replace(replace, format.search);
+        downloads.push(
+          {
+            'title': format.title,
+            'href': href,
+            'description': format.description
+          });
+      } else if (!search) {
+        href = url.replace(replace, '') + format.extension;
+        downloads.push(
+          {
+            'title': format.title,
+            'href': href,
+            'description': format.description
+          });
+      }
+    }
+
+    return downloads;
   };
+
 
   _initialize(options);
   options = null;
   return _this;
 };
+
 
 module.exports = DownloadView;
