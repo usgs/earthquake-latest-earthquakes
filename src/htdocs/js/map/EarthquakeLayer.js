@@ -212,9 +212,6 @@ var EarthquakeLayer = function (options) {
       eq._marker = el;
     }
 
-    // always update appearance
-    el.className = _this.getClasses(eq).join(' ');
-
     return el;
   };
 
@@ -333,6 +330,9 @@ var EarthquakeLayer = function (options) {
       // create element
       marker = _this.getMarker(eq);
       fragment.appendChild(marker);
+
+      // update appearance, in case a different age bin
+      marker.className = _this.getClasses(eq).join(' ');
 
       // position
       latLng = _this.getLatLng(eq, lngMin, lngMax);
