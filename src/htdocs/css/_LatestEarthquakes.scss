@@ -62,7 +62,6 @@ body {
 .latest-earthquakes-map,
 .latest-earthquakes-settings {
   display: none;
-  min-width: 320px;
   overflow: hidden;
   width: 100%;
 }
@@ -82,6 +81,7 @@ body {
 .latest-earthquakes-list,
 .latest-earthquakes-settings {
   background: #f4f4f4;
+  min-width: 320px;
   overflow-y: auto;
 }
 
