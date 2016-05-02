@@ -2,7 +2,7 @@
 'use strict';
 
 
-var Catalog = require('latesteqs/Catalog'),
+var Collection = require('mvc/Collection'),
     Model = require('mvc/Model'),
     Util = require('util/Util');
 
@@ -71,7 +71,7 @@ var EarthquakeLayer = function (options) {
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
 
-    _this.catalog = options.catalog || Catalog();
+    _this.collection = options.collection || Collection();
     _this.el = options.el || document.createElement('div');
     _this.model = options.model || Model();
     _this.map = null;
@@ -79,7 +79,7 @@ var EarthquakeLayer = function (options) {
     _this.el.classList.add('earthquake-layer');
     _this.el.classList.add('leaflet-zoom-hide');
 
-    _this.catalog.on('reset', 'render', _this);
+    _this.collection.on('reset', 'render', _this);
     _this.el.addEventListener('click', _this.onClick);
     _this.model.on('change:event', 'onSelect', _this);
   };
@@ -89,7 +89,7 @@ var EarthquakeLayer = function (options) {
    * Free referenes and unbind events.
    */
   _this.destroy = Util.compose(function () {
-    _this.catalog.off('reset', 'render', _this);
+    _this.collection.off('reset', 'render', _this);
     _this.el.removeEventListener('click', _this.onClick);
     _this.model.off('change:event', 'onSelect', _this);
 
@@ -259,7 +259,7 @@ var EarthquakeLayer = function (options) {
     target = e.target;
     id = target.getAttribute('data-id');
     if (id) {
-      eq = _this.catalog.get(id);
+      eq = _this.collection.get(id);
     }
     _this.model.set({
       'event': eq
@@ -321,7 +321,7 @@ var EarthquakeLayer = function (options) {
       return;
     }
 
-    data = _this.catalog.data();
+    data = _this.collection.data();
     fragment = document.createDocumentFragment();
     map = _this.map;
     center = map.getCenter().lng;
