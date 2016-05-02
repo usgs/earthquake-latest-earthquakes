@@ -5,8 +5,7 @@ var Catalog = require('latesteqs/Catalog'),
     DYFIListFormat = require('list/DyfiListFormat'),
     ListView = require('list/ListView'),
     PagerListFormat = require('list/PagerListFormat'),
-    ShakeMapListFormat = require('list/ShakeMapListFormat'),
-    Xhr = require('util/Xhr');
+    ShakeMapListFormat = require('list/ShakeMapListFormat');
 
 
 var catalog,
