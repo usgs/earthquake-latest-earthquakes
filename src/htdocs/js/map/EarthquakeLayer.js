@@ -155,6 +155,36 @@ var EarthquakeLayer = function (options) {
   };
 
   /**
+   * Get marker for earthquake.
+   *
+   * @param eq {Object}
+   *     earthquake object.
+   * @param latLng {Object}
+   *     normalized latitude/longitude for object.
+   * @return {DOMElement}
+   *     marker element, positioned and styled.
+   */
+  _this.getMarker = function (eq, latLng) {
+    var marker,
+        pos;
+
+    // create element
+    marker = document.createElement('div');
+
+    // data-id is used by select
+    marker.setAttribute('data-id', eq.id);
+
+    // position
+    pos = _this.map.latLngToLayerPoint(latLng);
+    L.DomUtil.setPosition(marker, pos);
+
+    // set classes after positioned
+    _this.setMarkerClasses(eq, marker);
+
+    return marker;
+  };
+
+  /**
    * Leaflet ILayer API method.
    *
    * Called when layer is added to map.
@@ -162,7 +192,10 @@ var EarthquakeLayer = function (options) {
   _this.onAdd = function (map) {
     map.getPanes().overlayPane.appendChild(_this.el);
     map.on('viewreset', _this.render);
+    map.on('zoomend', _this.onZoomEnd);
+
     _this.map = map;
+    _this.onZoomEnd();
     _this.render();
   };
 
@@ -197,6 +230,8 @@ var EarthquakeLayer = function (options) {
   _this.onRemove = function (map) {
     map.getPanes().overlayPane.removeChild(_this.el);
     map.off('viewreset', _this.render);
+    map.off('zoomend', _this.onZoomEnd);
+
     _this.map = null;
   };
 
@@ -225,61 +260,20 @@ var EarthquakeLayer = function (options) {
   };
 
   /**
-   * Redraw earthquakes.
+   * Update zoom classes.
+   *
+   * Triggered by map zoomend event.
    */
-  _this.render = function () {
-    var center,
-        data,
-        el,
-        eq,
-        fragment,
-        i,
-        latLng,
-        lngMin,
-        lngMax,
-        map,
-        marker,
-        pos,
+  _this.onZoomEnd = function () {
+    var el,
         zoom;
 
     if (_this.map === null) {
-      // not visible yet
       return;
     }
 
-    data = _this.collection.data();
     el = _this.el;
-    fragment = document.createDocumentFragment();
-    map = _this.map;
-    center = map.getCenter().lng;
-    lngMin = center - 180;
-    lngMax = center + 180;
-    zoom = map.getZoom();
-
-    for (i = data.length - 1; i >= 0; i--) {
-      eq = data[i];
-
-      // create element
-      marker = document.createElement('div');
-
-      // data-id is used by select element
-      marker.setAttribute('data-id', eq.id);
-
-      // position
-      latLng = _this.getLatLng(eq, lngMin, lngMax);
-      pos = map.latLngToLayerPoint(latLng);
-      L.DomUtil.setPosition(marker, pos);
-
-      // set classes after positioned
-      _this.setClasses(eq, marker);
-
-      // add to fragment
-      fragment.appendChild(marker);
-    }
-
-    // clear existing elements
-    el.innerHTML = '';
-
+    zoom = _this.map.getZoom();
     // set zoom class
     if (zoom > 10) {
       el.classList.add('zoomedin');
@@ -294,18 +288,55 @@ var EarthquakeLayer = function (options) {
       el.classList.remove('zoomednormal');
       el.classList.add('zoomedout');
     }
+  };
 
+  /**
+   * Redraw earthquakes.
+   */
+  _this.render = function () {
+    var center,
+        data,
+        el,
+        eq,
+        fragment,
+        i,
+        lngMin,
+        lngMax,
+        map,
+        marker;
+
+    if (_this.map === null) {
+      // not visible yet
+      return;
+    }
+
+    data = _this.collection.data();
+    el = _this.el;
+    fragment = document.createDocumentFragment();
+    map = _this.map;
+    center = map.getCenter().lng;
+    lngMin = center - 180;
+    lngMax = center + 180;
+
+    for (i = data.length - 1; i >= 0; i--) {
+      eq = data[i];
+      marker = _this.getMarker(eq, _this.getLatLng(eq, lngMin, lngMax));
+      fragment.appendChild(marker);
+    }
+
+    // clear existing elements
+    el.innerHTML = '';
     // add elements
     el.appendChild(fragment);
 
-    // set selection
+    // (re) select
     _this.onSelect();
   };
 
   /**
-   * Get classes for marker.
+   * Set classes for marker.
    */
-  _this.setClasses = function (eq, marker) {
+  _this.setMarkerClasses = function (eq, marker) {
     var age,
         ageClass,
         classes,
@@ -363,7 +394,9 @@ var EarthquakeLayer = function (options) {
       typeClass = _TYPE_EQ_CLASS;
     } else {
       typeClass = _TYPE_OTHER_CLASS;
-      marker.style.transform += ' ' + _TYPE_OTHER_TRANSFORM;
+      marker.style.transform =
+          (marker.style.transform ? marker.style.transform + ' ' : '') +
+          _TYPE_OTHER_TRANSFORM;
     }
     marker.classList.add(typeClass);
   };

@@ -23,6 +23,7 @@ require('./spec/list/ListViewTest');
 require('./spec/list/PagerListFormatTest');
 require('./spec/list/ShakeMapListFormatTest');
 
+require('./spec/map/EarthquakeLayerTest');
 require('./spec/map/LegendControlTest');
 
 require('./spec/modes/ModesViewTest');
