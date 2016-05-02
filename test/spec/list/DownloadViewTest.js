@@ -1,7 +1,8 @@
 /* global chai, describe, it */
 'use strict';
 
-var DownloadView = require('list/DownloadView'),
+var Catalog = require('latesteqs/Catalog'),
+    DownloadView = require('list/DownloadView'),
     Model = require('mvc/Model');
 
 var expect = chai.expect;
@@ -27,18 +28,27 @@ describe('list/DownloadView', function () {
 
   describe('initialize', function () {
     it('displays list', function () {
-      var view;
+      var catalog,
+          view;
 
-      view = DownloadView();
+      catalog = Catalog();
+      catalog.loadUrl('/feeds/2.5_week.geojson');
+      view = DownloadView({
+        model: catalog.model,
+        collection: catalog
+      });
 
-      expect(view.el.querySelector('.csv').text).to.equal(
-          'CSV');
+      /* jshint -W030 */
+      expect(view._formats).to.not.be.null;
+      /* jshint +W030 */
     });
   });
 
   describe('render', function () {
     it('displays completed anchors', function () {
-      var model,
+      var catalog,
+          model,
+          elements,
           view;
 
       model = Model({
@@ -49,10 +59,18 @@ describe('list/DownloadView', function () {
         }
       });
 
-      view = DownloadView({model:model});
+      catalog = Catalog();
+      catalog.metadata = {
+          url:
+          'earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson'
+        };
+
+      view = DownloadView({collection: catalog});
 
       view.render();
-      expect(view.el.querySelector('.csv').href).to.equal(
+      elements = view.el.querySelectorAll('.download');
+      expect(elements[0].text).to.equal('ATOM');
+      expect(elements[1].href).to.equal(
         'http://localhost:8061/earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.csv');
     });
   });
