@@ -117,7 +117,8 @@ var DownloadView = function (options) {
 
     markup = [];
 
-    if (_this.collection.metadata !== null &&
+    if (_this.collection.metadata !== undefined &&
+        _this.collection.metadata !== null &&
         _this.collection.metadata.url !== null)
     {
       downloads = _this.getDownloadLinks();
