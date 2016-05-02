@@ -23,20 +23,23 @@ body {
   z-index: 2;
 }
 
+
 .latest-earthquakes-header {
   align-items: center;
   background-color: #3d5e80;
   display: flex;
   padding: 10px;
 
-  > .latest-earthquakes-logo {
+  > .latest-earthquakes-flex {
     flex-grow: 1;
     height: 28px;
     overflow: hidden;
 
-    > img {
-      border: none;
-      height: 140%;
+    > .latest-earthquakes-logo {
+      > img {
+        border: none;
+        height: 140%;
+      }
     }
   }
 

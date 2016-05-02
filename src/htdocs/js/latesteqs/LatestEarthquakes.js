@@ -85,9 +85,11 @@ var LatestEarthquakes = function (options) {
     el.classList.add('latest-earthquakes');
     el.innerHTML =
         '<header class="latest-earthquakes-header">' +
-          '<a href="/" class="latest-earthquakes-logo">' +
-            '<img src="/theme/images/usgs-logo.svg" alt="USGS"/>' +
-          '</a>' +
+          '<div class="latest-earthquakes-flex">' +
+            '<a href="/" class="latest-earthquakes-logo">' +
+              '<img src="/theme/images/usgs-logo.svg" alt="USGS"/>' +
+            '</a>' +
+          '</div>' +
           '<div class="latest-earthquakes-modes"></div>' +
         '</header>' +
         '<div class="latest-earthquakes-content">' +
