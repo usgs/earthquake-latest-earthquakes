@@ -83,6 +83,8 @@ body {
   background: #f4f4f4;
   min-width: 320px;
   overflow-y: auto;
+
+  -webkit-overflow-scrolling: touch;
 }
 
 /** show views when mode enabled. */
