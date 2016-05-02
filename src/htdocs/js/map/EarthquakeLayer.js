@@ -26,7 +26,8 @@ var _AGE_DAY,
     _MAG_6_CLASS,
     _MAG_7_CLASS,
     _TYPE_EQ_CLASS,
-    _TYPE_OTHER_CLASS;
+    _TYPE_OTHER_CLASS,
+    _TYPE_OTHER_TRANSFORM;
 
 
 _AGE_HOUR = 60 * 60 * 1000;
@@ -52,7 +53,7 @@ _MAG_7_CLASS = 'eq-mag-7';
 
 _TYPE_EQ_CLASS = 'eq-type-eq';
 _TYPE_OTHER_CLASS = 'eq-type-other';
-
+_TYPE_OTHER_TRANSFORM = 'rotate(45deg) scale(0.7071, 0.7071)';
 
 var _DEFAULTS = {
 };
@@ -80,6 +81,9 @@ var EarthquakeLayer = function (options) {
 
     _this.el.classList.add('earthquake-layer');
     _this.el.classList.add('leaflet-zoom-hide');
+    if (!Util.isMobile()) {
+      _this.el.classList.add('desktop');
+    }
 
     _this.collection.on('reset', 'render', _this);
     _this.el.addEventListener('click', _onClick);
@@ -121,73 +125,6 @@ var EarthquakeLayer = function (options) {
   };
 
   /**
-   * Get classes for marker.
-   */
-  _this.getClasses = function (eq) {
-    var age,
-        ageClass,
-        classes,
-        mag,
-        magClass,
-        props,
-        type,
-        typeClass;
-
-    classes = ['earthquake-marker'];
-    props = eq.properties;
-    if (!props) {
-      return classes;
-    }
-
-    age = new Date().getTime() - props.time;
-    mag = props.mag;
-    type = props.type;
-
-    if (age <= _AGE_HOUR) {
-      ageClass = _AGE_HOUR_CLASS;
-    } else if (age <= _AGE_DAY) {
-      ageClass = _AGE_DAY_CLASS;
-    } else if (age <= _AGE_WEEK) {
-      ageClass = _AGE_WEEK_CLASS;
-    } else if (age <= _AGE_MONTH) {
-      ageClass = _AGE_MONTH_CLASS;
-    } else {
-      ageClass = _AGE_OLDER_CLASS;
-    }
-    classes.push(ageClass);
-
-    if (!mag && mag !== 0) {
-      magClass = _MAG_UNKNOWN_CLASS;
-    } else if (mag >= 7) {
-      magClass = _MAG_7_CLASS;
-    } else if (mag >= 6) {
-      magClass = _MAG_6_CLASS;
-    } else if (mag >= 5) {
-      magClass = _MAG_5_CLASS;
-    } else if (mag >= 4) {
-      magClass = _MAG_4_CLASS;
-    } else if (mag >= 3) {
-      magClass = _MAG_3_CLASS;
-    } else if (mag >= 2) {
-      magClass = _MAG_2_CLASS;
-    } else if (mag >= 1) {
-      magClass = _MAG_1_CLASS;
-    } else {
-      magClass = _MAG_0_CLASS;
-    }
-    classes.push(magClass);
-
-    if (type === 'earthquake') {
-      typeClass = _TYPE_EQ_CLASS;
-    } else {
-      typeClass = _TYPE_OTHER_CLASS;
-    }
-    classes.push(typeClass);
-
-    return classes;
-  };
-
-  /**
    * Get location for earthquake.
    *
    * @param eq {Object}
@@ -215,28 +152,6 @@ var EarthquakeLayer = function (options) {
     }
 
     return [lat, lng];
-  };
-
-  /**
-   * Get marker for earthquake.
-   *
-   * @param eq {Object}
-   *     earthquake object.
-   * @return {DOMElement}
-   *     marker element.
-   */
-  _this.getMarker = function (eq) {
-    var el;
-
-    el = eq._marker;
-    if (!el) {
-      // cache element
-      el = document.createElement('div');
-      el.setAttribute('data-id', eq.id);
-      eq._marker = el;
-    }
-
-    return el;
   };
 
   /**
@@ -302,8 +217,10 @@ var EarthquakeLayer = function (options) {
 
     eq = _this.model.get('event');
     if (eq) {
-      marker = _this.getMarker(eq);
-      marker.classList.add('selected');
+      marker = _this.el.querySelector('[data-id="' + eq.id + '"]');
+      if (marker) {
+        marker.classList.add('selected');
+      }
     }
   };
 
@@ -313,6 +230,7 @@ var EarthquakeLayer = function (options) {
   _this.render = function () {
     var center,
         data,
+        el,
         eq,
         fragment,
         i,
@@ -321,7 +239,8 @@ var EarthquakeLayer = function (options) {
         lngMax,
         map,
         marker,
-        pos;
+        pos,
+        zoom;
 
     if (_this.map === null) {
       // not visible yet
@@ -329,35 +248,124 @@ var EarthquakeLayer = function (options) {
     }
 
     data = _this.collection.data();
+    el = _this.el;
     fragment = document.createDocumentFragment();
     map = _this.map;
     center = map.getCenter().lng;
     lngMin = center - 180;
     lngMax = center + 180;
+    zoom = map.getZoom();
 
     for (i = data.length - 1; i >= 0; i--) {
       eq = data[i];
 
       // create element
-      marker = _this.getMarker(eq);
-      fragment.appendChild(marker);
+      marker = document.createElement('div');
 
-      // update appearance, in case a different age bin
-      marker.className = _this.getClasses(eq).join(' ');
+      // data-id is used by select element
+      marker.setAttribute('data-id', eq.id);
 
       // position
       latLng = _this.getLatLng(eq, lngMin, lngMax);
       pos = map.latLngToLayerPoint(latLng);
       L.DomUtil.setPosition(marker, pos);
+
+      // set classes after positioned
+      _this.setClasses(eq, marker);
+
+      // add to fragment
+      fragment.appendChild(marker);
     }
+
+    // clear existing elements
+    el.innerHTML = '';
+
+    // set zoom class
+    if (zoom > 10) {
+      el.classList.add('zoomedin');
+      el.classList.remove('zoomednormal');
+      el.classList.remove('zoomedout');
+    } else if (zoom > 5) {
+      el.classList.remove('zoomedin');
+      el.classList.add('zoomednormal');
+      el.classList.remove('zoomedout');
+    } else {
+      el.classList.remove('zoomedin');
+      el.classList.remove('zoomednormal');
+      el.classList.add('zoomedout');
+    }
+
+    // add elements
+    el.appendChild(fragment);
 
     // set selection
     _this.onSelect();
+  };
 
-    // clear remaining elements, that weren't moved to fragment
-    Util.empty(_this.el);
-    // add elements
-    _this.el.appendChild(fragment);
+  /**
+   * Get classes for marker.
+   */
+  _this.setClasses = function (eq, marker) {
+    var age,
+        ageClass,
+        classes,
+        mag,
+        magClass,
+        props,
+        type,
+        typeClass;
+
+    marker.classList.add('earthquake-marker');
+    props = eq.properties;
+    if (!props) {
+      return classes;
+    }
+
+    age = new Date().getTime() - props.time;
+    mag = props.mag;
+    type = props.type;
+
+    if (age <= _AGE_HOUR) {
+      ageClass = _AGE_HOUR_CLASS;
+    } else if (age <= _AGE_DAY) {
+      ageClass = _AGE_DAY_CLASS;
+    } else if (age <= _AGE_WEEK) {
+      ageClass = _AGE_WEEK_CLASS;
+    } else if (age <= _AGE_MONTH) {
+      ageClass = _AGE_MONTH_CLASS;
+    } else {
+      ageClass = _AGE_OLDER_CLASS;
+    }
+    marker.classList.add(ageClass);
+
+    if (!mag && mag !== 0) {
+      magClass = _MAG_UNKNOWN_CLASS;
+    } else if (mag >= 7) {
+      magClass = _MAG_7_CLASS;
+    } else if (mag >= 6) {
+      magClass = _MAG_6_CLASS;
+    } else if (mag >= 5) {
+      magClass = _MAG_5_CLASS;
+    } else if (mag >= 4) {
+      magClass = _MAG_4_CLASS;
+    } else if (mag >= 3) {
+      magClass = _MAG_3_CLASS;
+    } else if (mag >= 2) {
+      magClass = _MAG_2_CLASS;
+    } else if (mag >= 1) {
+      magClass = _MAG_1_CLASS;
+    } else {
+      magClass = _MAG_0_CLASS;
+    }
+    marker.classList.add(magClass);
+
+    if (type === 'earthquake') {
+      typeClass = _TYPE_EQ_CLASS;
+    } else {
+      typeClass = _TYPE_OTHER_CLASS;
+      marker.style.transform += ' ' + _TYPE_OTHER_TRANSFORM;
+    }
+    marker.classList.add(typeClass);
   };
 
 
