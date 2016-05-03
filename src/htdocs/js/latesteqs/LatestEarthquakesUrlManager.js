@@ -100,7 +100,6 @@ var LatestEarthquakesUrlManager = function (options) {
       feeds = _this.config.options.feed;
 
       if (_search !== null) {
-        console.log(_search);
         feeds.remove(_search);
       }
 
