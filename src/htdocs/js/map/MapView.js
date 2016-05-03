@@ -97,14 +97,14 @@ var MapView = function (options) {
     L.control.zoomToControl({locations:options.locations}).addTo(_this.map);
 
     _this.model.on('change:basemap', 'renderBasemap', _this);
-    _this.map.on('moveend', _this.onMoveEnd);
+    _this.map.on('moveend', _this.onMoveEnd, _this);
 
     _this.map.invalidateSize();
   };
 
   _this.destroy = Util.compose(function () {
     _this.model.off('change:basemap', 'renderBasemap', _this);
-    _this.map.off('moveend', _this.onMoveEnd);
+    _this.map.off('moveend', _this.onMoveEnd, _this);
 
     _this.map.removeLayer(_earthquakes);
     _earthquakes.destroy();
@@ -114,7 +114,17 @@ var MapView = function (options) {
   }, _this.destroy);
 
   _this.onMoveEnd = function () {
+    var bounds;
+
     _earthquakes.render();
+
+    bounds = this.map.getBounds();
+    this.model.set({
+      'mapposition': [
+        [bounds._northEast.lat, bounds._northEast.lng],
+        [bounds._southWest.lat, bounds._southWest.lng]
+      ]
+    });
   };
 
   _this.renderBasemap = function () {
