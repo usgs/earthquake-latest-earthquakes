@@ -137,7 +137,7 @@ var UrlManager = function (options) {
     parsed = {};
     if (hash) {
       // remove leading hash fragment
-      hash = decodeURI(hash.replace('#', ''));
+      hash = decodeURIComponent(hash.replace('#', ''));
       try {
         parsed = JSON.parse(hash);
       } catch (e) {
@@ -214,7 +214,7 @@ var UrlManager = function (options) {
   _this.setUrlSettings = function (settings) {
     var encoded;
 
-    encoded = encodeURI(JSON.stringify(settings));
+    encoded = encodeURIComponent(JSON.stringify(settings));
     window.location = '#' + encoded;
   };
 
