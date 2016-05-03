@@ -2,6 +2,7 @@
 
 
 var Collection = require('mvc/Collection'),
+    L = require('leaflet'),
     Model = require('mvc/Model'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
@@ -23,6 +24,7 @@ var Catalog = function (options) {
   var _this,
       _initialize,
 
+      _allData,
       _parent;
 
 
@@ -36,6 +38,10 @@ var Catalog = function (options) {
     _this.model = options.model || Model();
     _this.model.on('change:feed', 'load', _this);
     _this.model.on('change:sort', 'onSort', _this);
+    _this.model.on('change:restrictListToMap', 'onRestrictListToMap', _this);
+
+    // save reference to unfiltered data
+    _allData = [];
 
     // TODO: handle autoUpdate
 
@@ -54,10 +60,82 @@ var Catalog = function (options) {
 
     _this.model.off('change:feed', 'load', _this);
     _this.model.off('change:sort', 'sort', _this);
+    _this.model.off('change:restrictListToMap', 'onRestrictListToMap', _this);
 
     _initialize = null;
     _this = null;
   }, _this.destroy);
+
+  /**
+   * Bounds contain test that accounts for leaflets handling for longitude.
+   *
+   * When initial bounds.contains fails: shifts bounds left or right,
+   * until northEast is less than one world to the right of test point and repeats test.
+   *
+   * @param bounds {4x4 Array [southWest, northEast] or LatLngBounds object}
+   * @param latlng {leaflet LatLng}
+   * @return true if bounds contain latlng, before or after normalization, false otherwise.
+   */
+  _this.boundsContain = function(bounds, latlng) {
+
+    if (Util.isArray(bounds)) {
+      bounds = L.latLngBounds(bounds);
+    }
+
+    if (Util.isArray(latlng)) {
+      latlng = L.latLng(latlng[0], latlng[1]);
+    }
+
+    // simple test
+    if (bounds.contains(latlng)) {
+      return true;
+    }
+
+    // longitude may be off by world(s), adjust east bound to (just) right of test point
+    while (bounds._northEast.lng > latlng.lng + 360) {
+      bounds._northEast.lng -= 360;
+      bounds._southWest.lng -= 360;
+    }
+    while (bounds._northEast.lng < latlng.lng) {
+      bounds._northEast.lng += 360;
+      bounds._southWest.lng += 360;
+    }
+
+    // now test with adjusted bounds
+    return bounds.contains(latlng);
+  };
+
+  /**
+   * Filter list of events and return only what is inside the map bounds
+   *
+   * @param items {Array}
+   *     array of events
+   * @param bounds {Array}
+   *     map bounds
+   *
+   * @return {Array}
+   *     filtered events that are within the map bounds
+   */
+  _this.filterEvents = function (items, bounds) {
+    var coordinates,
+        i,
+        item,
+        events,
+        len;
+
+    events = [];
+
+    // loop through all events, check against map bounds
+    for (i = 0, len = items.length; i < len; i++) {
+      item = items[i];
+      coordinates = item.geometry.coordinates;
+      if (_this.boundsContain(bounds, [coordinates[1], coordinates[0]])) {
+        events.push(item);
+      }
+    }
+
+    return events;
+  };
 
   /**
    * Fetch catalog based on config and model.
@@ -123,6 +201,35 @@ var Catalog = function (options) {
     _this.error = false;
     _this.metadata = data.metadata;
     _this.reset(data.features);
+
+    // save reference to unfiltered data
+    _allData = data.features.slice(0);
+    // pass through filter, it will only apply if filter is enabled
+    _this.onRestrictListToMap();
+  };
+
+  /**
+   * Filters the catalog based on the current map extents.
+   *
+   */
+  _this.onRestrictListToMap = function () {
+    var bounds,
+        items,
+        restrictListToMap;
+
+    items = [];
+    restrictListToMap = _this.model.get('restrictListToMap');
+
+    // filter based on map extents, or remove filtering
+    if (restrictListToMap && restrictListToMap.length === 1) {
+      bounds = this.model.get('mapposition');
+      // when filtering, use _allData (unfiltered array of events)
+      items = _this.filterEvents(_allData.slice(0), bounds);
+    } else {
+      items = _allData;
+    }
+
+    _this.reset(items);
   };
 
   /**
