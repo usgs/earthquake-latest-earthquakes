@@ -220,7 +220,6 @@ var ListView = function (options) {
    */
   _this.renderHeader = function () {
     var displayCount,
-        feed,
         headerCount,
         headerTitle,
         metadata,
@@ -229,12 +228,7 @@ var ListView = function (options) {
         updateTime;
 
     metadata = _this.collection.metadata || {};
-    feed = _this.model.get('feed');
-    if (feed && feed.isSearch) {
-      headerTitle = 'USGS Earthquakes, ' + feed.name;
-    } else {
-      headerTitle = metadata.title || 'Latest Earthquakes';
-    }
+    headerTitle = _this.model.get('feed').name;
     totalCount = metadata.hasOwnProperty('count') ? metadata.count : '&ndash;';
     displayCount = _this.collection.data().length;
     restrict = _this.model.get('restrictListToMap');
