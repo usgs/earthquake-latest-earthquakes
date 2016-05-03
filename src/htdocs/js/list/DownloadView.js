@@ -124,37 +124,43 @@ var DownloadView = function (options) {
         url;
 
     downloads = [];
-    url = _this.collection.metadata.url;
-    len = _formats.length;
+    if (_this.collection.metadata !== undefined &&
+        _this.collection.metadata !== null &&
+        _this.collection.metadata.url !== null)
+    {
+      url = _this.collection.metadata.url;
+      len = _formats.length;
 
-    if (url.substr(-'.geojson'.length) === '.geojson') {
-      search = false;
-      replace = '.geojson';
-    } else {
-      search = true;
-      replace = 'geojson';
-    }
+      if (url.substr(-'.geojson'.length) === '.geojson') {
+        search = false;
+        replace = '.geojson';
+      } else {
+        search = true;
+        replace = 'geojson';
+      }
 
-    for (var i = 0; i < len; i++) {
-      format = _formats[i];
-      if (search && format.search !== null) {
-        href = url.replace(/&callback=[\w]+/, '')
-            .replace('&jsonerror=true', '');
-        href = href.replace(replace, format.search);
-        downloads.push(
-          {
-            'title': format.title,
-            'href': href,
-            'description': format.description
-          });
-      } else if (!search) {
-        href = url.replace(replace, '') + format.extension;
-        downloads.push(
-          {
-            'title': format.title,
-            'href': href,
-            'description': format.description
-          });
+      for (var i = 0; i < len; i++) {
+        format = _formats[i];
+        if (search && format.search !== null) {
+          href = url.replace(/&callback=[\w]+/, '')
+              .replace('&jsonerror=true', '');
+          href = href.replace(replace, encodeURI(format.search));
+          downloads.push(
+            {
+              'title': format.title,
+              'href': href,
+              'description': format.description
+            });
+        } else if (!search) {
+          href = url.replace(replace, '') + format.extension;
+          href = encodeURI(href);
+          downloads.push(
+            {
+              'title': format.title,
+              'href': href,
+              'description': format.description
+            });
+        }
       }
     }
 
@@ -171,35 +177,28 @@ var DownloadView = function (options) {
 
     markup = [];
 
-    if (_this.collection.metadata !== undefined &&
-        _this.collection.metadata !== null &&
-        _this.collection.metadata.url !== null)
-    {
-      downloads = _this.getDownloadLinks();
+    downloads = _this.getDownloadLinks();
 
-      markup.push('<ul class="download-view">');
+    markup.push('<ul class="download-view">');
 
-      for (var i = 0; i < downloads.length; i++) {
-        markup.push(
-          '<li> <a class="download" href="' +
-          downloads[i].href +
-          '">' +
-          downloads[i].title +
-          '</a>'
-        );
-        if (downloads[i].description) {
-            markup.push(
-              '<span class="download-description"> (' +
-              downloads[i].description +
-              ')</span>'
-            );
-          }
-        markup.push('</li>');
-      }
-      markup.push('</ul>');
-    } else {
-      markup.push('<p class="alert warning">No data to download.</p>');
+    for (var i = 0; i < downloads.length; i++) {
+      markup.push(
+        '<li> <a class="download" href="' +
+        downloads[i].href +
+        '">' +
+        downloads[i].title +
+        '</a>'
+      );
+      if (downloads[i].description) {
+          markup.push(
+            '<span class="download-description"> (' +
+            downloads[i].description +
+            ')</span>'
+          );
+        }
+      markup.push('</li>');
     }
+    markup.push('</ul>');
 
     _this.el.innerHTML = markup.join('');
   };
