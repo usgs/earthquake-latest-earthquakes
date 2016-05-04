@@ -162,4 +162,61 @@ describe('latesteqs/Catalog', function () {
       expect(catalog.data()).to.deep.equal(data.features);
     });
   });
+
+  describe('onRestrictListToMap', function () {
+    it('filters events based on map extents', function () {
+      var catalog,
+          data,
+          model;
+
+      data = {
+        features: [
+          {
+            geometry: {
+              coordinates: [
+                -100, 35, 0
+              ]
+            }
+          },
+          {
+            geometry: {
+              coordinates: [
+                -155, 65, 0
+              ]
+            }
+          }
+        ]
+      }
+
+      model = Model({
+        'mapposition': [
+          [60.0, -150.0],
+          [10.0, -50.0]
+        ],
+        'restrictListToMap': []
+      });
+
+      catalog = Catalog({
+        model: model
+      });
+      catalog.onLoadSuccess(data);
+
+      // with no filter
+      expect(catalog.data().length).to.equal(2);
+
+      // add restrict list to map
+      model.set({
+        'restrictListToMap' : [
+          {
+            'id': 'restrictListToMap',
+            'name': 'Only List Earthquakes Shown on Map'
+          }
+        ]
+      });
+
+      // with a filter
+      expect(catalog.data().length).to.equal(1);
+    });
+  });
+
 });
