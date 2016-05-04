@@ -15,6 +15,7 @@ require('./spec/core/UrlManagerTest');
 require('./spec/help/HelpViewTest');
 
 require('./spec/latesteqs/CatalogTest');
+require('./spec/latesteqs/LatestEarthquakesTest');
 
 require('./spec/list/DefaultListFormatTest');
 require('./spec/list/DownloadViewTest');
