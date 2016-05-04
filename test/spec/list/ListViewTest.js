@@ -3,7 +3,8 @@
 
 
 var Catalog = require('latesteqs/Catalog'),
-    ListView = require('list/ListView');
+    ListView = require('list/ListView'),
+    Model = require('mvc/Model');
 
 
 var expect = chai.expect;
@@ -43,7 +44,8 @@ describe('list/ListView', function () {
     });
 
     it('delegates to the listFormat', function () {
-      var listFormat,
+      var feed,
+          listFormat,
           view;
 
       view = ListView();
@@ -52,8 +54,17 @@ describe('list/ListView', function () {
           format: sinon.spy()
         }
       };
+      feed = {
+        'id': '7day_m25',
+        'name' : '7 Days, Magnitude 2.5+ Worldwide',
+        'url' : '/earthquakes/feed/v1.0/summary/2.5_week.geojson',
+        'autoUpdate': 60 * 1000
+      };
 
-      view.model.set({'listFormat': listFormat});
+      view.model.set({
+        'feed': feed,
+        'listFormat': listFormat
+      });
       view.createCollectionItemContent();
 
       expect(listFormat.format.format.callCount).to.equal(1);
@@ -84,11 +95,19 @@ describe('list/ListView', function () {
       catalog = Catalog();
 
       view = ListView({
-        collection: catalog
+        collection: catalog,
+        model: Model({
+          feed: {
+            'id': '7day_m25',
+            'name' : '7 Days, Magnitude 2.5+ Worldwide',
+            'url' : '/earthquakes/feed/v1.0/summary/2.5_week.geojson',
+            'autoUpdate': 60 * 1000
+          }
+        })
       });
 
       catalog.on('reset', function () {
-        expect(view.header.querySelector('.header-title').innerHTML).to.equal('USGS Magnitude 2.5+ Earthquakes, Past Week');
+        expect(view.header.querySelector('.header-title').innerHTML).to.equal('7 Days, Magnitude 2.5+ Worldwide');
         expect(view.header.querySelector('.header-count').innerHTML).to.equal('245 earthquakes.');
         expect(view.header.querySelector('.header-update-time').innerHTML).to.equal('Updated: 2016-04-12 21:50:46 (UTC)');
 

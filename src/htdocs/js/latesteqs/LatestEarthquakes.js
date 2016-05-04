@@ -42,10 +42,12 @@ var _DEFAULT_SETTINGS = {
   searchUrl: '/fdsnws/event/1/query.geojson',
   sort: 'newest',
   timezone: 'utc',
-  viewModes: [
-    'list',
-    'map'
-  ]
+  viewModes: {
+    list: true,
+    map: true,
+    settings: false,
+    help: false
+  }
 };
 
 

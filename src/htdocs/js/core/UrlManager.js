@@ -137,7 +137,7 @@ var UrlManager = function (options) {
     parsed = {};
     if (hash) {
       // remove leading hash fragment
-      hash = decodeURI(hash.replace('#', ''));
+      hash = decodeURIComponent(hash.replace('#', ''));
       try {
         parsed = JSON.parse(hash);
       } catch (e) {
@@ -191,6 +191,13 @@ var UrlManager = function (options) {
         } else if (typeof setting === 'string') {
           // treat as id for object in collection
           value = collection.get(setting);
+        } else if (setting !== null && typeof setting === 'object')  {
+          value = [];
+          for (i in setting) {
+            if (setting[i] === true) {
+              value.push(collection.get(i));
+            }
+          }
         }
       } else if (!(key in model) && allowNewProperties !== true) {
         // ignore settings not already in model
@@ -214,7 +221,7 @@ var UrlManager = function (options) {
   _this.setUrlSettings = function (settings) {
     var encoded;
 
-    encoded = encodeURI(JSON.stringify(settings));
+    encoded = encodeURIComponent(JSON.stringify(settings));
     window.location = '#' + encoded;
   };
 

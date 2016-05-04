@@ -128,7 +128,7 @@ describe('core/UrlManager', function () {
         'a': 1,
         'b': 2
       };
-      json = '#' + encodeURI(JSON.stringify(object));
+      json = '#' + encodeURIComponent(JSON.stringify(object));
       parsed = manager.parseHash(json);
       expect(parsed).to.deep.equal(object);
     });
@@ -137,7 +137,7 @@ describe('core/UrlManager', function () {
       var json,
           parsed;
 
-      json = '#' + encodeURI('{"a": 1,"b": 2');
+      json = '#' + encodeURIComponent('{"a": 1,"b": 2');
       parsed = manager.parseHash(json);
       expect(parsed).to.deep.equal({a: 1, b: 2});
     });

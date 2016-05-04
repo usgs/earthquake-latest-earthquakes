@@ -228,7 +228,7 @@ var ListView = function (options) {
         updateTime;
 
     metadata = _this.collection.metadata || {};
-    headerTitle = metadata.title || 'Latest Earthquakes';
+    headerTitle = _this.model.get('feed').name;
     totalCount = metadata.hasOwnProperty('count') ? metadata.count : '&ndash;';
     displayCount = _this.collection.data().length;
     restrict = _this.model.get('restrictListToMap');
