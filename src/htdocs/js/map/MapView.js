@@ -32,7 +32,6 @@ var MapView = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
 
     el = _this.el;
-    el.classList.add('map-view');
     el.innerHTML = '<div class="map"></div>';
 
     _basemap = null;

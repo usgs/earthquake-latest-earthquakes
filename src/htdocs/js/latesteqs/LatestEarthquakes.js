@@ -91,11 +91,17 @@ var LatestEarthquakes = function (options) {
           '<div class="latest-earthquakes-modes"></div>' +
         '</header>' +
         '<div class="latest-earthquakes-content">' +
-          '<div class="latest-earthquakes-list">list</div>' +
-          '<div class="latest-earthquakes-map">map</div>' +
-          '<div class="latest-earthquakes-settings">settings</div>' +
+          '<div class="latest-earthquakes-list">'+
+            '<div class="list-view"></div>' +
+          '</div>' +
+          '<div class="latest-earthquakes-map">'+
+            '<div class="map-view"></div>' +
+          '</div>' +
+          '<div class="latest-earthquakes-settings">'+
+            '<div class="settings-view"></div>' +
+          '</div>' +
         '</div>' +
-        '<footer class="latest-earthquakes-footer">footer</footer>';
+        '<footer class="latest-earthquakes-footer"></footer>';
 
     _content = el.querySelector('.latest-earthquakes-content');
 
@@ -116,19 +122,19 @@ var LatestEarthquakes = function (options) {
     _modesView.render();
 
     _listView = ListView({
-      el: el.querySelector('.latest-earthquakes-list'),
+      el: el.querySelector('.list-view'),
       collection: _catalog,
       model: _this.model
     });
 
     _mapView = MapView({
-      el: el.querySelector('.latest-earthquakes-map'),
+      el: el.querySelector('.map-view'),
       catalog: _catalog,
       model: _this.model
     });
 
     _settingsView = SettingsView({
-      el: el.querySelector('.latest-earthquakes-settings'),
+      el: el.querySelector('.settings-view'),
       catalog: _catalog,
       model: _this.model
     });

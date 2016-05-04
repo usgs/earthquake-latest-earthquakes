@@ -14,12 +14,12 @@
   }
 
   &.selected {
-    background-color: #bff;
+    background-color: #8ff;
 
     > .eq-list-item > .list-aside {
       background-image: linear-gradient(90deg,
           rgba(187, 255, 255, 0.25) 0%,
-          rgba(187, 255, 255, 1.0) 20%);
+          #8FF 20%);
     }
   }
 }
@@ -29,16 +29,14 @@
   margin: 0;
 }
 
-.latest-earthquakes-list {
-  background-color: #f4f4f4;
-}
-
 .header-title {
   padding: 0 1em;
 }
 
 .list-view-header > .header-count {
   border: 0;
+  font-size: 0.88em;
+  padding: 0.25em 1em;
   margin: 1em 0;
 }
 

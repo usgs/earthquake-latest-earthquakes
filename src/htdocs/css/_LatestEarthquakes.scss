@@ -3,6 +3,7 @@ html,
 body {
   height: 100%;
   margin: 0;
+  overflow: hidden;
   padding: 0;
   width: 100%;
 }
@@ -20,7 +21,7 @@ body {
   box-shadow: 0 1px 8px rgba(0,0,0,0.5);
   display: block;
   height: 50px;
-  z-index: 2;
+  z-index: 3;
 }
 
 .latest-earthquakes-header {
@@ -61,7 +62,29 @@ body {
 .latest-earthquakes-map,
 .latest-earthquakes-settings {
   display: none;
+  overflow: hidden;
+  width: 100%;
+}
+
+.latest-earthquakes-map {
+  position: relative;
+
+  > .map-view {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.latest-earthquakes-list,
+.latest-earthquakes-settings {
+  background: #f4f4f4;
+  min-width: 320px;
   overflow-y: auto;
+
+  -webkit-overflow-scrolling: touch;
 }
 
 /** show views when mode enabled. */
@@ -115,6 +138,10 @@ body {
   .latest-earthquakes-settings,
   .latest-earthquakes-list {
     box-shadow: 0 1px 8px rgba(0,0,0,0.5);
+    z-index: 2;
+  }
+
+  .latest-earthquakes-settings {
     z-index: 1;
   }
 }
