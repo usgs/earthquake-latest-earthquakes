@@ -223,7 +223,7 @@ describe('core/UrlManager', function () {
         model: Model()
       });
       expect(Events.on.calledOnce).to.equal(false);
-      manager.start()
+      manager.start();
       expect(Events.on.calledOnce).to.equal(true);
       expect(Events.on.getCall(0).args).to.deep.equal(
           ['hashchange', 'onHashChange', manager]);
@@ -241,7 +241,7 @@ describe('core/UrlManager', function () {
         config: Config(),
         model: model
       });
-      manager.start()
+      manager.start();
       expect(model.on.calledOnce).to.equal(true);
       expect(model.on.getCall(0).args).to.deep.equal(
           ['change', 'onModelChange', manager]);
