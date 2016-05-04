@@ -74,6 +74,7 @@ var LatestEarthquakes = function (options) {
       _helpView,
       _listView,
       _mapView,
+      _modalView,
       _modesView,
       _settingsView,
       _urlManager;
@@ -128,13 +129,13 @@ var LatestEarthquakes = function (options) {
     });
     _modesView.render();
 
-    _helpView = HelpView({
-      model: _this.model
-    });
+    _helpView = HelpView();
 
-    _helpView = ModalView(_helpView.el, {
+    _modalView = ModalView(_helpView.el, {
       title: 'Help'
     });
+
+    _modalView.on('hide', _this.onModalHide, _this);
 
     _listView = ListView({
       el: el.querySelector('.list-view'),
@@ -174,14 +175,15 @@ var LatestEarthquakes = function (options) {
 
     _urlManager.destroy();
 
-    _helpView();
+    _helpView.destroy();
     _listView.destroy();
     _mapView.destroy();
+    _modalView.destroy();
     _modesView.destroy();
     _settingsView.destroy();
 
-    _catalog.destroy();
     _config.destroy();
+    _catalog.destroy();
 
     // free references
     _catalog = null;
@@ -193,8 +195,35 @@ var LatestEarthquakes = function (options) {
     _modesView = null;
     _settingsView = null;
     _this = null;
+    _initialize = null;
     _urlManager = null;
   }, _this.destroy);
+
+  /**
+   * Updates the model when the ModalView is hidden.
+   */
+  _this.onModalHide = function () {
+    var filtered,
+        viewModes;
+
+    viewModes = _this.model.get('viewModes');
+    filtered = false;
+
+    viewModes = viewModes.filter(function (mode) {
+      if (mode.id === 'help') {
+        filtered = true;
+        return false;
+      } else {
+        return true;
+      }
+    });
+
+    if (filtered) {
+      _this.model.set({
+        'viewModes': viewModes
+      });
+    }
+  };
 
   /**
    * Apply current settings.
@@ -229,8 +258,15 @@ var LatestEarthquakes = function (options) {
     name = 'mode-' + mode;
     if (enable) {
       _content.classList.add(name);
+      if (mode === 'help') {
+        _modalView.show();
+        _helpView.render();
+      }
     } else {
       _content.classList.remove(name);
+      if (mode === 'help') {
+        _modalView.hide();
+      }
     }
   };
 
