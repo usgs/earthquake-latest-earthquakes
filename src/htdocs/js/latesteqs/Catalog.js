@@ -20,16 +20,20 @@ var _DEFAULTS = {
  */
 var Catalog = function (options) {
   var _this,
-      _initialize;
+      _initialize,
+
+      _parent;
 
   // catalog is a collection of earthquakes
   _this = Collection();
+  _parent = Util.extend({}, _this);
 
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
 
     _this.model = options.model || Model();
     _this.model.on('change:feed', 'load', _this);
+    _this.model.on('change:sort', 'onSort', _this);
 
     // TODO: handle autoUpdate
 
@@ -47,6 +51,7 @@ var Catalog = function (options) {
     }
 
     _this.model.off('change:feed', 'load', _this);
+    _this.model.off('change:sort', 'sort', _this);
 
     _this = null;
   }, _this.destroy);
@@ -115,6 +120,22 @@ var Catalog = function (options) {
     _this.error = false;
     _this.metadata = data.metadata;
     _this.reset(data.features);
+  };
+
+  /**
+   * Sorts the data.
+   *
+   * @param method {Object}
+   *        the selected settings sort object from the model
+   */
+  _this.onSort = function (method) {
+    var sort;
+
+    sort = method.sort;
+
+    if (sort) {
+      _this.sort(sort);
+    }
   };
 
 
