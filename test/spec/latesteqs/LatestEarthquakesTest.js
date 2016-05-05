@@ -25,7 +25,7 @@ model = Model({
   ]
 });
 
-describe('latesteqs/LatestEarthquakes', function () {
+describe.skip('latesteqs/LatestEarthquakes', function () {
   beforeEach(function () {
     try {
       latestEarthquakes = LatestEarthquakes({
