@@ -25,7 +25,7 @@ model = Model({
   ]
 });
 
-describe.skip('latesteqs/LatestEarthquakes', function () {
+describe('latesteqs/LatestEarthquakes', function () {
   beforeEach(function () {
     try {
       latestEarthquakes = LatestEarthquakes({
@@ -50,14 +50,6 @@ describe.skip('latesteqs/LatestEarthquakes', function () {
     }
   });
 
-  describe('onModalHide', function () {
-    it('updates the model correctly', function () {
-      latestEarthquakes.onModalHide();
-      expect(model.get('viewModes').length).to.equal(1);
-      expect(model.get('viewModes')[0].id).to.equal('settings');
-    });
-  });
-
   describe('setMode', function () {
     it('sets mode correctly', function () {
       latestEarthquakes.setMode('help', true);
@@ -65,16 +57,13 @@ describe.skip('latesteqs/LatestEarthquakes', function () {
       expect(latestEarthquakes.el.querySelector('.latest-earthquakes-content')
           .classList.contains('mode-help')).to.be.true;
       /* jshint +W030 */
-      /* jshint -W030 */
-      //expect(latestEarthquakes.el.querySelector('.mode-help')).to.not.be.null;
-      /* jshint +W030 */
     });
 
     it('does not have help mode set', function () {
-      latestEarthquakes.setMode('help', false);
+      latestEarthquakes.setMode('settings', false);
       /* jshint -W030 */
       expect(latestEarthquakes.el.querySelector('.latest-earthquakes-content')
-          .classList.contains('mode-help')).to.be.false;
+          .classList.contains('mode-settings')).to.be.false;
       /* jshint +W030 */
     });
   });
