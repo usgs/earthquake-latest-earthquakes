@@ -7,12 +7,12 @@ mocha.setup('bdd');
 // Add each test class here as they are implemented
 require('./spec/summary/EventSummaryFormatTest');
 
+require('./spec/about/AboutViewTest');
+
 require('./spec/core/ConfigTest');
 require('./spec/core/FormatterTest');
 require('./spec/core/GenericCollectionViewTest');
 require('./spec/core/UrlManagerTest');
-
-require('./spec/help/HelpViewTest');
 
 require('./spec/latesteqs/CatalogTest');
 require('./spec/latesteqs/LatestEarthquakesTest');

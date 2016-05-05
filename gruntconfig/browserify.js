@@ -31,12 +31,12 @@ var getAliases = function (basePath, classes) {
 
 
 ALL_CLASSES = getAliases(JS, [
+  'about/AboutView',
+
   'core/Config',
   'core/Formatter',
   'core/GenericCollectionView',
   'core/UrlManager',
-
-  'help/HelpView',
 
   'latesteqs/Catalog',
   'latesteqs/LatestEarthquakes',

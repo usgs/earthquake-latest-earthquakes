@@ -19,7 +19,7 @@ model = Model({
     },
     {
      'id': 'help',
-     'name': 'Help',
+     'name': 'About',
      'icon': 'help_outline'
     }
   ]

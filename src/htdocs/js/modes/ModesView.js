@@ -118,7 +118,6 @@ var ModesView = function (options) {
       toSet[_this.watchProperty].push({'id': 'help'});
     }
 
-
     _this.model.set(toSet);
   };
 

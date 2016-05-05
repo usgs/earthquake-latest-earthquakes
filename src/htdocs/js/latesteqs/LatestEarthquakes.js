@@ -2,7 +2,7 @@
 
 // TODO: use real List, Map, and Settings views
 var Catalog = require('latesteqs/Catalog'),
-    HelpView = require('help/HelpView'),
+    AboutView = require('about/AboutView'),
     LatestEarthquakesConfig = require('latesteqs/LatestEarthquakesConfig'),
     ListView = require('list/ListView'),
     MapView = require('map/MapView'),
@@ -70,7 +70,7 @@ var LatestEarthquakes = function (options) {
       _catalog,
       _config,
       _content,
-      _helpView,
+      _aboutView,
       _listView,
       _mapView,
       _modesView,
@@ -106,7 +106,9 @@ var LatestEarthquakes = function (options) {
           '<div class="latest-earthquakes-settings">'+
             '<div class="settings-view"></div>' +
           '</div>' +
-          '<div class="latest-earthquakes-help">help</div>' +
+          '<div class="latest-earthquakes-about">' +
+            '<div class="about-view"></div>' +
+          '</div>' +
         '</div>' +
         '<footer class="latest-earthquakes-footer"></footer>';
 
@@ -146,8 +148,8 @@ var LatestEarthquakes = function (options) {
       model: _this.model
     });
 
-    _helpView = HelpView({
-      el: el.querySelector('.latest-earthquakes-help'),
+    _aboutView = AboutView({
+      el: el.querySelector('.about-view'),
       model: _this.model
     });
 
@@ -171,7 +173,7 @@ var LatestEarthquakes = function (options) {
 
     _urlManager.destroy();
 
-    _helpView.destroy();
+    _aboutView.destroy();
     _listView.destroy();
     _mapView.destroy();
     _modesView.destroy();
@@ -184,7 +186,7 @@ var LatestEarthquakes = function (options) {
     _catalog = null;
     _config = null;
     _content = null;
-    _helpView = null;
+    _aboutView = null;
     _listView = null;
     _mapView = null;
     _modesView = null;
