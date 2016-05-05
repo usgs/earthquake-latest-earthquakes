@@ -92,6 +92,10 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+.latest-earthquakes-help {
+  position: absolute;
+}
+
 /** show views when mode enabled. */
 .mode-list > .latest-earthquakes-list,
 .mode-map > .latest-earthquakes-map,
