@@ -79,20 +79,34 @@ var ModesView = function (options) {
         properties,
         toSet;
 
+    if (obj.id === 'help') {
+      _this.model.set({
+        'viewModes': [
+          {
+            'id': 'help'
+          }
+        ]
+      });
+      return;
+    }
+
     toSet = {};
     properties = _this.model.get(_this.watchProperty);
 
     if (properties) {
-      toSet[_this.watchProperty] = properties.slice(0);
+      items = properties.slice(0);
     } else {
-      toSet[_this.watchProperty] = [];
+      items = [];
     }
 
     index = -1;
-    items = toSet[_this.watchProperty];
+    toSet[_this.watchProperty] = [];
     // check if model already contains selected object
     for (i = 0; i < items.length; i++) {
-      if (obj.id === items[i].id) {
+      if (obj.id !== items[i].id && items[i].id !== 'help') {
+        // contains object, remove it
+        toSet[_this.watchProperty].push(items[i]);
+      } else if (obj.id === items[i].id) {
         index = i;
       }
     }
@@ -100,10 +114,10 @@ var ModesView = function (options) {
     if (index === -1) {
       // does not contain object, add it
       toSet[_this.watchProperty].push(obj);
-    } else {
-      // contains object, remove it
-      toSet[_this.watchProperty].splice(index, 1);
+    } else if (toSet[_this.watchProperty].length === 0) {
+      toSet[_this.watchProperty].push({'id': 'help'});
     }
+
 
     _this.model.set(toSet);
   };
