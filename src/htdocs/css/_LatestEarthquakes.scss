@@ -36,6 +36,9 @@ body {
     overflow: hidden;
 
     > .latest-earthquakes-logo {
+      display: inline-block;
+      height: 100%;
+
       > img {
         border: none;
         height: 140%;
