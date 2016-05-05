@@ -225,7 +225,9 @@ var LatestEarthquakes = function (options) {
    */
   _this.setMode = function (mode, enable) {
     var name;
+
     name = 'mode-' + mode;
+
     if (enable) {
       _content.classList.add(name);
     } else {
