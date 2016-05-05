@@ -128,14 +128,6 @@ var LatestEarthquakes = function (options) {
     });
     _modesView.render();
 
-    // _helpView = HelpView();
-    //
-    // _modalView = ModalView(_helpView.el, {
-    //   title: 'Help'
-    // });
-    //
-    // _modalView.on('hide', _this.onModalHide, _this);
-
     _listView = ListView({
       el: el.querySelector('.list-view'),
       collection: _catalog,
@@ -201,32 +193,6 @@ var LatestEarthquakes = function (options) {
     _initialize = null;
     _urlManager = null;
   }, _this.destroy);
-
-  /**
-   * Updates the model when the ModalView is hidden.
-   */
-  // _this.onModalHide = function () {
-  //   var filtered,
-  //       viewModes;
-  //
-  //   viewModes = _this.model.get('viewModes');
-  //   filtered = false;
-  //
-  //   viewModes = viewModes.filter(function (mode) {
-  //     if (mode.id === 'help') {
-  //       filtered = true;
-  //       return false;
-  //     } else {
-  //       return true;
-  //     }
-  //   });
-  //
-  //   if (filtered) {
-  //     _this.model.set({
-  //       'viewModes': viewModes
-  //     });
-  //   }
-  // };
 
   /**
    * Apply current settings.
