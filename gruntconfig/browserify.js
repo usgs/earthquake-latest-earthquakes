@@ -53,6 +53,7 @@ ALL_CLASSES = getAliases(JS, [
 
   'map/EarthquakeLayer',
   'map/LegendControl',
+  'map/MapView',
 
   'modes/ModesView',
 

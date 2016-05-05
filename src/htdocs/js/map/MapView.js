@@ -43,7 +43,7 @@ var MapView = function (options) {
     _this.map = L.map(el).setView([34, -118], 3);
 
     _earthquakes = EarthquakeLayer({
-      catalog: options.catalog,
+      collection: options.catalog,
       model: _this.model
     });
 
