@@ -117,11 +117,27 @@ describe('modes/ModesView', function () {
       // Now toggle an option and ensure it is in model
       modesView.updateModel(option);
       expect(modesView.model.get('viewModes').length).to.equal(1);
+    });
+  });
 
-      // Now toggle same option and ensure it is removed
-      // When no modes are selected help mode is selected by default.
-      // This is done to make sure that the user does not end up on a blank
-      // page when all modes are deselected.
+  // Now toggle same option and ensure it is removed
+  // When no modes are selected help mode is selected by default.
+  // This is done to make sure that the user does not end up on a blank
+  // page when all modes are deselected.
+  describe('updateModel', function () {
+    it('Updates viewMode value based on given option', function () {
+      var option;
+
+      option = {
+        'id': 'list',
+        'name': 'List',
+        'icon': 'list'
+      };
+
+      // Initially no items in model
+      expect(modesView.model.get('viewModes').length).to.equal(0);
+
+      // Now toggle an option and ensure it is in model
       modesView.updateModel(option);
       expect(modesView.model.get('viewModes').length).to.equal(1);
     });
