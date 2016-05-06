@@ -144,7 +144,7 @@ var ModesView = function (options) {
   };
 
   /**
-   * Updates the model with the selected mode and closes other modes.
+   * Updates the model with the selected mode and deselects other modes.
    *
    * @param obj {Object}
    *    Configuration option that was clicked
