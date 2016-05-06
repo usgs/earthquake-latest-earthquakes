@@ -136,7 +136,7 @@ var _DEFAULTS = {
     },
     {
       'id': 'settings',
-      'name': 'settings',
+      'name': 'Settings',
       'icon': 'settings'
     },
     {
