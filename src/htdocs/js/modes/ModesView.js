@@ -62,6 +62,30 @@ var ModesView = function (options) {
   };
 
   /**
+   * Checks the size of the browser window to see if it is in a mobile
+   * environment or not.
+   */
+  _this.mobileCheck = function () {
+    var height,
+        mobile,
+        mobileHeight,
+        mobileWidth,
+        width;
+
+    mobile = false;
+    mobileHeight = 736;
+    mobileWidth = 414;
+    height = window.innerHeight || document.body.clientHeight;
+    width = window.innerWidth || document.body.clientWidth;
+
+    if (height <= mobileHeight || width <= mobileWidth) {
+      mobile = true;
+    }
+
+    return mobile;
+  };
+
+  /**
    * Update model based on newly clicked item in the options view. If
    * the clicked item was previously set as a value on the `watchProperty` for
    * `_this.model` then that item is removed from the `watchProperty` value;
@@ -109,7 +133,7 @@ var ModesView = function (options) {
       } else if (obj.id === items[i].id) {
         index = i;
       }
-    }
+
 
     if (index === -1) {
       // does not contain object, add it
@@ -117,8 +141,24 @@ var ModesView = function (options) {
     } else if (toSet[_this.watchProperty].length === 0) {
       toSet[_this.watchProperty].push({'id': 'help'});
     }
+  };
 
-    _this.model.set(toSet);
+  /**
+   * Updates the model with the selected mode and closes other modes.
+   *
+   * @param obj {Object}
+   *    Configuration option that was clicked
+   */
+  _this.updateMobileModel = function (obj) {
+    _this.model.set({
+      'viewModes': [
+        {
+          'id': obj.id,
+          'name': obj.name,
+          'icon': obj.icon
+        }
+      ]
+    });
   };
 
 
