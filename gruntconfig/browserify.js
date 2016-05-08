@@ -71,6 +71,7 @@ ALL_CLASSES = getAliases(JS, [
   'util/Util',
   'util/Xhr'
 ])).concat(getAliases(NODE_MODULES + '/hazdev-leaflet/src', [
+  'leaflet/control/ZoomToControl',
   'leaflet/layer/EsriGrayscale',
   'leaflet/layer/EsriTerrain',
   'leaflet/layer/OpenAerialMap',
