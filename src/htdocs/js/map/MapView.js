@@ -2,7 +2,7 @@
 'use strict';
 
 require('leaflet/control/MousePosition');
-require('leaflet/control/zoomToControl');
+require('leaflet/control/ZoomToControl');
 require('map/LegendControl');
 
 var EarthquakeLayer = require('map/EarthquakeLayer'),
