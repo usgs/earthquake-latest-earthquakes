@@ -102,6 +102,17 @@ var EarthquakeLayer = function (options) {
   };
 
   /**
+   * Leaflet convenience method.
+   *
+   * @param map {L.map}
+   *     map layer should be added to.
+   */
+  _this.addTo = function (map) {
+    map.addLayer(_this);
+    return _this;
+  };
+
+  /**
    * Free referenes and unbind events.
    */
   _this.destroy = function () {
@@ -111,17 +122,6 @@ var EarthquakeLayer = function (options) {
 
     _onClick = null;
     _this = null;
-  };
-
-  /**
-   * Leaflet convenience method.
-   *
-   * @param map {L.map}
-   *     map layer should be added to.
-   */
-  _this.addTo = function (map) {
-    map.addLayer(_this);
-    return _this;
   };
 
   /**
