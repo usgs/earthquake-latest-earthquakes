@@ -299,7 +299,8 @@ var ListView = function (options) {
    */
   _this.boundsContain = function(bounds, latlng) {
     // longitude may be off by world(s), adjust east bound to (just) right of test point
-    var maxLatitude,
+    var difference,
+        maxLatitude,
         maxLongitude,
         minLatitude,
         minLongitude;
@@ -308,24 +309,31 @@ var ListView = function (options) {
     maxLongitude = bounds[1][1];
     minLatitude = bounds[0][0];
     minLongitude = bounds[0][1];
+    difference = maxLongitude - minLongitude;
+
+    // set worldwide max/min longitude
+    if (difference >= 360) {
+      maxLongitude = 180;
+      minLongitude = -180;
+    }
 
     //adjust the bounds
     if (minLongitude > 180) {
-      while (minLongitude > 180) {
+      while (minLongitude >= 180) {
         minLongitude = minLongitude - 360;
       }
     } else if (minLongitude < -180) {
-      while (minLongitude < -180) {
+      while (minLongitude <= -180) {
         minLongitude = minLongitude + 360;
       }
     }
 
     if (maxLongitude > 180) {
-      while (maxLongitude > 180) {
+      while (maxLongitude >= 180) {
         maxLongitude = maxLongitude - 360;
       }
     } else if (maxLongitude < -180) {
-      while (maxLongitude < -180) {
+      while (maxLongitude <= -180) {
         maxLongitude = maxLongitude + 360;
       }
     }
@@ -341,13 +349,8 @@ var ListView = function (options) {
     // now test with adjusted bounds
     if (latlng[0] <= maxLatitude && latlng[0] >= minLatitude &&
         latlng[1] <= maxLongitude && latlng[1] >= minLongitude) {
-
       return true;
     }
-
-    // TODO, remove
-    console.log('maxLongitude: ' + maxLongitude + ', minLongitude: ' + minLongitude);
-    console.log('lat: ' + latlng[0] + ', lng: ' + latlng[1]);
 
     return false;
   };
