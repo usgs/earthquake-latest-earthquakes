@@ -130,8 +130,8 @@ var ListView = function (options) {
   };
 
   /**
-   * Normalize bounds by shifting bounds left or right,
-   * until the longitudinal bounds are within -180 <-> 180
+   * Normalize bounds by shifting the point(latlng) left or right,
+   * until the point is within the offset bounds
    *
    * @param bounds {4x4 Array [southWest, northEast] or LatLngBounds object}
    * @param latlng {Array [lat,lng]}
@@ -139,55 +139,47 @@ var ListView = function (options) {
    */
   _this.boundsContain = function(bounds, latlng) {
     var difference,
+        latitude,
+        longitude,
         maxLatitude,
         maxLongitude,
         minLatitude,
         minLongitude;
 
+    latitude = latlng[0];
+    longitude = latlng[1];
+
     maxLatitude = bounds[1][0];
-    maxLongitude = bounds[1][1];
     minLatitude = bounds[0][0];
+
+    maxLongitude = bounds[1][1];
     minLongitude = bounds[0][1];
+
     difference = maxLongitude - minLongitude;
 
-    // set worldwide max/min longitude
+    // check latitude values
+    if (latlng[0] > maxLatitude || latlng[0] < minLatitude) {
+      return false;
+    }
+
+    // longitude spans more than 360 (latitude bounds were checked)
     if (difference >= 360) {
-      maxLongitude = 180;
-      minLongitude = -180;
+      return true;
     }
 
-    // longitude may be off by world(s), adjust -180 < bounds < 180
-    if (minLongitude > 180) {
-      while (minLongitude >= 180) {
-        minLongitude = minLongitude - 360;
+    // normalize point to be between longitude bounds
+    if (minLongitude < longitude && maxLongitude < longitude) {
+      while (minLongitude < longitude && maxLongitude < longitude) {
+        longitude = longitude - 360;
       }
-    } else if (minLongitude < -180) {
-      while (minLongitude <= -180) {
-        minLongitude = minLongitude + 360;
-      }
-    }
-
-    if (maxLongitude > 180) {
-      while (maxLongitude >= 180) {
-        maxLongitude = maxLongitude - 360;
-      }
-    } else if (maxLongitude < -180) {
-      while (maxLongitude <= -180) {
-        maxLongitude = maxLongitude + 360;
-      }
-    }
-
-    // map extents cross date/time line
-    if (minLongitude > maxLongitude) {
-      if (latlng[0] <= maxLatitude && latlng[0] >= minLatitude &&
-          (latlng[1] <= maxLongitude || latlng[1] >= minLongitude)) {
-        return true;
+    } else if (minLongitude > longitude && maxLongitude > longitude) {
+      while (minLongitude > longitude && maxLongitude > longitude) {
+        longitude = longitude + 360;
       }
     }
 
     // test with adjusted bounds
-    if (latlng[0] <= maxLatitude && latlng[0] >= minLatitude &&
-        latlng[1] <= maxLongitude && latlng[1] >= minLongitude) {
+    if (longitude <= maxLongitude && longitude >= minLongitude) {
       return true;
     }
 
