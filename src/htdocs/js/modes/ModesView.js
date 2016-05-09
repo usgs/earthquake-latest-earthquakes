@@ -66,19 +66,15 @@ var ModesView = function (options) {
    * environment or not.
    */
   _this.mobileCheck = function () {
-    var height,
-        mobile,
-        mobileHeight,
+    var mobile,
         mobileWidth,
         width;
 
     mobile = false;
-    mobileHeight = 736;
-    mobileWidth = 414;
-    height = window.innerHeight || document.body.clientHeight;
+    mobileWidth = 641;
     width = window.innerWidth || document.body.clientWidth;
 
-    if (height <= mobileHeight || width <= mobileWidth) {
+    if (width <= mobileWidth) {
       mobile = true;
     }
 
@@ -91,12 +87,12 @@ var ModesView = function (options) {
    * `_this.model` then that item is removed from the `watchProperty` value;
    * otherwise the item is added to the `watchProperty` value.
    *
-   * This method is called by onContentClick.
+   * This method is called by updateModel.
    *
    * @param obj {Object}
-   *     Configuration option that was clicked
+   *    Configuration option that was clicked
    */
-  _this.updateModel = function (obj) {
+  _this.updateDesktopModel = function (obj) {
     var i,
         index,
         items,
@@ -140,6 +136,47 @@ var ModesView = function (options) {
       toSet[_this.watchProperty].push(obj);
     } else if (toSet[_this.watchProperty].length === 0) {
       toSet[_this.watchProperty].push({'id': 'help'});
+
+    toSet = {};
+    properties = _this.model.get(_this.watchProperty);
+
+    if (properties) {
+      toSet[_this.watchProperty] = properties.slice(0);
+    } else {
+      toSet[_this.watchProperty] = [];
+    }
+
+    index = -1;
+    items = toSet[_this.watchProperty];
+    // check if model already contains selected object
+    for (i = 0; i < items.length; i++) {
+      if (obj.id === items[i].id) {
+        index = i;
+      }
+    }
+
+    if (index === -1) {
+      // does not contain object, add it
+      toSet[_this.watchProperty].push(obj);
+    } else {
+      // contains object, remove it
+      toSet[_this.watchProperty].splice(index, 1);
+    }
+
+    _this.model.set(toSet);
+  };
+
+  /**
+   * updates model based on view port size.
+   *
+   * @param obj {Object}
+   *     Configuration option that was clicked
+   */
+  _this.updateModel = function (obj) {
+    if (_this.mobileCheck()) {
+      _this.updateMobileModel(obj);
+    } else {
+      _this.updateDesktopModel(obj);
     }
   };
 
@@ -150,15 +187,7 @@ var ModesView = function (options) {
    *    Configuration option that was clicked
    */
   _this.updateMobileModel = function (obj) {
-    _this.model.set({
-      'viewModes': [
-        {
-          'id': obj.id,
-          'name': obj.name,
-          'icon': obj.icon
-        }
-      ]
-    });
+    _this.model.set({'viewModes': [obj]});
   };
 
 
