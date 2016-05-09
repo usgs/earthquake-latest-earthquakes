@@ -1,8 +1,10 @@
-@import 'leaflet/control/_Control.scss';
-
 @import 'accordion/Accordion.scss';
 
+@import 'leaflet/control/_Control.scss';
+@import 'leaflet/control/_ZoomToControl.scss';
+
 @import 'mvc/ModalView.scss';
+
 
 @import '_LatestEarthquakes.scss';
 @import '_mmi-variables.scss';
