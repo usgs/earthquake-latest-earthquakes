@@ -61,7 +61,8 @@ ALL_CLASSES = getAliases(JS, [
   'settings/RadioOptionsView',
   'settings/SettingsView',
 
-  'summary/EventSummaryFormat'
+  'summary/EventSummaryFormat',
+  'summary/EventSummaryView'
 ]).concat(getAliases(NODE_MODULES + '/hazdev-webutils/src', [
   'mvc/Collection',
   'mvc/CollectionView',

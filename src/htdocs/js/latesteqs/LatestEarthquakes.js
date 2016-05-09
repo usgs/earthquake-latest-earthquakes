@@ -3,6 +3,7 @@
 // TODO: use real List, Map, and Settings views
 var Catalog = require('latesteqs/Catalog'),
     AboutView = require('about/AboutView'),
+    EventSummaryView = require('summary/EventSummaryView'),
     LatestEarthquakesConfig = require('latesteqs/LatestEarthquakesConfig'),
     ListView = require('list/ListView'),
     MapView = require('map/MapView'),
@@ -71,6 +72,7 @@ var LatestEarthquakes = function (options) {
       _config,
       _content,
       _aboutView,
+      _eventSummaryView,
       _listView,
       _mapView,
       _modesView,
@@ -121,7 +123,9 @@ var LatestEarthquakes = function (options) {
             '<div class="about-view"></div>' +
           '</div>' +
         '</div>' +
-        '<footer class="latest-earthquakes-footer"></footer>';
+        '<footer class="latest-earthquakes-footer">' +
+          '<div class="event-summary-view"></div>' +
+        '</footer>';
 
     _content = el.querySelector('.latest-earthquakes-content');
 
@@ -161,6 +165,12 @@ var LatestEarthquakes = function (options) {
 
     _aboutView = AboutView({
       el: el.querySelector('.about-view'),
+      model: _this.model
+    });
+
+    _eventSummaryView = EventSummaryView({
+      el: el.querySelector('.event-summary-view'),
+      catalog: _catalog,
       model: _this.model
     });
 
