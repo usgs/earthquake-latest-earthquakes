@@ -2,7 +2,6 @@
 'use strict';
 
 var Catalog = require('latesteqs/Catalog'),
-    Collection = require('mvc/Collection'),
     Model = require('mvc/Model'),
     Xhr = require('util/Xhr');
 
