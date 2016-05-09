@@ -118,11 +118,11 @@ var MapView = function (options) {
 
     _earthquakes.render();
 
-    bounds = this.map.getBounds();
-    this.model.set({
+    bounds = _this.map.getBounds();
+    _this.model.set({
       'mapposition': [
-        [bounds._northEast.lat, bounds._northEast.lng],
-        [bounds._southWest.lat, bounds._southWest.lng]
+        [bounds._southWest.lat, bounds._southWest.lng],
+        [bounds._northEast.lat, bounds._northEast.lng]
       ]
     });
   };
