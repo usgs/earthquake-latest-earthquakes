@@ -135,4 +135,141 @@ describe('list/ListView', function () {
 
     view.destroy();
   });
+
+  describe('boundsContain', function () {
+    var bounds,
+        view;
+
+    view = ListView();
+    bounds = [
+      [10, -130], // southwest
+      [30, -110] // northeast
+    ];
+
+    it('contains the point', function () {
+      expect(view.boundsContain(bounds, [20, -120])).to.be.true;
+      expect(view.boundsContain(bounds, [10, -120])).to.be.true;
+      expect(view.boundsContain(bounds, [20, -130])).to.be.true;
+    });
+
+    it('does NOT contain the point', function () {
+      expect(view.boundsContain(bounds, [40, -140])).to.be.false;
+      expect(view.boundsContain(bounds, [40, -120])).to.be.false;
+      expect(view.boundsContain(bounds, [20, -140])).to.be.false;
+    });
+
+    view.destroy();
+  });
+
+  describe('filterEvents', function () {
+    var data,
+        bounds,
+        model,
+        view;
+
+    model = Model({
+      'mapposition': [
+        [10, -130], // southwest
+        [30, -110] // northeast
+      ]
+    });
+
+    view = ListView({
+      model: model
+    });
+
+    data = [
+      {
+        geometry: {
+          coordinates: [
+            -120, 20, 0
+          ]
+        }
+      },
+      {
+        geometry: {
+          coordinates: [
+            -155, 65, 0
+          ]
+        }
+      }
+    ];
+
+    it('filters events', function () {
+      view.mapEnabled = true;
+      expect(view.filterEvents(data).length).to.equal(1);
+    });
+
+    it('does NOT filter events when the map is disabled', function () {
+      view.mapEnabled = false;
+      model.set({
+        'viewModes': [{'id': 'list'}]
+      });
+      expect(view.filterEvents(data).length).to.equal(2);
+    });
+  });
+
+  describe('onCollectionReset', function () {
+    var spy,
+        stub,
+        view;
+
+    view = ListView();
+    stub = sinon.stub(view, 'render', function () {} );
+    spy = sinon.spy(view, 'onCollectionReset');
+    view.collection.reset(['a', 'b', 'c']);
+
+    it('is triggered by a collection reset', function () {
+      expect(spy.callCount).to.equal(1);
+    });
+
+    spy.restore();
+    view.destroy();
+  });
+
+  describe('onMapPositionChange', function () {
+    var bounds,
+        spy,
+        view;
+
+    view = ListView();
+    spy = sinon.spy(view, 'onMapPositionChange');
+
+    // restrict list to map, by enabling restrictListToMap
+    view.model.set({
+      'restrictListToMap': [{'id': 'restrictListToMap'}]
+    });
+
+    // update bounds with change:mapposition on model
+    bounds = [[20, -20],[22, -22]];
+    view.model.set({
+      'mapposition': bounds
+    });
+
+    it('is triggered by a map position change', function () {
+      expect(spy.secondCall.args[0]).to.equal(bounds);
+    });
+
+    spy.restore();
+    view.destroy();
+  });
+
+  describe('onRestrictListToMap', function () {
+    var spy,
+        view;
+
+    view = ListView();
+    spy = sinon.spy(view, 'onRestrictListToMap');
+    view.model.set({
+      'restrictListToMap': []
+    });
+
+    it('is triggered by a setting change', function () {
+      expect(spy.callCount).to.equal(1);
+    });
+
+    spy.restore();
+    view.destroy();
+  });
+
 });
