@@ -10,6 +10,7 @@ var expect = chai.expect;
 
 
 describe('latesteqs/Catalog', function () {
+
   describe('constructor', function () {
     it('is a function', function () {
       expect(typeof Catalog).to.equal('function');
@@ -116,7 +117,7 @@ describe('latesteqs/Catalog', function () {
         }
       });
 
-      expect(catalog.data()[0].id).to.equal('3')
+      expect(catalog.data()[0].id).to.equal('3');
 
       model.set({
         'sort': {
@@ -128,7 +129,7 @@ describe('latesteqs/Catalog', function () {
         }
       });
 
-      expect(catalog.data()[0].id).to.equal('1')
+      expect(catalog.data()[0].id).to.equal('1');
     });
   });
 
@@ -181,4 +182,5 @@ describe('latesteqs/Catalog', function () {
       expect(catalog.data()).to.deep.equal(data.features);
     });
   });
+
 });
