@@ -101,7 +101,7 @@ describe('modes/ModesView', function () {
     });
   });
 
-  describe('updateModel', function () {
+  describe('updateDesktopModel', function () {
     it('toggles the viewModes value based on given option', function () {
       var option;
 
@@ -115,31 +115,61 @@ describe('modes/ModesView', function () {
       expect(modesView.model.get('viewModes').length).to.equal(0);
 
       // Now toggle an option and ensure it is in model
-      modesView.updateModel(option);
+      modesView.updateDesktopModel(option);
       expect(modesView.model.get('viewModes').length).to.equal(1);
     });
   });
 
-  // Now toggle same option and ensure it is removed
-  // When no modes are selected help mode is selected by default.
-  // This is done to make sure that the user does not end up on a blank
-  // page when all modes are deselected.
-  describe('updateModel', function () {
-    it('Updates viewMode value based on given option', function () {
-      var option;
+  describe('updateMobileModel', function () {
+    it('toggles the viewModes value based on given option', function () {
+      var obj;
 
-      option = {
-        'id': 'list',
-        'name': 'List',
-        'icon': 'list'
+      obj = {
+        'id': 'settings',
+        'name': 'settings',
+        'icon': 'settings'
       };
 
-      // Initially no items in model
       expect(modesView.model.get('viewModes').length).to.equal(0);
 
-      // Now toggle an option and ensure it is in model
-      modesView.updateModel(option);
+      modesView.updateMobileModel(obj)
       expect(modesView.model.get('viewModes').length).to.equal(1);
+    });
+  });
+
+  describe('updateModel', function () {
+    it('calls updateMobileModel when mobileCheck is true', function () {
+      var spy,
+          view;
+
+      view = ModesView();
+
+      sinon.stub(view, 'mobileCheck', function () {
+        return true;
+      });
+
+      spy = sinon.spy(view, 'updateMobileModel');
+      view.updateModel({});
+
+      expect(spy.callCount).to.equal(1);
+      view.destroy();
+    });
+
+    it('calls updateDesktopModel when mobileCheck is false', function () {
+      var spy,
+          view;
+
+      view = ModesView();
+
+      sinon.stub(view, 'mobileCheck', function () {
+        return false;
+      });
+
+      spy = sinon.spy(view, 'updateDesktopModel');
+      view.updateModel({});
+
+      expect(spy.callCount).to.equal(1);
+      view.destroy();
     });
   });
 });
