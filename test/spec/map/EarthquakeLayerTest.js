@@ -2,7 +2,8 @@
 'use strict';
 
 
-var EarthquakeLayer = require('map/EarthquakeLayer');
+var Collection = require('mvc/Collection'),
+    EarthquakeLayer = require('map/EarthquakeLayer');
 
 
 var expect = chai.expect;
@@ -152,9 +153,9 @@ describe('map/EarthquakeLayer', function () {
 
       expect(overlayPane.firstChild).to.equal(view.el);
       expect(map.on.getCall(0).args[0]).to.equal('viewreset');
-      expect(map.on.getCall(0).args[1]).to.equal(view.render);
+      expect(typeof map.on.getCall(0).args[1]).to.equal('function');
       expect(map.on.getCall(1).args[0]).to.equal('zoomend');
-      expect(map.on.getCall(1).args[1]).to.equal(view.onZoomEnd);
+      expect(typeof map.on.getCall(1).args[1]).to.equal('function');
       expect(view.map).to.equal(map);
       expect(view.onZoomEnd.calledOnce).to.equal(true);
       expect(view.render.calledOnce).to.equal(true);
@@ -210,31 +211,33 @@ describe('map/EarthquakeLayer', function () {
   });
 
   describe('onRemove', function () {
-    var map,
-        overlayPane,
-        view;
+    it('removes', function () {
+      var map,
+          overlayPane,
+          view;
 
-    view = EarthquakeLayer();
-    overlayPane = document.createElement('div');
-    overlayPane.appendChild(view.el);
-    map = {
-      getPanes: function () {
-        return {
-          overlayPane: overlayPane
-        };
-      },
-      off: sinon.spy()
-    };
+      view = EarthquakeLayer();
+      overlayPane = document.createElement('div');
+      overlayPane.appendChild(view.el);
+      map = {
+        getPanes: function () {
+          return {
+            overlayPane: overlayPane
+          };
+        },
+        off: sinon.spy()
+      };
 
-    view.onRemove(map);
-    expect(overlayPane.children.length).to.equal(0);
-    expect(map.off.callCount).to.equal(2);
-    expect(map.off.getCall(0).args[0]).to.equal('viewreset');
-    expect(map.off.getCall(0).args[1]).to.equal(view.render);
-    expect(map.off.getCall(1).args[0]).to.equal('zoomend');
-    expect(map.off.getCall(1).args[1]).to.equal(view.onZoomEnd);
-    expect(view.map).to.equal(null);
-    view.destroy();
+      view.onRemove(map);
+      expect(overlayPane.children.length).to.equal(0);
+      expect(map.off.callCount).to.equal(2);
+      expect(map.off.getCall(0).args[0]).to.equal('viewreset');
+      expect(typeof map.off.getCall(0).args[1]).to.equal('function');
+      expect(map.off.getCall(1).args[0]).to.equal('zoomend');
+      expect(typeof map.off.getCall(1).args[1]).to.equal('function');
+      expect(view.map).to.equal(null);
+      view.destroy();
+    });
   });
 
   describe('onSelect', function () {
@@ -266,6 +269,47 @@ describe('map/EarthquakeLayer', function () {
   });
 
   describe('render', function () {
+    it('renders earthquakes', function () {
+      var map,
+          stub,
+          view;
+
+      view = EarthquakeLayer(
+        {
+          collection: Collection([
+            {
+              geometry:{
+                coordinates:[
+                  1,
+                  2
+                ]
+              }
+            }
+          ])
+        }
+      );
+
+      stub = sinon.stub(view, 'getMarker', function () {
+        return document.createElement('div');
+      });
+
+      map = {
+        getCenter: function () {
+          return {
+            lng: 3
+          }
+        }
+      };
+
+      view.map = map;
+      view.render();
+
+      expect(stub.callCount).to.equal(1);
+      expect(view.el.querySelectorAll('div').length).to.equal(1);
+
+      stub.restore();
+      view.destroy();
+    });
 
   });
 
@@ -313,5 +357,4 @@ describe('map/EarthquakeLayer', function () {
           'rotate(45deg) scale(0.7071, 0.7071)');
     });
   });
-
 });
