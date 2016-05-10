@@ -32,6 +32,7 @@
   );
 
   echo navGroup('Summary',
-    navItem('/summary/EventSummaryFormatExample.php', 'EventSummaryFormat')
+    navItem('/summary/EventSummaryFormatExample.php', 'EventSummaryFormat') .
+    navItem('/summary/EventSummaryViewExample.php', 'EventSummaryView')
   );
 ?>
