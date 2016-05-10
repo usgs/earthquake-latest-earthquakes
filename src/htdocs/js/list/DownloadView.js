@@ -94,6 +94,7 @@ var DownloadView = function (options) {
     _formats = options.formats;
 
     _this.collection.on('reset', 'render', _this);
+    _this.model.off('change', 'render', _this);
   };
 
 
@@ -102,6 +103,7 @@ var DownloadView = function (options) {
    *
    */
   _this.destroy = Util.compose(function () {
+    _this.model.on('change', 'render', _this);
     _formats = null;
     _initialize = null;
     _this = null;
