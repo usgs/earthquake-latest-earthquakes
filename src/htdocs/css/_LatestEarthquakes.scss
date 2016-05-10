@@ -21,7 +21,20 @@ body {
   box-shadow: 0 1px 8px rgba(0,0,0,0.5);
   display: block;
   height: 50px;
+  z-index: 4;
+}
+
+.latest-earthquakes-settings,
+.latest-earthquakes-list {
   z-index: 3;
+}
+
+.latest-earthquakes-settings {
+  z-index: 2;
+}
+
+.latest-earthquakes-map {
+  z-index: 1;
 }
 
 .latest-earthquakes-header {
@@ -51,6 +64,10 @@ body {
   }
 }
 
+.latest-earthquakes-footer {
+  height: 0;
+}
+
 .latest-earthquakes-content {
   display: flex;
   flex: 1;
@@ -63,7 +80,6 @@ body {
 
 /** hide views by default. */
 .latest-earthquakes-about,
-.latest-earthquakes-footer,
 .latest-earthquakes-list,
 .latest-earthquakes-map,
 .latest-earthquakes-settings {
@@ -149,10 +165,5 @@ body {
   .latest-earthquakes-settings,
   .latest-earthquakes-list {
     box-shadow: 0 1px 8px rgba(0,0,0,0.5);
-    z-index: 2;
-  }
-
-  .latest-earthquakes-settings {
-    z-index: 1;
   }
 }
