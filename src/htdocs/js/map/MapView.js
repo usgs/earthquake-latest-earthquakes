@@ -1,6 +1,9 @@
 /* global L */
 'use strict';
 
+require('leaflet/control/MousePosition');
+require('leaflet/control/ZoomToControl');
+require('map/LegendControl');
 
 var EarthquakeLayer = require('map/EarthquakeLayer'),
     Util = require('util/Util'),
@@ -8,6 +11,43 @@ var EarthquakeLayer = require('map/EarthquakeLayer'),
 
 
 var _DEFAULTS = {
+    locations: [
+      {
+        title:'Alaska',
+        id: 'alaska',
+        bounds: [[72,-175], [50,-129]]
+      },
+      {
+        title:'California',
+        id: 'california',
+        bounds: [[42,-125], [32,-113]]
+      },
+      {
+        title:'Central U.S.',
+        id: 'central_us',
+        bounds:[[32,-104],[40,-88]]
+      },
+      {
+        title:'Hawaii',
+        id: 'hawaii',
+        bounds: [[22,-160], [18,-154]]
+      },
+      {
+        title:'Puerto Rico',
+        id: 'puerto_rico',
+        bounds: [[20,-70], [16,-62]]
+      },
+      {
+        title:'U.S.',
+        id: 'us',
+        bounds:[[50,-125], [24.6,-65]]
+      },
+      {
+        title:'World',
+        id: 'world',
+        bounds:[[70,20],[-70,380]]
+      }
+    ]
 };
 
 
@@ -40,7 +80,10 @@ var MapView = function (options) {
 
     _this.config = options.config;
 
-    _this.map = L.map(el).setView([34, -118], 3);
+    _this.map = L.map(
+      el,
+      {attributionControl: false}
+    ).setView([34, -118], 3);
 
     _earthquakes = EarthquakeLayer({
       collection: options.catalog,
@@ -48,6 +91,10 @@ var MapView = function (options) {
     });
 
     _this.map.addLayer(_earthquakes);
+    L.control.scale().addTo(_this.map);
+    L.control.mousePosition().addTo(_this.map);
+    L.control.legendControl().addTo(_this.map);
+    L.control.zoomToControl({locations:options.locations}).addTo(_this.map);
 
     _this.model.on('change:basemap', 'renderBasemap', _this);
     _this.map.on('moveend', _this.onMoveEnd);
