@@ -17,6 +17,7 @@ var EventSummaryView = function (options) {
 
   _this = View(options);
 
+
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
 
@@ -29,37 +30,50 @@ var EventSummaryView = function (options) {
     _this.catalog = options.catalog || Collection();
 
     _this.model.off('change', 'render', _this);
+
     _this.model.on('change:event', _this.onEventSelect, _this);
     _closeButton.addEventListener('click', _this.hideEventSummary);
+  };
 
-    // remove this v v
-    _this.catalog.on('reset', _this.onCatalogReset, _this);
-    // remove that ^ ^
+  /**
+   * Deselect the event by resetting the "event" property on the model.
+   *
+   * Called when the close button is clicked.
+   */
+  _this.deselectEvent = function () {
+    _this.model.set({
+      'event': null
+    });
   };
 
   _this.destroy = Util.compose(function () {
     _this.model.off('change:event', _this.onEventSelect, _this);
-    _closeButton.off('click', _this.hideEventSummary, _this);
+    _closeButton.removeEventListener('click', _this.hideEventSummary);
 
+    _closeButton = null;
+    _formatter = null;
     _isVisible = null;
+
     _initialize = null;
     _this = null;
   }, _this.destroy);
 
-  // TODO, remove this. It is only to set a selected event
-  _this.onCatalogReset = function () {
-    var eqs;
-
-    eqs = _this.catalog.data();
-    if (eqs.length !== 0) {
-      _this.model.set({
-        'event': eqs[0]
-      });
-    }
+  /**
+   * Deselects the selected event and hides the EventSummaryView
+   *
+   * Called when the close button is clicked.
+   */
+  _this.hideEventSummary = function () {
+    _this.deselectEvent();
+    _this.el.classList.remove('show');
+    _isVisible = false;
   };
 
   /**
-   * Determine whether or not the view is already visible and call render
+   * Called when the _this.model is updated with a new "event".
+   *
+   * Determines whether or not the EventSummaryView is visible, and then
+   * calls render and passes in the new event.
    */
   _this.onEventSelect = function () {
     var eq;
@@ -78,32 +92,35 @@ var EventSummaryView = function (options) {
     _this.render(eq);
   };
 
-  _this.deselectEvent = function () {
-    _this.model.set({
-      'event': null
-    });
-  };
-
-  _this.hideEventSummary = function () {
-    _this.deselectEvent();
-    _this.el.classList.remove('show');
-    _isVisible = false;
-  };
-
-  _this.showEventSummary = function () {
-    _this.el.classList.add('show');
-    _isVisible = true;
-  };
-
+  /**
+   * Renders the EventSummaryView.
+   *
+   * Called when the "event" property is updated on the model.
+   *
+   * @param eq {Object}
+   *    The "event" property from _this.model
+   */
   _this.render = function (eq) {
     _this.el.innerHTML = '';
     _this.el.appendChild(_closeButton);
     _this.el.appendChild(_formatter.format(eq));
   };
 
+  /**
+   * Displays the EventSummaryView.
+   *
+   * Called when the "event" property is updated on the model.
+   */
+  _this.showEventSummary = function () {
+    _this.el.classList.add('show');
+    _isVisible = true;
+  };
+
+
   _initialize(options);
   options = null;
   return _this;
+
 };
 
 module.exports = EventSummaryView;
