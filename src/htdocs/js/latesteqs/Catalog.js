@@ -1,5 +1,6 @@
 'use strict';
 
+
 var Collection = require('mvc/Collection'),
     Model = require('mvc/Model'),
     Util = require('util/Util'),
@@ -23,6 +24,7 @@ var Catalog = function (options) {
       _initialize,
 
       _parent;
+
 
   // catalog is a collection of earthquakes
   _this = Collection();
@@ -129,8 +131,7 @@ var Catalog = function (options) {
    *        the selected settings sort object from the model
    */
   _this.onSort = function () {
-    var method,
-        sort;
+    var method;
 
     method = _this.model.get('sort');
 

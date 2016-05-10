@@ -1,5 +1,6 @@
-/* global chai, describe, it, sinon */
+/* global beforeEach, chai, describe, it, sinon */
 'use strict';
+
 
 var Catalog = require('latesteqs/Catalog'),
     Model = require('mvc/Model'),
@@ -10,7 +11,6 @@ var expect = chai.expect;
 
 
 describe('latesteqs/Catalog', function () {
-
   describe('constructor', function () {
     it('is a function', function () {
       expect(typeof Catalog).to.equal('function');
@@ -82,18 +82,20 @@ describe('latesteqs/Catalog', function () {
         sort,
         sortSpy;
 
-    sort = {
-      'id': 'newest',
-      'name' : 'Newest first',
-      'sort' : function (a, b) {
-        return b.properties.time - a.properties.time;
-      }
-    };
+    beforeEach(function () {
+      sort = {
+        'id': 'newest',
+        'name' : 'Newest first',
+        'sort' : function (a, b) {
+          return b.properties.time - a.properties.time;
+        }
+      };
 
-    catalog = Catalog({
-      model: Model({
-        sort: sort
-      })
+      catalog = Catalog({
+        model: Model({
+          sort: sort
+        })
+      });
     });
 
     it('calls Collection.sort() with the correct sort method', function () {
@@ -160,5 +162,4 @@ describe('latesteqs/Catalog', function () {
       expect(catalog.data()).to.deep.equal(data.features);
     });
   });
-
 });
