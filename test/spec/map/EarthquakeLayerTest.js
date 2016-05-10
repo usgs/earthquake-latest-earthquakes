@@ -1,4 +1,5 @@
 /* global afterEach, beforeEach, chai, describe, it, L, sinon */
+'use strict';
 
 
 var Collection = require('mvc/Collection'),
@@ -231,6 +232,8 @@ describe('map/EarthquakeLayer', function () {
 
   describe('onSelect', function () {
     it('selects', function () {
+      var view;
+
       view = EarthquakeLayer();
 
       view.el.innerHTML =
