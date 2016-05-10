@@ -66,7 +66,9 @@ var EarthquakeLayer = function (options) {
   var _this,
       _initialize,
 
-      _onClick;
+      _onClick,
+      _onZoomEnd,
+      _render;
 
 
   _this = {};
@@ -99,6 +101,29 @@ var EarthquakeLayer = function (options) {
   };
 
   /**
+   * DOM event listener that delegates to (potentially subclassed)
+   * _this.onZoomEnd.
+   *
+   * @param e {DOMEvent}
+   *     the dom event.
+   */
+  _onZoomEnd = function (e) {
+    _this.onZoomEnd(e);
+  };
+
+  /**
+   * DOM event listener that delegates to (potentially subclassed)
+   * _this.render.
+   *
+   * @param e {DOMEvent}
+   *     the dom event.
+   */
+  _render = function (e) {
+    _this.render(e);
+  };
+
+
+  /**
    * Leaflet convenience method.
    *
    * @param map {L.map}
@@ -118,6 +143,10 @@ var EarthquakeLayer = function (options) {
     _this.model.off('change:event', 'onSelect', _this);
 
     _onClick = null;
+    _onZoomEnd = null;
+    _render = null;
+
+    _initialize = null;
     _this = null;
   };
 
@@ -188,8 +217,8 @@ var EarthquakeLayer = function (options) {
    */
   _this.onAdd = function (map) {
     map.getPanes().overlayPane.appendChild(_this.el);
-    map.on('viewreset', _this.render);
-    map.on('zoomend', _this.onZoomEnd);
+    map.on('viewreset', _render);
+    map.on('zoomend', _onZoomEnd);
 
     _this.map = map;
     _this.onZoomEnd();
@@ -226,8 +255,8 @@ var EarthquakeLayer = function (options) {
    */
   _this.onRemove = function (map) {
     map.getPanes().overlayPane.removeChild(_this.el);
-    map.off('viewreset', _this.render);
-    map.off('zoomend', _this.onZoomEnd);
+    map.off('viewreset', _render);
+    map.off('zoomend', _onZoomEnd);
 
     _this.map = null;
   };
