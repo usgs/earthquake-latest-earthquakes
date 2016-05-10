@@ -128,13 +128,14 @@ var Catalog = function (options) {
    * @param method {Object}
    *        the selected settings sort object from the model
    */
-  _this.onSort = function (method) {
-    var sort;
+  _this.onSort = function () {
+    var method,
+        sort;
 
-    sort = method.sort;
+    method = _this.model.get('sort');
 
-    if (sort) {
-      _this.sort(sort);
+    if (method && method.sort) {
+      _this.sort(method.sort);
     }
   };
 

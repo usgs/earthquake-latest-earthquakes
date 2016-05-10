@@ -2,7 +2,6 @@
 'use strict';
 
 var Catalog = require('latesteqs/Catalog'),
-    Collection = require('mvc/Collection'),
     Model = require('mvc/Model'),
     Xhr = require('util/Xhr');
 
@@ -11,6 +10,7 @@ var expect = chai.expect;
 
 
 describe('latesteqs/Catalog', function () {
+
   describe('constructor', function () {
     it('is a function', function () {
       expect(typeof Catalog).to.equal('function');
@@ -76,60 +76,38 @@ describe('latesteqs/Catalog', function () {
     });
   });
 
-  describe('sort', function () {
-    it('sorts the selected feed', function () {
-      var catalog,
-          model;
+  describe('onSort', function () {
+    var catalog,
+        onSortSpy,
+        sort,
+        sortSpy;
 
-      model = Model();
-      catalog = Catalog({
-        model: model
+    sort = {
+      'id': 'newest',
+      'name' : 'Newest first',
+      'sort' : function (a, b) {
+        return b.properties.time - a.properties.time;
+      }
+    };
+
+    catalog = Catalog({
+      model: Model({
+        sort: sort
+      })
+    });
+
+    it('calls Collection.sort() with the correct sort method', function () {
+      sortSpy = sinon.spy(catalog, 'sort');
+      catalog.onSort();
+      expect(sortSpy.calledWith(sort.sort)).to.equal(true);
+    });
+
+    it('is called when the sort property on the model changes', function () {
+      onSortSpy = sinon.spy(catalog, 'onSort');
+      catalog.model.set({
+        sort: {}
       });
-
-      catalog.reset([
-        {
-          id: '1',
-          properties: {
-            'time': 1
-          }
-        },
-        {
-          id: '2',
-          properties: {
-            'time': 2
-          }
-        },
-        {
-          id: '3',
-          properties: {
-            'time': 3
-          }
-        },
-      ]);
-
-      model.set({
-        'sort': {
-          'id': 'newest',
-          'name' : 'Newest first',
-          'sort' : function (a, b) {
-            return b.properties.time - a.properties.time;
-          }
-        }
-      });
-
-      expect(catalog.data()[0].id).to.equal('3')
-
-      model.set({
-        'sort': {
-          'id': 'oldest',
-          'name' : 'Oldest first',
-          'sort' : function (a, b) {
-            return a.properties.time - b.properties.time;
-          }
-        }
-      });
-
-      expect(catalog.data()[0].id).to.equal('1')
+      expect(onSortSpy.callCount).to.equal(1);
     });
   });
 
@@ -182,4 +160,5 @@ describe('latesteqs/Catalog', function () {
       expect(catalog.data()).to.deep.equal(data.features);
     });
   });
+
 });
