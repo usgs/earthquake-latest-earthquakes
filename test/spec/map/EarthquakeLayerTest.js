@@ -2,8 +2,7 @@
 'use strict';
 
 
-var Collection = require('mvc/Collection'),
-    EarthquakeLayer = require('map/EarthquakeLayer');
+var EarthquakeLayer = require('map/EarthquakeLayer');
 
 
 var expect = chai.expect;
