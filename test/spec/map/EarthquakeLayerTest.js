@@ -14,6 +14,14 @@ describe('map/EarthquakeLayer', function () {
     it('is a function', function () {
       expect(typeof EarthquakeLayer).to.equal('function');
     });
+
+    it('can be destroyed', function () {
+      var view;
+
+      view = EarthquakeLayer();
+
+      expect(view.destroy).to.not.throw(Error);
+    });
   });
 
   describe('_initialize', function () {
