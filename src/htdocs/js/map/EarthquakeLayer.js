@@ -81,9 +81,6 @@ var EarthquakeLayer = function (options) {
 
     _this.el.classList.add('earthquake-layer');
     _this.el.classList.add('leaflet-zoom-hide');
-    if (!Util.isMobile()) {
-      _this.el.classList.add('desktop');
-    }
 
     _this.collection.on('reset', 'render', _this);
     _this.el.addEventListener('click', _onClick);
