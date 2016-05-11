@@ -2,7 +2,6 @@
 
 
 var Accordion = require('accordion/Accordion'),
-    Collection = require('mvc/Collection'),
     DownloadView = require('list/DownloadView'),
     Formatter = require('core/Formatter'),
     GenericCollectionView = require('core/GenericCollectionView'),
@@ -50,10 +49,10 @@ var ListView = function (options) {
   var _this,
       _initialize,
 
+      _bounds,
       _downloadButton,
       _downloadModal,
       _downloadView,
-      _filteredCollection,
       _formatter,
       _headerCount,
       _headerTitle,
@@ -76,17 +75,14 @@ var ListView = function (options) {
    */
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
-    // save reference to unfiltered data
-    _filteredCollection = Collection();
+    _noDataMessage = options.noDataMessage;
+
     _this.filterEnabled = false;
     _this.mapEnabled = false;
-    _noDataMessage = options.noDataMessage;
 
     _this.model.on('change:listFormat', 'render', _this);
     _this.model.on('change:timezone', 'render', _this);
     _this.model.on('change:restrictListToMap', 'onRestrictListToMap', _this);
-    _this.collection.on('reset', 'onCollectionReset', _this);
-    _filteredCollection.on('reset', 'render', _this);
 
     _createScaffold();
   };
@@ -220,13 +216,11 @@ var ListView = function (options) {
     _this.model.off('change:listFormat', 'render', _this);
     _this.model.off('change:timezone', 'render', _this);
     _this.model.off('change:restrictListToMap', 'onRestrictListToMap', _this);
-    _this.collection.off('reset', 'onCollectionReset', _this);
-    _filteredCollection.off('reset', 'render', _this);
 
+    _bounds = null;
     _downloadButton = null;
     _downloadModal = null;
     _downloadView = null;
-    _filteredCollection = null;
     _formatter = null;
     _headerCount = null;
     _headerTitle = null;
@@ -257,18 +251,21 @@ var ListView = function (options) {
         len;
 
     // if map is hidden then return all events
-    if (!_this.mapEnabled) {
+    if (_this.mapEnabled) {
+      _bounds = _this.model.get('mapposition');
+    }
+
+    if (!_bounds) {
       return items;
     }
 
     events = [];
-    bounds = _this.model.get('mapposition');
 
     // loop through all events, check against map bounds
     for (i = 0, len = items.length; i < len; i++) {
       item = items[i];
       coordinates = item.geometry.coordinates;
-      if (_this.boundsContain(bounds, [coordinates[1], coordinates[0]])) {
+      if (_this.boundsContain(_bounds, [coordinates[1], coordinates[0]])) {
         events.push(item);
       }
     }
@@ -306,7 +303,25 @@ var ListView = function (options) {
    *    An array of features.
    */
   _this.getDataToRender = function () {
-    return _filteredCollection.data().slice(0);
+    var data,
+        viewModes;
+
+    data = _this.collection.data().slice(0);
+    viewModes = _this.model.get('viewModes') || [];
+
+    // check if map is visible
+    _this.mapEnabled = false;
+    for (var i = 0; i < viewModes.length; i++) {
+      if (viewModes[i].id === 'map') {
+        _this.mapEnabled = true;
+      }
+    }
+
+    if (_this.filterEnabled) {
+      data =  _this.filterEvents(data);
+    }
+
+    return data;
   };
 
   /**
@@ -314,52 +329,6 @@ var ListView = function (options) {
    */
   _this.onButtonClick = function () {
     _downloadModal.show();
-  };
-
-  /**
-   * Sync the Catalog collection with the filtered list collection.
-   *
-   * This is called when the catalog collection is set, so that the
-   * two collections stay in sync.
-   *
-   */
-  _this.onCollectionReset = function () {
-    var data;
-
-    data = _this.collection.data().slice(0) || [];
-
-    if (_this.filterEnabled) {
-      _filteredCollection.reset(_this.filterEvents(data));
-    } else {
-      _filteredCollection.reset(data);
-    }
-  };
-
-  /**
-   * Called when the map position changes.
-   *
-   * If the map is visible, then filter by the current map extents. Otherwise
-   * the currently filtered collection should remain unchanged.
-   *
-   */
-  _this.onMapPositionChange = function () {
-    var data,
-        viewModes;
-
-    // check if map is visible
-    _this.mapEnabled = false;
-    viewModes = _this.model.get('viewModes') || [];
-    for (var i = 0; i < viewModes.length; i++) {
-      if (viewModes[i].id === 'map') {
-        _this.mapEnabled = true;
-      }
-    }
-
-    // map is on (filter all events by extents)
-    if (_this.mapEnabled) {
-      data = _this.filterEvents(_this.collection.data().slice(0));
-      _filteredCollection.reset(data);
-    }
   };
 
   /**
@@ -382,17 +351,17 @@ var ListView = function (options) {
         return;
       }
       _this.filterEnabled = true;
-      _this.model.on('change:mapposition', _this.onMapPositionChange, _this);
-      _this.onMapPositionChange();
+      _this.model.on('change:mapposition', _this.render, _this);
     } else {
       // stop double renders from creating multiple bindings
       if (!_this.filterEnabled) {
         return;
       }
       _this.filterEnabled = false;
-      _this.model.off('change:mapposition', _this.onMapPositionChange, _this);
-      _this.onCollectionReset();
+      _this.model.off('change:mapposition', _this.render, _this);
     }
+
+    _this.render();
   };
 
   /**
@@ -460,7 +429,7 @@ var ListView = function (options) {
     metadata = _this.collection.metadata || {};
     headerTitle = _this.model.get('feed').name;
     totalCount = metadata.hasOwnProperty('count') ? metadata.count : '&ndash;';
-    displayCount = _filteredCollection.data().length;
+    displayCount = _this.getDataToRender().length;
     restrict = _this.model.get('restrictListToMap');
     headerCount = _this.formatCountInfo(totalCount, displayCount, restrict);
     updateTime = _formatter.datetime(metadata.generated, false);
