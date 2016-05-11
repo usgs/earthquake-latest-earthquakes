@@ -1,14 +1,6 @@
-.leaflet-bottom {
-  margin-bottom: 1em;
-}
 
 .leaflet-bottom.leaflet-right {
-  display: block;
   width: 50%;
-}
-
-.leaflet-bottom > .leaflet-control {
-  margin-bottom: 0;
 }
 
 .leaflet-control-scale-line {
@@ -19,59 +11,43 @@
   height: 100%;
 }
 
-.leaflet-control-container .leaflet-control-mouseposition,
-.leaflet-control-container .legend-control {
-  clear: right;
+.leaflet-control-mouseposition,
+.legend-control {
   display: none;
 }
 
 @media screen and (min-width: 465px) {
-  .mode-map .leaflet-control-container .legend-control {
+  .legend-control {
+    display: block;
+  }
+
+  .desktop .legend-control {
     height: 52px;
     left: -72px;
     position: absolute;
     width: 144px;
-    display: block;
+    top: -29px;
   }
 
-  .mode-map .leaflet-control-container .leaflet-control-scale {
-    margin-bottom: 0;
-    margin-left: 10px;
-    display: block;
-  }
-
-  .mode-map .leaflet-control-mouseposition {
-    margin-top: 26px;
+  .leaflet-control-mouseposition {
     display: block;
   }
 }
 
 
 @media screen and (min-width: 465px) and (max-width: 783px) {
-  .mode-list .leaflet-control-container .leaflet-bottom .leaflet-control-scale,
-  .mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-scale {
-    clear: left;
-    float: left;
-  }
-
   /* Two modes enabled (including map), window is below 740px. */
   .mode-list .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
-  .mode-list .leaflet-control-container .leaflet-bottom .legend-control,
-  .mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
-  .mode-settings .leaflet-control-container .leaflet-bottom .legend-control {
+  .mode-list .leaflet-control-container .leaflet-bottom .legend-control{
     display: none;
   }
 }
 
 @media screen and (min-width: 783px) and (max-width: 1090px) {
-  /* All three modes enabled, window is below 1050px. */
+  /* All three modes enabled, window is below 1090px. */
   .mode-list.mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
   .mode-list.mode-settings .leaflet-control-container .leaflet-bottom .legend-control {
     display: none;
   }
 
-  .mode-list.mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-scale {
-    clear: left;
-    float: left;
-  }
 }
