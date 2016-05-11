@@ -91,9 +91,12 @@ var MapView = function (options) {
     });
 
     _this.map.addLayer(_earthquakes);
-    L.control.scale().addTo(_this.map);
-    L.control.mousePosition().addTo(_this.map);
+    if (!Util.isMobile()) {
+      el.classList.add('desktop');
+      L.control.mousePosition().addTo(_this.map);
+    }
     L.control.legendControl().addTo(_this.map);
+    L.control.scale().addTo(_this.map);
     L.control.zoomToControl({locations:options.locations}).addTo(_this.map);
 
     _this.model.on('change:basemap', 'renderBasemap', _this);
