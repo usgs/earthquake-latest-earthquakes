@@ -119,8 +119,11 @@ describe('modes/ModesView', function () {
       expect(modesView.model.get('viewModes').length).to.equal(1);
 
       // Now toggle same option and ensure it is removed
+      // When no modes are selected help mode is selected by default.
+      // This is done to make sure that the user does not end up on a blank
+      // page when all modes are deselected.
       modesView.updateModel(option);
-      expect(modesView.model.get('viewModes').length).to.equal(0);
+      expect(modesView.model.get('viewModes').length).to.equal(1);
     });
   });
 });

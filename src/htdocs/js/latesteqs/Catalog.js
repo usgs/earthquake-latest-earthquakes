@@ -55,6 +55,7 @@ var Catalog = function (options) {
     _this.model.off('change:feed', 'load', _this);
     _this.model.off('change:sort', 'sort', _this);
 
+    _initialize = null;
     _this = null;
   }, _this.destroy);
 

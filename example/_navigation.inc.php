@@ -3,8 +3,8 @@
     navItem('/core/GenericCollectionViewExample.php', 'GenericCollectionView')
   );
 
-  echo navGroup('Help',
-    navItem('/help/HelpViewExample.php', 'HelpView')
+  echo navGroup('About',
+    navItem('/about/AboutViewExample.php', 'AboutView')
   );
 
   echo navGroup('List',

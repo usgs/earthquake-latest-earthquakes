@@ -2,6 +2,7 @@
 
 // TODO: use real List, Map, and Settings views
 var Catalog = require('latesteqs/Catalog'),
+    AboutView = require('about/AboutView'),
     LatestEarthquakesConfig = require('latesteqs/LatestEarthquakesConfig'),
     ListView = require('list/ListView'),
     MapView = require('map/MapView'),
@@ -69,6 +70,7 @@ var LatestEarthquakes = function (options) {
       _catalog,
       _config,
       _content,
+      _aboutView,
       _listView,
       _mapView,
       _modesView,
@@ -103,6 +105,9 @@ var LatestEarthquakes = function (options) {
           '</div>' +
           '<div class="latest-earthquakes-settings">'+
             '<div class="settings-view"></div>' +
+          '</div>' +
+          '<div class="latest-earthquakes-about">' +
+            '<div class="about-view"></div>' +
           '</div>' +
         '</div>' +
         '<footer class="latest-earthquakes-footer"></footer>';
@@ -143,6 +148,11 @@ var LatestEarthquakes = function (options) {
       model: _this.model
     });
 
+    _aboutView = AboutView({
+      el: el.querySelector('.about-view'),
+      model: _this.model
+    });
+
     _urlManager = UrlManager({
       config: _config,
       defaults: Util.extend({}, _DEFAULT_SETTINGS, options.settings),
@@ -163,23 +173,26 @@ var LatestEarthquakes = function (options) {
 
     _urlManager.destroy();
 
+    _aboutView.destroy();
     _listView.destroy();
     _mapView.destroy();
     _modesView.destroy();
     _settingsView.destroy();
 
-    _catalog.destroy();
     _config.destroy();
+    _catalog.destroy();
 
     // free references
     _catalog = null;
     _config = null;
     _content = null;
+    _aboutView = null;
     _listView = null;
     _mapView = null;
     _modesView = null;
     _settingsView = null;
     _this = null;
+    _initialize = null;
     _urlManager = null;
   }, _this.destroy);
 
@@ -214,6 +227,7 @@ var LatestEarthquakes = function (options) {
     var name;
 
     name = 'mode-' + mode;
+
     if (enable) {
       _content.classList.add(name);
     } else {

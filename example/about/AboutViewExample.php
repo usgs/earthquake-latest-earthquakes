@@ -1,6 +1,6 @@
 <?php
 if (!isset($TEMPLATE)) {
-  $TITLE = 'HelpViewExample';
+  $TITLE = 'AboutViewExample';
 
   $NAVIGATION = true;
 
@@ -10,11 +10,11 @@ if (!isset($TEMPLATE)) {
 
   $FOOT = '
     <script src="/js/bundle.js"></script>
-    <script src="HelpViewExample.js"></script>
+    <script src="AboutViewExample.js"></script>
   ';
 
   include 'template.inc.php';
 }
 ?>
 
-<div id="help-view-example"></div>
+<div id="about-view-example"></div>
