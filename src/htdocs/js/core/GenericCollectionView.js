@@ -306,6 +306,18 @@ var GenericCollectionView = function (options) {
   };
 
   /**
+   * APIMethod
+   *
+   * Method to return all data to render in renderContent().
+   *
+   * @return {Array}
+   *    An array of features.
+   */
+  _this.getDataToRender = function () {
+    return _this.collection.data().slice(0);
+  };
+
+  /**
    * Called via event delegation when the user clicks anywhere withing
    * `_this.content`. Finds the clicked element and uses its "data-id"
    * attribute to find the corresponding item in the collection and then
@@ -368,7 +380,7 @@ var GenericCollectionView = function (options) {
         data;
 
     try {
-      data = _this.collection.data().slice(0);
+      data = _this.getDataToRender();
 
       if (data.length === 0) {
         _this.content.innerHTML = '<p class="alert info">' +

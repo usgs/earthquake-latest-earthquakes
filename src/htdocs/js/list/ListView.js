@@ -300,6 +300,16 @@ var ListView = function (options) {
   };
 
   /**
+   * Return all filtered data to render in renderContent().
+   *
+   * @return {Array}
+   *    An array of features.
+   */
+  _this.getDataToRender = function () {
+    return _filteredCollection.data().slice(0);
+  };
+
+  /**
    * Shows download view when button is clicked.
    */
   _this.onButtonClick = function () {
@@ -386,49 +396,14 @@ var ListView = function (options) {
   };
 
   /**
-   * Renders each item in the filtered collection.
-   *
-   * Displays the _noDataMessage when all data has been filtered,
-   * or the collection is empty.
-   *
-   */
-  _this.renderContent = function () {
-    var container,
-        data;
-
-    try {
-      data = _filteredCollection.data().slice(0);
-
-      if (data.length === 0) {
-        _this.content.innerHTML = '<p class="alert info">' +
-            _noDataMessage +
-          '</p>';
-      } else {
-        container = _this.createCollectionContainer();
-
-        data.forEach(function (obj) {
-          container.appendChild(_this.createCollectionItem(obj));
-        });
-
-        Util.empty(_this.content);
-        _this.content.appendChild(container);
-        _this.onEvent(); // Make sure selected item remains selected
-      }
-    } catch (e) {
-      _this.content.innerHTML = '<p class="alert error">' +
-          'An error occurred while rendering.\n' +
-          '<!-- ' + (e.stack || e.message) + ' -->' +
-        '</p>';
-    }
-  };
-
-  /**
    * Override render to get a referene to current list format,
    * and configure timezone before rendering.
    */
   _this.render = Util.compose(function () {
     var listFormat,
         timezoneOffset;
+
+    console.log('ListView - render');
 
     listFormat = _this.model.get('listFormat');
     if (listFormat) {
