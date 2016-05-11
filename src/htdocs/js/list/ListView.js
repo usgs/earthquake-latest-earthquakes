@@ -234,7 +234,8 @@ var ListView = function (options) {
   }, _this.destroy);
 
   /**
-   * Filter list of events and return only what is inside the map bounds
+   * Filter list of events and return only what is inside the map bounds.
+   * If the map is not visible use the previously available bounds.
    *
    * @param items {Array}
    *     array of events
@@ -243,18 +244,28 @@ var ListView = function (options) {
    *     filtered events that are within the map bounds
    */
   _this.filterEvents = function (items) {
-    var bounds,
-        coordinates,
+    var coordinates,
+        events,
         i,
         item,
-        events,
-        len;
+        len,
+        viewModes;
 
-    // if map is hidden then return all events
+    // check if map is visible
+    _this.mapEnabled = false;
+    viewModes = _this.model.get('viewModes') || [];
+    for (i = 0; i < viewModes.length; i++) {
+      if (viewModes[i].id === 'map') {
+        _this.mapEnabled = true;
+      }
+    }
+
+    // if the map is enabled, check the bounds
     if (_this.mapEnabled) {
       _bounds = _this.model.get('mapposition');
     }
 
+    // if map is hidden then return all events
     if (!_bounds) {
       return items;
     }
@@ -297,28 +308,18 @@ var ListView = function (options) {
   };
 
   /**
-   * Return all filtered data to render in renderContent().
+   * Return all filtered data.
    *
    * @return {Array}
    *    An array of features.
    */
   _this.getDataToRender = function () {
-    var data,
-        viewModes;
+    var data;
 
     data = _this.collection.data().slice(0);
-    viewModes = _this.model.get('viewModes') || [];
-
-    // check if map is visible
-    _this.mapEnabled = false;
-    for (var i = 0; i < viewModes.length; i++) {
-      if (viewModes[i].id === 'map') {
-        _this.mapEnabled = true;
-      }
-    }
 
     if (_this.filterEnabled) {
-      data =  _this.filterEvents(data);
+      data = _this.filterEvents(data);
     }
 
     return data;

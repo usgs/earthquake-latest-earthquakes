@@ -341,4 +341,25 @@ describe('core/GenericCollectionView', function () {
       view.destroy();
     });
   });
+
+  describe('getDataToRender', function () {
+    it('gets the data from the collection to render', function () {
+      var collection,
+          data,
+          view;
+
+      collection = Collection([
+        {'id': 'item-1', 'value': 'value-1'},
+        {'id': 'item-2', 'value': 'value-2'},
+        {'id': 'item-3', 'value': 'value-3'}
+      ]);
+      view = GenericCollectionView({collection: collection});
+      data = view.getDataToRender();
+
+      expect(data.length).to.equal(collection.data().length);
+
+      view.destroy();
+    });
+  });
+
 });

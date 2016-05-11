@@ -3,6 +3,7 @@
 
 
 var Catalog = require('latesteqs/Catalog'),
+    Collection = require('mvc/Collection'),
     ListView = require('list/ListView'),
     Model = require('mvc/Model');
 
@@ -171,7 +172,8 @@ describe('list/ListView', function () {
       'mapposition': [
         [10, -130], // southwest
         [30, -110] // northeast
-      ]
+      ],
+      'viewModes': [{'id': 'list'}]
     });
 
     view = ListView({
@@ -180,6 +182,7 @@ describe('list/ListView', function () {
 
     data = [
       {
+
         geometry: {
           coordinates: [
             -120, 20, 0
@@ -195,63 +198,16 @@ describe('list/ListView', function () {
       }
     ];
 
-    it('filters events', function () {
-      view.mapEnabled = true;
-      expect(view.filterEvents(data).length).to.equal(1);
-    });
-
     it('does NOT filter events when the map is disabled', function () {
-      view.mapEnabled = false;
-      model.set({
-        'viewModes': [{'id': 'list'}]
-      });
       expect(view.filterEvents(data).length).to.equal(2);
     });
-  });
 
-  describe('onCollectionReset', function () {
-    var spy,
-        stub,
-        view;
-
-    view = ListView();
-    stub = sinon.stub(view, 'render', function () {} );
-    spy = sinon.spy(view, 'onCollectionReset');
-    view.collection.reset(['a', 'b', 'c']);
-
-    it('is triggered by a collection reset', function () {
-      expect(spy.callCount).to.equal(1);
+    it('filters events when a map is enabled', function () {
+      model.set({
+        'viewModes': [{'id': 'map'}]
+      });
+      expect(view.filterEvents(data).length).to.equal(1);
     });
-
-    spy.restore();
-    view.destroy();
-  });
-
-  describe('onMapPositionChange', function () {
-    var bounds,
-        spy,
-        view;
-
-    view = ListView();
-    spy = sinon.spy(view, 'onMapPositionChange');
-
-    // restrict list to map, by enabling restrictListToMap
-    view.model.set({
-      'restrictListToMap': [{'id': 'restrictListToMap'}]
-    });
-
-    // update bounds with change:mapposition on model
-    bounds = [[20, -20],[22, -22]];
-    view.model.set({
-      'mapposition': bounds
-    });
-
-    it('is triggered by a map position change', function () {
-      expect(spy.secondCall.args[0]).to.equal(bounds);
-    });
-
-    spy.restore();
-    view.destroy();
   });
 
   describe('onRestrictListToMap', function () {
@@ -270,6 +226,35 @@ describe('list/ListView', function () {
 
     spy.restore();
     view.destroy();
+  });
+
+  describe('getDataToRender', function () {
+    it('gets the filtered data from the collection to render', function () {
+      var collection,
+          data,
+          view;
+
+      collection = Collection([
+        {'id': 'item-1', 'value': 'value-1'},
+        {'id': 'item-2', 'value': 'value-2'},
+        {'id': 'item-3', 'value': 'value-3'}
+      ]);
+
+      view = ListView({collection: collection});
+      sinon.stub(view, 'filterEvents', function () {
+        return 'filterEvents';
+      });
+
+      view.filterEnabled = false;
+      data = view.getDataToRender();
+      expect(data.length).to.equal(collection.data().length);
+
+      view.filterEnabled = true;
+      data = view.getDataToRender();
+      expect(data).to.equal('filterEvents');
+
+      view.destroy();
+    });
   });
 
 });
