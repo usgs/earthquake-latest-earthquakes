@@ -129,38 +129,13 @@ var ModesView = function (options) {
       } else if (obj.id === items[i].id) {
         index = i;
       }
-
+    }
 
     if (index === -1) {
       // does not contain object, add it
       toSet[_this.watchProperty].push(obj);
     } else if (toSet[_this.watchProperty].length === 0) {
       toSet[_this.watchProperty].push({'id': 'help'});
-
-    toSet = {};
-    properties = _this.model.get(_this.watchProperty);
-
-    if (properties) {
-      toSet[_this.watchProperty] = properties.slice(0);
-    } else {
-      toSet[_this.watchProperty] = [];
-    }
-
-    index = -1;
-    items = toSet[_this.watchProperty];
-    // check if model already contains selected object
-    for (i = 0; i < items.length; i++) {
-      if (obj.id === items[i].id) {
-        index = i;
-      }
-    }
-
-    if (index === -1) {
-      // does not contain object, add it
-      toSet[_this.watchProperty].push(obj);
-    } else {
-      // contains object, remove it
-      toSet[_this.watchProperty].splice(index, 1);
     }
 
     _this.model.set(toSet);
