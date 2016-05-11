@@ -123,6 +123,7 @@ var Catalog = function (options) {
     _this.error = false;
     _this.metadata = data.metadata;
     _this.reset(data.features);
+    _this.onSort();
   };
 
   /**
