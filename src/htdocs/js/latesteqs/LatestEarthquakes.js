@@ -86,6 +86,17 @@ var LatestEarthquakes = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
     el = _this.el;
 
+    _modesView = ModesView();
+
+    if (_modesView.mobileCheck()) {
+      _DEFAULT_SETTINGS.viewModes = {
+        list: true,
+        map: false,
+        settings: false,
+        help: false
+      };
+    }
+
     el.classList.add('latest-earthquakes');
     el.innerHTML =
         '<header class="latest-earthquakes-header">' +
