@@ -3,51 +3,50 @@
   width: 50%;
 }
 
-.leaflet-control-scale-line {
-  font-size: 0.8em;
-}
-
 .map-view {
   height: 100%;
 }
 
-.leaflet-control-mouseposition,
 .legend-control {
   display: none;
 }
 
+/* Keeps screen from zooming when input is selected on mobile devices */
+.leaflet-touch .zoomto-control {
+  font-size: 16px;
+}
+
 @media screen and (min-width: 465px) {
+
   .legend-control {
     display: block;
   }
 
-  .desktop .legend-control {
+  .leaflet-control-mouseposition + .legend-control {
     height: 52px;
     left: -72px;
     position: absolute;
     width: 144px;
     top: -29px;
   }
-
-  .leaflet-control-mouseposition {
-    display: block;
-  }
 }
 
+@media screen and (max-width: 783px) {
 
-@media screen and (min-width: 465px) and (max-width: 783px) {
   /* Two modes enabled (including map), window is below 740px. */
-  .mode-list .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
-  .mode-list .leaflet-control-container .leaflet-bottom .legend-control{
+  .mode-list .leaflet-control-mouseposition,
+  .mode-list .legend-control,
+  .mode-settings .leaflet-control-mouseposition,
+  .mode-settings .legend-control {
     display: none;
   }
 }
 
-@media screen and (min-width: 783px) and (max-width: 1090px) {
+@media screen and (max-width: 1090px) {
+
   /* All three modes enabled, window is below 1090px. */
-  .mode-list.mode-settings .leaflet-control-container .leaflet-bottom .leaflet-control-mouseposition,
-  .mode-list.mode-settings .leaflet-control-container .leaflet-bottom .legend-control {
+  .mode-list.mode-settings .leaflet-control-mouseposition,
+  .mode-list.mode-settings .legend-control {
     display: none;
   }
-
 }
