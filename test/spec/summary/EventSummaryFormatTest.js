@@ -1,4 +1,4 @@
-/* global after, before, chai, describe, it, sinon */
+/* global before, chai, describe, it */
 'use strict';
 
 var EventSummaryFormat = require('summary/EventSummaryFormat');
@@ -8,81 +8,81 @@ var expect = chai.expect;
 var feature = {
   properties: {
     mag: 4.1,
-    place: "9km NE of Noatak, Alaska",
+    place: '9km NE of Noatak, Alaska',
     time: 1460494200000,
     updated: 1460496137194,
     tz: -480,
-    url: "http://earthquake.usgs.gov/earthquakes/eventpage/ak13428667",
-    detail: "http://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/ak13428667.geojson",
+    url: 'http://earthquake.usgs.gov/earthquakes/eventpage/ak13428667',
+    detail: 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/ak13428667.geojson',
     felt: 0,
     cdi: 1,
     mmi: 4.46,
-    alert: "green",
-    status: "reviewed",
+    alert: 'green',
+    status: 'reviewed',
     tsunami: 1,
     sig: 259,
-    net: "ak",
-    code: "13428667",
-    ids: ",ak13428667,",
-    sources: ",ak,",
-    types: ",cap,dyfi,general-link,geoserve,losspager,nearby-cities,origin,shakemap,",
+    net: 'ak',
+    code: '13428667',
+    ids: ',ak13428667,',
+    sources: ',ak,',
+    types: ',cap,dyfi,general-link,geoserve,losspager,nearby-cities,origin,shakemap,',
     nst: null,
     dmin: null,
     rms: 0.64,
     gap: null,
-    magType: "ml",
-    type: "earthquake",
-    title: "M 4.1 - 9km NE of Noatak, Alaska"
+    magType: 'ml',
+    type: 'earthquake',
+    title: 'M 4.1 - 9km NE of Noatak, Alaska'
   },
   geometry: {
-    type: "Point",
+    type: 'Point',
     coordinates: [
       -162.8311,
       67.6369,
       13.7
     ]
   },
-  id: "ak13428667"
+  id: 'ak13428667'
 };
 
 var featureNoData = {
   properties: {
     mag: 4.1,
-    place: "9km NE of Noatak, Alaska",
+    place: '9km NE of Noatak, Alaska',
     time: null,
     updated: 1460496137194,
     tz: -480,
-    url: "http://earthquake.usgs.gov/earthquakes/eventpage/ak13428667",
-    detail: "http://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/ak13428667.geojson",
+    url: 'http://earthquake.usgs.gov/earthquakes/eventpage/ak13428667',
+    detail: 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/ak13428667.geojson',
     felt: 0,
     cdi: null,
     mmi: null,
     alert: null,
-    status: "reviewed",
+    status: 'reviewed',
     tsunami: 0,
     sig: 259,
-    net: "ak",
-    code: "13428667",
-    ids: ",ak13428667,",
-    sources: ",ak,",
-    types: ",cap,dyfi,general-link,geoserve,losspager,nearby-cities,origin,shakemap,",
+    net: 'ak',
+    code: '13428667',
+    ids: ',ak13428667,',
+    sources: ',ak,',
+    types: ',cap,dyfi,general-link,geoserve,losspager,nearby-cities,origin,shakemap,',
     nst: null,
     dmin: null,
     rms: 0.64,
     gap: null,
-    magType: "ml",
-    type: "earthquake",
-    title: "M 4.1 - 9km NE of Noatak, Alaska"
+    magType: 'ml',
+    type: 'earthquake',
+    title: 'M 4.1 - 9km NE of Noatak, Alaska'
   },
   geometry: {
-    type: "Point",
+    type: 'Point',
     coordinates: [
       null,
       null,
       null
     ]
   },
-  id: "ak13428667"
+  id: 'ak13428667'
 };
 
 describe('summary/EventSummaryFormat', function () {
