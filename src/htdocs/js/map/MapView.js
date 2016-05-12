@@ -107,13 +107,22 @@ var MapView = function (options) {
     _this.map.invalidateSize();
   };
 
+  _onMoveEnd = function () {
+    _this.onMoveEnd();
+  };
+
   _this.destroy = Util.compose(function () {
     _this.model.off('change:basemap', 'renderBasemap', _this);
     _this.model.off('change:overlays', 'renderOverlays', _this);
 
     _this.map.removeLayer(_earthquakes);
     _earthquakes.destroy();
+
+    _basemap = null;
     _earthquakes = null;
+    _changedMapPosition = null;
+    _onMoveEnd = null;
+    _triggeredMapPosition = null;
 
     _this = null;
   }, _this.destroy);
