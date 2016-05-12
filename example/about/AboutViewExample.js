@@ -2,8 +2,6 @@
 
 var AboutView = require('about/AboutView');
 
-var aboutView;
-
-aboutView = AboutView({
+AboutView({
   el: document.querySelector('#about-view-example')
 }).render();

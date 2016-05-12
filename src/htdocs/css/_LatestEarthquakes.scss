@@ -62,6 +62,7 @@ body {
 /***** layout for content views *****/
 
 /** hide views by default. */
+.latest-earthquakes-about,
 .latest-earthquakes-footer,
 .latest-earthquakes-list,
 .latest-earthquakes-map,
@@ -92,12 +93,12 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-.latest-earthquakes-about > .about-view {
-  padding-left: 1em;
-  position: absolute;
+.latest-earthquakes-about {
+  overflow: scroll;
 }
 
 /** show views when mode enabled. */
+.mode-help > .latest-earthquakes-about,
 .mode-list > .latest-earthquakes-list,
 .mode-map > .latest-earthquakes-map,
 .mode-settings > .latest-earthquakes-settings {

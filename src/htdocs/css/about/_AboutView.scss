@@ -1,10 +1,11 @@
 .about-view {
+  padding: 0 1em;
+
   > ul > li {
     overflow: hidden;
 
     > .material-icons {
       background-color: #3d5e80;
-      border: 1px solid #ccc;
       color: #fff;
       display: block;
       float: left;
@@ -19,7 +20,5 @@
 }
 
 .logo-image {
-  align-items: center;
-  display: flex;
-  justify-content: center;
+  max-width: 80px;
 }
