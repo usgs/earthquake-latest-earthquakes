@@ -92,21 +92,57 @@
 .roman,
 .intensity {
   color: #333;
-  font-family: Tahona, Tahoma, Verdana, Segoe, sans-serif;
+  font-family: $mmi-font-family;
 }
 
-.mmiI{background-color: #FFFFFF;}
-.mmiII{background-color: #ACD8E9;}
-.mmiIII{background-color: #ACD8E9;}
-.mmiIV{background-color: #83D0DA;}
-.mmiV{background-color: #7BC87F;}
-.mmiVI{background-color: #F9F518;}
-.mmiVII{background-color: #FAC611;}
-.mmiVIII{background-color: #FA8A11;}
-.mmiIX{background-color: #F7100C;}
-.mmiX{background-color: #C80F0A;}
-.mmiXI{background-color: #C80F0A;}
-.mmiXII{background-color: #C80F0A;}
+.mmiI{
+  background-color: $mmiI;
+  color: $mmiI-text-color;
+}
+.mmiII{
+  background-color: $mmiII;
+  color: $mmiII-text-color;
+}
+.mmiIII{
+  background-color: $mmiIII;
+  color: $mmiIII-text-color;
+}
+.mmiIV{
+  background-color: $mmiIV;
+  color: $mmiIV-text-color;
+}
+.mmiV{
+  background-color: $mmiV;
+  color: $mmiV-text-color;
+}
+.mmiVI{
+  background-color: $mmiVI;
+  color: $mmiVI-text-color;
+}
+.mmiVII{
+  background-color: $mmiVII;
+  color: $mmiVII-text-color;
+}
+.mmiVIII{
+  background-color: $mmiVIII;
+  color: $mmiVIII-text-color;
+}
+.mmiIX{
+  background-color: $mmiIX;
+  color: $mmiIX-text-color;
+}
+.mmiX{
+  background-color: $mmiX;
+  color: $mmiX-text-color;
+}
+.mmiXI{
+  background-color: $mmiXI;
+  color: $mmiXI-text-color;
+}
+.mmiXII{
+  background-color: $mmiXII;
+  color: $mmiXII-text-color;
+}
 
 
 .event-summary {
