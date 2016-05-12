@@ -366,8 +366,6 @@ var ListView = function (options) {
     var listFormat,
         timezoneOffset;
 
-    console.log('ListView - render');
-
     listFormat = _this.model.get('listFormat');
     if (listFormat) {
       listFormat = listFormat.format;
