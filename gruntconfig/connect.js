@@ -23,9 +23,9 @@ var connect = {
   proxies: [
     {
       context: [
-        '/earthquakes/',
+        '/earthquakes/feed/',
         '/fdsnws/',
-        '/scenarios'
+        '/scenarios/'
       ],
       headers: {
         'accept-encoding': 'identity',

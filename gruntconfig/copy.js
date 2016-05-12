@@ -28,6 +28,16 @@ var copy = {
     ]
   },
 
+  'package': {
+    cwd: '.',
+    dest: config.dist + '/conf',
+    expand: true,
+    options: { mode: true },
+    src: [
+      'package.json'
+    ]
+  },
+
   leaflet: {
     expand: true,
     cwd: 'node_modules/leaflet/dist',

@@ -24,6 +24,7 @@ module.exports = function (grunt) {
   grunt.registerTask('builddist', [
     'clean:dist',
     'copy:dist',
+    'copy:package',
     'postcss:dist',
     'uglify'
   ]);
