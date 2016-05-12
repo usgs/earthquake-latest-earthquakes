@@ -1,5 +1,5 @@
 .about-view {
-  padding-left: 1em;
+  padding: 0 1em;
 
   > ul > li {
     overflow: hidden;
@@ -20,5 +20,5 @@
 }
 
 .logo-image {
-  width: 80px;
+  max-width: 80px;
 }
