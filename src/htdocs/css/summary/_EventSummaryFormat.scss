@@ -60,7 +60,6 @@
   }
 }
 
-
 .pager-alertlevel-pending {
   background-color: #fff;
   color: #000;
@@ -80,13 +79,6 @@
 .pager-alertlevel-red {
   background-color: #f00 !important;
   color: #000 !important;
-}
-
-/* Width for media query makes the switch from percentages to pixels smooth. */
-@media screen and (min-width: 1088px) {
-  .event-header > .impact-bubbles > a + a {
-    margin-left: 16px;
-  }
 }
 
 .roman,
@@ -144,21 +136,18 @@
   color: $mmiXII-text-color;
 }
 
-
 .event-summary {
+
   > h1 {
     font-size: medium;
-    font-weight: bold;
     margin-top: 0.25em;
   }
 
-  > dl {
-    > dt {
-      clear: left;
-      display: block;
-      float: left;
-      font-weight: normal;
-      width: 5em;
-    }
+  > dl > dt {
+    clear: left;
+    display: block;
+    float: left;
+    font-weight: normal;
+    width: 5em;
   }
 }
