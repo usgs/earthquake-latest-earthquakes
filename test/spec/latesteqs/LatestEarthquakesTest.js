@@ -1,8 +1,7 @@
-/* global afterEach, beforeEach, chai, describe, it. sinon */
+/* global afterEach, beforeEach, chai, describe, it */
 'use strict';
 
 var LatestEarthquakes = require('latesteqs/LatestEarthquakes'),
-    ModalView = require('mvc/ModalView'),
     Model = require('mvc/Model');
 
 var expect = chai.expect;
