@@ -6,6 +6,12 @@ if (!isset($TEMPLATE)) {
 
   $HEAD = '
     <link rel="stylesheet" href="/css/index.css"/>
+    <style>
+      html,
+      body {
+        overflow: scroll;
+      }
+    </style>
   ';
 
   $FOOT = '
@@ -17,4 +23,4 @@ if (!isset($TEMPLATE)) {
 }
 ?>
 
-<div id="about-view-example"></div>
+<div id="about-view-example" class="about-view"></div>
