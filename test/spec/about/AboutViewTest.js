@@ -1,4 +1,4 @@
-/* global before, chai, describe, it */
+/* global chai, describe, it */
 'use strict';
 
 var AboutView = require('about/AboutView');
