@@ -237,11 +237,8 @@ var ListView = function (options) {
    *     filtered events that are within the map bounds
    */
   _this.filterEvents = function (items) {
-    var coordinates,
-        events,
+    var events,
         i,
-        item,
-        len,
         viewModes;
 
     // check if map is visible
@@ -263,16 +260,13 @@ var ListView = function (options) {
       return items;
     }
 
-    events = [];
-
     // loop through all events, check against map bounds
-    for (i = 0, len = items.length; i < len; i++) {
-      item = items[i];
+    events = [];
+    events = items.filter(function (item) {
+      var coordinates;
       coordinates = item.geometry.coordinates;
-      if (_this.boundsContain(_bounds, [coordinates[1], coordinates[0]])) {
-        events.push(item);
-      }
-    }
+      return _this.boundsContain(_bounds, [coordinates[1], coordinates[0]]);
+    });
 
     return events;
   };
