@@ -297,7 +297,7 @@ describe('map/EarthquakeLayer', function () {
         getCenter: function () {
           return {
             lng: 3
-          }
+          };
         }
       };
 
