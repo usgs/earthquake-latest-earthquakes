@@ -66,7 +66,9 @@ var EarthquakeLayer = function (options) {
   var _this,
       _initialize,
 
-      _onClick;
+      _onClick,
+      _onZoomEnd,
+      _render;
 
 
   _this = {};
@@ -81,9 +83,6 @@ var EarthquakeLayer = function (options) {
 
     _this.el.classList.add('earthquake-layer');
     _this.el.classList.add('leaflet-zoom-hide');
-    if (!Util.isMobile()) {
-      _this.el.classList.add('desktop');
-    }
 
     _this.collection.on('reset', 'render', _this);
     _this.el.addEventListener('click', _onClick);
@@ -102,16 +101,27 @@ var EarthquakeLayer = function (options) {
   };
 
   /**
-   * Free referenes and unbind events.
+   * DOM event listener that delegates to (potentially subclassed)
+   * _this.onZoomEnd.
+   *
+   * @param e {DOMEvent}
+   *     the dom event.
    */
-  _this.destroy = function () {
-    _this.collection.off('reset', 'render', _this);
-    _this.el.removeEventListener('click', _onClick);
-    _this.model.off('change:event', 'onSelect', _this);
-
-    _onClick = null;
-    _this = null;
+  _onZoomEnd = function (e) {
+    _this.onZoomEnd(e);
   };
+
+  /**
+   * DOM event listener that delegates to (potentially subclassed)
+   * _this.render.
+   *
+   * @param e {DOMEvent}
+   *     the dom event.
+   */
+  _render = function (e) {
+    _this.render(e);
+  };
+
 
   /**
    * Leaflet convenience method.
@@ -122,6 +132,22 @@ var EarthquakeLayer = function (options) {
   _this.addTo = function (map) {
     map.addLayer(_this);
     return _this;
+  };
+
+  /**
+   * Free referenes and unbind events.
+   */
+  _this.destroy = function () {
+    _this.collection.off('reset', 'render', _this);
+    _this.el.removeEventListener('click', _onClick);
+    _this.model.off('change:event', 'onSelect', _this);
+
+    _onClick = null;
+    _onZoomEnd = null;
+    _render = null;
+
+    _initialize = null;
+    _this = null;
   };
 
   /**
@@ -191,8 +217,8 @@ var EarthquakeLayer = function (options) {
    */
   _this.onAdd = function (map) {
     map.getPanes().overlayPane.appendChild(_this.el);
-    map.on('viewreset', _this.render);
-    map.on('zoomend', _this.onZoomEnd);
+    map.on('viewreset', _render);
+    map.on('zoomend', _onZoomEnd);
 
     _this.map = map;
     _this.onZoomEnd();
@@ -229,8 +255,8 @@ var EarthquakeLayer = function (options) {
    */
   _this.onRemove = function (map) {
     map.getPanes().overlayPane.removeChild(_this.el);
-    map.off('viewreset', _this.render);
-    map.off('zoomend', _this.onZoomEnd);
+    map.off('viewreset', _render);
+    map.off('zoomend', _onZoomEnd);
 
     _this.map = null;
   };
