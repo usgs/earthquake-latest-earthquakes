@@ -1,4 +1,4 @@
-/* global afterEach, beforeEach, chai, describe, it */
+/* global afterEach, beforeEach, chai, describe, it, sinon */
 'use strict';
 
 var Collection = require('mvc/Collection'),
@@ -132,7 +132,7 @@ describe('modes/ModesView', function () {
 
       expect(modesView.model.get('viewModes').length).to.equal(0);
 
-      modesView.updateMobileModel(obj)
+      modesView.updateMobileModel(obj);
       expect(modesView.model.get('viewModes').length).to.equal(1);
     });
   });
