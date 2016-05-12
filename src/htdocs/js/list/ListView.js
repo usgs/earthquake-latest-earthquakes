@@ -154,32 +154,25 @@ var ListView = function (options) {
     difference = maxLongitude - minLongitude;
 
     // check latitude values
-    if (latlng[0] > maxLatitude || latlng[0] < minLatitude) {
+    if (latitude > maxLatitude || latitude < minLatitude) {
       return false;
     }
 
-    // longitude spans more than 360 (latitude bounds were checked)
+    // longitude spans more than 360 degrees (latitude bounds were checked)
     if (difference >= 360) {
       return true;
     }
 
     // normalize point to be between longitude bounds
-    if (minLongitude < longitude && maxLongitude < longitude) {
-      while (minLongitude < longitude && maxLongitude < longitude) {
-        longitude = longitude - 360;
-      }
-    } else if (minLongitude > longitude && maxLongitude > longitude) {
-      while (minLongitude > longitude && maxLongitude > longitude) {
-        longitude = longitude + 360;
-      }
+    while (minLongitude < longitude && maxLongitude < longitude) {
+      longitude -= 360;
+    }
+    while (minLongitude > longitude && maxLongitude > longitude) {
+      longitude += 360;
     }
 
     // test with adjusted bounds
-    if (longitude <= maxLongitude && longitude >= minLongitude) {
-      return true;
-    }
-
-    return false;
+    return (longitude <= maxLongitude && longitude >= minLongitude);
   };
 
   /**
