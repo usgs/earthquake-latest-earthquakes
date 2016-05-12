@@ -46,17 +46,16 @@
 
   > .tsunami {
     border: 0;
-    border-bottom: 1px solid #292772;
     display: inline-block;
-    height: 47px;
+    height: 43px;
     max-width: 103px;
     padding: 0;
     text-align: left;
 
     > img {
-      border-radius: 3px;
-      height: 47px;
+      height: 100%;
       max-width: none;
+      width: 100%;
     }
   }
 }
