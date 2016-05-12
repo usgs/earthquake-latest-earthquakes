@@ -135,7 +135,7 @@ var EventSummaryFormat = function (options) {
           '</a>');
     }
     if (impactBuf.length > 0) {
-      buf.push('<div class="impact-bubbles clearfix">' +
+      buf.push('<div class="impact-bubbles">' +
           impactBuf.join('') +
           '</div>');
     }
