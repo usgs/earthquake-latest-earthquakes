@@ -13,7 +13,9 @@ var EventSummaryView = function (options) {
 
       _closeButton,
       _formatter,
-      _isVisible;
+      _isVisible,
+      _onCloseButtonClick,
+      _onEventSelect;
 
   _this = View(options);
 
@@ -31,8 +33,22 @@ var EventSummaryView = function (options) {
 
     _this.model.off('change', 'render', _this);
 
-    _this.model.on('change:event', _this.onEventSelect, _this);
-    _closeButton.addEventListener('click', _this.hideEventSummary);
+    _this.model.on('change:event', _onEventSelect, _this);
+    _closeButton.addEventListener('click', _onCloseButtonClick);
+  };
+
+  /**
+   * Called when the close button is clicked.
+   */
+  _onCloseButtonClick = function () {
+    _this.hideEventSummary();
+  };
+
+  /**
+   * Called when an event is selected on the list/map
+   */
+  _onEventSelect = function () {
+    _this.onEventSelect();
   };
 
   /**
@@ -47,12 +63,14 @@ var EventSummaryView = function (options) {
   };
 
   _this.destroy = Util.compose(function () {
-    _this.model.off('change:event', _this.onEventSelect, _this);
-    _closeButton.removeEventListener('click', _this.hideEventSummary);
+    _this.model.off('change:event', _onEventSelect, _this);
+    _closeButton.removeEventListener('click', _onCloseButtonClick);
 
     _closeButton = null;
     _formatter = null;
     _isVisible = null;
+    _onCloseButtonClick = null;
+    _onEventSelect = null;
 
     _initialize = null;
     _this = null;
