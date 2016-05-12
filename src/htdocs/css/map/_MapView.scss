@@ -3,10 +3,6 @@
   width: 50%;
 }
 
-.map-view {
-  height: 100%;
-}
-
 .legend-control {
   display: none;
 }
@@ -14,6 +10,25 @@
 /* Keeps screen from zooming when input is selected on mobile devices */
 .leaflet-touch .zoomto-control {
   font-size: 16px;
+}
+
+.map-message {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.5);
+  padding: 7px;
+}
+
+.map-view {
+  height: 100%;
 }
 
 @media screen and (min-width: 465px) {
@@ -30,6 +45,11 @@
     top: -29px;
   }
 }
+
+@media screen and (min-width: 640px) {
+  .map-message {
+    max-width: 50%;
+  }
 
 @media screen and (max-width: 783px) {
 
