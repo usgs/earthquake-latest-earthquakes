@@ -93,7 +93,17 @@ describe('list/ListView', function () {
       var catalog,
           view;
 
-      catalog = Catalog();
+      catalog = Catalog({
+        model: Model({
+          sort: {
+            'id': 'newest',
+            'name' : 'Newest first',
+            'sort' : function (a, b) {
+              return b.properties.time - a.properties.time;
+            }
+          }
+        })
+      });
 
       view = ListView({
         collection: catalog,
