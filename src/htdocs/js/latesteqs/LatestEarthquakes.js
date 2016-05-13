@@ -32,9 +32,7 @@ var _DEFAULT_SETTINGS = {
     [10.0, -50.0]
   ],
   overlays: [
-    'plates',
-    'faults',
-    'ushazard'
+    'plates'
   ],
   restrictListToMap: [
     'restrictListToMap'

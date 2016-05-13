@@ -61,6 +61,7 @@ var MapView = function (options) {
       _basemap,
       _earthquakes,
       _changedMapPosition,
+      _overlays,
       _triggeredMapPosition;
 
 
@@ -76,6 +77,7 @@ var MapView = function (options) {
 
     _basemap = null;
     _changedMapPosition = false;
+    _overlays = null;
     _triggeredMapPosition = false;
 
     _this.config = options.config;
@@ -100,14 +102,14 @@ var MapView = function (options) {
     }
 
     _this.model.on('change:basemap', 'renderBasemap', _this);
-    _this.map.on('moveend', _this.onMoveEnd, _this);
+    _this.model.on('change:overlays', 'renderOverlays', _this);
 
     _this.map.invalidateSize();
   };
 
   _this.destroy = Util.compose(function () {
     _this.model.off('change:basemap', 'renderBasemap', _this);
-    _this.map.off('moveend', _this.onMoveEnd, _this);
+    _this.model.off('change:overlays', 'renderOverlays', _this);
 
     _this.map.removeLayer(_earthquakes);
     _earthquakes.destroy();
@@ -116,20 +118,6 @@ var MapView = function (options) {
     _this = null;
   }, _this.destroy);
 
-  _this.onMoveEnd = function () {
-    var bounds;
-
-    _earthquakes.render();
-
-    bounds = _this.map.getBounds();
-    _this.model.set({
-      'mapposition': [
-        [bounds._southWest.lat, bounds._southWest.lng],
-        [bounds._northEast.lat, bounds._northEast.lng]
-      ]
-    });
-  };
-
   _this.renderBasemap = function () {
     if (_basemap) {
       _this.map.removeLayer(_basemap.layer);
@@ -137,6 +125,26 @@ var MapView = function (options) {
     _basemap = _this.model.get('basemap');
     if (_basemap) {
       _this.map.addLayer(_basemap.layer);
+    }
+  };
+
+  _this.renderOverlays = function () {
+    var i,
+        length;
+
+    if (_overlays) {
+      length = _overlays.length;
+      for (i = 0; i < length; i++) {
+        _this.map.removeLayer(_overlays[i].layer);
+      }
+    }
+
+    _overlays = _this.model.get('overlays');
+    length = _overlays.length;
+    for (i = 0; i < length; i++) {
+      if (_overlays[i].layer !== null) {
+        _this.map.addLayer(_overlays[i].layer);
+      }
     }
   };
 

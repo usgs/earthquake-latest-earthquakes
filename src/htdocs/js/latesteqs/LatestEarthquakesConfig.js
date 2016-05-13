@@ -5,6 +5,7 @@ var Config = require('core/Config'),
     DyfiListFormat = require('list/DyfiListFormat'),
     EsriGrayscale = require('leaflet/layer/EsriGrayscale'),
     EsriTerrain = require('leaflet/layer/EsriTerrain'),
+    HazardFault = require('leaflet/layer/HazardFault2014'),
     OpenAerialMap = require('leaflet/layer/OpenAerialMap'),
     OpenStreetMap = require('leaflet/layer/OpenStreetMap'),
     PagerListFormat = require('list/PagerListFormat'),
@@ -160,7 +161,7 @@ var _DEFAULTS = {
     {
       'id': 'ushazard',
       'name': 'U.S. Hazard',
-      'layer': null
+      'layer': HazardFault()
     }
   ],
 
