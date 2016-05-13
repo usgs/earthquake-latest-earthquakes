@@ -1,4 +1,4 @@
-/* global afterEach, chai, describe, it, sinon */
+/* global afterEach, beforeEach, chai, describe, it, sinon */
 'use strict';
 
 var EventSummaryView = require('summary/EventSummaryView'),
@@ -37,8 +37,7 @@ describe('summary/EventSummaryView', function () {
 
   describe('deselectEvent', function () {
     it('deselects the currently selected event on the model', function () {
-      var eq,
-          stub;
+      var eq;
 
       sinon.stub(view, 'render', function () {});
       eq = {'id': 'us1234'};
