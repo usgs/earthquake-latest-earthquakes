@@ -39,6 +39,7 @@ var Catalog = function (options) {
     _this.model.on('change:sort', 'onSort', _this);
     _this.model.on('change:autoUpdate', 'setAutoUpdateInterval', _this);
     _this.model.on('change:feed', 'setAutoUpdateInterval', _this);
+    _this.on('reset', 'checkForEventInCollection', _this);
 
     // keep track of whether there was a load error
     _this.error = false;
@@ -56,6 +57,7 @@ var Catalog = function (options) {
     _this.model.off('change:sort', 'sort', _this);
     _this.model.off('change:autoUpdate', 'setAutoUpdateInterval', _this);
     _this.model.off('change:feed', 'setAutoUpdateInterval', _this);
+    _this.off('reset', 'checkForEventInCollection', _this);
 
     _initialize = null;
     _this = null;
@@ -125,13 +127,34 @@ var Catalog = function (options) {
     _this.error = false;
     _this.metadata = data.metadata;
     _this.reset(data.features, {'silent': true});
-    _this.onSort(); // sort will trigger a reset on the collection
+    // sort will trigger a reset on the collection
+    _this.onSort();
     Message({
         autoclose: 3000,
         container: document.querySelector('.latest-earthquakes-footer'),
         content:'Earthquakes updated',
         classes: 'map-message'
       });
+  };
+
+  /**
+   * Checks the colleciton to see if the selected event exists in the
+   * collection. When the event no longer exists, the model is updated.
+   */
+  _this.checkForEventInCollection = function () {
+    var eq;
+
+    eq = _this.model.get('event');
+    if (!eq) {
+      return;
+    }
+
+    // if event does not exist in the new collection, update model
+    if (!_this.get(eq.id)) {
+      _this.model.set({
+        'event': null
+      });
+    }
   };
 
   /**
