@@ -140,6 +140,7 @@ var MapView = function (options) {
     }
 
     _overlays = _this.model.get('overlays');
+    length = _overlays.length;
     for (i = 0; i < length; i++) {
       if (_overlays[i].layer !== null) {
         _this.map.addLayer(_overlays[i].layer);
