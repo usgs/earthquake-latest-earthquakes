@@ -107,10 +107,6 @@ var MapView = function (options) {
     _this.map.invalidateSize();
   };
 
-  _onMoveEnd = function () {
-    _this.onMoveEnd();
-  };
-
   _this.destroy = Util.compose(function () {
     _this.model.off('change:basemap', 'renderBasemap', _this);
     _this.model.off('change:overlays', 'renderOverlays', _this);
