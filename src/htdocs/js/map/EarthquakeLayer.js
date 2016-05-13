@@ -67,6 +67,7 @@ var EarthquakeLayer = function (options) {
       _initialize,
 
       _onClick,
+      _onMoveEnd,
       _onZoomEnd,
       _render;
 
@@ -98,6 +99,17 @@ var EarthquakeLayer = function (options) {
    */
   _onClick = function (e) {
     _this.onClick(e);
+  };
+
+  /**
+   * DOM event listener that delegates to (potentially subclassed)
+   * _this.onMoveEnd.
+   *
+   * @param e {DOMEvent}
+   *     the dom event.
+   */
+  _onMoveEnd = function (e) {
+    _this.onMoveEnd(e);
   };
 
   /**
@@ -143,6 +155,7 @@ var EarthquakeLayer = function (options) {
     _this.model.off('change:event', 'onSelect', _this);
 
     _onClick = null;
+    _onMoveEnd = null;
     _onZoomEnd = null;
     _render = null;
 
@@ -219,6 +232,7 @@ var EarthquakeLayer = function (options) {
     map.getPanes().overlayPane.appendChild(_this.el);
     map.on('viewreset', _render);
     map.on('zoomend', _onZoomEnd);
+    map.on('moveend', _onMoveEnd, _this);
 
     _this.map = map;
     _this.onZoomEnd();
@@ -245,6 +259,20 @@ var EarthquakeLayer = function (options) {
     }
     _this.model.set({
       'event': eq
+    });
+  };
+
+  _this.onMoveEnd = function () {
+    var bounds;
+
+    _this.render();
+
+    bounds = _this.map.getBounds();
+    _this.model.set({
+      'mapposition': [
+        [bounds._southWest.lat, bounds._southWest.lng],
+        [bounds._northEast.lat, bounds._northEast.lng]
+      ]
     });
   };
 
