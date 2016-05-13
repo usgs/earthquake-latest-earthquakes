@@ -119,8 +119,8 @@ var Catalog = function (options) {
   _this.onLoadSuccess = function (data/*, xhr*/) {
     _this.error = false;
     _this.metadata = data.metadata;
-    _this.reset(data.features);
-    _this.onSort();
+    _this.reset(data.features, {'silent': true});
+    _this.onSort(); // sort will trigger a reset on the collection
   };
 
   /**
