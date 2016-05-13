@@ -56,7 +56,8 @@ var EventSummaryFormat = function (options) {
         mmi,
         properties,
         time,
-        tsunami;
+        tsunami,
+        url;
 
     el = document.createElement('div');
     el.className = 'event-summary';
@@ -67,6 +68,7 @@ var EventSummaryFormat = function (options) {
     mmi = properties.mmi;
     tsunami = properties.tsunami;
     time = new Date(properties.time);
+    url = properties.url;
 
     coordinates = eq.geometry.coordinates;
     depth = coordinates[2];
@@ -82,7 +84,7 @@ var EventSummaryFormat = function (options) {
 
     buf.push(
       '<h1>',
-        '<a href="', properties.url, '">',
+        '<a href="', url, '">',
           properties.title,
         '</a>',
       '</h1>'
@@ -90,7 +92,7 @@ var EventSummaryFormat = function (options) {
 
     if (typeof cdi !== 'undefined' && cdi !== null) {
       cdi = _formatter.mmi(cdi);
-      impactBuf.push('<a href="#dyfi"' +
+      impactBuf.push('<a href="' + url + '#dyfi"' +
           ' class="mmi' + cdi + '"' +
           ' title="Did You Feel It? maximum reported intensity"' +
           '>' +
@@ -102,7 +104,7 @@ var EventSummaryFormat = function (options) {
 
     if (typeof mmi !== 'undefined' && mmi !== null) {
       mmi = _formatter.mmi(mmi);
-      impactBuf.push('<a href="#shakemap"' +
+      impactBuf.push('<a href="' + url + '#shakemap"' +
           ' class="mmi' + mmi + '"' +
           ' title="ShakeMap maximum estimated intensity"' +
           '>' +
@@ -112,7 +114,7 @@ var EventSummaryFormat = function (options) {
           '</a>');
     }
     if (typeof alertlevel !== 'undefined' && alertlevel !== null) {
-      impactBuf.push('<a href="#pager"' +
+      impactBuf.push('<a href="' + url + '#pager"' +
           ' class="pager-alertlevel-' + alertlevel.toLowerCase() + '"' +
           ' title="PAGER estimated impact alert level"' +
           '>' +
