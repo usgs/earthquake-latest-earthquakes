@@ -130,12 +130,12 @@ var EventSummaryFormat = function (options) {
           ' class="tsunami"' +
           ' title="Tsunami Warning Center"' +
           '>' +
-            '<img src="images/logos/tsunami.jpg"' +
+            '<img src="images/tsunami.jpg"' +
                 ' alt="Tsunami Warning Center"/>' +
           '</a>');
     }
     if (impactBuf.length > 0) {
-      buf.push('<div class="impact-bubbles clearfix">' +
+      buf.push('<div class="impact-bubbles">' +
           impactBuf.join('') +
           '</div>');
     }

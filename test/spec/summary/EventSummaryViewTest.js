@@ -72,40 +72,23 @@ describe('summary/EventSummaryView', function () {
     });
   });
 
-  describe('onEventSelect', function () {
-    it('updates the EventSummaryView with the selected event', function () {
+  describe('render', function () {
+    it('displays the currently selected event', function () {
       var eq,
           spy;
 
       spy = sinon.spy(view, 'render');
-      view.onEventSelect();
-
-      try {
-        eq = {'id': 'us1234'};
-        model.set({
-          'event': eq
-        });
-      } catch (e) {
-        // incomplete event
-      }
+      model.set({
+        'event': {
+          'id': 'us1234',
+          'properties': {},
+          'geometry': {
+            'coordinates': []
+          }
+        }
+      });
 
       expect(spy.callCount).to.equal(1);
-      expect(spy.calledWith(eq)).to.equal(true);
-    });
-  });
-
-  describe('render', function () {
-    it('renders the currently selected event', function () {
-      var eq;
-
-      eq = {
-        'id': 'us1234',
-        'properties': {},
-        'geometry': {
-          'coordinates': []
-        }
-      };
-      view.render(eq);
       expect(view.el.querySelectorAll('button').length).to.equal(1);
     });
   });

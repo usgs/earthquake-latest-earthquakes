@@ -13,7 +13,9 @@ var EventSummaryView = function (options) {
 
       _closeButton,
       _formatter,
-      _isVisible;
+      _isVisible,
+      _onCloseButtonClick,
+      _onEventSelect;
 
   _this = View(options);
 
@@ -31,14 +33,26 @@ var EventSummaryView = function (options) {
 
     _this.model.off('change', 'render', _this);
 
-    _this.model.on('change:event', _this.onEventSelect, _this);
-    _closeButton.addEventListener('click', _this.hideEventSummary);
+    _this.model.on('change:event', _onEventSelect, _this);
+    _closeButton.addEventListener('click', _onCloseButtonClick);
+  };
+
+  /**
+   * Hides the EventSummaryView when the close button is clicked.
+   */
+  _onCloseButtonClick = function () {
+    _this.hideEventSummary();
+  };
+
+  /**
+   * Calls render() when an event is selected on the list/map
+   */
+  _onEventSelect = function () {
+    _this.render();
   };
 
   /**
    * Deselect the event by resetting the "event" property on the model.
-   *
-   * Called when the close button is clicked.
    */
   _this.deselectEvent = function () {
     _this.model.set({
@@ -47,12 +61,14 @@ var EventSummaryView = function (options) {
   };
 
   _this.destroy = Util.compose(function () {
-    _this.model.off('change:event', _this.onEventSelect, _this);
-    _closeButton.removeEventListener('click', _this.hideEventSummary);
+    _this.model.off('change:event', _onEventSelect, _this);
+    _closeButton.removeEventListener('click', _onCloseButtonClick);
 
     _closeButton = null;
     _formatter = null;
     _isVisible = null;
+    _onCloseButtonClick = null;
+    _onEventSelect = null;
 
     _initialize = null;
     _this = null;
@@ -69,18 +85,20 @@ var EventSummaryView = function (options) {
     _isVisible = false;
   };
 
+
   /**
-   * Called when the _this.model is updated with a new "event".
-   *
    * Determines whether or not the EventSummaryView is visible, and then
-   * calls render and passes in the new event.
+   * displays the selected event's information.
+   *
+   * Called when the "event" property is updated on the model.
    */
-  _this.onEventSelect = function () {
+  _this.render = function () {
     var eq;
 
     eq = _this.model.get('event');
 
     if (!eq) {
+      // clear and hide event summary
       _this.hideEventSummary();
       return;
     }
@@ -89,27 +107,13 @@ var EventSummaryView = function (options) {
       _this.showEventSummary(eq);
     }
 
-    _this.render(eq);
-  };
-
-  /**
-   * Renders the EventSummaryView.
-   *
-   * Called when the "event" property is updated on the model.
-   *
-   * @param eq {Object}
-   *    The "event" property from _this.model
-   */
-  _this.render = function (eq) {
     _this.el.innerHTML = '';
     _this.el.appendChild(_closeButton);
     _this.el.appendChild(_formatter.format(eq));
   };
 
   /**
-   * Displays the EventSummaryView.
-   *
-   * Called when the "event" property is updated on the model.
+   * Toggles the EventSummaryView into view.
    */
   _this.showEventSummary = function () {
     _this.el.classList.add('show');
