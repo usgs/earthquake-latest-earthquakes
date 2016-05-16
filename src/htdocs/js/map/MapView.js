@@ -81,7 +81,7 @@ var MapView = function (options) {
     el.innerHTML = '<div class="map"></div>';
 
     _basemap = null;
-    _overlays = null;
+    _overlays = [];
     _handlingMoveEnd = false;
 
     _this.config = options.config;
@@ -151,7 +151,7 @@ var MapView = function (options) {
     _onMoveEnd = null;
     _onOverlayChange = null;
     _onViewModesChange = null;
-    _overlays = null;
+    _overlays = [];
 
     _this.map.removeLayer(_earthquakes);
     _earthquakes.destroy();
@@ -204,12 +204,26 @@ var MapView = function (options) {
   };
 
   _this.renderBasemapChange = function () {
-    if (_basemap) {
-      _this.map.removeLayer(_basemap.layer);
+    var newBasemap,
+        oldBasemap;
+
+    oldBasemap = _basemap;
+    newBasemap = _this.model.get('basemap');
+    _basemap = newBasemap; // keep track of selected basemap
+
+    // if basemap is already selected, do nothing
+    if (oldBasemap && newBasemap && oldBasemap.id === newBasemap.id) {
+      return;
     }
-    _basemap = _this.model.get('basemap');
-    if (_basemap) {
-      _this.map.addLayer(_basemap.layer);
+
+    // remove old basemap
+    if (oldBasemap) {
+      _this.map.removeLayer(oldBasemap.layer);
+    }
+
+    // add new basemap
+    if (newBasemap) {
+      _this.map.addLayer(newBasemap.layer);
     }
   };
 
@@ -224,21 +238,28 @@ var MapView = function (options) {
 
   _this.renderOverlayChange = function () {
     var i,
-        length;
+        newOverlays,
+        oldOverlays,
+        overlay;
 
-    if (_overlays) {
-      length = _overlays.length;
-      for (i = 0; i < length; i++) {
-        _this.map.removeLayer(_overlays[i].layer);
+    oldOverlays = _overlays.slice(0);
+    newOverlays = _this.model.get('overlays');
+    _overlays = newOverlays; // keep track of selected overlays
+
+    // remove overlays that no longer exist in selection
+    for (i = 0; i < oldOverlays.length; i++) {
+      overlay = oldOverlays[i];
+      if (!Util.contains(newOverlays, overlay)) {
+        _this.map.removeLayer(overlay.layer);
       }
     }
 
-    _overlays = _this.model.get('overlays');
-    length = _overlays.length;
-    for (i = 0; i < length; i++) {
-      if (_overlays[i].layer !== null) {
-        _overlays[i].layer.setZIndex(1);
-        _this.map.addLayer(_overlays[i].layer);
+    // add overlays that were added to the selection
+    for (i = 0; i < newOverlays.length; i++) {
+      overlay = newOverlays[i];
+      if (!Util.contains(oldOverlays, overlay)) {
+        _this.map.addLayer(overlay.layer);
+        overlay.layer.setZIndex(1);
       }
     }
   };
