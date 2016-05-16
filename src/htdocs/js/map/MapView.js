@@ -62,6 +62,7 @@ var MapView = function (options) {
       _earthquakes,
       _changedMapPosition,
       _overlays,
+      _setInitialMapBounds,
       _triggeredMapPosition;
 
 
@@ -103,8 +104,14 @@ var MapView = function (options) {
 
     _this.model.on('change:basemap', 'renderBasemap', _this);
     _this.model.on('change:overlays', 'renderOverlays', _this);
+    _this.model.on('change:mapposition', _setInitialMapBounds, _this);
 
     _this.map.invalidateSize();
+  };
+
+  _setInitialMapBounds = function (bounds) {
+    _this.model.off('change:mapposition', _setInitialMapBounds, _this);
+    _this.map.fitBounds(bounds);
   };
 
   _this.destroy = Util.compose(function () {
