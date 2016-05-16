@@ -263,17 +263,7 @@ var EarthquakeLayer = function (options) {
   };
 
   _this.onMoveEnd = function () {
-    var bounds;
-
     _this.render();
-
-    bounds = _this.map.getBounds();
-    _this.model.set({
-      'mapposition': [
-        [bounds._southWest.lat, bounds._southWest.lng],
-        [bounds._northEast.lat, bounds._northEast.lng]
-      ]
-    });
   };
 
   /**

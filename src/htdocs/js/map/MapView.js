@@ -60,9 +60,14 @@ var MapView = function (options) {
 
       _basemap,
       _earthquakes,
-      _changedMapPosition,
+      _handlingMoveEnd,
+      _onBasemapChange,
+      _onMapPositionChange,
+      _onOverlayChange,
+      _onViewModesChange,
+      _onMoveEnd,
       _overlays,
-      _triggeredMapPosition;
+      _renderScheduled;
 
 
   _this = View(options);
@@ -76,16 +81,18 @@ var MapView = function (options) {
     el.innerHTML = '<div class="map"></div>';
 
     _basemap = null;
-    _changedMapPosition = false;
-    _overlays = null;
-    _triggeredMapPosition = false;
+    _overlays = [];
+    _handlingMoveEnd = false;
 
     _this.config = options.config;
 
     _this.map = L.map(
       el,
-      {attributionControl: false}
-    ).setView([34, -118], 3);
+      {
+        attributionControl: false,
+        zoomAnimation: false
+      }
+    );
 
     _earthquakes = EarthquakeLayer({
       collection: options.catalog,
@@ -101,56 +108,182 @@ var MapView = function (options) {
       L.control.mousePosition().addTo(_this.map);
     }
 
-    _this.model.on('change:basemap', 'renderBasemap', _this);
-    _this.model.on('change:overlays', 'renderOverlays', _this);
+    _this.map.on('moveend', _onMoveEnd, _this);
+    _this.model.on('change:basemap', _onBasemapChange, _this);
+    _this.model.on('change:mapposition', _onMapPositionChange, _this);
+    _this.model.on('change:overlays', _onOverlayChange, _this);
+    _this.model.on('change:viewModes', _onViewModesChange, _this);
 
-    _this.map.invalidateSize();
+  };
+
+  _onBasemapChange = function () {
+    _this.onBasemapChange();
+  };
+
+  _onMapPositionChange = function () {
+    _this.onMapPositionChange();
+  };
+
+  _onMoveEnd = function () {
+    _this.onMoveEnd();
+  };
+
+  _onOverlayChange = function () {
+    _this.onOverlayChange();
+  };
+
+  _onViewModesChange = function () {
+    _this.onViewModesChange();
   };
 
   _this.destroy = Util.compose(function () {
-    _this.model.off('change:basemap', 'renderBasemap', _this);
-    _this.model.off('change:overlays', 'renderOverlays', _this);
+    _this.map.off('moveend', _onMoveEnd, _this);
+    _this.model.off('change:basemap', _onBasemapChange, _this);
+    _this.model.off('change:mapposition', _onMapPositionChange, _this);
+    _this.model.off('change:overlays', _onOverlayChange, _this);
+    _this.model.off('change:viewModes', _onViewModesChange, _this);
+
+    _basemap = null;
+    _earthquakes = null;
+    _handlingMoveEnd = null;
+    _onBasemapChange = null;
+    _onMapPositionChange = null;
+    _onMoveEnd = null;
+    _onOverlayChange = null;
+    _onViewModesChange = null;
+    _overlays = [];
 
     _this.map.removeLayer(_earthquakes);
     _earthquakes.destroy();
     _earthquakes = null;
 
+    _initialize = null;
     _this = null;
   }, _this.destroy);
 
-  _this.renderBasemap = function () {
-    if (_basemap) {
-      _this.map.removeLayer(_basemap.layer);
+  _this.isEnabled = function () {
+     var i,
+         modes;
+
+     modes = _this.model.get('viewModes');
+     for (i = 0; i < modes.length; i++) {
+       if (modes[i].id === 'map') {
+         return true;
+       }
+     }
+     return false;
+   };
+
+  _this.onBasemapChange = function () {
+    _renderScheduled = true;
+  };
+
+  _this.onMapPositionChange = function () {
+    _renderScheduled = true;
+  };
+
+  _this.onMoveEnd = function () {
+    var bounds;
+
+    _handlingMoveEnd = true;
+
+    // only set mapposition when the map is enabled
+    if (_this.isEnabled()) {
+      bounds = _this.map.getBounds();
+      _this.model.set({
+        'mapposition': [
+          [bounds._southWest.lat, bounds._southWest.lng],
+          [bounds._northEast.lat, bounds._northEast.lng]
+        ]
+      });
     }
-    _basemap = _this.model.get('basemap');
-    if (_basemap) {
-      _this.map.addLayer(_basemap.layer);
+
+    _handlingMoveEnd = false;
+  };
+
+  _this.onOverlayChange = function () {
+    _renderScheduled = true;
+  };
+
+  _this.onViewModesChange = function () {
+    _renderScheduled = true;
+  };
+
+  _this.render = function (force) {
+    if (_renderScheduled || force === true) {
+      _this.renderBasemapChange();
+      _this.renderMapPositionChange();
+      _this.renderOverlayChange();
+      _this.renderViewModesChange();
+    }
+    _renderScheduled = false;
+  };
+
+  _this.renderBasemapChange = function () {
+    var newBasemap,
+        oldBasemap;
+
+    oldBasemap = _basemap;
+    newBasemap = _this.model.get('basemap');
+    _basemap = newBasemap; // keep track of selected basemap
+
+    // if basemap is already selected, do nothing
+    if (oldBasemap && newBasemap && oldBasemap.id === newBasemap.id) {
+      return;
+    }
+
+    // remove old basemap
+    if (oldBasemap) {
+      _this.map.removeLayer(oldBasemap.layer);
+    }
+
+    // add new basemap
+    if (newBasemap) {
+      _this.map.addLayer(newBasemap.layer);
     }
   };
 
-  _this.renderOverlays = function () {
+  _this.renderMapPositionChange = function () {
+    var bounds;
+
+    if (!_handlingMoveEnd && _this.isEnabled()) {
+      bounds = _this.model.get('mapposition');
+      _this.map.fitBounds(bounds);
+    }
+  };
+
+  _this.renderOverlayChange = function () {
     var i,
-        length;
+        newOverlays,
+        oldOverlays,
+        overlay;
 
-    if (_overlays) {
-      length = _overlays.length;
-      for (i = 0; i < length; i++) {
-        _this.map.removeLayer(_overlays[i].layer);
+    oldOverlays = _overlays.slice(0);
+    newOverlays = _this.model.get('overlays');
+    _overlays = newOverlays; // keep track of selected overlays
+
+    // remove overlays that no longer exist in selection
+    for (i = 0; i < oldOverlays.length; i++) {
+      overlay = oldOverlays[i];
+      if (!Util.contains(newOverlays, overlay)) {
+        _this.map.removeLayer(overlay.layer);
       }
     }
 
-    _overlays = _this.model.get('overlays');
-    length = _overlays.length;
-    for (i = 0; i < length; i++) {
-      if (_overlays[i].layer !== null) {
-        _overlays[i].layer.setZIndex(1);
-        _this.map.addLayer(_overlays[i].layer);
+    // add overlays that were added to the selection
+    for (i = 0; i < newOverlays.length; i++) {
+      overlay = newOverlays[i];
+      if (!Util.contains(oldOverlays, overlay)) {
+        _this.map.addLayer(overlay.layer);
+        overlay.layer.setZIndex(1);
       }
     }
   };
 
-  _this.render = function () {
-    _this.map.invalidateSize();
+  _this.renderViewModesChange = function () {
+    if (_this.isEnabled()) {
+      _this.map.invalidateSize();
+    }
   };
 
 
