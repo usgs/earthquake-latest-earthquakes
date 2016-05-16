@@ -143,6 +143,7 @@ var MapView = function (options) {
     length = _overlays.length;
     for (i = 0; i < length; i++) {
       if (_overlays[i].layer !== null) {
+        _overlays[i].layer.setZIndex(1);
         _this.map.addLayer(_overlays[i].layer);
       }
     }
