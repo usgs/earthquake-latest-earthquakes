@@ -8,14 +8,16 @@
 @import 'leaflet/layer/_MouseOverLayer.scss';
 
 @import 'mvc/ModalView.scss';
+@import 'util/Message.scss';
 
 
 @import '_LatestEarthquakes.scss';
 @import '_mmi-variables.scss';
 
-@import 'about/_AboutView.scss';
 
 @import 'core/_Formatter.scss';
+
+@import 'about/_AboutView.scss';
 
 @import 'list/_DefaultListFormat.scss';
 @import 'list/_DownloadView.scss';
