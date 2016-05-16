@@ -161,6 +161,19 @@ var MapView = function (options) {
     _this = null;
   }, _this.destroy);
 
+  _this.isEnabled = function () {
+     var i,
+         modes;
+
+     modes = _this.model.get('viewModes');
+     for (i = 0; i < modes.length; i++) {
+       if (modes[i].id === 'map') {
+         return true;
+       }
+     }
+     return false;
+   };
+
   _this.onBasemapChange = function () {
     _renderScheduled = true;
   };
@@ -174,13 +187,16 @@ var MapView = function (options) {
 
     _handlingMoveEnd = true;
 
-    bounds = _this.map.getBounds();
-    _this.model.set({
-      'mapposition': [
-        [bounds._southWest.lat, bounds._southWest.lng],
-        [bounds._northEast.lat, bounds._northEast.lng]
-      ]
-    });
+    // only set mapposition when the map is enabled
+    if (_this.isEnabled()) {
+      bounds = _this.map.getBounds();
+      _this.model.set({
+        'mapposition': [
+          [bounds._southWest.lat, bounds._southWest.lng],
+          [bounds._northEast.lat, bounds._northEast.lng]
+        ]
+      });
+    }
 
     _handlingMoveEnd = false;
   };
@@ -230,7 +246,7 @@ var MapView = function (options) {
   _this.renderMapPositionChange = function () {
     var bounds;
 
-    if (!_handlingMoveEnd) {
+    if (!_handlingMoveEnd && _this.isEnabled()) {
       bounds = _this.model.get('mapposition');
       _this.map.fitBounds(bounds);
     }
@@ -265,8 +281,9 @@ var MapView = function (options) {
   };
 
   _this.renderViewModesChange = function () {
-    // TODO, check that the map is enabled
-    _this.map.invalidateSize();
+    if (_this.isEnabled()) {
+      _this.map.invalidateSize();
+    }
   };
 
 
