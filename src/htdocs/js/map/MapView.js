@@ -130,7 +130,8 @@ var MapView = function (options) {
 
   _this.renderOverlays = function () {
     var i,
-        length;
+        length,
+        overlay;
 
     if (_overlays) {
       length = _overlays.length;
@@ -142,9 +143,9 @@ var MapView = function (options) {
     _overlays = _this.model.get('overlays');
     length = _overlays.length;
     for (i = 0; i < length; i++) {
-      if (_overlays[i].layer !== null) {
-        _overlays[i].layer.setZIndex(1);
-        _this.map.addLayer(_overlays[i].layer);
+      overlay = _overlays[i];
+      if (overlay.layer !== null) {
+        _this.map.addLayer(overlay.layer);
       }
     }
   };
