@@ -275,7 +275,6 @@ var MapView = function (options) {
       overlay = newOverlays[i];
       if (!Util.contains(oldOverlays, overlay)) {
         _this.map.addLayer(overlay.layer);
-        //overlay.layer.setZIndex(1);
       }
     }
   };
