@@ -249,10 +249,9 @@ var MapView = function (options) {
 
     if (!_handlingMoveEnd && _this.isEnabled()) {
 
-      // Make certain we have map bounds.
-      if (_this.map.getZoom() !== undefined) {
+      try {
         boundsMap = _this.map.getBounds();
-      } else {
+      } catch(e) {
         boundsMap = L.latLngBounds([[0,0],[0,0]]);
       }
 
