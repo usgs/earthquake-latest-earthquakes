@@ -261,7 +261,10 @@ var EarthquakeLayer = function (options) {
       'event': eq
     });
 
-    e.stopPropagation(); // stops "click" event from bubbling to the map
+    // stops "click" event from bubbling to the map
+    if (e && e.stopPropagation) {
+      e.stopPropagation();
+    }
   };
 
   _this.onMoveEnd = function () {

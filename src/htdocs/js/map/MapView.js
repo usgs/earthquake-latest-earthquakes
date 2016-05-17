@@ -109,12 +109,12 @@ var MapView = function (options) {
       L.control.mousePosition().addTo(_this.map);
     }
 
+    _this.el.addEventListener('click', _onClick);
     _this.map.on('moveend', _onMoveEnd, _this);
     _this.model.on('change:basemap', _onBasemapChange, _this);
     _this.model.on('change:mapposition', _onMapPositionChange, _this);
     _this.model.on('change:overlays', _onOverlayChange, _this);
     _this.model.on('change:viewModes', _onViewModesChange, _this);
-
   };
 
   _onBasemapChange = function () {
@@ -144,8 +144,8 @@ var MapView = function (options) {
    * @param e {DOMEvent}
    *     the dom event.
    */
-  _onClick = function (e) {
-    _this.onClick(e);
+  _onClick = function () {
+    _this.onClick();
   };
 
   /**
@@ -165,6 +165,7 @@ var MapView = function (options) {
 
 
   _this.destroy = Util.compose(function () {
+    _this.el.removeEventListener('click', _onClick);
     _this.map.off('moveend', _onMoveEnd, _this);
     _this.model.off('change:basemap', _onBasemapChange, _this);
     _this.model.off('change:mapposition', _onMapPositionChange, _this);
