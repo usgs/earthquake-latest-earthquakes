@@ -5,13 +5,13 @@ var Config = require('core/Config'),
     DyfiListFormat = require('list/DyfiListFormat'),
     EsriGrayscale = require('leaflet/layer/EsriGrayscale'),
     EsriTerrain = require('leaflet/layer/EsriTerrain'),
-    HazardFault = require('leaflet/layer/HazardFault2014'),
     OpenAerialMap = require('leaflet/layer/OpenAerialMap'),
     OpenStreetMap = require('leaflet/layer/OpenStreetMap'),
     PagerListFormat = require('list/PagerListFormat'),
     ShakeMapListFormat = require('list/ShakeMapListFormat'),
     TectonicPlates = require('leaflet/layer/TectonicPlates'),
     UsFault = require('leaflet/layer/UsFault'),
+    UsHazard = require('leaflet/layer/UsHazard'),
     Util = require('util/Util');
 
 
@@ -151,17 +151,26 @@ var _DEFAULTS = {
     {
       'id': 'plates',
       'name': 'Plate Boundaries',
-      'layer': TectonicPlates()
+      'layer': TectonicPlates({
+        'zIndex':5
+      })
     },
     {
       'id': 'faults',
       'name': 'U.S. Faults',
-      'layer': UsFault()
+      'layer': UsFault({
+        tileOpts: {
+          'zIndex': 4
+        }
+      })
     },
     {
       'id': 'ushazard',
       'name': 'U.S. Hazard',
-      'layer': HazardFault()
+      'layer': UsHazard({
+        'opacity': 0.6,
+        'zIndex': 3
+      })
     }
   ],
 
