@@ -164,10 +164,10 @@ var ListView = function (options) {
     }
 
     // normalize point to be between longitude bounds
-    while (minLongitude < longitude && maxLongitude < longitude) {
+    while (longitude > maxLongitude) {
       longitude -= 360;
     }
-    while (minLongitude > longitude && maxLongitude > longitude) {
+    while (longitude < minLongitude) {
       longitude += 360;
     }
 
@@ -408,7 +408,6 @@ var ListView = function (options) {
         headerCount,
         headerTitle,
         metadata,
-        restrict,
         totalCount,
         updateTime;
 
@@ -416,8 +415,8 @@ var ListView = function (options) {
     headerTitle = _this.model.get('feed').name;
     totalCount = metadata.hasOwnProperty('count') ? metadata.count : '&ndash;';
     displayCount = _this.getDataToRender().length;
-    restrict = _this.model.get('restrictListToMap');
-    headerCount = _this.formatCountInfo(totalCount, displayCount, restrict);
+    headerCount = _this.formatCountInfo(totalCount, displayCount,
+        _this.filterEnabled);
     updateTime = _formatter.datetime(metadata.generated, false);
 
     _headerTitle.innerHTML = headerTitle;
