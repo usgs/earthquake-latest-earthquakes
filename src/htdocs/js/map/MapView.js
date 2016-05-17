@@ -60,7 +60,6 @@ var MapView = function (options) {
 
       _basemap,
       _earthquakes,
-      _handlingMoveEnd,
       _onBasemapChange,
       _onMapPositionChange,
       _onOverlayChange,
@@ -83,7 +82,6 @@ var MapView = function (options) {
 
     _basemap = null;
     _overlays = [];
-    _handlingMoveEnd = false;
 
     _this.config = options.config;
 
@@ -174,7 +172,6 @@ var MapView = function (options) {
 
     _basemap = null;
     _earthquakes = null;
-    _handlingMoveEnd = null;
     _onBasemapChange = null;
     _onMapPositionChange = null;
     _onMoveEnd = null;
@@ -218,8 +215,6 @@ var MapView = function (options) {
   _this.onMoveEnd = function () {
     var bounds;
 
-    _handlingMoveEnd = true;
-
     // only set mapposition when the map is enabled
     if (_this.isEnabled()) {
       bounds = _this.map.getBounds();
@@ -230,8 +225,6 @@ var MapView = function (options) {
         ]
       });
     }
-
-    _handlingMoveEnd = false;
   };
 
   _this.onOverlayChange = function () {
@@ -277,21 +270,21 @@ var MapView = function (options) {
   };
 
   _this.renderMapPositionChange = function () {
-    var boundsMap,
-        boundsModel;
+    var mapBounds,
+        modelBounds;
 
-    if (!_handlingMoveEnd && _this.isEnabled()) {
+    if (_this.isEnabled()) {
+      modelBounds = _this.model.get('mapposition');
 
       try {
-        boundsMap = _this.map.getBounds();
+        mapBounds = _this.map.getBounds();
       } catch(e) {
-        boundsMap = L.latLngBounds([[0,0],[0,0]]);
+        mapBounds = L.latLngBounds([[0,0],[0,0]]);
       }
 
-      boundsModel = L.latLngBounds(_this.model.get('mapposition'));
       // If the map does not have the same bounds as the model, call fitBounds.
-      if (!boundsMap.equals(boundsModel)) {
-        _this.map.fitBounds(boundsModel);
+      if (!mapBounds.equals(modelBounds)) {
+        _this.map.fitBounds(modelBounds);
       }
     }
   };
