@@ -375,14 +375,14 @@ describe('map/EarthquakeLayer', function () {
           id: 1,
           geometry:{
             coordinates:[
-              1,
-              2
+              -156.0492,
+              57.87
             ]
           }
         },
         mapposition:[
-          [30, 130],
-          [60, 160]
+          [-67, -63],
+          [77, 1]
         ]
       });
 
