@@ -158,9 +158,7 @@ var MapView = function (options) {
 
     _basemap = null;
     _earthquakes = null;
-    _changedMapPosition = null;
     _onMoveEnd = null;
-    _triggeredMapPosition = null;
 
     _initialize = null;
     _this = null;
