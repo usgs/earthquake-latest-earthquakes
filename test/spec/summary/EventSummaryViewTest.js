@@ -74,8 +74,7 @@ describe('summary/EventSummaryView', function () {
 
   describe('render', function () {
     it('displays the currently selected event', function () {
-      var eq,
-          spy;
+      var spy;
 
       spy = sinon.spy(view, 'render');
       model.set({

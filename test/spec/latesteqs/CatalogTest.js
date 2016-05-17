@@ -181,7 +181,7 @@ describe('latesteqs/Catalog', function () {
 
       eq = {
         'id': 'us1234'
-      }
+      };
 
       catalog = Catalog({
         model: Model({
