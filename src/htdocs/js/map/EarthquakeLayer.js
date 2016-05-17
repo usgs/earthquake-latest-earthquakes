@@ -260,6 +260,11 @@ var EarthquakeLayer = function (options) {
     _this.model.set({
       'event': eq
     });
+
+    // stops "click" event from bubbling to the map
+    if (e && e.stopPropagation) {
+      e.stopPropagation();
+    }
   };
 
   _this.onMoveEnd = function () {

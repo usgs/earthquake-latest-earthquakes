@@ -66,6 +66,7 @@ var MapView = function (options) {
       _onOverlayChange,
       _onViewModesChange,
       _onMoveEnd,
+      _onClick,
       _overlays,
       _renderScheduled;
 
@@ -108,12 +109,12 @@ var MapView = function (options) {
       L.control.mousePosition().addTo(_this.map);
     }
 
+    _this.el.addEventListener('click', _onClick);
     _this.map.on('moveend', _onMoveEnd, _this);
     _this.model.on('change:basemap', _onBasemapChange, _this);
     _this.model.on('change:mapposition', _onMapPositionChange, _this);
     _this.model.on('change:overlays', _onOverlayChange, _this);
     _this.model.on('change:viewModes', _onViewModesChange, _this);
-
   };
 
   _onBasemapChange = function () {
@@ -136,7 +137,35 @@ var MapView = function (options) {
     _this.onViewModesChange();
   };
 
+  /**
+   * DOM event listener that delegates to (potentially subclassed)
+   * _this.onClick.
+   *
+   * @param e {DOMEvent}
+   *     the dom event.
+   */
+  _onClick = function () {
+    _this.onClick();
+  };
+
+  /**
+   * Click handler for map.
+   *
+   * Click is captured by EarthquakeLayer when a
+   * map marker is clicked, otherwise the event bubbles and any selected
+   * event is deselected.
+   */
+  _this.onClick = function () {
+    if(_this.model.get('event')) {
+      _this.model.set({
+        'event': null
+      });
+    }
+  };
+
+
   _this.destroy = Util.compose(function () {
+    _this.el.removeEventListener('click', _onClick);
     _this.map.off('moveend', _onMoveEnd, _this);
     _this.model.off('change:basemap', _onBasemapChange, _this);
     _this.model.off('change:mapposition', _onMapPositionChange, _this);
@@ -159,6 +188,7 @@ var MapView = function (options) {
     _basemap = null;
     _earthquakes = null;
     _onMoveEnd = null;
+    _onClick = null;
 
     _initialize = null;
     _this = null;
