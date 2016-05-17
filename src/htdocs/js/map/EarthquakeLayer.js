@@ -88,6 +88,7 @@ var EarthquakeLayer = function (options) {
     _this.collection.on('reset', 'render', _this);
     _this.el.addEventListener('click', _onClick);
     _this.model.on('change:event', 'onSelect', _this);
+    _this.model.on('change:event', _this.zoomToFeature, _this);
   };
 
   /**
@@ -448,6 +449,39 @@ var EarthquakeLayer = function (options) {
           _TYPE_OTHER_TRANSFORM;
     }
     marker.classList.add(typeClass);
+  };
+
+  _this.zoomToFeature = function () {
+    var bounds,
+        eq,
+        latitude,
+        longitude,
+        map,
+        pad;
+
+    eq = _this.model.get('event');
+    map = _this.map;
+
+    if (eq === null || map === null) {
+      return;
+    }
+
+    latitude = eq.geometry.coordinates[1];
+    longitude = eq.geometry.coordinates[0];
+    pad = 5;
+
+    if (map.getBounds().contains(L.latLng(latitude, longitude))) {
+      return;
+    } else {
+      bounds = [
+        [Math.max(latitude - pad, -90), Math.max(longitude - pad, -180)],
+        [Math.min(latitude + pad,  90), Math.min(longitude + pad,  180)]
+      ];
+
+      _this.model.set({
+        'mapposition': bounds
+      });
+    }
   };
 
 
