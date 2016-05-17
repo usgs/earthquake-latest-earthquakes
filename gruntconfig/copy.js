@@ -15,6 +15,7 @@ var copy = {
       '!**/*.css'
     ]
   },
+
   dist: {
     cwd: config.build + '/' + config.src,
     dest: config.dist,
@@ -23,10 +24,17 @@ var copy = {
     src: [
       '**/*',
       '!**/*.js',
-      '!**/*.js.map',
-      '!**/*.scss',
-      '!**/*.css',
-      '!**/*.html'
+      '!**/*.css'
+    ]
+  },
+
+  'package': {
+    cwd: '.',
+    dest: config.dist + '/conf',
+    expand: true,
+    options: { mode: true },
+    src: [
+      'package.json'
     ]
   },
 

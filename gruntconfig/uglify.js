@@ -8,11 +8,15 @@ var uglify = {
     compress: {},
     report: 'min'
   },
+
   dist: {
     files: [{
       expand: true,
       cwd: config.build + '/' + config.src,
-      src: '**/*.js',
+      src: [
+      '**/*.js',
+      '!**/bundle.js'
+      ],
       dest: config.dist
     }]
   }

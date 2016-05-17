@@ -21,6 +21,14 @@ module.exports = function (grunt) {
     'browserify'
   ]);
 
+  grunt.registerTask('builddist', [
+    'clean:dist',
+    'copy:dist',
+    'copy:package',
+    'postcss:dist',
+    'uglify'
+  ]);
+
   grunt.registerTask('buildtest', [
     'copy:test',
     'browserify:test'
@@ -41,10 +49,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('dist', [
     'builddev',
-    'clean:dist',
-    'copy:dist',
-    'postcss:dist',
-    'uglify',
+    'builddist',
 
     'connect:template',
     'configureProxies:dist',

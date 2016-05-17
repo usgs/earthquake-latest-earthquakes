@@ -23,9 +23,9 @@ var connect = {
   proxies: [
     {
       context: [
-        '/earthquakes/',
+        '/earthquakes/feed/',
         '/fdsnws/',
-        '/scenarios'
+        '/scenarios/'
       ],
       headers: {
         'accept-encoding': 'identity',
@@ -64,22 +64,18 @@ var connect = {
 
   dist: {
     options: {
-      base: [config.dist + '/htdocs'],
-      port: config.distPort,
-      open: 'http://localhost:' + config.distPort,
+      base: [
+        config.dist + '/htdocs'
+      ],
       middleware: function (connect, options, middlewares) {
         middlewares.unshift(
           require('grunt-connect-proxy/lib/utils').proxyRequest,
-          // (function () {
-          //   var gzip = require('connect-gzip');
-          //   return gzip.gzip({
-          //     matchType: /text|javascript|json|css/
-          //   });
-          // })(),
           mountPHP(options.base[0])
         );
         return middlewares;
-      }
+      },
+      open: 'http://localhost:' + config.distPort,
+      port: config.distPort,
     }
   },
 
@@ -95,12 +91,6 @@ var connect = {
       middleware: function (connect, options, middlewares) {
         middlewares.unshift(
           require('grunt-connect-proxy/lib/utils').proxyRequest,
-          // (function () {
-          //   var gzip = require('connect-gzip');
-          //   return gzip.gzip({
-          //     matchType: /text|javascript|json|css/
-          //   });
-          // })(),
           mountPHP(options.base[0])
         );
         return middlewares;
