@@ -163,5 +163,38 @@ describe('latesteqs/Catalog', function () {
     });
   });
 
+  describe('checkForEventInCollection', function () {
+    it('clears the selected event when it no longer exists in the collection',
+        function () {
+      var catalog,
+          data,
+          eq;
+
+      data = [
+        {
+          'id': 'us1234'
+        },
+        {
+          'id': 'nc5678'
+        }
+      ];
+
+      eq = {
+        'id': 'us1234'
+      }
+
+      catalog = Catalog({
+        model: Model({
+          'event': eq
+        })
+      });
+
+      catalog.reset(data);
+      expect(catalog.model.get('event').id).to.equal(eq.id);
+
+      catalog.reset([]);
+      expect(catalog.model.get('event')).to.equal(null);
+    });
+  });
 
 });
