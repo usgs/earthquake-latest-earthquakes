@@ -155,7 +155,12 @@ var MapView = function (options) {
 
     _this.map.removeLayer(_earthquakes);
     _earthquakes.destroy();
+
+    _basemap = null;
     _earthquakes = null;
+    _changedMapPosition = null;
+    _onMoveEnd = null;
+    _triggeredMapPosition = null;
 
     _initialize = null;
     _this = null;

@@ -154,32 +154,25 @@ var ListView = function (options) {
     difference = maxLongitude - minLongitude;
 
     // check latitude values
-    if (latlng[0] > maxLatitude || latlng[0] < minLatitude) {
+    if (latitude > maxLatitude || latitude < minLatitude) {
       return false;
     }
 
-    // longitude spans more than 360 (latitude bounds were checked)
+    // longitude spans more than 360 degrees (latitude bounds were checked)
     if (difference >= 360) {
       return true;
     }
 
     // normalize point to be between longitude bounds
-    if (minLongitude < longitude && maxLongitude < longitude) {
-      while (minLongitude < longitude && maxLongitude < longitude) {
-        longitude = longitude - 360;
-      }
-    } else if (minLongitude > longitude && maxLongitude > longitude) {
-      while (minLongitude > longitude && maxLongitude > longitude) {
-        longitude = longitude + 360;
-      }
+    while (minLongitude < longitude && maxLongitude < longitude) {
+      longitude -= 360;
+    }
+    while (minLongitude > longitude && maxLongitude > longitude) {
+      longitude += 360;
     }
 
     // test with adjusted bounds
-    if (longitude <= maxLongitude && longitude >= minLongitude) {
-      return true;
-    }
-
-    return false;
+    return (longitude <= maxLongitude && longitude >= minLongitude);
   };
 
   /**
@@ -244,11 +237,8 @@ var ListView = function (options) {
    *     filtered events that are within the map bounds
    */
   _this.filterEvents = function (items) {
-    var coordinates,
-        events,
+    var events,
         i,
-        item,
-        len,
         viewModes;
 
     // check if map is visible
@@ -270,16 +260,13 @@ var ListView = function (options) {
       return items;
     }
 
-    events = [];
-
     // loop through all events, check against map bounds
-    for (i = 0, len = items.length; i < len; i++) {
-      item = items[i];
+    events = [];
+    events = items.filter(function (item) {
+      var coordinates;
       coordinates = item.geometry.coordinates;
-      if (_this.boundsContain(_bounds, [coordinates[1], coordinates[0]])) {
-        events.push(item);
-      }
-    }
+      return _this.boundsContain(_bounds, [coordinates[1], coordinates[0]]);
+    });
 
     return events;
   };
@@ -372,8 +359,6 @@ var ListView = function (options) {
   _this.render = Util.compose(function () {
     var listFormat,
         timezoneOffset;
-
-    console.log('ListView - render');
 
     listFormat = _this.model.get('listFormat');
     if (listFormat) {
