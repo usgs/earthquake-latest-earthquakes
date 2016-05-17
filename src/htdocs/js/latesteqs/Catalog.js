@@ -24,21 +24,22 @@ var Catalog = function (options) {
   var _this,
       _initialize,
 
-      _autoUpdateIntervalHandler;
+      _autoUpdateIntervalHandler,
+      _xhr;
 
 
   // catalog is a collection of earthquakes
   _this = Collection();
   _autoUpdateIntervalHandler = null;
+  _xhr = null;
 
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
 
     _this.model = options.model || Model();
-    _this.model.on('change:feed', 'load', _this);
+    _this.model.on('change:feed', 'onFeedChange', _this);
     _this.model.on('change:sort', 'onSort', _this);
     _this.model.on('change:autoUpdate', 'setAutoUpdateInterval', _this);
-    _this.model.on('change:feed', 'setAutoUpdateInterval', _this);
     _this.on('reset', 'checkForEventInCollection', _this);
 
     // keep track of whether there was a load error
@@ -53,11 +54,20 @@ var Catalog = function (options) {
       return;
     }
 
-    _this.model.off('change:feed', 'load', _this);
+    _this.model.off('change:feed', 'onFeedChange', _this);
     _this.model.off('change:sort', 'sort', _this);
     _this.model.off('change:autoUpdate', 'setAutoUpdateInterval', _this);
-    _this.model.off('change:feed', 'setAutoUpdateInterval', _this);
     _this.off('reset', 'checkForEventInCollection', _this);
+
+    if (_autoUpdateIntervalHandler !== null) {
+      clearInterval(_autoUpdateIntervalHandler);
+      _autoUpdateIntervalHandler = null;
+    }
+
+    if (_xhr !== null) {
+      _xhr.abort();
+      _xhr = null;
+    }
 
     _initialize = null;
     _this = null;
@@ -102,12 +112,17 @@ var Catalog = function (options) {
     // signal to listeners that a load is starting
     _this.trigger('loading');
 
-    Xhr.ajax({
+    _xhr = Xhr.ajax({
       url: url,
       data: data || null,
       success: _this.onLoadSuccess,
       error: _this.onLoadError
     });
+  };
+
+  _this.onFeedChange = function () {
+    _this.load();
+    _this.setAutoUpdateInterval();
   };
 
   /**
@@ -192,9 +207,9 @@ var Catalog = function (options) {
 
       feed = _this.model.get('feed');
       if (feed.hasOwnProperty('autoUpdate') && feed.autoUpdate) {
-        _autoUpdateIntervalHandler = setInterval(function () {
-            _this.load();
-        }, feed.autoUpdate);
+        _autoUpdateIntervalHandler = setInterval(
+          _this.load, feed.autoUpdate
+        );
       }
     }
   };
