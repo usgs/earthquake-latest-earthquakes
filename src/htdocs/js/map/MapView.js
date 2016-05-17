@@ -212,8 +212,8 @@ var MapView = function (options) {
   _this.render = function (force) {
     if (_renderScheduled || force === true) {
       _this.renderBasemapChange();
-      _this.renderMapPositionChange();
       _this.renderOverlayChange();
+      _this.renderMapPositionChange();
       _this.renderViewModesChange();
     }
     _renderScheduled = false;
@@ -244,11 +244,23 @@ var MapView = function (options) {
   };
 
   _this.renderMapPositionChange = function () {
-    var bounds;
+    var boundsMap,
+        boundsModel;
 
     if (!_handlingMoveEnd && _this.isEnabled()) {
-      bounds = _this.model.get('mapposition');
-      _this.map.fitBounds(bounds);
+
+      // Make certain we have map bounds.
+      if (_this.map.getZoom() !== undefined) {
+        boundsMap = _this.map.getBounds();
+      } else {
+        boundsMap = L.latLngBounds([[0,0],[0,0]]);
+      }
+
+      boundsModel = L.latLngBounds(_this.model.get('mapposition'));
+      // If the map does not have the same bounds as the model, call fitBounds.
+      if (!boundsMap.equals(boundsModel)) {
+        _this.map.fitBounds(boundsModel);
+      }
     }
   };
 
