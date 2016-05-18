@@ -3,10 +3,10 @@
 var Config = require('core/Config'),
     DefaultListFormat = require('list/DefaultListFormat'),
     DyfiListFormat = require('list/DyfiListFormat'),
-    EsriGrayscale = require('leaflet/layer/EsriGrayscale'),
-    EsriTerrain = require('leaflet/layer/EsriTerrain'),
-    OpenAerialMap = require('leaflet/layer/OpenAerialMap'),
-    OpenStreetMap = require('leaflet/layer/OpenStreetMap'),
+    Grayscale = require('leaflet/layer/Grayscale'),
+    Terrain = require('leaflet/layer/Terrain'),
+    Satellite = require('leaflet/layer/Satellite'),
+    Street = require('leaflet/layer/Street'),
     PagerListFormat = require('list/PagerListFormat'),
     ShakeMapListFormat = require('list/ShakeMapListFormat'),
     TectonicPlates = require('leaflet/layer/TectonicPlates'),
@@ -28,22 +28,22 @@ var _DEFAULTS = {
     {
       'id': 'grayscale',
       'name': 'Grayscale',
-      'layer': EsriGrayscale()
+      'layer': Grayscale()
     },
     {
       'id': 'terrain',
       'name': 'Terrain',
-      'layer': EsriTerrain()
+      'layer': Terrain()
     },
     {
       'id': 'street',
       'name': 'Street',
-      'layer': OpenStreetMap()
+      'layer': Street()
     },
     {
       'id': 'satellite',
       'name': 'Satellite',
-      'layer': OpenAerialMap()
+      'layer': Satellite()
     }
   ],
 

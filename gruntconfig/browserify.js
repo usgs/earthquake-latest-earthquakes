@@ -73,10 +73,10 @@ ALL_CLASSES = getAliases(JS, [
   'util/Xhr'
 ])).concat(getAliases(NODE_MODULES + '/hazdev-leaflet/src', [
   'leaflet/control/ZoomToControl',
-  'leaflet/layer/EsriGrayscale',
-  'leaflet/layer/EsriTerrain',
-  'leaflet/layer/OpenAerialMap',
-  'leaflet/layer/OpenStreetMap',
+  'leaflet/layer/Grayscale',
+  'leaflet/layer/Terrain',
+  'leaflet/layer/Satellite',
+  'leaflet/layer/Street',
   'leaflet/layer/TectonicPlates',
   'leaflet/layer/UsFault'
 ])).concat(getAliases(NODE_MODULES + '/hazdev-accordion/src', [
