@@ -138,6 +138,35 @@ var MapView = function (options) {
   };
 
   /**
+   * Updates the view port of the map if an event is selected that is outside
+   * the vieport of the map.
+   */
+  _this.onChangeEvent = function () {
+    var bounds,
+        latLng,
+        map,
+        mapBounds;
+
+    try {
+      map = _this.map;
+      latLng = _this.getEventLocation();
+      mapBounds = map.getBounds();
+
+      if (mapBounds.contains(latLng) !== true) {
+        bounds = _this.getBounds(latLng[0], latLng[1]);
+
+        if (bounds.intersects(mapBounds)) {
+          map.panTo(latLng);
+        } else {
+          map.fitBounds(bounds, {animate:false});
+        }
+      }
+    } catch (e) {
+      // nothing should happen
+    }
+  };
+
+  /**
    * DOM event listener that delegates to (potentially subclassed)
    * _this.onClick.
    *
@@ -147,6 +176,35 @@ var MapView = function (options) {
   _onClick = function () {
     _this.onClick();
   };
+
+  _this.destroy = Util.compose(function () {
+    _this.el.removeEventListener('click', _onClick);
+    _this.map.off('moveend', _onMoveEnd, _this);
+    _this.model.off('change:basemap', _onBasemapChange, _this);
+    _this.model.off('change:mapposition', _onMapPositionChange, _this);
+    _this.model.off('change:overlays', _onOverlayChange, _this);
+    _this.model.off('change:viewModes', _onViewModesChange, _this);
+
+    _basemap = null;
+    _earthquakes = null;
+    _onBasemapChange = null;
+    _onMapPositionChange = null;
+    _onMoveEnd = null;
+    _onOverlayChange = null;
+    _onViewModesChange = null;
+    _overlays = [];
+
+    _this.map.removeLayer(_earthquakes);
+    _earthquakes.destroy();
+
+    _basemap = null;
+    _earthquakes = null;
+    _onMoveEnd = null;
+    _onClick = null;
+
+    _initialize = null;
+    _this = null;
+  }, _this.destroy);
 
   /**
    * Gets bounds around a given latitude, longitude
@@ -190,6 +248,23 @@ var MapView = function (options) {
     return latLng;
   };
 
+  _this.isEnabled = function () {
+    var i,
+        modes;
+
+    modes = _this.model.get('viewModes');
+    for (i = 0; i < modes.length; i++) {
+      if (modes[i].id === 'map') {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  _this.onBasemapChange = function () {
+    _renderScheduled = true;
+  };
+
   /**
    * Click handler for map.
    *
@@ -204,32 +279,6 @@ var MapView = function (options) {
       });
     }
   };
-
-
-  _this.destroy = Util.compose(function () {
-    _this.el.removeEventListener('click', _onClick);
-    _this.map.off('moveend', _onMoveEnd, _this);
-    _this.model.off('change:basemap', _onBasemapChange, _this);
-    _this.model.off('change:mapposition', _onMapPositionChange, _this);
-    _this.model.off('change:overlays', _onOverlayChange, _this);
-    _this.model.off('change:viewModes', _onViewModesChange, _this);
-
-    _basemap = null;
-    _earthquakes = null;
-    _onBasemapChange = null;
-    _onClick = null;
-    _onMapPositionChange = null;
-    _onMoveEnd = null;
-    _onOverlayChange = null;
-    _onViewModesChange = null;
-    _overlays = [];
-
-    _this.map.removeLayer(_earthquakes);
-    _earthquakes.destroy();
-
-    _initialize = null;
-    _this = null;
-  }, _this.destroy);
 
   _this.isEnabled = function () {
      var i,
@@ -375,34 +424,6 @@ var MapView = function (options) {
   _this.renderViewModesChange = function () {
     if (_this.isEnabled()) {
       _this.map.invalidateSize();
-    }
-  };
-  /**
-   * Updates the view port of the map if a event is selected that is outside
-   * the vieport of the map.
-   */
-  _this.onChangeEvent = function () {
-    var bounds,
-        latLng,
-        map,
-        mapBounds;
-
-    try {
-      map = _this.map;
-      latLng = _this.getEventLocation();
-      mapBounds = map.getBounds();
-
-      if (mapBounds.contains(latLng) !== true) {
-        bounds = _this.getBounds(latLng[0], latLng[1]);
-
-        if (bounds.intersects(mapBounds)) {
-          map.panTo(latLng);
-        } else {
-          map.fitBounds(bounds, {animate:false});
-        }
-      }
-    } catch (e) {
-      // nothing should happen
     }
   };
 
