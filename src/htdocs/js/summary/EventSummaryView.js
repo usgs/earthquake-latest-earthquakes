@@ -15,7 +15,10 @@ var EventSummaryView = function (options) {
       _formatter,
       _isVisible,
       _onCloseButtonClick,
-      _onEventSelect;
+      _onEventSelect,
+      _position,
+      _positionChange,
+      _startPosition;
 
   _this = View(options);
 
@@ -29,12 +32,18 @@ var EventSummaryView = function (options) {
 
     _formatter = options.formatter || EventSummaryFormat();
     _isVisible = false;
+    _position = 0;
+    _positionChange = null;
+    _startPosition = null;
     _this.catalog = options.catalog || Collection();
 
     _this.model.off('change', 'render', _this);
 
     _this.model.on('change:event', _onEventSelect, _this);
     _closeButton.addEventListener('click', _onCloseButtonClick);
+
+    // touch (mobile) interactions
+    _this.el.addEventListener('touchstart', _this.onDragStart, _this);
   };
 
   /**
@@ -81,10 +90,94 @@ var EventSummaryView = function (options) {
    */
   _this.hideEventSummary = function () {
     _this.deselectEvent();
+    _this.el.classList.remove('smoothing');
     _this.el.classList.remove('show');
     _isVisible = false;
   };
 
+  /**
+   * Called on "touchend" or "mouseup", removes event listeners
+   * for mouse events or touch events that update the position
+   * of the tablist-tab navigation.
+   *
+   * @param  {object} e,
+   *         "mouseup" event OR "touchend" event
+   */
+  _this.onDragEnd = function (e) {
+    if (e.type === 'touchend' || e.type === 'touchcancel') {
+      _this.el.removeEventListener('touchmove', _this.onDragScroll, _this);
+      _this.el.removeEventListener('touchend', _this.onDragEnd, _this);
+      _this.el.removeEventListener('touchcancel', _this.onDragEnd, _this);
+    }
+
+    // if the drag is 5px or less, assume a click
+    if (Math.abs(_positionChange) < 5 && e.target) {
+      e.target.click();
+      return;
+    }
+
+    // ease the close/return to starting position
+    _this.el.classList.add('smoothing');
+
+    if (_positionChange >= (_this.el.clientHeight * 1/3)) {
+      _this.hideEventSummary();
+    } else {
+      _this.setTranslate(0);
+    }
+
+    window.setTimeout(function () {
+      _this.setTranslate(0);
+    }, 500);
+
+    _positionChange = 0;
+  };
+
+  /**
+   * Called on "mousemove", updates the scrollLeft position
+   * on the nav slider that contains the tab elements.
+   *
+   * @param  {object} e,
+   *         "mousemove" event
+   */
+  _this.onDragScroll = function (e) {
+    var position,
+        positionChange,
+        type;
+
+    type = e.type;
+
+    if (type === 'touchmove') {
+      position = e.touches[0].clientY;
+    }
+
+    positionChange = position - _startPosition;
+    _positionChange = positionChange;
+    // update the element's position as the user drags
+    _this.setTranslate(positionChange);
+  };
+
+  /**
+   * Called on "touchstart" or "mousedown", tracks the drag start position
+   * and adds event listeners for mouse events or touch events that update
+   * the position of the tablist-tab navigation.
+   *
+   * @param  {object} e,
+   *         "mousedown" event OR "touchstart" event
+   */
+  _this.onDragStart = function (e) {
+
+    if (e.type === 'touchstart') {
+      // keeps mouse event from being delivered on touch events
+      e.preventDefault();
+      _startPosition = e.touches[0].clientY;
+      _this.el.addEventListener('touchmove', _this.onDragScroll, _this);
+      _this.el.addEventListener('touchend', _this.onDragEnd, _this);
+      _this.el.addEventListener('touchcancel', _this.onDragEnd, _this);
+    }
+
+    // ease the close/return to starting position
+    _this.el.classList.remove('smoothing');
+  };
 
   /**
    * Determines whether or not the EventSummaryView is visible, and then
@@ -113,9 +206,28 @@ var EventSummaryView = function (options) {
   };
 
   /**
+   * Update the position of the EventSummary div.
+   *
+   * @param {Number} position,
+   *        the y-position of the slider
+   */
+  _this.setTranslate = function (position) {
+    _this.el.style['-webkit-transform'] =
+        'translate3d(0px, ' + position + 'px, 0px)';
+    _this.el.style['-moz-transform'] =
+        'translate3d(0px, ' + position + 'px, 0px)';
+    _this.el.style['-ms-transform'] =
+        'translate3d(0px, ' + position + 'px, 0px)';
+    _this.el.style['-o-transform'] =
+        'translate3d(0px, ' + position + 'px, 0px)';
+    _this.el.style.transform = 'translate3d(0px, ' + position + 'px, 0px)';
+  };
+
+  /**
    * Toggles the EventSummaryView into view.
    */
   _this.showEventSummary = function () {
+    _this.el.classList.add('smoothing');
     _this.el.classList.add('show');
     _isVisible = true;
   };

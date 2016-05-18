@@ -65,10 +65,10 @@ describe('summary/EventSummaryView', function () {
   describe('showEventSummary', function () {
     it('shows EventSummaryView.el', function () {
 
-      expect(view.el.className).to.equal('');
+      expect(view.el.classList.contains('show')).to.equal(false);
 
       view.showEventSummary();
-      expect(view.el.className).to.equal('show');
+      expect(view.el.classList.contains('show')).to.equal(true);
     });
   });
 

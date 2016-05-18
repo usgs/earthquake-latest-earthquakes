@@ -1,14 +1,18 @@
 
 .event-summary-view {
-  bottom: 0;
-  display: none;
+  bottom: -100%;
   font-size: 0.88em;
   padding: 0.5em;
   position: absolute;
   width: 100%;
+  transition: bottom 1s ease;
+
+  &.smoothing {
+    transition: transform 0.3s ease, bottom 0.3s ease;
+  }
 
   &.show {
-    display: block;
+    bottom: 0;
   }
 
   > .event-summary {
