@@ -138,35 +138,6 @@ var MapView = function (options) {
   };
 
   /**
-   * Updates the view port of the map if an event is selected that is outside
-   * the vieport of the map.
-   */
-  _this.onChangeEvent = function () {
-    var bounds,
-        latLng,
-        map,
-        mapBounds;
-
-    try {
-      map = _this.map;
-      latLng = _this.getEventLocation();
-      mapBounds = map.getBounds();
-
-      if (mapBounds.contains(latLng) !== true) {
-        bounds = _this.getBounds(latLng[0], latLng[1]);
-
-        if (bounds.intersects(mapBounds)) {
-          map.panTo(latLng);
-        } else {
-          map.fitBounds(bounds, {animate:false});
-        }
-      }
-    } catch (e) {
-      // nothing should happen
-    }
-  };
-
-  /**
    * DOM event listener that delegates to (potentially subclassed)
    * _this.onClick.
    *
@@ -176,6 +147,7 @@ var MapView = function (options) {
   _onClick = function () {
     _this.onClick();
   };
+
 
   _this.destroy = Util.compose(function () {
     _this.el.removeEventListener('click', _onClick);
@@ -263,6 +235,35 @@ var MapView = function (options) {
 
   _this.onBasemapChange = function () {
     _renderScheduled = true;
+  };
+
+  /**
+   * Updates the view port of the map if an event is selected that is outside
+   * the vieport of the map.
+   */
+  _this.onChangeEvent = function () {
+    var bounds,
+        latLng,
+        map,
+        mapBounds;
+
+    try {
+      map = _this.map;
+      latLng = _this.getEventLocation();
+      mapBounds = map.getBounds();
+
+      if (mapBounds.contains(latLng) !== true) {
+        bounds = _this.getBounds(latLng[0], latLng[1]);
+
+        if (bounds.intersects(mapBounds)) {
+          map.panTo(latLng);
+        } else {
+          map.fitBounds(bounds, {animate:false});
+        }
+      }
+    } catch (e) {
+      // nothing should happen
+    }
   };
 
   /**
