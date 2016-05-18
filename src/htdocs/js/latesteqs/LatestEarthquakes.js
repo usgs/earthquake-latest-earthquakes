@@ -67,10 +67,10 @@ var LatestEarthquakes = function (options) {
   var _this,
       _initialize,
 
+      _aboutView,
       _catalog,
       _config,
       _content,
-      _aboutView,
       _eventSummaryView,
       _listView,
       _mapView,
@@ -250,8 +250,10 @@ var LatestEarthquakes = function (options) {
 
     if (enable) {
       _content.classList.add(name);
+      _modesView.el.classList.add(name);
     } else {
       _content.classList.remove(name);
+      _modesView.el.classList.remove(name);
     }
   };
 

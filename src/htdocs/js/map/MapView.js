@@ -61,6 +61,7 @@ var MapView = function (options) {
 
       _basemap,
       _earthquakes,
+      _ignoreNextMoveEnd,
       _onBasemapChange,
       _onMapPositionChange,
       _onOverlayChange,
@@ -82,6 +83,7 @@ var MapView = function (options) {
     el.innerHTML = '<div class="map"></div>';
 
     _basemap = null;
+    _ignoreNextMoveEnd = false;
     _overlays = [];
 
     _this.config = options.config;
@@ -173,6 +175,7 @@ var MapView = function (options) {
 
     _basemap = null;
     _earthquakes = null;
+    _ignoreNextMoveEnd = null;
     _onBasemapChange = null;
     _onClick = null;
     _onMapPositionChange = null;
@@ -201,6 +204,10 @@ var MapView = function (options) {
      return false;
    };
 
+   _this.hasBounds = function () {
+      return !_this.map.getSize().equals(new L.Point(0, 0));
+   };
+
   _this.onBasemapChange = function () {
     _renderScheduled = true;
   };
@@ -214,8 +221,8 @@ var MapView = function (options) {
         eq,
         latlng;
 
-    // only set mapposition when the map is enabled
-    if (_this.isEnabled()) {
+    // only set mapposition when the map bounds > 0
+    if (!_ignoreNextMoveEnd && _this.isEnabled() && _this.hasBounds()) {
       bounds = _this.map.getBounds();
       _this.model.set({
         'mapposition': [
@@ -224,6 +231,8 @@ var MapView = function (options) {
         ]
       });
     }
+
+    _ignoreNextMoveEnd = false;
 
     // Deselect event when it is no longer within the map bounds
     bounds = _this.model.get('mapposition');
@@ -250,10 +259,10 @@ var MapView = function (options) {
 
   _this.render = function (force) {
     if (_renderScheduled || force === true) {
+      _this.renderViewModesChange();
       _this.renderBasemapChange();
       _this.renderOverlayChange();
       _this.renderMapPositionChange();
-      _this.renderViewModesChange();
     }
     _renderScheduled = false;
   };
@@ -331,6 +340,9 @@ var MapView = function (options) {
 
   _this.renderViewModesChange = function () {
     if (_this.isEnabled()) {
+      if (!_this.hasBounds()) {
+        _ignoreNextMoveEnd = true;
+      }
       _this.map.invalidateSize();
     }
   };

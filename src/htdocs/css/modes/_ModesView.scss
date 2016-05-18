@@ -32,3 +32,11 @@ $iconSize: 28px;
     }
   }
 }
+
+@media screen and (max-width: 639px) {
+  .mode-list [data-id="map"].selected > .material-icons,
+  .mode-list.mode-settings [data-id="settings"].selected > .material-icons,
+  .mode-map.mode-settings [data-id="map"].selected > .material-icons {
+    color: #fff;
+  }
+}
