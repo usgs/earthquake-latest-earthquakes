@@ -148,7 +148,7 @@ var Catalog = function (options) {
         autoclose: 3000,
         container: document.querySelector('.latest-earthquakes-footer'),
         content:'Earthquakes updated',
-        classes: 'map-message'
+        classes: ['map-message', 'info']
       });
   };
 
