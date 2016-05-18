@@ -114,6 +114,7 @@ var MapView = function (options) {
     _this.model.on('change:mapposition', _onMapPositionChange, _this);
     _this.model.on('change:overlays', _onOverlayChange, _this);
     _this.model.on('change:viewModes', _onViewModesChange, _this);
+    _this.model.on('change:event', _this.updateBounds, _this);
   };
 
   _onBasemapChange = function () {
@@ -147,24 +148,6 @@ var MapView = function (options) {
     _this.onClick();
   };
 
-
-  _this.getEventLocation = function () {
-    var eq,
-        latitude,
-        longitude;
-
-    eq = _this.model.get('event');
-
-    if (eq === null) {
-      return;
-    }
-
-    latitude = eq.geometry.coordinates[1];
-    longitude = eq.geometry.coordinates[0];
-
-    return [latitude, longitude];
-  };
-
   _this.boundsContain = function (latitude, longitude) {
     var map,
         boundsContain;
@@ -182,6 +165,59 @@ var MapView = function (options) {
     }
 
     return boundsContain;
+  };
+
+  _this.boundsIntersect = function (bounds) {
+    var boundsIntersect,
+        map;
+
+    map = _this.map;
+
+    if (map === null) {
+      return;
+    }
+
+    if (bounds.intersect(map.getBounds())) {
+      intersect = true;
+    } else {
+      intersect = false;
+    }
+
+    return boundsIntersect;
+  };
+
+  _this.getBounds = function () {
+    var bounds,
+        pad;
+
+    pad = 5;
+
+    bounds = new L.LatLngBounds(
+      [Math.max(latitude-pad, -90), Math.max(longitude-pad, -180)],
+      [Math.min(latitude+pad,  90), Math.min(longitude+pad,  180)]
+    );
+
+    return bounds;
+  };
+
+  _this.getEventLocation = function () {
+    var eq,
+        latLng,
+        latitude,
+        longitude;
+
+    eq = _this.model.get('event');
+
+    if (eq === null) {
+      return;
+    }
+
+    latitude = eq.geometry.coordinates[1];
+    longitude = eq.geometry.coordinates[0];
+
+    latlng = latitude + ', ' + longitude;
+
+    return latLng;
   };
 
   /**
@@ -285,6 +321,20 @@ var MapView = function (options) {
     _renderScheduled = true;
   };
 
+  _this.panToFeature = function (latLng) {
+    var map;
+
+    map = _this.map;
+
+    if (map === null) {
+      return;
+    }
+
+    latLng = new L.LatLng(latLng);
+
+    map.panTo(latLng);
+  };
+
   _this.render = function (force) {
     if (_renderScheduled || force === true) {
       _this.renderBasemapChange();
@@ -370,6 +420,41 @@ var MapView = function (options) {
     if (_this.isEnabled()) {
       _this.map.invalidateSize();
     }
+  };
+
+  _this.updateBounds = function () {
+    var bounds,
+        boundsContain,
+        boundsIntersect,
+        latLng;
+
+    boundsContain = _this.boundsContain(latLng);
+
+    if (_this.map === null || boundsContain === true) {
+      return;
+    }
+
+    bounds = _this.getBounds();
+    boundsIntersect = _this.boundsIntersect();
+    latLng = _this.getEventLocation();
+
+    if (boundsIntersect) {
+      _this.panToFeature(latLng);
+    } else {
+      _this.zoomToFeature(bounds);
+    }
+  };
+
+  _this.zoomToFeature = function (bounds) {
+    var map;
+
+    map = _this.map;
+
+    if (map === null) {
+      return;
+    }
+
+    map.fitBounds(bounds);
   };
 
 
