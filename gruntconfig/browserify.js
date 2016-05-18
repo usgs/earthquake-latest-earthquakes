@@ -74,10 +74,10 @@ ALL_CLASSES = getAliases(JS, [
 ])).concat(getAliases(NODE_MODULES + '/hazdev-leaflet/src', [
   'leaflet/control/ZoomToControl',
   'leaflet/layer/Grayscale',
-  'leaflet/layer/Terrain',
   'leaflet/layer/Satellite',
   'leaflet/layer/Street',
   'leaflet/layer/TectonicPlates',
+  'leaflet/layer/Terrain',
   'leaflet/layer/UsFault'
 ])).concat(getAliases(NODE_MODULES + '/hazdev-accordion/src', [
   'accordion/Accordion'

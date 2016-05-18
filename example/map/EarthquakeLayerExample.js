@@ -4,8 +4,8 @@
 
 var Catalog = require('latesteqs/Catalog'),
     EarthquakeLayer = require('map/EarthquakeLayer'),
-    Terrain = require('leaflet/layer/Terrain'),
-    Model = require('mvc/Model');
+    Model = require('mvc/Model'),
+    Terrain = require('leaflet/layer/Terrain');
 
 
 var catalog,
