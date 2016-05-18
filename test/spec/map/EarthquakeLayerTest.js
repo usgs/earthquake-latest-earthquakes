@@ -363,36 +363,4 @@ describe('map/EarthquakeLayer', function () {
           'rotate(45deg) scale(0.7071, 0.7071)');
     });
   });
-
-  describe('zoomToFeature', function () {
-    it('updates map position on the model', function () {
-      var view;
-
-      view = EarthquakeLayer();
-
-      view.model.set({
-        event: {
-          id: 1,
-          geometry:{
-            coordinates:[
-              -156.0492,
-              57.87
-            ]
-          }
-        },
-        mapposition:[
-          [-67, -63],
-          [77, 1]
-        ]
-      });
-
-      view.zoomToFeature();
-
-      var test = view.model.get('mapposition');
-
-      expect(test).to.equal('test');
-
-      view.destroy();
-    });
-  });
 });

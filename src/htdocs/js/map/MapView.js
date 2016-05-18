@@ -147,6 +147,43 @@ var MapView = function (options) {
     _this.onClick();
   };
 
+
+  _this.getEventLocation = function () {
+    var eq,
+        latitude,
+        longitude;
+
+    eq = _this.model.get('event');
+
+    if (eq === null) {
+      return;
+    }
+
+    latitude = eq.geometry.coordinates[1];
+    longitude = eq.geometry.coordinates[0];
+
+    return [latitude, longitude];
+  };
+
+  _this.boundsContain = function (latitude, longitude) {
+    var map,
+        boundsContain;
+
+    map = _this.map;
+
+    if (map === null) {
+      return;
+    }
+
+    if (map.getBounds().contains(L.latLng(latitude, longitude))) {
+      boundsContain = true;
+    } else {
+      boundsContain = false;
+    }
+
+    return boundsContain;
+  };
+
   /**
    * Click handler for map.
    *
