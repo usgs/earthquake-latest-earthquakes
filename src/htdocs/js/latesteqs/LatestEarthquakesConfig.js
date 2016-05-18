@@ -33,7 +33,9 @@ var _DEFAULTS = {
     {
       'id': 'terrain',
       'name': 'Terrain',
-      'layer': Terrain()
+      'layer': Terrain({
+        'provider': Terrain.NATGEO
+      })
     },
     {
       'id': 'street',
