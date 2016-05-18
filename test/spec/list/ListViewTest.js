@@ -147,35 +147,6 @@ describe('list/ListView', function () {
     view.destroy();
   });
 
-  describe('boundsContain', function () {
-    var bounds,
-        view;
-
-    view = ListView();
-    bounds = [
-      [10, -130], // southwest
-      [30, -110] // northeast
-    ];
-
-    it('contains the point', function () {
-      /* jshint -W030 */
-      expect(view.boundsContain(bounds, [20, -120])).to.be.true;
-      expect(view.boundsContain(bounds, [10, -120])).to.be.true;
-      expect(view.boundsContain(bounds, [20, -130])).to.be.true;
-      /* jshint +W030 */
-    });
-
-    it('does NOT contain the point', function () {
-      /* jshint -W030 */
-      expect(view.boundsContain(bounds, [40, -140])).to.be.false;
-      expect(view.boundsContain(bounds, [40, -120])).to.be.false;
-      expect(view.boundsContain(bounds, [20, -140])).to.be.false;
-      /* jshint +W030 */
-    });
-
-    view.destroy();
-  });
-
   describe('filterEvents', function () {
     var data,
         model,

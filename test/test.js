@@ -10,6 +10,7 @@ require('./spec/about/AboutViewTest');
 require('./spec/core/ConfigTest');
 require('./spec/core/FormatterTest');
 require('./spec/core/GenericCollectionViewTest');
+require('./spec/core/MapUtilTest');
 require('./spec/core/UrlManagerTest');
 
 require('./spec/latesteqs/CatalogTest');
