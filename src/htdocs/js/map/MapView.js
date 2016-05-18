@@ -107,7 +107,7 @@ var MapView = function (options) {
       L.control.mousePosition().addTo(_this.map);
     }
 
-    _this.el.addEventListener('click', _onClick);
+    _this.map.on('click', _onClick);
     _this.map.on('moveend', _onMoveEnd, _this);
     _this.model.on('change:basemap', _onBasemapChange, _this);
     _this.model.on('change:mapposition', _onMapPositionChange, _this);
