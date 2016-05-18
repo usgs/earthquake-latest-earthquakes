@@ -18,7 +18,9 @@ el.innerHTML = '<div class="map"></div>' +
     '<div class="info"></div>';
 
 map = L.map(el.querySelector('.map')).setView([39, -105], 3);
-Terrain().addTo(map);
+Terrain({
+  'provider': Terrain.NATGEO
+}).addTo(map);
 
 catalog = Catalog();
 model = Model();
