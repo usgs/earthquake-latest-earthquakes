@@ -4,8 +4,8 @@
 
 var Catalog = require('latesteqs/Catalog'),
     EarthquakeLayer = require('map/EarthquakeLayer'),
-    EsriTerrain = require('leaflet/layer/EsriTerrain'),
-    Model = require('mvc/Model');
+    Model = require('mvc/Model'),
+    Terrain = require('leaflet/layer/Terrain');
 
 
 var catalog,
@@ -18,7 +18,7 @@ el.innerHTML = '<div class="map"></div>' +
     '<div class="info"></div>';
 
 map = L.map(el.querySelector('.map')).setView([39, -105], 3);
-EsriTerrain().addTo(map);
+Terrain().addTo(map);
 
 catalog = Catalog();
 model = Model();

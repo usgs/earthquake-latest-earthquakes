@@ -2,7 +2,7 @@
 'use strict';
 
 
-var EsriTerrain = require('leaflet/layer/EsriTerrain');
+var Terrain = require('leaflet/layer/Terrain');
 
 require('map/LegendControl');
 
@@ -19,7 +19,7 @@ var initialize = function () {
       zoomControl: false
     });
   legendControl = L.control.legendControl();
-  natgeo = EsriTerrain();
+  natgeo = Terrain();
 
   map.addLayer(natgeo);
   map.addControl(legendControl);

@@ -1,8 +1,9 @@
 'use strict';
 
 // TODO: use real List, Map, and Settings views
-var Catalog = require('latesteqs/Catalog'),
+var
     AboutView = require('about/AboutView'),
+    Catalog = require('latesteqs/Catalog'),
     EventSummaryView = require('summary/EventSummaryView'),
     LatestEarthquakesConfig = require('latesteqs/LatestEarthquakesConfig'),
     ListView = require('list/ListView'),
