@@ -6,6 +6,7 @@ require('leaflet/control/ZoomToControl');
 require('map/LegendControl');
 
 var EarthquakeLayer = require('map/EarthquakeLayer'),
+    MapUtil = require('core/MapUtil'),
     Util = require('util/Util'),
     View = require('mvc/View');
 
@@ -173,6 +174,7 @@ var MapView = function (options) {
     _basemap = null;
     _earthquakes = null;
     _onBasemapChange = null;
+    _onClick = null;
     _onMapPositionChange = null;
     _onMoveEnd = null;
     _onOverlayChange = null;
@@ -181,11 +183,6 @@ var MapView = function (options) {
 
     _this.map.removeLayer(_earthquakes);
     _earthquakes.destroy();
-
-    _basemap = null;
-    _earthquakes = null;
-    _onMoveEnd = null;
-    _onClick = null;
 
     _initialize = null;
     _this = null;
@@ -213,7 +210,9 @@ var MapView = function (options) {
   };
 
   _this.onMoveEnd = function () {
-    var bounds;
+    var bounds,
+        eq,
+        latlng;
 
     // only set mapposition when the map is enabled
     if (_this.isEnabled()) {
@@ -224,6 +223,20 @@ var MapView = function (options) {
           [bounds._northEast.lat, bounds._northEast.lng]
         ]
       });
+    }
+
+    // Deselect event when it is no longer within the map bounds
+    bounds = _this.model.get('mapposition');
+    eq = _this.model.get('event');
+
+    if (bounds && eq) {
+      latlng = [eq.geometry.coordinates[1], eq.geometry.coordinates[0]];
+
+      if (!MapUtil.boundsContain(bounds, latlng)) {
+        _this.model.set({
+          'event': null
+        });
+      }
     }
   };
 

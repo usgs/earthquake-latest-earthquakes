@@ -34,6 +34,7 @@ ALL_CLASSES = getAliases(JS, [
   'about/AboutView',
 
   'core/Config',
+  'core/MapUtil',
   'core/Formatter',
   'core/GenericCollectionView',
   'core/UrlManager',
