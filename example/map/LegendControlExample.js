@@ -19,7 +19,9 @@ var initialize = function () {
       zoomControl: false
     });
   legendControl = L.control.legendControl();
-  natgeo = Terrain();
+  natgeo = Terrain({
+    'provider': Terrain.NATGEO
+  });
 
   map.addLayer(natgeo);
   map.addControl(legendControl);
