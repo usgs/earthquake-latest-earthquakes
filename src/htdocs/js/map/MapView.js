@@ -167,6 +167,13 @@ var MapView = function (options) {
     return boundsContain;
   };
 
+  /**
+   * Checks to see if the bounds around a given event intersect with the
+   * current bounds of the map.
+   *
+   * @param array [bounds]
+   *    map bounds
+   */
   _this.boundsIntersect = function (bounds) {
     var boundsIntersect,
         map;
@@ -186,7 +193,11 @@ var MapView = function (options) {
     return boundsIntersect;
   };
 
-  _this.getBounds = function () {
+  /**
+   * Gets bounds around a given latitude, longitude
+   *
+   */
+  _this.getBounds = function (latitude, longitude) {
     var bounds,
         pad;
 
@@ -421,7 +432,10 @@ var MapView = function (options) {
       _this.map.invalidateSize();
     }
   };
-
+  /**
+   * Updates the view port of the map if a event is selected that is outside
+   * the vieport of the map.
+   */
   _this.updateBounds = function () {
     var bounds,
         boundsContain,
@@ -434,9 +448,9 @@ var MapView = function (options) {
       return;
     }
 
-    bounds = _this.getBounds();
     boundsIntersect = _this.boundsIntersect();
     latLng = _this.getEventLocation();
+    bounds = _this.getBounds(latLng);
 
     if (boundsIntersect) {
       _this.panToFeature(latLng);
@@ -445,6 +459,9 @@ var MapView = function (options) {
     }
   };
 
+  /**
+   * Zooms to a selected earthquake.
+   */
   _this.zoomToFeature = function (bounds) {
     var map;
 
