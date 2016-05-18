@@ -114,7 +114,7 @@ var MapView = function (options) {
     _this.model.on('change:mapposition', _onMapPositionChange, _this);
     _this.model.on('change:overlays', _onOverlayChange, _this);
     _this.model.on('change:viewModes', _onViewModesChange, _this);
-    _this.model.on('change:event', _this.updateBounds, _this);
+    _this.model.on('change:event', _this.onChangeEvent, _this);
   };
 
   _onBasemapChange = function () {
@@ -148,54 +148,11 @@ var MapView = function (options) {
     _this.onClick();
   };
 
-  _this.boundsContain = function (latitude, longitude) {
-    var map,
-        boundsContain;
-
-    map = _this.map;
-
-    if (map === null) {
-      return;
-    }
-
-    if (map.getBounds().contains(L.latLng(latitude, longitude))) {
-      boundsContain = true;
-    } else {
-      boundsContain = false;
-    }
-
-    return boundsContain;
-  };
-
-  /**
-   * Checks to see if the bounds around a given event intersect with the
-   * current bounds of the map.
-   *
-   * @param array [bounds]
-   *    map bounds
-   */
-  _this.boundsIntersect = function (bounds) {
-    var boundsIntersect,
-        map;
-
-    map = _this.map;
-
-    if (map === null) {
-      return;
-    }
-
-    if (bounds.intersect(map.getBounds())) {
-      intersect = true;
-    } else {
-      intersect = false;
-    }
-
-    return boundsIntersect;
-  };
-
   /**
    * Gets bounds around a given latitude, longitude
    *
+   * @param number {latitude, longitude}
+   *    latitude and longitude
    */
   _this.getBounds = function (latitude, longitude) {
     var bounds,
@@ -204,13 +161,16 @@ var MapView = function (options) {
     pad = 5;
 
     bounds = new L.LatLngBounds(
-      [Math.max(latitude-pad, -90), Math.max(longitude-pad, -180)],
-      [Math.min(latitude+pad,  90), Math.min(longitude+pad,  180)]
+      [Math.max(latitude - pad, -90), Math.max(longitude - pad, -180)],
+      [Math.min(latitude + pad,  90), Math.min(longitude + pad,  180)]
     );
 
     return bounds;
   };
 
+  /**
+   * gets latitude and longitude for an event
+   */
   _this.getEventLocation = function () {
     var eq,
         latLng,
@@ -226,8 +186,7 @@ var MapView = function (options) {
     latitude = eq.geometry.coordinates[1];
     longitude = eq.geometry.coordinates[0];
 
-    latlng = latitude + ', ' + longitude;
-
+    latLng = [latitude, longitude];
     return latLng;
   };
 
@@ -332,20 +291,6 @@ var MapView = function (options) {
     _renderScheduled = true;
   };
 
-  _this.panToFeature = function (latLng) {
-    var map;
-
-    map = _this.map;
-
-    if (map === null) {
-      return;
-    }
-
-    latLng = new L.LatLng(latLng);
-
-    map.panTo(latLng);
-  };
-
   _this.render = function (force) {
     if (_renderScheduled || force === true) {
       _this.renderBasemapChange();
@@ -436,42 +381,29 @@ var MapView = function (options) {
    * Updates the view port of the map if a event is selected that is outside
    * the vieport of the map.
    */
-  _this.updateBounds = function () {
+  _this.onChangeEvent = function () {
     var bounds,
-        boundsContain,
-        boundsIntersect,
-        latLng;
+        latLng,
+        map,
+        mapBounds;
 
-    boundsContain = _this.boundsContain(latLng);
+    try {
+      map = _this.map;
+      latLng = _this.getEventLocation();
+      mapBounds = map.getBounds();
 
-    if (_this.map === null || boundsContain === true) {
-      return;
+      if (mapBounds.contains(latLng) !== true) {
+        bounds = _this.getBounds(latLng[0], latLng[1]);
+
+        if (bounds.intersects(mapBounds)) {
+          map.panTo(latLng);
+        } else {
+          map.fitBounds(bounds, {animate:false});
+        }
+      }
+    } catch (e) {
+      // nothing should happen
     }
-
-    boundsIntersect = _this.boundsIntersect();
-    latLng = _this.getEventLocation();
-    bounds = _this.getBounds(latLng);
-
-    if (boundsIntersect) {
-      _this.panToFeature(latLng);
-    } else {
-      _this.zoomToFeature(bounds);
-    }
-  };
-
-  /**
-   * Zooms to a selected earthquake.
-   */
-  _this.zoomToFeature = function (bounds) {
-    var map;
-
-    map = _this.map;
-
-    if (map === null) {
-      return;
-    }
-
-    map.fitBounds(bounds);
   };
 
 
