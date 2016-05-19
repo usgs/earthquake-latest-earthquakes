@@ -71,7 +71,7 @@ var ModesView = function (options) {
         width;
 
     mobile = false;
-    mobileWidth = 641;
+    mobileWidth = 640;
     width = window.innerWidth || document.body.clientWidth;
 
     if (width <= mobileWidth) {
