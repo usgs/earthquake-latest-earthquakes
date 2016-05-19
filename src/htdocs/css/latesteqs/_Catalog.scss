@@ -1,0 +1,24 @@
+
+.map-message {
+  border-radius: 2px;
+  bottom: 0;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.5);
+  font-size: 0.88em;
+  left: 0;
+  padding: 1em 2em;
+  position: absolute;
+  margin: 0.5em;
+  right: 0;
+}
+
+.webutils-message.webutils-message-closeable > .webutils-message-close {
+  padding: 0 1em;
+  top: auto;
+}
+
+@media screen and (min-width: 640px) {
+  .map-message {
+    max-width: 50%;
+    margin: 0.5em auto;
+  }
+}
