@@ -186,6 +186,9 @@ var MapView = function (options) {
     _this.map.removeLayer(_earthquakes);
     _earthquakes.destroy();
 
+    _this.map.removeLayer(_earthquakes);
+    _earthquakes.destroy();
+
     _basemap = null;
     _earthquakes = null;
     _ignoreNextMoveEnd = null;
