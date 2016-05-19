@@ -254,7 +254,13 @@ describe('map/EarthquakeLayer', function () {
 
       view.model.set({
         event: {
-          id: 1
+          id: 1,
+          geometry:{
+            coordinates:[
+              1,
+              2
+            ]
+          }
         }
       });
       expect(view.el.querySelectorAll('.selected').length).to.equal(1);

@@ -116,6 +116,7 @@ var MapView = function (options) {
     _this.model.on('change:mapposition', _onMapPositionChange, _this);
     _this.model.on('change:overlays', _onOverlayChange, _this);
     _this.model.on('change:viewModes', _onViewModesChange, _this);
+    _this.model.on('change:event', _this.onChangeEvent, _this);
   };
 
   _onBasemapChange = function () {
@@ -149,6 +150,122 @@ var MapView = function (options) {
     _this.onClick();
   };
 
+
+  _this.destroy = Util.compose(function () {
+    _this.el.removeEventListener('click', _onClick);
+    _this.map.off('moveend', _onMoveEnd, _this);
+    _this.model.off('change:basemap', _onBasemapChange, _this);
+    _this.model.off('change:mapposition', _onMapPositionChange, _this);
+    _this.model.off('change:overlays', _onOverlayChange, _this);
+    _this.model.off('change:viewModes', _onViewModesChange, _this);
+    _this.model.off('change:event', _this.onChangeEvent, _this);
+
+    _this.map.removeLayer(_earthquakes);
+    _earthquakes.destroy();
+
+    _basemap = null;
+    _earthquakes = null;
+    _ignoreNextMoveEnd = null;
+    _onBasemapChange = null;
+    _onClick = null;
+    _onMapPositionChange = null;
+    _onMoveEnd = null;
+    _onOverlayChange = null;
+    _onViewModesChange = null;
+    _overlays = [];
+
+    _initialize = null;
+    _this = null;
+  }, _this.destroy);
+
+  /**
+   * Gets bounds around a given latitude, longitude
+   *
+   * @param number {latitude, longitude}
+   *    latitude and longitude
+   */
+  _this.getBounds = function (latitude, longitude) {
+    var bounds,
+        pad;
+
+    pad = 5;
+
+    bounds = new L.LatLngBounds(
+      [Math.max(latitude - pad, -90), Math.max(longitude - pad, -180)],
+      [Math.min(latitude + pad,  90), Math.min(longitude + pad,  180)]
+    );
+
+    return bounds;
+  };
+
+  /**
+   * gets latitude and longitude for an event
+   */
+  _this.getEventLocation = function () {
+    var eq,
+        latLng,
+        latitude,
+        longitude;
+
+    eq = _this.model.get('event');
+
+    if (eq === null) {
+      return;
+    }
+
+    latitude = eq.geometry.coordinates[1];
+    longitude = eq.geometry.coordinates[0];
+
+    latLng = [latitude, longitude];
+    return latLng;
+  };
+
+  _this.isEnabled = function () {
+    var i,
+        modes;
+
+    modes = _this.model.get('viewModes');
+    for (i = 0; i < modes.length; i++) {
+      if (modes[i].id === 'map') {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  _this.onBasemapChange = function () {
+    _renderScheduled = true;
+  };
+
+  /**
+   * Updates the view port of the map if an event is selected that is outside
+   * the vieport of the map.
+   */
+  _this.onChangeEvent = function () {
+    var bounds,
+        latLng,
+        map,
+        mapBounds;
+
+    try {
+      map = _this.map;
+      latLng = _this.getEventLocation();
+      mapBounds = map.getBounds();
+
+      if (mapBounds.contains(latLng) !== true) {
+        bounds = _this.getBounds(latLng[0], latLng[1]);
+
+        if (bounds.intersects(mapBounds)) {
+          map.panTo(latLng);
+        } else {
+          map.fitBounds(bounds, {animate:false});
+        }
+      }
+    } catch (e) {
+      // nothing should happen
+    }
+  };
+
   /**
    * Click handler for map.
    *
@@ -163,33 +280,6 @@ var MapView = function (options) {
       });
     }
   };
-
-
-  _this.destroy = Util.compose(function () {
-    _this.el.removeEventListener('click', _onClick);
-    _this.map.off('moveend', _onMoveEnd, _this);
-    _this.model.off('change:basemap', _onBasemapChange, _this);
-    _this.model.off('change:mapposition', _onMapPositionChange, _this);
-    _this.model.off('change:overlays', _onOverlayChange, _this);
-    _this.model.off('change:viewModes', _onViewModesChange, _this);
-
-    _basemap = null;
-    _earthquakes = null;
-    _ignoreNextMoveEnd = null;
-    _onBasemapChange = null;
-    _onClick = null;
-    _onMapPositionChange = null;
-    _onMoveEnd = null;
-    _onOverlayChange = null;
-    _onViewModesChange = null;
-    _overlays = [];
-
-    _this.map.removeLayer(_earthquakes);
-    _earthquakes.destroy();
-
-    _initialize = null;
-    _this = null;
-  }, _this.destroy);
 
   _this.isEnabled = function () {
     var i,
