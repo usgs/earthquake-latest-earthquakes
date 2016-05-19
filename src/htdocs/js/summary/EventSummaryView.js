@@ -18,6 +18,7 @@ var EventSummaryView = function (options) {
       _onEventSelect,
       _position,
       _positionChange,
+      _summaryHeight,
       _startPosition;
 
   _this = View(options);
@@ -123,10 +124,12 @@ var EventSummaryView = function (options) {
       _this.hideEventSummary();
     } else {
       _this.setTranslate(0);
+      _this.setOpactity(1);
     }
 
     window.setTimeout(function () {
       _this.setTranslate(0);
+      _this.setOpactity(1);
     }, 500);
 
     _positionChange = 0;
@@ -140,7 +143,8 @@ var EventSummaryView = function (options) {
    *         "mousemove" event
    */
   _this.onDragScroll = function (e) {
-    var position,
+    var opacity,
+        position,
         positionChange,
         type;
 
@@ -154,6 +158,13 @@ var EventSummaryView = function (options) {
     _positionChange = positionChange;
     // update the element's position as the user drags
     _this.setTranslate(positionChange);
+
+    if (_positionChange >= (_this.el.clientHeight * 1/3)) {
+      opacity = ((_summaryHeight - _positionChange) / _summaryHeight) * 3/2;
+      _this.setOpactity(opacity);
+    } else if (_positionChange < (_this.el.clientHeight * 1/3)) {
+      _this.setOpactity(1);
+    }
   };
 
   /**
@@ -165,6 +176,7 @@ var EventSummaryView = function (options) {
    *         "mousedown" event OR "touchstart" event
    */
   _this.onDragStart = function (e) {
+    _summaryHeight = _this.el.clientHeight;
 
     if (e.type === 'touchstart') {
       // keeps mouse event from being delivered on touch events
@@ -177,6 +189,10 @@ var EventSummaryView = function (options) {
 
     // ease the close/return to starting position
     _this.el.classList.remove('smoothing');
+  };
+
+  _this.setOpactity = function (opacity) {
+    _this.el.style.opacity = opacity;
   };
 
   /**
