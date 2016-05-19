@@ -192,21 +192,21 @@ var MapView = function (options) {
   }, _this.destroy);
 
   _this.isEnabled = function () {
-     var i,
-         modes;
+    var i,
+        modes;
 
-     modes = _this.model.get('viewModes');
-     for (i = 0; i < modes.length; i++) {
-       if (modes[i].id === 'map') {
-         return true;
-       }
-     }
-     return false;
-   };
+    modes = _this.model.get('viewModes');
+    for (i = 0; i < modes.length; i++) {
+      if (modes[i].id === 'map') {
+        return true;
+      }
+    }
+    return false;
+  };
 
-   _this.hasBounds = function () {
-      return !_this.map.getSize().equals(new L.Point(0, 0));
-   };
+  _this.hasBounds = function () {
+    return !_this.map.getSize().equals(new L.Point(0, 0));
+  };
 
   _this.onBasemapChange = function () {
     _renderScheduled = true;
@@ -306,7 +306,9 @@ var MapView = function (options) {
 
       // If the map does not have the same bounds as the model, call fitBounds.
       if (!mapBounds.equals(modelBounds)) {
+        _ignoreNextMoveEnd = true;
         _this.map.fitBounds(modelBounds, {animate: false});
+        _ignoreNextMoveEnd = false;
       }
     }
   };

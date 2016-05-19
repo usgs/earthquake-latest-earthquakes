@@ -25,9 +25,9 @@ var UrlManager = function (options) {
       _initialize,
 
       _defaults,
-      _handlingUrlChange,
-      _started,
-      _updateModelOnHashChange;
+      _ignoreHashChange,
+      _ignoreModelChange,
+      _started;
 
 
   _this = {};
@@ -36,7 +36,8 @@ var UrlManager = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
 
     _defaults = options.defaults;
-    _updateModelOnHashChange = true;
+    _ignoreHashChange = false;
+    _ignoreModelChange = false;
 
     _this.model = options.model;
     _this.config = options.config;
@@ -126,11 +127,11 @@ var UrlManager = function (options) {
    * Loads settings from url.
    */
   _this.onHashChange = function () {
-    if (_updateModelOnHashChange) {
-      _handlingUrlChange = true;
+    if (!_ignoreHashChange) {
+      _ignoreModelChange = true;
       _this.setModelSettings(_this.getUrlSettings(), false);
-      _handlingUrlChange = false;
     }
+    _ignoreHashChange = false;
   };
 
   /**
@@ -139,11 +140,11 @@ var UrlManager = function (options) {
    * Store settings in url.
    */
   _this.onModelChange = function () {
-    if (!_handlingUrlChange) {
-      _updateModelOnHashChange = false;
+    if (!_ignoreModelChange) {
+      _ignoreHashChange = true;
       _this.setUrlSettings(_this.getModelSettings());
-      _updateModelOnHashChange = true;
     }
+    _ignoreModelChange = false;
   };
 
   /**
