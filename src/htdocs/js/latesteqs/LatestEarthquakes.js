@@ -250,10 +250,8 @@ var LatestEarthquakes = function (options) {
 
     if (enable) {
       _content.classList.add(name);
-      _modesView.el.classList.add(name);
     } else {
       _content.classList.remove(name);
-      _modesView.el.classList.remove(name);
     }
   };
 

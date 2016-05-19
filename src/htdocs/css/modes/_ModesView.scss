@@ -33,10 +33,10 @@ $iconSize: 28px;
   }
 }
 
-@media screen and (max-width: 639px) {
-  .mode-list [data-id="map"].selected > .material-icons,
-  .mode-list.mode-settings [data-id="settings"].selected > .material-icons,
-  .mode-map.mode-settings [data-id="map"].selected > .material-icons {
+@media screen and (max-width: 640px) {
+  [data-id="list"].selected + [data-id="map"].selected > .material-icons,
+  [data-id="map"].selected + [data-id="settings"].selected > .material-icons,
+  [data-id="list"].selected + [data-id="settings"].selected > .material-icons {
     color: #fff;
   }
 }
