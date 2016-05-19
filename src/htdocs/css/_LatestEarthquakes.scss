@@ -134,7 +134,7 @@ body {
 
 /* hide other views on smaller screens */
 .mode-list > .latest-earthquakes-map,
-.mode-settings > .latest-earthquakes-map,
+.mode-map > .latest-earthquakes-settings,
 .mode-list > .latest-earthquakes-settings {
   display: none;
 }
