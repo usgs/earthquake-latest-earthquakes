@@ -6,6 +6,48 @@ var MapView = require('map/MapView'),
 
 var expect = chai.expect;
 
+var model = Model({
+  'event': {
+    'geometry': {
+      'coordinates': [
+        -89.426,
+        36.285,
+        6.684
+      ]
+    }
+  },
+  'viewModes': [
+    {
+      'id': 'list'
+    },
+    {
+      'id': 'map'
+    }
+  ]
+});
+
+// This model is need to show different outcomes for diffent properties on the
+// model.
+var model2 = Model({
+  'event': {
+    'geometry': {
+      'coordinates': [
+        -89.426,
+        36.285,
+        6.684
+      ]
+    }
+  },
+  'viewModes': [
+    {
+      'id': 'list'
+    },
+    {
+      'id': 'settings'
+    }
+  ]
+});
+
 describe('map/Mapview', function () {
   describe('constructor', function () {
     it('Can be required', function () {
@@ -36,20 +78,6 @@ describe('map/Mapview', function () {
   });
 
   describe('getEventLocation', function () {
-    var model;
-
-    model = Model({
-      'event': {
-        'geometry': {
-          'coordinates': [
-            -89.426,
-            36.285,
-            6.684
-          ]
-        }
-      }
-    });
-
     it('gets latitude and longitude of an event', function () {
       var view;
 
@@ -58,6 +86,48 @@ describe('map/Mapview', function () {
       });
 
       expect(view.getEventLocation()).to.deep.equal([36.285, -89.426]);
+
+      view.destroy();
+    });
+  });
+
+  describe('isEnabled', function () {
+    it('returns true if map is found', function () {
+      var view;
+
+      view = MapView({
+        model: model
+      });
+
+      expect(view.isEnabled()).to.equal(true);
+
+      view.destroy();
+    });
+
+    it('returns false if map is not found', function () {
+      var view;
+
+      view = MapView({
+        model: model2
+      });
+
+      expect(view.isEnabled()).to.equal(false);
+
+      view.destroy();
+    });
+  });
+
+  describe('onClick', function () {
+    it('deselects event', function () {
+      var view;
+
+      view = MapView({
+        model: model
+      });
+
+      view.onClick();
+
+      expect(model.get('event')).to.equal(null);
 
       view.destroy();
     });
