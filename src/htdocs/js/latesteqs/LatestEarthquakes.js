@@ -27,10 +27,9 @@ var _DEFAULT_SETTINGS = {
   basemap: 'grayscale',
   feed: '1day_m25',
   listFormat: 'default',
-  mapposition: [
-    // "conterminous" us
-    [60.0, -150.0],
-    [10.0, -50.0]
+  mapposition: [ // must be [[sw], [ne]]
+    [24.6, -125.0],
+    [50.0, -65.0]
   ],
   overlays: [
     'plates'

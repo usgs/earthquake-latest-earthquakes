@@ -306,9 +306,7 @@ var MapView = function (options) {
 
       // If the map does not have the same bounds as the model, call fitBounds.
       if (!mapBounds.equals(modelBounds)) {
-        _ignoreNextMoveEnd = true;
         _this.map.fitBounds(modelBounds, {animate: false});
-        _ignoreNextMoveEnd = false;
       }
     }
   };
