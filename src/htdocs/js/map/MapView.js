@@ -156,23 +156,20 @@ var MapView = function (options) {
     _this.model.off('change:mapposition', _onMapPositionChange, _this);
     _this.model.off('change:overlays', _onOverlayChange, _this);
     _this.model.off('change:viewModes', _onViewModesChange, _this);
-
-    _basemap = null;
-    _earthquakes = null;
-    _onBasemapChange = null;
-    _onMapPositionChange = null;
-    _onMoveEnd = null;
-    _onOverlayChange = null;
-    _onViewModesChange = null;
-    _overlays = [];
+    _this.model.off('change:event', _this.onChangeEvent, _this);
 
     _this.map.removeLayer(_earthquakes);
     _earthquakes.destroy();
 
     _basemap = null;
     _earthquakes = null;
-    _onMoveEnd = null;
+    _onBasemapChange = null;
     _onClick = null;
+    _onMapPositionChange = null;
+    _onMoveEnd = null;
+    _onOverlayChange = null;
+    _onViewModesChange = null;
+    _overlays = [];
 
     _initialize = null;
     _this = null;
