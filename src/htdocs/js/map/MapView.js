@@ -355,6 +355,10 @@ var MapView = function (options) {
       _this.renderMapPositionChange();
     }
     _renderScheduled = false;
+
+    if (_this.isEnabled && _this.model.get('event')) {
+      _this.onChangeEvent();
+    }
   };
 
   _this.renderBasemapChange = function () {
