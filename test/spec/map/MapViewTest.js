@@ -91,6 +91,16 @@ describe('map/Mapview', function () {
     });
   });
 
+  describe('hasBounds', function () {
+    it('returns bounds', function () {
+      var view;
+
+      view = MapView();
+
+      expect(view.hasBounds()).to.equal(false);
+    });
+  });
+
   describe('isEnabled', function () {
     it('returns true if map is found', function () {
       var view;
@@ -117,6 +127,18 @@ describe('map/Mapview', function () {
     });
   });
 
+  describe.skip('onBasemapChange', function () {
+    it('sets _renderScheduled to true', function () {
+
+    });
+  });
+
+  describe('onChangeEvent', function () {
+    it('updates the map by changing it\'s bounds', function () {
+      
+    });
+  });
+
   describe('onClick', function () {
     it('deselects event', function () {
       var view;
@@ -130,6 +152,54 @@ describe('map/Mapview', function () {
       expect(model.get('event')).to.equal(null);
 
       view.destroy();
+    });
+  });
+
+  describe.skip('onMapPositionChange', function () {
+    it('', function () {
+
+    });
+  });
+
+  describe.skip('onMoveEnd', function () {
+    it('', function () {
+
+    });
+  });
+
+  describe.skip('onOverlayChange', function () {
+    it('', function () {
+
+    });
+  });
+
+  describe.skip('onViewModesChange', function () {
+    it('', function () {
+
+    });
+  });
+
+  describe.skip('renderBasemapChange', function () {
+    it('', function () {
+
+    });
+  });
+
+  describe.skip('renderMapPositionChane', function () {
+    it('', function () {
+
+    });
+  });
+
+  describe.skip('renderOverlayChange', function () {
+    it('', function () {
+
+    });
+  });
+
+  describe.skip('renderViewModesChange', function () {
+    it('', function () {
+
     });
   });
 });
