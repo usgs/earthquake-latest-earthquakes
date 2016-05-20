@@ -7,6 +7,7 @@ var Accordion = require('accordion/Accordion'),
     GenericCollectionView = require('core/GenericCollectionView'),
     MapUtil = require('core/MapUtil'),
     ModalView = require('mvc/ModalView'),
+    ModesView = require('modes/ModesView'),
     Util = require('util/Util');
 
 
@@ -59,7 +60,9 @@ var ListView = function (options) {
       _headerTitle,
       _headerUpdateTime,
       _listFormat,
+      _modesView,
       _noDataMessage,
+      _settings,
 
       _createScaffold;
 
@@ -76,6 +79,7 @@ var ListView = function (options) {
    */
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
+    _modesView = ModesView({model: _this.model});
     _noDataMessage = options.noDataMessage;
 
     _this.filterEnabled = false;
@@ -304,6 +308,24 @@ var ListView = function (options) {
   };
 
   /**
+   * calls updateModel from modesView
+   */
+  _this.onSettingsClick = function () {
+    var i,
+        obj;
+
+    obj = _this.model.get('viewModes') || [];
+
+    for (i = 0; i < obj.length; i++) {
+      if (obj[i].id === 'settings') {
+        return;
+      }
+    }
+
+    _modesView.updateModel({'id':'settings'});
+  };
+
+  /**
    * Override render to get a referene to current list format,
    * and configure timezone before rendering.
    */
@@ -335,7 +357,8 @@ var ListView = function (options) {
       '<h4>Didn&apos;t find what you were looking for?</h4>' +
         '<ul>' +
           '<li>' +
-            'Check your &ldquo;Settings&rdquo;.' +
+            'Check your <a href="javascript:void(null);" ' +
+            'class="footer-settings">Settings</a>.' +
           '</li>' +
           '<li>' +
             '<a href="/earthquakes/map/doc_whicheqs.php">' +
@@ -349,6 +372,9 @@ var ListView = function (options) {
             '</a>' +
           '</li>' +
       '</ul>';
+
+      _settings = _this.footer.querySelector('.footer-settings');
+      _settings.addEventListener('click', _this.onSettingsClick);
   };
 
   /**
