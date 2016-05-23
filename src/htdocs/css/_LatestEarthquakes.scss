@@ -51,12 +51,15 @@ body {
     > .latest-earthquakes-logo {
       display: inline-block;
       height: 100%;
+      position: relative;
 
       &:after {
         color: #fff;
         content: 'beta';
-        padding: 0.5em;
+        line-height: 1.0;
+        padding-left: 0.5em;
         position: absolute;
+        bottom: 0;
       }
 
       > img {
