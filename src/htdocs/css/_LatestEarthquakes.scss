@@ -52,6 +52,13 @@ body {
       display: inline-block;
       height: 100%;
 
+      &:after {
+        color: #fff;
+        content: 'beta';
+        padding: 0.5em;
+        position: absolute;
+      }
+
       > img {
         border: none;
         height: 140%;
