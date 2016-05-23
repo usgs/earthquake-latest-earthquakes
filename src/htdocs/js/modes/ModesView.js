@@ -10,6 +10,60 @@ var _DEFAULTS = {
   watchProperty: 'viewModes'
 };
 
+/**
+ * Checks the size of the browser window to see if it is in a mobile
+ * environment or not.
+ */
+var _mobileCheck = function () {
+  var mobile,
+      mobileWidth,
+      width;
+
+  mobile = false;
+  mobileWidth = 640;
+  width = window.innerWidth || document.body.clientWidth;
+
+  if (width <= mobileWidth) {
+    mobile = true;
+  }
+
+  return mobile;
+};
+
+var _getModes = function (viewModes, obj) {
+  var i,
+      index,
+      modes;
+
+  if (_mobileCheck()) {
+    modes = [obj];
+  } else {
+    if (obj.id === 'help') {
+      modes = [{'id': 'help'}];
+    } else {
+
+      index = -1;
+      modes = [];
+
+      for (i = 0; i < viewModes.length; i++) {
+        if (obj.id !== viewModes[i].id && viewModes[i].id !== 'help') {
+          // contains object, remove it
+          modes.push(viewModes[i]);
+        } else if (obj.id === viewModes[i].id) {
+          index = i;
+        }
+      }
+
+      if (index === -1) {
+        // does not contain object, add it
+        modes.push(obj);
+      } else if (modes.length === 0) {
+        modes.push({'id': 'help'});
+      }
+    }
+  }
+  return modes;
+};
 
 var ModesView = function (options) {
   var _this;
@@ -62,107 +116,17 @@ var ModesView = function (options) {
   };
 
   /**
-   * Checks the size of the browser window to see if it is in a mobile
-   * environment or not.
-   */
-  _this.mobileCheck = function () {
-    var mobile,
-        mobileWidth,
-        width;
-
-    mobile = false;
-    mobileWidth = 640;
-    width = window.innerWidth || document.body.clientWidth;
-
-    if (width <= mobileWidth) {
-      mobile = true;
-    }
-
-    return mobile;
-  };
-
-  /**
-   * Update model based on newly clicked item in the options view. If
-   * the clicked item was previously set as a value on the `watchProperty` for
-   * `_this.model` then that item is removed from the `watchProperty` value;
-   * otherwise the item is added to the `watchProperty` value.
-   *
-   * This method is called by updateModel.
-   *
-   * @param obj {Object}
-   *    Configuration option that was clicked
-   */
-  _this.updateDesktopModel = function (obj) {
-    var i,
-        index,
-        items,
-        properties,
-        toSet;
-
-    if (obj.id === 'help') {
-      _this.model.set({
-        'viewModes': [
-          {
-            'id': 'help'
-          }
-        ]
-      });
-      return;
-    }
-
-    toSet = {};
-    properties = _this.model.get(_this.watchProperty);
-
-    if (properties) {
-      items = properties.slice(0);
-    } else {
-      items = [];
-    }
-
-    index = -1;
-    toSet[_this.watchProperty] = [];
-    // check if model already contains selected object
-    for (i = 0; i < items.length; i++) {
-      if (obj.id !== items[i].id && items[i].id !== 'help') {
-        // contains object, remove it
-        toSet[_this.watchProperty].push(items[i]);
-      } else if (obj.id === items[i].id) {
-        index = i;
-      }
-    }
-
-    if (index === -1) {
-      // does not contain object, add it
-      toSet[_this.watchProperty].push(obj);
-    } else if (toSet[_this.watchProperty].length === 0) {
-      toSet[_this.watchProperty].push({'id': 'help'});
-    }
-
-    _this.model.set(toSet);
-  };
-
-  /**
    * updates model based on view port size.
    *
    * @param obj {Object}
    *     Configuration option that was clicked
    */
   _this.updateModel = function (obj) {
-    if (_this.mobileCheck()) {
-      _this.updateMobileModel(obj);
-    } else {
-      _this.updateDesktopModel(obj);
-    }
-  };
-
-  /**
-   * Updates the model with the selected mode and deselects other modes.
-   *
-   * @param obj {Object}
-   *    Configuration option that was clicked
-   */
-  _this.updateMobileModel = function (obj) {
-    _this.model.set({'viewModes': [obj]});
+    _this.model.set(
+      {
+        'viewModes': _getModes(_this.model.get('viewModes'), obj)
+      }
+    );
   };
 
 
@@ -170,5 +134,8 @@ var ModesView = function (options) {
   return _this;
 };
 
+
+ModesView.getModes = _getModes;
+ModesView.mobileCheck = _mobileCheck;
 
 module.exports = ModesView;
