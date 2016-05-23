@@ -151,6 +151,28 @@ var MapView = function (options) {
     _this.onClick();
   };
 
+  _this.deselectEventonMoveEnd = function () {
+    var bounds,
+       eq,
+       latlng;
+
+    bounds = _this.map.getBounds();
+    eq = _this.model.get('event');
+
+    if (bounds && eq && _this.isFilterEnabled()) {
+     latlng = [eq.geometry.coordinates[1], eq.geometry.coordinates[0]];
+     bounds = [
+         [bounds._southWest.lat, bounds._southWest.lng],
+         [bounds._northEast.lat, bounds._northEast.lng]
+       ];
+
+     if (!MapUtil.boundsContain(bounds, latlng)) {
+       _this.model.set({
+         'event': null
+       });
+     }
+    }
+  };
 
   _this.destroy = Util.compose(function () {
     _this.el.removeEventListener('click', _onClick);
@@ -171,6 +193,7 @@ var MapView = function (options) {
     _onClick = null;
     _onMapPositionChange = null;
     _onMoveEnd = null;
+    _onMoveEndTriggered = null;
     _onOverlayChange = null;
     _onViewModesChange = null;
     _overlays = [];
@@ -236,6 +259,18 @@ var MapView = function (options) {
       }
     }
     return false;
+  };
+
+  _this.isFilterEnabled = function () {
+    var filter;
+
+    filter = _this.model.get('restrictListToMap');
+
+    if (filter.length === 0) {
+      return false;
+    }
+
+    return true;
   };
 
   _this.onBasemapChange = function () {
@@ -313,41 +348,6 @@ var MapView = function (options) {
     }
 
     _ignoreNextMoveEnd = false;
-  };
-
-  _this.deselectEventonMoveEnd = function () {
-    var bounds,
-       eq,
-       latlng;
-
-    bounds = _this.map.getBounds();
-    eq = _this.model.get('event');
-
-    if (bounds && eq && _this.isFilterEnabled()) {
-     latlng = [eq.geometry.coordinates[1], eq.geometry.coordinates[0]];
-     bounds = [
-         [bounds._southWest.lat, bounds._southWest.lng],
-         [bounds._northEast.lat, bounds._northEast.lng]
-       ];
-
-     if (!MapUtil.boundsContain(bounds, latlng)) {
-       _this.model.set({
-         'event': null
-       });
-     }
-    }
-  };
-
-  _this.isFilterEnabled = function () {
-    var filter;
-
-    filter = _this.model.get('restrictListToMap');
-
-    if (filter.length === 0) {
-      return false;
-    }
-
-    return true;
   };
 
   _this.onOverlayChange = function () {
