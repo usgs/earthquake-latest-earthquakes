@@ -129,7 +129,8 @@ var LatestEarthquakes = function (options) {
 
     // depends on config
     _catalog = Catalog({
-      model: _this.model
+      model: _this.model,
+      app: _this
     });
 
     _config = LatestEarthquakesConfig(Util.extend({}, options.config, {
@@ -232,6 +233,14 @@ var LatestEarthquakes = function (options) {
     _config.options.viewModes.data().forEach(function (mode) {
       _this.setMode(mode.id, (modes.indexOf(mode.id) !== -1));
     });
+  };
+
+  _this.revertToDefaultFeed = function () {
+    var toSet;
+
+    _config.options.feed.selectById('1day_m25');
+    toSet = {'feed': _config.options.feed.getSelected()};
+    _this.model.set(toSet);
   };
 
   /**
