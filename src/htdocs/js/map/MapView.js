@@ -119,6 +119,7 @@ var MapView = function (options) {
     _this.model.on('change:event', _this.onChangeEvent, _this);
   };
 
+
   _onBasemapChange = function () {
     _this.onBasemapChange();
   };
@@ -220,6 +221,10 @@ var MapView = function (options) {
     return latLng;
   };
 
+  _this.hasBounds = function () {
+    return !_this.map.getSize().equals(new L.Point(0, 0));
+  };
+
   _this.isEnabled = function () {
     var i,
         modes;
@@ -281,27 +286,6 @@ var MapView = function (options) {
     }
   };
 
-  _this.isEnabled = function () {
-    var i,
-        modes;
-
-    modes = _this.model.get('viewModes');
-    for (i = 0; i < modes.length; i++) {
-      if (modes[i].id === 'map') {
-        return true;
-      }
-    }
-    return false;
-  };
-
-  _this.hasBounds = function () {
-    return !_this.map.getSize().equals(new L.Point(0, 0));
-  };
-
-  _this.onBasemapChange = function () {
-    _renderScheduled = true;
-  };
-
   _this.onMapPositionChange = function () {
     _renderScheduled = true;
   };
@@ -353,12 +337,13 @@ var MapView = function (options) {
       _this.renderBasemapChange();
       _this.renderOverlayChange();
       _this.renderMapPositionChange();
+
+      if (_this.isEnabled() && _this.model.get('event')) {
+        _this.onChangeEvent();
+      }
     }
     _renderScheduled = false;
 
-    if (_this.isEnabled && _this.model.get('event')) {
-      _this.onChangeEvent();
-    }
   };
 
   _this.renderBasemapChange = function () {
