@@ -120,7 +120,7 @@ describe('latesteqs/Catalog', function () {
 
       catalog = Catalog();
       sinon.stub(Xhr, 'ajax', function () {});
-      catalog.loadUrl('test url', 'test data');
+      catalog.loadUrl('test url', 'test data', catalog.onLoadSuccess);
       args = Xhr.ajax.getCall(0).args;
       Xhr.ajax.restore();
 
