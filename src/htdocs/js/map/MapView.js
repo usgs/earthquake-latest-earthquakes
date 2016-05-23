@@ -67,10 +67,10 @@ var MapView = function (options) {
       _onOverlayChange,
       _onViewModesChange,
       _onMoveEnd,
+      _onMoveEndTriggered,
       _onClick,
       _overlays,
       _renderScheduled;
-
 
   _this = View(options);
 
@@ -252,6 +252,10 @@ var MapView = function (options) {
         map,
         mapBounds;
 
+    if (_onMoveEndTriggered) {
+      return;
+    }
+
     try {
       map = _this.map;
       latLng = _this.getEventLocation();
@@ -291,12 +295,13 @@ var MapView = function (options) {
   };
 
   _this.onMoveEnd = function () {
-    var bounds,
-        eq,
-        latlng;
+    var bounds;
+
+    _this.deselectEventonMoveEnd();
 
     // only set mapposition when the map bounds > 0
     if (!_ignoreNextMoveEnd && _this.isEnabled() && _this.hasBounds()) {
+      _onMoveEndTriggered = true;
       bounds = _this.map.getBounds();
       _this.model.set({
         'mapposition': [
@@ -304,22 +309,32 @@ var MapView = function (options) {
           [bounds._northEast.lat, bounds._northEast.lng]
         ]
       });
+      _onMoveEndTriggered = false;
     }
 
     _ignoreNextMoveEnd = false;
+  };
 
-    // Deselect event when it is no longer within the map bounds
-    bounds = _this.model.get('mapposition');
+  _this.deselectEventonMoveEnd = function () {
+    var bounds,
+       eq,
+       latlng;
+
+    bounds = _this.map.getBounds();
     eq = _this.model.get('event');
 
-    if (bounds && eq && _this.isEnabled() && _this.isFilterEnabled()) {
-      latlng = [eq.geometry.coordinates[1], eq.geometry.coordinates[0]];
+    if (bounds && eq && _this.isFilterEnabled()) {
+     latlng = [eq.geometry.coordinates[1], eq.geometry.coordinates[0]];
+     bounds = [
+         [bounds._southWest.lat, bounds._southWest.lng],
+         [bounds._northEast.lat, bounds._northEast.lng]
+       ];
 
-      if (!MapUtil.boundsContain(bounds, latlng)) {
-        _this.model.set({
-          'event': null
-        });
-      }
+     if (!MapUtil.boundsContain(bounds, latlng)) {
+       _this.model.set({
+         'event': null
+       });
+     }
     }
   };
 
