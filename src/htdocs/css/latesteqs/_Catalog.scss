@@ -1,4 +1,3 @@
-
 .map-message {
   border-radius: 2px;
   bottom: 0;
@@ -21,4 +20,27 @@
     width: 624px;
     margin: 0.5em auto;
   }
+}
+
+.catalog-action-description {
+  color: #444;
+  display: block;
+  font-size: .7em;
+}
+
+.catalog-anchor {
+  color: #00C;
+}
+
+.button-as-link {
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: #00C;
+  cursor: pointer;
+  display: inline;
+  font: normal 1em/1.5 'Arial';
+  margin: 0;
+  padding: 0;
+  text-decoration: underline;
 }
