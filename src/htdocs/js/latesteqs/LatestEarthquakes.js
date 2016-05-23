@@ -88,7 +88,7 @@ var LatestEarthquakes = function (options) {
 
     _modesView = ModesView();
 
-    if (_modesView.mobileCheck()) {
+    if (ModesView.mobileCheck()) {
       _DEFAULT_SETTINGS.viewModes = {
         list: true,
         map: false,
