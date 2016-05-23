@@ -34,6 +34,19 @@
   }
 }
 
+/* Hide .event-summary-view when only help or settings is shown */
+.mode-settings + .latest-earthquakes-footer > .event-summary-view,
+.mode-help + .latest-earthquakes-footer > .event-summary-view {
+  display: none;
+}
+
+.mode-list.mode-settings + .latest-earthquakes-footer > .event-summary-view,
+.mode-map.mode-settings + .latest-earthquakes-footer > .event-summary-view,
+.mode-list.mode-help + .latest-earthquakes-footer > .event-summary-view,
+.mode-map.mode-help + .latest-earthquakes-footer > .event-summary-view {
+  display: block;
+}
+
 @media screen and (min-width: 640px) {
   .event-summary-view {
     max-width: 320px;
