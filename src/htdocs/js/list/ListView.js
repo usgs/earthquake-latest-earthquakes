@@ -311,18 +311,26 @@ var ListView = function (options) {
    * calls updateModel from modesView
    */
   _this.onSettingsClick = function () {
-    var i,
-        obj;
+    // var i,
+    //     obj;
+    //
+    // obj = _this.model.get('viewModes') || [];
+    //
+    // for (i = 0; i < obj.length; i++) {
+    //   if (obj[i].id === 'settings') {
+    //     return;
+    //   }
+    // }
 
-    obj = _this.model.get('viewModes') || [];
-
-    for (i = 0; i < obj.length; i++) {
-      if (obj[i].id === 'settings') {
-        return;
+    _this.model.set(
+      {
+        'viewModes': [
+          {
+            'id':'settings'
+          }
+        ]
       }
-    }
-
-    _modesView.updateModel({'id':'settings'});
+    );
   };
 
   /**
