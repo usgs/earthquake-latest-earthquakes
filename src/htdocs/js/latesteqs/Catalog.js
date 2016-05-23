@@ -3,6 +3,7 @@
 
 var Collection = require('mvc/Collection'),
     Message = require('util/Message'),
+    ModalView = require('mvc/ModalView'),
     Model = require('mvc/Model'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
@@ -24,7 +25,9 @@ var Catalog = function (options) {
   var _this,
       _initialize,
 
+      _app,
       _autoUpdateIntervalHandler,
+      _maxResults,
       _xhr;
 
 
@@ -33,8 +36,17 @@ var Catalog = function (options) {
   _autoUpdateIntervalHandler = null;
   _xhr = null;
 
+
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
+
+    if (Util.isMobile()) {
+      _maxResults = 500;
+    } else {
+      _maxResults = 2000;
+    }
+
+    _app = options.app;
 
     _this.model = options.model || Model();
     _this.model.on('change:feed', 'onFeedChange', _this);
@@ -44,6 +56,40 @@ var Catalog = function (options) {
 
     // keep track of whether there was a load error
     _this.error = false;
+  };
+
+  /**
+   * Checks the collection to see if the selected event exists in the
+   * collection. When the event no longer exists, the model is updated.
+   */
+  _this.checkForEventInCollection = function () {
+    var eq;
+
+    eq = _this.model.get('event');
+    if (!eq) {
+      return;
+    }
+
+    // if event does not exist in the new collection, update model
+    if (!_this.get(eq.id)) {
+      _this.model.set({
+        'event': null
+      });
+    }
+  };
+
+  _this.checkSearchLimit = function (url, data) {
+    _this.trigger('loading');
+
+    url = url.replace('query.geojson', 'count');
+    data.format = 'geojson';
+
+    _xhr = Xhr.ajax({
+      url: url,
+      data: data || null,
+      success: _this.onCheckQuerySuccess,
+      error: _this.onLoadError
+    });
   };
 
   /**
@@ -74,6 +120,55 @@ var Catalog = function (options) {
   }, _this.destroy);
 
   /**
+   * Creates link to return to search page.
+   *
+   * @param helpText {String}
+   *    Text describing why to modify the search
+   */
+  _this.getDialogModifySearchAction = function (helpText) {
+    var p;
+
+    p = document.createElement('p');
+    p.innerHTML = [
+      '<a class="catalog-anchor" href="/earthquakes/search/', // TODO :: Configurable?
+        window.location.hash, '">Modify Search</a>',
+        '<small class="catalog-action-description">', helpText, '</small>'
+    ].join('');
+
+    return p;
+  };
+
+  /**
+   * Revert Action Link
+   *
+   * @param dialog {ModalView}
+   */
+  _this.getDialogRevertAction = function (dialog) {
+    var p;
+
+    p = document.createElement('p');
+
+    p.innerHTML = [
+        '<p class="catalog-revert-wrapper">',
+          '<button class="button-as-link revert">',
+            'Show Realtime Data Instead',
+          '</button>',
+          '<small class="catalog-action-description">',
+            '1 Day, Magnitude 2.5+ Worldwide',
+          '</small>',
+        '</p>'
+      ].join('');
+
+    p.querySelector('.revert').addEventListener('click',
+      function () {
+        _app.revertToDefaultFeed();
+        dialog.hide();
+      });
+
+    return p;
+  };
+
+  /**
    * Fetch catalog based on config and model.
    */
   _this.load = function () {
@@ -87,14 +182,13 @@ var Catalog = function (options) {
         // feed
         url = feed.url;
         params = null;
+        _this.loadUrl(url, params, _this.onCheckFeedSuccess);
       } else {
         // search
         url = _this.model.get('searchUrl');
         params = feed.params;
+        _this.checkSearchLimit(url, params);
       }
-
-      _this.loadUrl(url, params);
-      return;
     } else {
       _this.onLoadError('no feed selected');
     }
@@ -107,17 +201,82 @@ var Catalog = function (options) {
    *     catalog url.
    * @param data {Object}
    *     optional, data for ajax call.
+   * @callback {Object}
+   *    callback for successful load
    */
-  _this.loadUrl = function (url, data) {
+  _this.loadUrl = function (url, data, callback) {
     // signal to listeners that a load is starting
     _this.trigger('loading');
 
     _xhr = Xhr.ajax({
       url: url,
       data: data || null,
-      success: _this.onLoadSuccess,
+      success: callback,
       error: _this.onLoadError
     });
+  };
+
+  _this.onFeedChange = function () {
+    _this.load();
+    _this.setAutoUpdateInterval();
+  };
+
+  /**
+   * Load a Query
+   */
+  _this.loadQuery = function () {
+    var feed,
+        params,
+        url;
+
+    feed = _this.model.get('feed');
+    url = _this.model.get('searchUrl');
+    params = feed.params;
+
+    _this.loadUrl(url, params, _this.onLoadSuccess);
+  };
+
+  /**
+   * Callback for successful feed load.
+   *
+   * @param data {Object}
+   *    Feed object.
+   */
+  _this.onCheckFeedSuccess = function (data) {
+    var metadata;
+
+    metadata = data.metadata;
+    if (metadata.count > _maxResults) {
+      _this.showClientMaxError(_this.onLoadSuccess, data);
+    } else {
+      _this.onLoadSuccess(data);
+    }
+  };
+
+  /**
+   * Callback for Query call to check size.
+   *
+   * @param data {Object}
+   *    count: int
+   *      number of events in query.
+   *    maxAllowed: int
+   *      max number of events server will return
+   */
+  _this.onCheckQuerySuccess = function (data) {
+    var count,
+        max;
+
+    count = data.count;
+    max = data.maxAllowed;
+
+    if (count > max) {
+      _this.showServerMaxError(data);
+      return;
+    } else if (count > _maxResults) {
+      _this.showClientMaxError(_this.loadQuery, data);
+    } else {
+      _this.loadQuery();
+    }
   };
 
   _this.onFeedChange = function () {
@@ -150,26 +309,6 @@ var Catalog = function (options) {
         content:'Earthquakes updated',
         classes: ['map-message', 'info']
       });
-  };
-
-  /**
-   * Checks the colleciton to see if the selected event exists in the
-   * collection. When the event no longer exists, the model is updated.
-   */
-  _this.checkForEventInCollection = function () {
-    var eq;
-
-    eq = _this.model.get('event');
-    if (!eq) {
-      return;
-    }
-
-    // if event does not exist in the new collection, update model
-    if (!_this.get(eq.id)) {
-      _this.model.set({
-        'event': null
-      });
-    }
   };
 
   /**
@@ -212,6 +351,70 @@ var Catalog = function (options) {
         );
       }
     }
+  };
+
+  _this.showClientMaxError = function (callback, data) {
+    var message,
+        // downloadEl,
+        // downloadHelp,
+        dialog;
+
+    message = document.createElement('div');
+
+    dialog = ModalView(message, {
+      title: 'Caution',
+      closable: false,
+      classes: ['modal-warning', 'catalog'],
+      buttons: [
+        {
+          callback: function () { dialog.hide(); callback(data);},
+          classes:['Footer', 'continue'],
+          text: 'Continue anyway'
+        }
+      ]
+    });
+
+    message.innerHTML = [
+      '<p>',
+        'The current selection includes more earthquakes than your device ',
+        'may be able to display.',
+      '</p>',
+      '<div class="downloads"></div>'
+    ].join('');
+
+    message.appendChild(_this.getDialogModifySearchAction(
+        'We recommend at most ' + _maxResults + ' earthquakes for your ' +
+        'device.'));
+    message.appendChild(_this.getDialogRevertAction(dialog));
+
+    dialog.show();
+  };
+
+  _this.showServerMaxError = function (data) {
+    var message,
+        dialog;
+
+    message = document.createElement('div');
+    dialog = ModalView(message, {
+      title: 'Error',
+      closable: false,
+      classes: ['modal-error', 'catalog'],
+      destroyOnHide: true
+    });
+
+    message.innerHTML = [
+      '<p>',
+        'The current selection includes ', data.count, ' earthquakes, ',
+        'which is more than is allowed.',
+      '</p>'
+    ].join('');
+
+    message.appendChild(_this.getDialogModifySearchAction(
+        'We recommend at most ' + _maxResults + ' earthquakes for your ' +
+        'device.'));
+    message.appendChild(_this.getDialogRevertAction(dialog));
+
+    dialog.show();
   };
 
 
