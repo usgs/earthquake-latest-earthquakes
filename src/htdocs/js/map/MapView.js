@@ -312,7 +312,7 @@ var MapView = function (options) {
     bounds = _this.model.get('mapposition');
     eq = _this.model.get('event');
 
-    if (bounds && eq) {
+    if (bounds && eq && _this.isEnabled() && _this.isFilterEnabled()) {
       latlng = [eq.geometry.coordinates[1], eq.geometry.coordinates[0]];
 
       if (!MapUtil.boundsContain(bounds, latlng)) {
@@ -321,6 +321,18 @@ var MapView = function (options) {
         });
       }
     }
+  };
+
+  _this.isFilterEnabled = function () {
+    var filter;
+
+    filter = _this.model.get('restrictListToMap');
+
+    if (filter.length === 0) {
+      return false;
+    }
+
+    return true;
   };
 
   _this.onOverlayChange = function () {
