@@ -62,7 +62,6 @@ var ListView = function (options) {
       _listFormat,
       _modesView,
       _noDataMessage,
-      _settings,
 
       _createScaffold;
 
@@ -88,6 +87,7 @@ var ListView = function (options) {
     _this.model.on('change:listFormat', 'render', _this);
     _this.model.on('change:timezone', 'render', _this);
     _this.model.on('change:restrictListToMap', 'onRestrictListToMap', _this);
+    _this.footer.addEventListener('click', _this.onFooterClick);
 
     _createScaffold();
   };
@@ -226,6 +226,15 @@ var ListView = function (options) {
     return events;
   };
 
+  _this.onFooterClick = function (e) {
+    var target;
+
+    target = e.target;
+    if (target.classList.contains('settings-link')) {
+      _this.onSettingsLinkClick();
+    }
+  };
+
   /**
    * Formats earthquake count information
    *
@@ -310,7 +319,7 @@ var ListView = function (options) {
   /**
    * calls updateModel from modesView
    */
-  _this.onSettingsClick = function () {
+  _this.onSettingsLinkClick = function () {
     _this.model.set(
       {
         'viewModes': [
@@ -355,7 +364,7 @@ var ListView = function (options) {
         '<ul>' +
           '<li>' +
             'Check your <a href="javascript:void(null);" ' +
-            'class="footer-settings">Settings</a>.' +
+            'class="settings-link">Settings</a>.' +
           '</li>' +
           '<li>' +
             '<a href="/earthquakes/map/doc_whicheqs.php">' +
@@ -369,9 +378,6 @@ var ListView = function (options) {
             '</a>' +
           '</li>' +
       '</ul>';
-
-      _settings = _this.footer.querySelector('.footer-settings');
-      _settings.addEventListener('click', _this.onSettingsClick);
   };
 
   /**
