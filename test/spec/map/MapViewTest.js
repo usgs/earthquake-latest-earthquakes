@@ -1,4 +1,4 @@
-/* global chai, describe, it, L */
+/* global afterEach, beforeEach, chai, describe, it, L, sinon */
 'use strict';
 
 var MapView = require('map/MapView'),
@@ -23,11 +23,15 @@ var model = Model({
     {
       'id': 'map'
     }
+  ],
+  'mapposition': [
+    [4.0176, -102.52],
+    [30.372, -86.813]
   ]
 });
 
-// This model is need to show different outcomes for diffent properties on the
-// model.
+// This model is needed to show different outcomes for diffent properties on
+// the model.
 var model2 = Model({
   'event': {
     'geometry': {
@@ -73,7 +77,7 @@ describe('map/Mapview', function () {
 
       view = MapView();
 
-      expect(view.getBounds(30, 50)).to.deep.equal(bounds);
+      expect(view.getPaddedBounds(30, 50)).to.deep.equal(bounds);
     });
   });
 
@@ -127,15 +131,55 @@ describe('map/Mapview', function () {
     });
   });
 
-  describe.skip('onBasemapChange', function () {
-    it('sets _renderScheduled to true', function () {
-
-    });
-  });
-
   describe('onChangeEvent', function () {
-    it('updates the map by changing it\'s bounds', function () {
-      
+    var fitBounds,
+        getBounds,
+        getEventLocation,
+        panToStub,
+        view;
+
+    afterEach(function () {
+      fitBounds.restore();
+      getBounds.restore();
+      getEventLocation.restore();
+      panToStub.restore();
+
+      view.destroy();
+    });
+
+    beforeEach(function () {
+      view = MapView({model: model});
+
+      getEventLocation = sinon.stub(view, 'getEventLocation', function () {
+        return [17.6042, -94.6667];
+      });
+
+      getBounds = sinon.stub(view.map, 'getBounds', function () {
+        return new L.LatLngBounds(
+          [40.413496049701955, -62.57812500000001],
+          [-11.43695521614319, -93.9990234375]
+        );
+      });
+
+      fitBounds = sinon.stub(view.map, 'fitBounds', function () {});
+      panToStub = sinon.stub(view.map, 'panTo', function () {});
+    });
+
+    it('pans to event', function () {
+      view.onChangeEvent();
+      expect(panToStub.callCount).to.equal(1);
+    });
+
+    it('changes bounds to event', function () {
+      getBounds.restore();
+      getBounds = sinon.stub(view.map, 'getBounds', function () {
+        return new L.LatLngBounds(
+          [40.07807142745009, -41.1767578125],
+          [-11.867350911459308, -72.59765625]
+        );
+      });
+      view.onChangeEvent();
+      expect(fitBounds.callCount).to.equal(1);
     });
   });
 
@@ -155,51 +199,34 @@ describe('map/Mapview', function () {
     });
   });
 
-  describe.skip('onMapPositionChange', function () {
-    it('', function () {
+  describe('renderMapPositionChange', function () {
+    it('if the map does not have the same bounds as the model calls fitBounds',
+        function () {
+      var fitBounds,
+          getBounds,
+          view;
 
-    });
-  });
+      view = MapView({
+        model: model
+      });
 
-  describe.skip('onMoveEnd', function () {
-    it('', function () {
+      getBounds = sinon.stub(view.map, 'getBounds', function () {
+        return new L.LatLngBounds(
+          [40.413496049701955, -62.57812500000001],
+          [-11.43695521614319, -93.9990234375]
+        );
+      });
 
-    });
-  });
+      fitBounds = sinon.stub(view.map, 'fitBounds', function () {});
 
-  describe.skip('onOverlayChange', function () {
-    it('', function () {
+      view.renderMapPositionChange();
 
-    });
-  });
 
-  describe.skip('onViewModesChange', function () {
-    it('', function () {
+      expect(fitBounds.callCount).to.equal(1);
 
-    });
-  });
-
-  describe.skip('renderBasemapChange', function () {
-    it('', function () {
-
-    });
-  });
-
-  describe.skip('renderMapPositionChane', function () {
-    it('', function () {
-
-    });
-  });
-
-  describe.skip('renderOverlayChange', function () {
-    it('', function () {
-
-    });
-  });
-
-  describe.skip('renderViewModesChange', function () {
-    it('', function () {
-
+      getBounds.restore();
+      fitBounds.restore();
+      view.destroy();
     });
   });
 });
