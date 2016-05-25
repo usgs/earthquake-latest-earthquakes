@@ -195,6 +195,21 @@ var Catalog = function (options) {
   };
 
   /**
+   * Load a Query
+   */
+  _this.loadQuery = function () {
+    var feed,
+        params,
+        url;
+
+    feed = _this.model.get('feed');
+    url = _this.model.get('searchUrl');
+    params = feed.params;
+
+    _this.loadUrl(url, params, _this.onLoadSuccess);
+  };
+
+  /**
    * Load a catalog url.
    *
    * @param url {String}
@@ -219,21 +234,6 @@ var Catalog = function (options) {
   _this.onFeedChange = function () {
     _this.load();
     _this.setAutoUpdateInterval();
-  };
-
-  /**
-   * Load a Query
-   */
-  _this.loadQuery = function () {
-    var feed,
-        params,
-        url;
-
-    feed = _this.model.get('feed');
-    url = _this.model.get('searchUrl');
-    params = feed.params;
-
-    _this.loadUrl(url, params, _this.onLoadSuccess);
   };
 
   /**
@@ -355,8 +355,6 @@ var Catalog = function (options) {
 
   _this.showClientMaxError = function (callback, data) {
     var message,
-        // downloadEl,
-        // downloadHelp,
         dialog;
 
     message = document.createElement('div');
