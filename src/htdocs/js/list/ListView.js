@@ -7,7 +7,6 @@ var Accordion = require('accordion/Accordion'),
     GenericCollectionView = require('core/GenericCollectionView'),
     MapUtil = require('core/MapUtil'),
     ModalView = require('mvc/ModalView'),
-    ModesView = require('modes/ModesView'),
     Util = require('util/Util');
 
 
@@ -60,7 +59,6 @@ var ListView = function (options) {
       _headerTitle,
       _headerUpdateTime,
       _listFormat,
-      _modesView,
       _noDataMessage,
 
       _createScaffold;
@@ -78,7 +76,6 @@ var ListView = function (options) {
    */
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
-    _modesView = ModesView({model: _this.model});
     _noDataMessage = options.noDataMessage;
 
     _this.filterEnabled = false;
@@ -160,6 +157,7 @@ var ListView = function (options) {
    */
   _this.destroy = Util.compose(function () {
     _downloadButton.removeEventListener('click', _this.onButtonClick);
+    _this.footer.removeEventListener('click', _this.onFooterClick);
 
     _this.model.off('change:listFormat', 'render', _this);
     _this.model.off('change:timezone', 'render', _this);
@@ -317,7 +315,7 @@ var ListView = function (options) {
   };
 
   /**
-   * calls updateModel from modesView
+   * Updates model
    */
   _this.onSettingsLinkClick = function () {
     _this.model.set(
