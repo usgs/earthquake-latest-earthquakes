@@ -84,6 +84,7 @@ var ListView = function (options) {
     _this.model.on('change:listFormat', 'render', _this);
     _this.model.on('change:timezone', 'render', _this);
     _this.model.on('change:restrictListToMap', 'onRestrictListToMap', _this);
+    _this.footer.addEventListener('click', _this.onFooterClick);
 
     _createScaffold();
   };
@@ -156,6 +157,7 @@ var ListView = function (options) {
    */
   _this.destroy = Util.compose(function () {
     _downloadButton.removeEventListener('click', _this.onButtonClick);
+    _this.footer.removeEventListener('click', _this.onFooterClick);
 
     _this.model.off('change:listFormat', 'render', _this);
     _this.model.off('change:timezone', 'render', _this);
@@ -220,6 +222,15 @@ var ListView = function (options) {
     });
 
     return events;
+  };
+
+  _this.onFooterClick = function (e) {
+    var target;
+
+    target = e.target;
+    if (target.classList.contains('settings-link')) {
+      _this.onSettingsLinkClick();
+    }
   };
 
   /**
@@ -304,6 +315,21 @@ var ListView = function (options) {
   };
 
   /**
+   * Updates model
+   */
+  _this.onSettingsLinkClick = function () {
+    _this.model.set(
+      {
+        'viewModes': [
+          {
+            'id':'settings'
+          }
+        ]
+      }
+    );
+  };
+
+  /**
    * Override render to get a referene to current list format,
    * and configure timezone before rendering.
    */
@@ -335,7 +361,8 @@ var ListView = function (options) {
       '<h4>Didn&apos;t find what you were looking for?</h4>' +
         '<ul>' +
           '<li>' +
-            'Check your &ldquo;Settings&rdquo;.' +
+            'Check your <a href="javascript:void(null);" ' +
+            'class="settings-link">Settings</a>.' +
           '</li>' +
           '<li>' +
             '<a href="/earthquakes/map/doc_whicheqs.php">' +
