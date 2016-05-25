@@ -1,6 +1,7 @@
 
 .event-summary-view {
   bottom: -100%;
+  display: none;
   font-size: 0.88em;
   padding: 0.5em;
   position: absolute;
@@ -34,17 +35,12 @@
   }
 }
 
-/* Hide .event-summary-view when only help or settings is shown */
-.mode-settings + .latest-earthquakes-footer > .event-summary-view,
-.mode-help + .latest-earthquakes-footer > .event-summary-view {
-  display: none;
-}
+.mode-list,
+.mode-map {
 
-.mode-list.mode-settings + .latest-earthquakes-footer > .event-summary-view,
-.mode-map.mode-settings + .latest-earthquakes-footer > .event-summary-view,
-.mode-list.mode-help + .latest-earthquakes-footer > .event-summary-view,
-.mode-map.mode-help + .latest-earthquakes-footer > .event-summary-view {
-  display: block;
+  + .latest-earthquakes-footer > .event-summary-view {
+    display: block;
+  }
 }
 
 @media screen and (min-width: 640px) {
