@@ -236,11 +236,9 @@ var LatestEarthquakes = function (options) {
   };
 
   _this.revertToDefaultFeed = function () {
-    var toSet;
-
-    _config.options.feed.selectById('1day_m25');
-    toSet = {'feed': _config.options.feed.getSelected()};
-    _this.model.set(toSet);
+    _this.model.set({
+      'feed': _config.options.feed.get('1day_m25')
+    });
   };
 
   /**
