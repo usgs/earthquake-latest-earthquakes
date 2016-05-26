@@ -302,7 +302,8 @@ describe('latesteqs/Catalog', function () {
           data;
 
       data = {
-        features: ['a', 'b', 'c']
+        features: ['a', 'b', 'c'],
+        metadata: {}
       };
 
       catalog = Catalog();
