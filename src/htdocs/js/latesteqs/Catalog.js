@@ -27,6 +27,7 @@ var Catalog = function (options) {
 
       _app,
       _autoUpdateIntervalHandler,
+      _loadingMessage,
       _maxResults,
       _xhr;
 
@@ -39,6 +40,7 @@ var Catalog = function (options) {
 
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
+    _loadingMessage = null;
 
     if (Util.isMobile()) {
       _maxResults = 500;
@@ -52,6 +54,7 @@ var Catalog = function (options) {
     _this.model.on('change:feed', 'onFeedChange', _this);
     _this.model.on('change:sort', 'onSort', _this);
     _this.model.on('change:autoUpdate', 'setAutoUpdateInterval', _this);
+    _this.on('loading', 'loading', _this);
     _this.on('reset', 'checkForEventInCollection', _this);
 
     // keep track of whether there was a load error
@@ -231,11 +234,6 @@ var Catalog = function (options) {
     });
   };
 
-  _this.onFeedChange = function () {
-    _this.load();
-    _this.setAutoUpdateInterval();
-  };
-
   /**
    * Callback for successful feed load.
    *
@@ -248,6 +246,8 @@ var Catalog = function (options) {
     metadata = data.metadata;
     if (metadata.count > _maxResults) {
       _this.showClientMaxError(_this.onLoadSuccess, data);
+    } else if (metadata.count === 0){
+      _this.showNoDataError(_this.onLoadSuccess, data);
     } else {
       _this.onLoadSuccess(data);
     }
@@ -274,6 +274,8 @@ var Catalog = function (options) {
       return;
     } else if (count > _maxResults) {
       _this.showClientMaxError(_this.loadQuery, data);
+    } else if (count === 0){
+      _this.showNoDataError(_this.loadQuery);
     } else {
       _this.loadQuery();
     }
@@ -289,6 +291,7 @@ var Catalog = function (options) {
    */
   _this.onLoadError = function (err/*, xhr */) {
     // TODO: check error info on xhr object.
+    _this.showServerError();
     _this.error = err;
     _this.metadata = null;
     _this.reset([]);
@@ -298,6 +301,18 @@ var Catalog = function (options) {
    * Called when catalog successfully loaded.
    */
   _this.onLoadSuccess = function (data/*, xhr*/) {
+    if (_loadingMessage !== null) {
+      _loadingMessage.hide();
+      _loadingMessage = null;
+    }
+
+    if (data.metadata.hasOwnProperty('status') &&
+        data.metadata.status !== 200) {
+      _this.error = true;
+      _this.showServiceError(data);
+      return;
+    }
+
     _this.error = false;
     _this.metadata = data.metadata;
     _this.reset(data.features, {'silent': true});
@@ -308,6 +323,20 @@ var Catalog = function (options) {
         container: document.querySelector('.latest-earthquakes-footer'),
         content:'Earthquakes updated',
         classes: ['map-message', 'info']
+      });
+  };
+
+  _this.loading = function () {
+    if (_loadingMessage !== null) {
+      _loadingMessage.hide();
+      _loadingMessage = null;
+    }
+
+    _loadingMessage = Message({
+        autoclose: 3000,
+        container: document.querySelector('.latest-earthquakes-footer'),
+        content:'Earthquakes loading',
+        classes: ['map-message']
       });
   };
 
@@ -367,7 +396,8 @@ var Catalog = function (options) {
         {
           callback: function () { dialog.hide(); callback(data);},
           classes:['Footer', 'continue'],
-          text: 'Continue anyway'
+          text: 'Continue anyway',
+          destroyOnHide: true
         }
       ]
     });
@@ -388,6 +418,39 @@ var Catalog = function (options) {
     dialog.show();
   };
 
+  _this.showNoDataError = function (callback, data) {
+    var message,
+        dialog;
+
+    message = document.createElement('div');
+
+    dialog = ModalView(message, {
+      title: 'Caution',
+      closable: true,
+      classes: ['modal-warning', 'catalog'],
+      buttons: [
+        {
+          callback: function () {callback(data); dialog.hide();},
+          classes:['Footer', 'continue'],
+          text: 'Continue'
+
+        }
+      ]
+    });
+
+    message.innerHTML = [
+      '<p>',
+        'The current selection does not currently include any earthquakes.',
+      '</p>',
+      '<p>',
+        'Earthquakes happen around the world all the time. Change your ',
+        'options to view more earthquakes.',
+      '</p>'
+    ].join('');
+
+    dialog.show();
+  };
+
   _this.showServerMaxError = function (data) {
     var message,
         dialog;
@@ -403,7 +466,7 @@ var Catalog = function (options) {
     message.innerHTML = [
       '<p>',
         'The current selection includes ', data.count, ' earthquakes, ',
-        'which is more than is allowed.',
+        'which is more than the max allowed ', data.maxAllowed,
       '</p>'
     ].join('');
 
@@ -411,6 +474,117 @@ var Catalog = function (options) {
         'We recommend at most ' + _maxResults + ' earthquakes for your ' +
         'device.'));
     message.appendChild(_this.getDialogRevertAction(dialog));
+
+    dialog.show();
+  };
+
+  /**
+   * Method called if service request results in an error. This is generally a
+   * 503 or 400 error indicating a bad request of some sort. This method will
+   * display a modal dialog notifying the user of the error.
+   *
+   * This type of error is generally non-transient meaning subsequent requests
+   * for this data will consistently fail. For this reason, the user has only
+   * two courses of action in this dialog:
+   *
+   *   (1) Modify search (only if currently selected feed is a search)
+   *   (2) Show realtime data instead
+   *
+   * @param response {JSONObject}
+   *      Response sent from server. Should have a metadata child element that
+   *      contains useful information for rendering the dialog.
+   *
+   * @see Catalog.js#_showServerError
+   */
+  _this.showServiceError = function (data) {
+    var message,
+        dialog;
+
+    message = document.createElement('div');
+    dialog = ModalView(message, {
+      title: 'Error',
+      closable: false,
+      classes: ['modal-error', 'catalog'],
+      destroyOnHide: true
+    });
+
+    message.innerHTML = [
+        '<p>There was an error with your search:</p>',
+        '<small>' + data.metadata.error + '</small>'
+    ].join('');
+
+    message.appendChild(_this.getDialogModifySearchAction(
+        'See the error message above for details about why the current ' +
+        'request failed and modify appropriately.'));
+    message.appendChild(_this.getDialogRevertAction(dialog));
+
+    dialog.show();
+  };
+
+  /**
+     * Method called if the server does not respond to a request for data. This
+     * is generally a default Apache 500 error. This method will display a modal
+     * dialog notifying the user of the error.
+     *
+     * This type of error is generally transient meaning subsequent requests for
+     * this data may actually succeed, but the server is currently busy or
+     * otherwise unavailable. For this reason, the user is presented with three
+     * courses of action in this dialog:
+     *
+     *   (1) Bookmark this page to try again later
+     *   (2) Modify search (only if currently selected feed is a search)
+     *   (3) Show realtime data instead
+     *
+     * @see Catalog.js#_showServiceError
+     */
+  _this.showServerError = function () {
+    var dialog,
+        message,
+        supportsBookmark;
+
+    message = document.createElement('div');
+    supportsBookmark = window.sidebar ||
+              (window.external&&window.external.AddFavorite);
+    dialog = ModalView(message, {
+      title: 'Error',
+      closable: false,
+      classes: ['modal-error', 'catalog'],
+      destroyOnHide: true
+    });
+
+    message.innerHTML = [
+      '<p>',
+        'Your search could not be completed at this time, please try again ',
+        'later.',
+      '</p>',
+      '<p>',
+        (supportsBookmark) ? '<button class="button-as-link bookmark">' : '',
+          'Bookmark This Page',
+        (supportsBookmark) ? '</button>' : '',
+        '<small class="catalog-action-description">',
+          'Your search may be okay, but the system may be down for ',
+          'maintenance. Bookmark this page to try again later.',
+        '</small>',
+      '</p>'
+    ].join('');
+
+    message.appendChild(_this.getDialogModifySearchAction(
+        'See the error message above for details about why the current ' +
+        'request failed and modify appropriately.'));
+    message.appendChild(_this.getDialogRevertAction(dialog));
+
+    if (supportsBookmark) {
+      message.querySelector('.bookmark').addEventListener('click',
+        function () {
+          if (window.sidebar) { // FF
+            window.sidebar.addPanel(window.location, document.title, '');
+          } else if (window.external) { // IE
+            window.external.AddFavorite(window.location, document.title);
+          }
+          // Don't hide dialog yet. User might not be done.
+        }
+      );
+    }
 
     dialog.show();
   };
