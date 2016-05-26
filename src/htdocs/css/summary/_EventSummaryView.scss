@@ -1,6 +1,7 @@
 
 .event-summary-view {
   bottom: -100%;
+  display: none;
   font-size: 0.88em;
   padding: 0.5em;
   position: absolute;
@@ -31,6 +32,14 @@
     font-size: 1em;
     margin: 1em 1em 0;
     padding: 0.5em 1em;
+  }
+}
+
+.mode-list,
+.mode-map {
+
+  + .latest-earthquakes-footer > .event-summary-view {
+    display: block;
   }
 }
 
