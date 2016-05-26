@@ -29,7 +29,6 @@ var EventSummaryView = function (options) {
 
     _closeButton = document.createElement('button');
     _closeButton.classList.add('summary-close');
-    _closeButton.innerHTML = 'x';
 
     _formatter = options.formatter || EventSummaryFormat();
     _isVisible = false;
