@@ -26,6 +26,7 @@ require('./spec/list/ShakeMapListFormatTest');
 
 require('./spec/map/EarthquakeLayerTest');
 require('./spec/map/LegendControlTest');
+require('./spec/map/MapViewTest');
 
 require('./spec/modes/ModesViewTest');
 

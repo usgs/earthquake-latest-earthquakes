@@ -208,7 +208,7 @@ var MapView = function (options) {
    * @param number {latitude, longitude}
    *    latitude and longitude
    */
-  _this.getBounds = function (latitude, longitude) {
+  _this.getPaddedBounds = function (latitude, longitude) {
     var bounds,
         pad;
 
@@ -296,8 +296,8 @@ var MapView = function (options) {
       latLng = _this.getEventLocation();
       mapBounds = map.getBounds();
 
-      if (mapBounds.contains(latLng) !== true) {
-        bounds = _this.getBounds(latLng[0], latLng[1]);
+      if (!mapBounds.contains(latLng)) {
+        bounds = _this.getPaddedBounds(latLng[0], latLng[1]);
 
         if (bounds.intersects(mapBounds)) {
           map.panTo(latLng);
