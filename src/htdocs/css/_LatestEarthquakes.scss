@@ -97,6 +97,8 @@ body {
   display: none;
   overflow: hidden;
   width: 100%;
+
+  -webkit-overflow-scrolling: touch;
 }
 
 .latest-earthquakes-map {
@@ -116,8 +118,6 @@ body {
   background: #f4f4f4;
   min-width: 320px;
   overflow-y: auto;
-
-  -webkit-overflow-scrolling: touch;
 }
 
 .latest-earthquakes-about{
