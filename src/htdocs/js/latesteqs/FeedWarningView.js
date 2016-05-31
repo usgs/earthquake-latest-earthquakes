@@ -13,7 +13,6 @@ var FeedWarningView = function (options) {
       _initialize,
 
       _app,
-      _dialog,
       _maxResults;
 
   _this = {};

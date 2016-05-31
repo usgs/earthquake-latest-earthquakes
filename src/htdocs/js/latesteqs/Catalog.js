@@ -47,7 +47,7 @@ var Catalog = function (options) {
     if (Util.isMobile()) {
       _maxResults = 500;
     } else {
-      _maxResults = 200;
+      _maxResults = 2000;
     }
 
     _app = options.app;
