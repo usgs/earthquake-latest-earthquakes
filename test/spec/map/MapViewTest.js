@@ -90,38 +90,38 @@ describe('map/Mapview', function () {
     });
   });
 
-    describe('deselectEventonMoveEnd', function () {
-      var getBounds,
-          isFilterEnabled,
-          view;
+  describe('deselectEventonMoveEnd', function () {
+    var getBounds,
+        isFilterEnabled,
+        view;
 
-      afterEach(function () {
-        getBounds.restore();
-        isFilterEnabled.restore();
+    afterEach(function () {
+      getBounds.restore();
+      isFilterEnabled.restore();
 
-        view.destroy();
-      });
-
-      beforeEach(function () {
-        view = MapView({model: Model(model)});
-
-        getBounds = sinon.stub(view.map, 'getBounds', function () {
-          return new L.LatLngBounds(
-            [35.413496049701955, -62.57812500000001],
-            [-11.43695521614319, -93.9990234375]
-          );
-        });
-
-        isFilterEnabled = sinon.stub(view, 'isFilterEnabled', function () {
-          return true;
-        });
-        view.deselectEventonMoveEnd();
-      });
-
-      it('sets event on the model to null', function () {
-        expect(view.model.get('event')).to.equal(null);
-      });
+      view.destroy();
     });
+
+    beforeEach(function () {
+      view = MapView({model: Model(model)});
+
+      getBounds = sinon.stub(view.map, 'getBounds', function () {
+        return new L.LatLngBounds(
+          [35.413496049701955, -62.57812500000001],
+          [-11.43695521614319, -93.9990234375]
+        );
+      });
+
+      isFilterEnabled = sinon.stub(view, 'isFilterEnabled', function () {
+        return true;
+      });
+      view.deselectEventonMoveEnd();
+    });
+
+    it('sets event on the model to null', function () {
+      expect(view.model.get('event')).to.equal(null);
+    });
+  });
 
   describe('getEventLocation', function () {
     it('gets latitude and longitude of an event', function () {
