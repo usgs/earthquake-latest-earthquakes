@@ -153,24 +153,24 @@ var MapView = function (options) {
 
   _this.deselectEventonMoveEnd = function () {
     var bounds,
-       eq,
-       latlng;
+        eq,
+        latlng;
 
     bounds = _this.map.getBounds();
     eq = _this.model.get('event');
 
     if (bounds && eq && _this.isFilterEnabled()) {
-     latlng = [eq.geometry.coordinates[1], eq.geometry.coordinates[0]];
-     bounds = [
-         [bounds._southWest.lat, bounds._southWest.lng],
-         [bounds._northEast.lat, bounds._northEast.lng]
-       ];
+      latlng = [eq.geometry.coordinates[1], eq.geometry.coordinates[0]];
+      bounds = [
+        [bounds._southWest.lat, bounds._southWest.lng],
+        [bounds._northEast.lat, bounds._northEast.lng]
+      ];
 
-     if (!MapUtil.boundsContain(bounds, latlng)) {
-       _this.model.set({
-         'event': null
-       });
-     }
+      if (!MapUtil.boundsContain(bounds, latlng)) {
+        _this.model.set({
+          'event': null
+        });
+      }
     }
   };
 
@@ -277,6 +277,10 @@ var MapView = function (options) {
     _renderScheduled = true;
   };
 
+  _this.renderScheduled = function () {
+    return _renderScheduled;
+  };
+
   /**
    * Updates the view port of the map if an event is selected that is outside
    * the vieport of the map.
@@ -359,7 +363,7 @@ var MapView = function (options) {
   };
 
   _this.render = function (force) {
-    if (_renderScheduled || force === true) {
+    if (_this.renderScheduled() || force === true) {
       _this.renderViewModesChange();
       _this.renderBasemapChange();
       _this.renderOverlayChange();
