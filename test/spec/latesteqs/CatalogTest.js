@@ -105,39 +105,6 @@ describe('latesteqs/Catalog', function () {
     });
   });
 
-  describe('getDialogModifySearchAction', function () {
-    it('returns a paragraph', function () {
-      var helpText,
-          p;
-
-      helpText = 'HelpText';
-      p = Catalog().getDialogModifySearchAction(helpText);
-
-      expect(p.innerHTML).to.contain('catalog-anchor');
-      expect(p.innerHTML).to.contain(helpText);
-    });
-  });
-
-  describe('getDialogRevertAction', function () {
-    it('returns a paragraph', function () {
-      var app,
-          dialog,
-          spy,
-          p;
-
-      app = {};
-      dialog = {};
-      app.revertToDefaultFeed = function() {};
-      dialog.hide = function() {};
-      p = Catalog({app: app}).getDialogRevertAction(dialog);
-      spy = sinon.spy(app, 'revertToDefaultFeed');
-
-      expect(p.innerHTML).to.contain('catalog-revert-wrapper');
-      p.querySelector('.revert').click();
-      expect(spy.callCount).to.equal(1);
-    });
-  });
-
   describe('load', function () {
     it('loads selected feed', function () {
       var args,
@@ -217,7 +184,7 @@ describe('latesteqs/Catalog', function () {
       metadata: {count: 1}
     };
 
-    it('calls onLoad', function () {
+    it('calls onLoadSuccess', function () {
       stub = sinon.stub(catalog, 'onLoadSuccess', function () {});
 
       catalog.onCheckFeedSuccess(data);
@@ -229,7 +196,8 @@ describe('latesteqs/Catalog', function () {
     it('calls showClientMaxError', function () {
       data.metadata.count = 2001;
 
-      stub = sinon.stub(catalog, 'showClientMaxError', function () {});
+      stub = sinon.stub(catalog._feedWarningView, 'showClientMaxError',
+          function () {});
       catalog.onCheckFeedSuccess(data);
       expect(stub.callCount).to.equal(1);
 
@@ -259,7 +227,8 @@ describe('latesteqs/Catalog', function () {
     });
 
     it('calls showClientMaxError', function () {
-      stub = sinon.stub(catalog, 'showClientMaxError', function () {});
+      stub = sinon.stub(catalog._feedWarningView, 'showClientMaxError',
+          function () {});
 
       data = {
         count: 2001,
@@ -271,7 +240,8 @@ describe('latesteqs/Catalog', function () {
     });
 
     it('calls showServerMaxError', function () {
-      stub = sinon.stub(catalog, 'showServerMaxError', function () {});
+      stub = sinon.stub(catalog._feedWarningView, 'showServerMaxError',
+          function () {});
 
       data = {
         count: 20001,
@@ -350,58 +320,6 @@ describe('latesteqs/Catalog', function () {
         sort: {}
       });
       expect(onSortSpy.callCount).to.equal(1);
-    });
-  });
-
-  describe('showClientMaxError', function () {
-    it('creates a dialog', function () {
-      var app,
-          button,
-          catalog,
-          data,
-          dialog,
-          spy;
-
-      app = {};
-      catalog = Catalog();
-      data = {};
-      app.callback = function () {};
-      spy = sinon.spy(app, 'callback');
-      catalog.showClientMaxError(app.callback, data);
-      dialog = document.querySelector('.modal');
-      /* jshint -W030 */
-      expect(dialog).to.not.be.null;
-      /* jshint +W030 */
-      button = document.querySelector('.continue');
-      button.click();
-      expect(spy.callCount).to.equal(1);
-    });
-  });
-
-  describe('showServerMaxError', function () {
-    it('creates a dialog', function () {
-      var app,
-          button,
-          catalog,
-          data,
-          dialog;
-
-      app = {};
-      app.revertToDefaultFeed = function () {};
-      catalog = Catalog({app: app});
-      data = {
-        count: 20001,
-        maxAllowed: 20000
-      };
-
-      catalog.showServerMaxError(data);
-      dialog = document.querySelector('.modal');
-      /* jshint -W030 */
-      expect(dialog).to.not.be.null;
-      /* jshint +W030 */
-
-      button = document.querySelector('.revert');
-      button.click();
     });
   });
 

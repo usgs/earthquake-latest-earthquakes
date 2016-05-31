@@ -40,6 +40,7 @@ ALL_CLASSES = getAliases(JS, [
   'core/UrlManager',
 
   'latesteqs/Catalog',
+  'latesteqs/FeedWarningView',
   'latesteqs/LatestEarthquakes',
   'latesteqs/LatestEarthquakesConfig',
   'latesteqs/LatestEarthquakesUrlManager',
