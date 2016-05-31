@@ -173,6 +173,34 @@ describe('map/Mapview', function () {
     });
   });
 
+  describe('isFilterEnabled', function () {
+    it('returns false if filter is not set', function () {
+      var view;
+
+      view = MapView({model: Model(model2)});
+
+      expect(view.isFilterEnabled()).to.equal(false);
+
+      view.destroy();
+
+    });
+
+    it('returns true if filter is set', function () {
+      var view;
+
+      view = MapView({model: Model(model)});
+
+      expect(view.isFilterEnabled()).to.equal(true);
+
+      view.destroy();
+    });
+  });
+
+  describe('renderScheduled', function () {
+    it('returns _renderScheduled', function () {
+    });
+  });
+
   describe('onChangeEvent', function () {
     var fitBounds,
         getBounds,
@@ -271,29 +299,4 @@ describe('map/Mapview', function () {
       view.destroy();
     });
   });
-
-  describe('isFilterEnabled', function () {
-    it('returns false if filter is not set', function () {
-      var view;
-
-      view = MapView({model: Model(model2)});
-
-      expect(view.isFilterEnabled()).to.equal(false);
-
-      view.destroy();
-
-    });
-
-    it('returns true if filter is set', function () {
-      var view;
-
-      view = MapView({model: Model(model)});
-
-      expect(view.isFilterEnabled()).to.equal(true);
-
-      view.destroy();
-    });
-  });
-
-
 });
