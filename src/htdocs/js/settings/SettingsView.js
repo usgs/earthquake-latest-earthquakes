@@ -33,6 +33,9 @@ var SettingsView = function (options) {
     _config = options.config || Config();
     // initialize the view
     _this.createSkeleton();
+    _this.render();
+
+    _this.model.off('change', 'render', _this);
   };
 
   _this.createSkeleton = function () {
