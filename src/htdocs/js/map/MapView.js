@@ -59,17 +59,13 @@ var MapView = function (options) {
   var _this,
       _initialize,
 
-      _basemap,
       _earthquakes,
-      _ignoreNextMoveEnd,
       _onBasemapChange,
       _onMapPositionChange,
       _onOverlayChange,
       _onViewModesChange,
       _onMoveEnd,
-      _onMoveEndTriggered,
       _onClick,
-      _overlays,
       _renderScheduled;
 
   _this = View(options);
@@ -82,9 +78,9 @@ var MapView = function (options) {
     el = _this.el;
     el.innerHTML = '<div class="map"></div>';
 
-    _basemap = null;
-    _ignoreNextMoveEnd = false;
-    _overlays = [];
+    _this.basemap = null;
+    _this.ignoreNextMoveEnd = false;
+    _this.overlays = [];
 
     _this.config = options.config;
 
@@ -186,17 +182,13 @@ var MapView = function (options) {
     _this.map.removeLayer(_earthquakes);
     _earthquakes.destroy();
 
-    _basemap = null;
     _earthquakes = null;
-    _ignoreNextMoveEnd = null;
     _onBasemapChange = null;
     _onClick = null;
     _onMapPositionChange = null;
     _onMoveEnd = null;
-    _onMoveEndTriggered = null;
     _onOverlayChange = null;
     _onViewModesChange = null;
-    _overlays = [];
 
     _initialize = null;
     _this = null;
@@ -291,7 +283,7 @@ var MapView = function (options) {
         map,
         mapBounds;
 
-    if (_onMoveEndTriggered) {
+    if (_this.onMoveEndTriggered) {
       return;
     }
 
@@ -339,8 +331,8 @@ var MapView = function (options) {
     _this.deselectEventonMoveEnd();
 
     // only set mapposition when the map bounds > 0
-    if (!_ignoreNextMoveEnd && _this.isEnabled() && _this.hasBounds()) {
-      _onMoveEndTriggered = true;
+    if (!_this.ignoreNextMoveEnd && _this.isEnabled() && _this.hasBounds()) {
+      _this.onMoveEndTriggered = true;
       bounds = _this.map.getBounds();
       _this.model.set({
         'mapposition': [
@@ -348,10 +340,10 @@ var MapView = function (options) {
           [bounds._northEast.lat, bounds._northEast.lng]
         ]
       });
-      _onMoveEndTriggered = false;
+      _this.onMoveEndTriggered = false;
     }
 
-    _ignoreNextMoveEnd = false;
+    _this.ignoreNextMoveEnd = false;
   };
 
   _this.onOverlayChange = function () {
@@ -381,9 +373,9 @@ var MapView = function (options) {
     var newBasemap,
         oldBasemap;
 
-    oldBasemap = _basemap;
+    oldBasemap = _this.basemap;
     newBasemap = _this.model.get('basemap');
-    _basemap = newBasemap; // keep track of selected basemap
+    _this.basemap = newBasemap; // keep track of selected basemap
 
     // if basemap is already selected, do nothing
     if (oldBasemap && newBasemap && oldBasemap.id === newBasemap.id) {
@@ -427,9 +419,9 @@ var MapView = function (options) {
         oldOverlays,
         overlay;
 
-    oldOverlays = _overlays.slice(0);
-    newOverlays = _this.model.get('overlays');
-    _overlays = newOverlays; // keep track of selected overlays
+    oldOverlays = _this.overlays.slice(0);
+    newOverlays = _this.model.get('overlays') || [];
+    _this.overlays = newOverlays; // keep track of selected overlays
 
     // remove overlays that no longer exist in selection
     for (i = 0; i < oldOverlays.length; i++) {
@@ -451,7 +443,7 @@ var MapView = function (options) {
   _this.renderViewModesChange = function () {
     if (_this.isEnabled()) {
       if (!_this.hasBounds()) {
-        _ignoreNextMoveEnd = true;
+        _this.ignoreNextMoveEnd = true;
       }
       _this.map.invalidateSize();
     }
