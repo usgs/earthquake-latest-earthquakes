@@ -269,6 +269,101 @@ describe('map/Mapview', function () {
     });
   });
 
+  describe('onMoveEnd', function () {
+    var deselectEventonMoveEnd,
+        getBounds,
+        isEnabled,
+        hasBounds,
+        view;
+
+    afterEach(function () {
+      deselectEventonMoveEnd.restore();
+      getBounds.restore();
+      isEnabled.restore();
+      hasBounds.restore();
+
+      view.destroy();
+    });
+
+    beforeEach(function () {
+      view = MapView({model:Model(model)});
+
+      deselectEventonMoveEnd = sinon.stub(view, 'deselectEventonMoveEnd', function () {
+        return;
+      });
+
+      getBounds = sinon.stub(view.map, 'getBounds', function () {
+        return new L.LatLngBounds(
+          [35.413496049701955, -62.57812500000001],
+          [-11.43695521614319, -93.9990234375]
+        );
+      });
+
+      isEnabled = sinon.stub(view, 'isEnabled', function () {
+        return true;
+      });
+
+      hasBounds = sinon.stub(view, 'hasBounds', function () {
+        return true;
+      });
+
+      view.onMoveEnd();
+    });
+
+    it('sets bounds', function () {
+      expect(view.model.get('mapposition')).to.deep.equal(
+        [[-11.43695521614319, -93.9990234375],
+        [35.413496049701955, -62.57812500000001]]
+      );
+    });
+
+    it('sets onMoveEndTriggered to false', function () {
+      expect(view.onMoveEndTriggered).to.equal(false);
+    });
+
+    it('sets ignoreNextMoveEnd to false', function () {
+      expect(view.ignoreNextMoveEnd).to.equal(false);
+    });
+  });
+
+  describe('renderBasemapChange', function () {
+    it('removes baselayer', function () {
+      var removeLayer,
+          view;
+
+      view = MapView({model:Model(model)});
+      removeLayer = sinon.stub(view.map, 'removeLayer', function () {});
+      view.basemap = true;
+      view.renderBasemapChange();
+
+      expect(removeLayer.callCount).to.equal(1);
+
+      removeLayer.restore();
+      view.destroy();
+    });
+
+    it('adds new basemap', function () {
+      var addLayer,
+          model,
+          view;
+
+      model = {
+        'basemap': {
+          'id': 'grayscale'
+        }
+      };
+
+      view = MapView({model:Model(model)});
+      addLayer = sinon.stub(view.map, 'addLayer', function () {});
+      view.renderBasemapChange();
+
+      expect(addLayer.callCount).to.equal(1);
+
+      addLayer.restore();
+      view.destroy();
+    });
+  });
+
   describe('renderMapPositionChange', function () {
     it('if the map does not have the same bounds as the model calls fitBounds',
         function () {
@@ -297,6 +392,33 @@ describe('map/Mapview', function () {
       getBounds.restore();
       fitBounds.restore();
       view.destroy();
+    });
+  });
+
+  describe('renderViewModesChange', function () {
+    var invalidateSize,
+        isEnabled,
+        view;
+
+    afterEach(function () {
+      isEnabled.restore();
+      invalidateSize.restore();
+      view.destroy();
+    });
+
+    beforeEach(function () {
+      view = MapView({model:Model(model)});
+
+      isEnabled = sinon.stub(view, 'isEnabled', function () {
+        return true;
+      });
+
+      invalidateSize = sinon.stub(view.map, 'invalidateSize', function () {});
+      view.renderViewModesChange();
+    });
+
+    it('calls invalidateSize', function () {
+      expect(invalidateSize.callCount).to.equal(1);
     });
   });
 });
