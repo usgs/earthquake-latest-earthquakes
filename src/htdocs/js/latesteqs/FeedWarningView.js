@@ -90,8 +90,10 @@ var FeedWarningView = function (options) {
       classes: ['modal-warning', 'catalog'],
       buttons: [
         {
-          callback: function () { dialog.hide(); callback(data);},
-          classes:['Footer', 'continue'],
+          callback: function () {
+            dialog.hide();
+            callback(data);
+          },
           text: 'Continue anyway',
         }
       ],
@@ -127,8 +129,10 @@ var FeedWarningView = function (options) {
       classes: ['modal-warning', 'catalog'],
       buttons: [
         {
-          callback: function () {callback(data); dialog.hide();},
-          classes:['Footer', 'continue'],
+          callback: function () {
+            callback(data);
+            dialog.hide();
+          },
           text: 'Continue'
         }
       ],

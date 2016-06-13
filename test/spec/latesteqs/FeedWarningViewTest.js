@@ -64,7 +64,7 @@ describe('latesteqs/FeedWarningView', function () {
       /* jshint -W030 */
       expect(dialog).to.not.be.null;
       /* jshint +W030 */
-      button = document.querySelector('.continue');
+      button = document.querySelector('.modal-footer > button');
       button.click();
       expect(spy.callCount).to.equal(1);
     });
