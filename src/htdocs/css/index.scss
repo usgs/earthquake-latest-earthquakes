@@ -41,3 +41,9 @@
 
 @import 'summary/_EventSummaryFormat.scss';
 @import 'summary/_EventSummaryView.scss';
+
+
+html {
+  /* Prevent font scaling in landscape while allowing user zoom */
+  -webkit-text-size-adjust: 100%;
+}
