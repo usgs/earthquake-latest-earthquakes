@@ -91,18 +91,11 @@ describe('map/Mapview', function () {
   });
 
   describe('deselectEventonMoveEnd', function () {
-    var getBounds,
-        isFilterEnabled,
-        view;
+    it('sets event on the model to null', function () {
+      var getBounds,
+          isFilterEnabled,
+          view;
 
-    afterEach(function () {
-      getBounds.restore();
-      isFilterEnabled.restore();
-
-      view.destroy();
-    });
-
-    beforeEach(function () {
       view = MapView({model: Model(model)});
 
       getBounds = sinon.stub(view.map, 'getBounds', function () {
@@ -115,11 +108,14 @@ describe('map/Mapview', function () {
       isFilterEnabled = sinon.stub(view, 'isFilterEnabled', function () {
         return true;
       });
-      view.deselectEventonMoveEnd();
-    });
 
-    it('sets event on the model to null', function () {
+      view.deselectEventonMoveEnd();
+
       expect(view.model.get('event')).to.equal(null);
+
+      getBounds.restore();
+      isFilterEnabled.restore();
+      view.destroy();
     });
   });
 
@@ -286,7 +282,7 @@ describe('map/Mapview', function () {
     });
 
     beforeEach(function () {
-      view = MapView({model:Model(model)});
+      view = MapView({model: Model(model)});
 
       deselectEventonMoveEnd = sinon.stub(view, 'deselectEventonMoveEnd', function () {
         return;
@@ -331,7 +327,7 @@ describe('map/Mapview', function () {
       var removeLayer,
           view;
 
-      view = MapView({model:Model(model)});
+      view = MapView({model: Model(model)});
       removeLayer = sinon.stub(view.map, 'removeLayer', function () {});
       view.basemap = true;
       view.renderBasemapChange();
@@ -353,7 +349,7 @@ describe('map/Mapview', function () {
         }
       };
 
-      view = MapView({model:Model(model)});
+      view = MapView({model: Model(model)});
       addLayer = sinon.stub(view.map, 'addLayer', function () {});
       view.renderBasemapChange();
 
@@ -400,25 +396,24 @@ describe('map/Mapview', function () {
         isEnabled,
         view;
 
-    afterEach(function () {
-      isEnabled.restore();
-      invalidateSize.restore();
-      view.destroy();
+    view = MapView({model: Model(model)});
+
+    isEnabled = sinon.stub(view, 'isEnabled', function () {
+      return true;
     });
 
-    beforeEach(function () {
-      view = MapView({model:Model(model)});
-
-      isEnabled = sinon.stub(view, 'isEnabled', function () {
-        return true;
-      });
-
-      invalidateSize = sinon.stub(view.map, 'invalidateSize', function () {});
-      view.renderViewModesChange();
+    invalidateSize = sinon.stub(view.map, 'invalidateSize', function () {
+      return;
     });
+
+    view.renderViewModesChange();
 
     it('calls invalidateSize', function () {
       expect(invalidateSize.callCount).to.equal(1);
     });
+
+    isEnabled.restore();
+    invalidateSize.restore();
+    view.destroy();
   });
 });
