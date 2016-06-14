@@ -95,6 +95,34 @@ describe('latesteqs/FeedWarningView', function () {
     });
   });
 
+  describe('showServerError', function () {
+    it('creates a dialog', function () {
+      var app,
+          button,
+          feedWarningView,
+          dialog;
+
+      app = {};
+      app.revertToDefaultFeed = function () {};
+      feedWarningView = FeedWarningView({app: app});
+
+      sinon.stub(feedWarningView, 'supportsBookmark', function () {
+        return true;
+      });
+      var spy = sinon.spy(feedWarningView, 'addBookmark');
+
+      feedWarningView.showServerError();
+      dialog = document.querySelector('.modal');
+      /* jshint -W030 */
+      expect(dialog).to.not.be.null;
+      /* jshint +W030 */
+
+      button = dialog.querySelector('.bookmark');
+      button.click();
+      expect(spy.callCount).to.equal(1);
+    });
+  });
+
   describe('showServerMaxError', function () {
     it('creates a dialog', function () {
       var app,
@@ -149,34 +177,6 @@ describe('latesteqs/FeedWarningView', function () {
 
       message = dialog.querySelector('small');
       expect(message.innerHTML).to.equal(errorString);
-    });
-  });
-
-  describe('showServerError', function () {
-    it('creates a dialog', function () {
-      var app,
-          button,
-          feedWarningView,
-          dialog;
-
-      app = {};
-      app.revertToDefaultFeed = function () {};
-      feedWarningView = FeedWarningView({app: app});
-
-      sinon.stub(feedWarningView, 'supportsBookmark', function () {
-        return true;
-      });
-      var spy = sinon.spy(feedWarningView, 'addBookmark');
-
-      feedWarningView.showServerError();
-      dialog = document.querySelector('.modal');
-      /* jshint -W030 */
-      expect(dialog).to.not.be.null;
-      /* jshint +W030 */
-
-      button = dialog.querySelector('.bookmark');
-      button.click();
-      expect(spy.callCount).to.equal(1);
     });
   });
 
