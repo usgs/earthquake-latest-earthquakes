@@ -1,4 +1,4 @@
-/* global afterEach, beforeEach, chai, describe, it, sinon */
+/* global afterEach, beforeEach, chai, describe, it */
 'use strict';
 
 var Collection = require('mvc/Collection'),
