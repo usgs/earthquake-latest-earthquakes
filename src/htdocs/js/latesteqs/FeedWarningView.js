@@ -246,8 +246,7 @@ var FeedWarningView = function (options) {
         supportsBookmark;
 
     message = document.createElement('div');
-    supportsBookmark = window.sidebar ||
-              (window.external&&window.external.AddFavorite);
+    supportsBookmark = _this.supportsBookmark();
     dialog = ModalView(message, {
       title: 'Error',
       closable: false,
@@ -277,19 +276,23 @@ var FeedWarningView = function (options) {
     message.appendChild(_this.getDialogRevertAction(dialog));
 
     if (supportsBookmark) {
-      message.querySelector('.bookmark').addEventListener('click',
-        function () {
-          if (window.sidebar) { // FF
-            window.sidebar.addPanel(window.location, document.title, '');
-          } else if (window.external) { // IE
-            window.external.AddFavorite(window.location, document.title);
-          }
-          // Don't hide dialog yet. User might not be done.
-        }
-      );
+      message.querySelector('.bookmark').addEventListener(
+          'click', _this.addBookmark);
     }
 
     dialog.show();
+  };
+
+  _this.addBookmark = function () {
+    if (window.sidebar) { // FF
+      window.sidebar.addPanel(window.location, document.title, '');
+    } else if (window.external) { // IE
+      window.external.AddFavorite(window.location, document.title);
+    }
+  };
+
+  _this.supportsBookmark = function () {
+    return window.sidebar || (window.external && window.external.AddFavorite);
   };
 
 
