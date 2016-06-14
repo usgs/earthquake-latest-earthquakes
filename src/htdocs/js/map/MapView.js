@@ -106,7 +106,7 @@ var MapView = function (options) {
       L.control.mousePosition().addTo(_this.map);
     }
 
-    _this.map.on('click', _onClick);
+    _this.map.on('click', _onClick, _this);
     _this.map.on('moveend', _onMoveEnd, _this);
     _this.model.on('change:basemap', _onBasemapChange, _this);
     _this.model.on('change:mapposition', _onMapPositionChange, _this);
@@ -171,7 +171,7 @@ var MapView = function (options) {
   };
 
   _this.destroy = Util.compose(function () {
-    _this.el.removeEventListener('click', _onClick);
+    _this.map.off('click', _onClick, _this);
     _this.map.off('moveend', _onMoveEnd, _this);
     _this.model.off('change:basemap', _onBasemapChange, _this);
     _this.model.off('change:mapposition', _onMapPositionChange, _this);
