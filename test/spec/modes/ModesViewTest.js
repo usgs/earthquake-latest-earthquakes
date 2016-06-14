@@ -100,4 +100,12 @@ describe('modes/ModesView', function () {
       /* jshint +W030 */
     });
   });
+
+  describe('updateModel', function () {
+    it('sets videModes on model correctly', function () {
+      modesView.updateModel([{'id': 'map'}]);
+
+      expect(modesView.model.get('viewModes')).to.deep.equal([[{'id': 'map'}]]);
+    });
+  });
 });
