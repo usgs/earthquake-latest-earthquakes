@@ -158,6 +158,10 @@ var RadioOptionsView = function (options) {
 
     if (el) {
       el.checked = true;
+      // Used to set focus when Catalog.revertToDefaultFeed() is called
+      if (document.activeElement !== el) {
+        el.focus();
+      }
     }
   };
 
