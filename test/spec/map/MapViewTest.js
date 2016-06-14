@@ -6,7 +6,7 @@ var MapView = require('map/MapView'),
 
 var expect = chai.expect;
 
-var model = Model({
+var model = {
   'event': {
     'geometry': {
       'coordinates': [
@@ -27,12 +27,18 @@ var model = Model({
   'mapposition': [
     [4.0176, -102.52],
     [30.372, -86.813]
+  ],
+  'restrictListToMap': [
+    {
+      id: 'restrictListToMap',
+      name: 'Only List Earthquakes Shown on Map'
+    }
   ]
-});
+};
 
 // This model is needed to show different outcomes for diffent properties on
 // the model.
-var model2 = Model({
+var model2 ={
   'event': {
     'geometry': {
       'coordinates': [
@@ -49,8 +55,11 @@ var model2 = Model({
     {
       'id': 'settings'
     }
+  ],
+  'restrictListToMap': [
+
   ]
-});
+};
 
 describe('map/Mapview', function () {
   describe('constructor', function () {
@@ -68,7 +77,7 @@ describe('map/Mapview', function () {
     });
   });
 
-  describe('getBounds', function () {
+  describe('getPaddedBounds', function () {
     it('gets bounds around given point', function () {
       var bounds,
           view;
@@ -81,12 +90,41 @@ describe('map/Mapview', function () {
     });
   });
 
+  describe('deselectEventonMoveEnd', function () {
+    it('sets event on the model to null', function () {
+      var getBounds,
+          isFilterEnabled,
+          view;
+
+      view = MapView({model: Model(model)});
+
+      getBounds = sinon.stub(view.map, 'getBounds', function () {
+        return new L.LatLngBounds(
+          [35.413496049701955, -62.57812500000001],
+          [-11.43695521614319, -93.9990234375]
+        );
+      });
+
+      isFilterEnabled = sinon.stub(view, 'isFilterEnabled', function () {
+        return true;
+      });
+
+      view.deselectEventonMoveEnd();
+
+      expect(view.model.get('event')).to.equal(null);
+
+      getBounds.restore();
+      isFilterEnabled.restore();
+      view.destroy();
+    });
+  });
+
   describe('getEventLocation', function () {
     it('gets latitude and longitude of an event', function () {
       var view;
 
       view = MapView({
-        model: model
+        model: Model(model)
       });
 
       expect(view.getEventLocation()).to.deep.equal([36.285, -89.426]);
@@ -110,7 +148,7 @@ describe('map/Mapview', function () {
       var view;
 
       view = MapView({
-        model: model
+        model: Model(model)
       });
 
       expect(view.isEnabled()).to.equal(true);
@@ -122,12 +160,40 @@ describe('map/Mapview', function () {
       var view;
 
       view = MapView({
-        model: model2
+        model: Model(model2)
       });
 
       expect(view.isEnabled()).to.equal(false);
 
       view.destroy();
+    });
+  });
+
+  describe('isFilterEnabled', function () {
+    it('returns false if filter is not set', function () {
+      var view;
+
+      view = MapView({model: Model(model2)});
+
+      expect(view.isFilterEnabled()).to.equal(false);
+
+      view.destroy();
+
+    });
+
+    it('returns true if filter is set', function () {
+      var view;
+
+      view = MapView({model: Model(model)});
+
+      expect(view.isFilterEnabled()).to.equal(true);
+
+      view.destroy();
+    });
+  });
+
+  describe('renderScheduled', function () {
+    it('returns _renderScheduled', function () {
     });
   });
 
@@ -148,7 +214,7 @@ describe('map/Mapview', function () {
     });
 
     beforeEach(function () {
-      view = MapView({model: model});
+      view = MapView({model: Model(model)});
 
       getEventLocation = sinon.stub(view, 'getEventLocation', function () {
         return [17.6042, -94.6667];
@@ -188,13 +254,108 @@ describe('map/Mapview', function () {
       var view;
 
       view = MapView({
-        model: model
+        model: Model(model)
       });
 
       view.onClick();
 
-      expect(model.get('event')).to.equal(null);
+      expect(view.model.get('event')).to.equal(null);
 
+      view.destroy();
+    });
+  });
+
+  describe('onMoveEnd', function () {
+    var deselectEventonMoveEnd,
+        getBounds,
+        isEnabled,
+        hasBounds,
+        view;
+
+    afterEach(function () {
+      deselectEventonMoveEnd.restore();
+      getBounds.restore();
+      isEnabled.restore();
+      hasBounds.restore();
+
+      view.destroy();
+    });
+
+    beforeEach(function () {
+      view = MapView({model: Model(model)});
+
+      deselectEventonMoveEnd = sinon.stub(view, 'deselectEventonMoveEnd', function () {
+        return;
+      });
+
+      getBounds = sinon.stub(view.map, 'getBounds', function () {
+        return new L.LatLngBounds(
+          [35.413496049701955, -62.57812500000001],
+          [-11.43695521614319, -93.9990234375]
+        );
+      });
+
+      isEnabled = sinon.stub(view, 'isEnabled', function () {
+        return true;
+      });
+
+      hasBounds = sinon.stub(view, 'hasBounds', function () {
+        return true;
+      });
+
+      view.onMoveEnd();
+    });
+
+    it('sets bounds', function () {
+      expect(view.model.get('mapposition')).to.deep.equal(
+        [[-11.43695521614319, -93.9990234375],
+        [35.413496049701955, -62.57812500000001]]
+      );
+    });
+
+    it('sets onMoveEndTriggered to false', function () {
+      expect(view.onMoveEndTriggered).to.equal(false);
+    });
+
+    it('sets ignoreNextMoveEnd to false', function () {
+      expect(view.ignoreNextMoveEnd).to.equal(false);
+    });
+  });
+
+  describe('renderBasemapChange', function () {
+    it('removes baselayer', function () {
+      var removeLayer,
+          view;
+
+      view = MapView({model: Model(model)});
+      removeLayer = sinon.stub(view.map, 'removeLayer', function () {});
+      view.basemap = true;
+      view.renderBasemapChange();
+
+      expect(removeLayer.callCount).to.equal(1);
+
+      removeLayer.restore();
+      view.destroy();
+    });
+
+    it('adds new basemap', function () {
+      var addLayer,
+          model,
+          view;
+
+      model = {
+        'basemap': {
+          'id': 'grayscale'
+        }
+      };
+
+      view = MapView({model: Model(model)});
+      addLayer = sinon.stub(view.map, 'addLayer', function () {});
+      view.renderBasemapChange();
+
+      expect(addLayer.callCount).to.equal(1);
+
+      addLayer.restore();
       view.destroy();
     });
   });
@@ -207,7 +368,7 @@ describe('map/Mapview', function () {
           view;
 
       view = MapView({
-        model: model
+        model: Model(model)
       });
 
       getBounds = sinon.stub(view.map, 'getBounds', function () {
@@ -228,5 +389,31 @@ describe('map/Mapview', function () {
       fitBounds.restore();
       view.destroy();
     });
+  });
+
+  describe('renderViewModesChange', function () {
+    var invalidateSize,
+        isEnabled,
+        view;
+
+    view = MapView({model: Model(model)});
+
+    isEnabled = sinon.stub(view, 'isEnabled', function () {
+      return true;
+    });
+
+    invalidateSize = sinon.stub(view.map, 'invalidateSize', function () {
+      return;
+    });
+
+    view.renderViewModesChange();
+
+    it('calls invalidateSize', function () {
+      expect(invalidateSize.callCount).to.equal(1);
+    });
+
+    isEnabled.restore();
+    invalidateSize.restore();
+    view.destroy();
   });
 });

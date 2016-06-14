@@ -1,4 +1,4 @@
-/* global afterEach, beforeEach, chai, describe, it, sinon */
+/* global afterEach, beforeEach, chai, describe, it */
 'use strict';
 
 var Collection = require('mvc/Collection'),
@@ -98,6 +98,14 @@ describe('modes/ModesView', function () {
       expect(item).to.not.be.null;
       expect(item.classList.contains('selected')).to.be.true;
       /* jshint +W030 */
+    });
+  });
+
+  describe('updateModel', function () {
+    it('sets videModes on model correctly', function () {
+      modesView.updateModel([{'id': 'map'}]);
+
+      expect(modesView.model.get('viewModes')).to.deep.equal([[{'id': 'map'}]]);
     });
   });
 });
