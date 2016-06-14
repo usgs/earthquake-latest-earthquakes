@@ -28,6 +28,7 @@ var Catalog = function (options) {
       _app,
       _autoUpdateIntervalHandler,
       _feedWarningView,
+      _lastFeedLoaded,
       _loadingMessage,
       _maxResults,
       _xhr;
@@ -37,6 +38,7 @@ var Catalog = function (options) {
   _this = Collection();
   _autoUpdateIntervalHandler = null;
   _feedWarningView = null;
+  _lastFeedLoaded = {};
   _xhr = null;
 
 
@@ -145,7 +147,11 @@ var Catalog = function (options) {
         // feed
         url = feed.url;
         params = null;
-        _this.loadUrl(url, params, _this.onCheckFeedSuccess);
+        if (feed.id !== _lastFeedLoaded.id) {
+          _this.loadUrl(url, params, _this.onCheckFeedSuccess);
+        } else {
+          _this.loadUrl(url, params, _this.onLoadSuccess);
+        }
       } else {
         // search
         url = _this.model.get('searchUrl');
@@ -279,6 +285,8 @@ var Catalog = function (options) {
       _loadingMessage.hide();
       _loadingMessage = null;
     }
+
+    _lastFeedLoaded = _this.model.get('feed');
 
     if (data.metadata.hasOwnProperty('status') &&
         data.metadata.status !== 200) {
