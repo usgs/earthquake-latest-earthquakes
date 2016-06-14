@@ -37,7 +37,7 @@ var FeedWarningView = function (options) {
   _this.addBookmark = function () {
     if (window.sidebar) { // FF
       window.sidebar.addPanel(window.location, document.title, '');
-    } else if (window.external) { // IE
+    } else if (window.external && window.external.AddFavorite) { // IE
       window.external.AddFavorite(window.location, document.title);
     }
   };
