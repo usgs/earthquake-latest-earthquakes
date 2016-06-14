@@ -126,7 +126,7 @@ describe('list/ListView', function () {
         done();
       });
 
-      catalog.loadUrl('/feeds/2.5_week.json');
+      catalog.loadUrl('/feeds/2.5_week.json', null, catalog.onLoadSuccess);
 
     });
   });

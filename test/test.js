@@ -14,6 +14,7 @@ require('./spec/core/MapUtilTest');
 require('./spec/core/UrlManagerTest');
 
 require('./spec/latesteqs/CatalogTest');
+require('./spec/latesteqs/FeedWarningViewTest');
 require('./spec/latesteqs/LatestEarthquakesTest');
 
 require('./spec/list/DefaultListFormatTest');
