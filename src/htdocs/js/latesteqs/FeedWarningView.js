@@ -84,8 +84,8 @@ var FeedWarningView = function (options) {
 
     p.querySelector('.revert').addEventListener('click',
       function () {
-        _app.revertToDefaultFeed();
         dialog.hide();
+        _app.revertToDefaultFeed();
       });
 
     return p;
@@ -143,8 +143,8 @@ var FeedWarningView = function (options) {
       buttons: [
         {
           callback: function () {
-            callback(data);
             dialog.hide();
+            callback(data);
           },
           text: 'Continue'
         }
