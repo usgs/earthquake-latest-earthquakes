@@ -25,6 +25,9 @@ var FeedWarningView = function (options) {
 
   _this.destroy = function () {
     _app = null;
+    _maxResults = null;
+
+    _initialize = null;
     _this = null;
   };
 
@@ -114,7 +117,6 @@ var FeedWarningView = function (options) {
     message.appendChild(_this.getDialogRevertAction(dialog));
 
     dialog.show();
-    _this._dalog = dialog;
   };
 
   _this.showNoDataError = function (callback, data) {
