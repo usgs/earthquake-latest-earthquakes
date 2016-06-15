@@ -289,7 +289,8 @@ var Catalog = function (options) {
 
     _lastFeedLoaded = _this.model.get('feed');
 
-    if (_feedWarningView.isVisible()) {
+    // when the back button is used in the browser
+    if (_feedWarningView.dialog) {
       activeElement = document.activeElement;
       _feedWarningView.hide();
       activeElement.focus();
