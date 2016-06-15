@@ -249,7 +249,6 @@ var Catalog = function (options) {
     max = data.maxAllowed;
 
     if (count > max) {
-
       _feedWarningView.showServerMaxError(data);
       return;
     } else if (count > _maxResults) {
@@ -281,12 +280,20 @@ var Catalog = function (options) {
    * Called when catalog successfully loaded.
    */
   _this.onLoadSuccess = function (data/*, xhr*/) {
+    var activeElement;
+
     if (_loadingMessage !== null) {
       _loadingMessage.hide();
       _loadingMessage = null;
     }
 
     _lastFeedLoaded = _this.model.get('feed');
+
+    if (_feedWarningView.isVisible()) {
+      activeElement = document.activeElement;
+      _feedWarningView.hide();
+      activeElement.focus();
+    }
 
     if (data.metadata.hasOwnProperty('status') &&
         data.metadata.status !== 200) {
