@@ -13,9 +13,11 @@ var FeedWarningView = function (options) {
       _initialize,
 
       _app,
+      _dialog,
       _maxResults;
 
   _this = {};
+  _dialog = null;
 
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
@@ -26,6 +28,7 @@ var FeedWarningView = function (options) {
   _this.destroy = function () {
     _app = null;
     _maxResults = null;
+    _dialog = null;
 
     _initialize = null;
     _this = null;
@@ -91,21 +94,32 @@ var FeedWarningView = function (options) {
     return p;
   };
 
+  _this.hide = function () {
+    _dialog.hide();
+    _dialog = null;
+  };
+
+  _this.isVisible = function () {
+    if (_dialog !== null) {
+      return true;
+    }
+    return false;
+  };
 
   _this.showClientMaxError = function (callback, data) {
-    var message,
-        dialog;
+    var message;
 
     message = document.createElement('div');
 
-    dialog = ModalView(message, {
+    _dialog = ModalView(message, {
       title: 'Caution',
       closable: false,
       classes: ['modal-warning', 'catalog'],
       buttons: [
         {
           callback: function () {
-            dialog.hide();
+            _dialog.hide();
+            _dialog = null;
             callback(data);
           },
           text: 'Continue anyway',
@@ -125,25 +139,25 @@ var FeedWarningView = function (options) {
     message.appendChild(_this.getDialogModifySearchAction(
         'We recommend at most ' + _maxResults + ' earthquakes for your ' +
         'device.'));
-    message.appendChild(_this.getDialogRevertAction(dialog));
+    message.appendChild(_this.getDialogRevertAction(_dialog));
 
-    dialog.show();
+    _dialog.show();
   };
 
   _this.showNoDataError = function (callback, data) {
-    var message,
-        dialog;
+    var message;
 
     message = document.createElement('div');
 
-    dialog = ModalView(message, {
+    _dialog = ModalView(message, {
       title: 'Caution',
       closable: true,
       classes: ['modal-warning', 'catalog'],
       buttons: [
         {
           callback: function () {
-            dialog.hide();
+            _dialog.hide();
+            _dialog = null;
             callback(data);
           },
           text: 'Continue'
@@ -162,7 +176,7 @@ var FeedWarningView = function (options) {
       '</p>'
     ].join('');
 
-    dialog.show();
+    _dialog.show();
   };
 
   /**
@@ -182,13 +196,12 @@ var FeedWarningView = function (options) {
      * @see Catalog.js#_showServiceError
      */
   _this.showServerError = function () {
-    var dialog,
-        message,
+    var message,
         supportsBookmark;
 
     message = document.createElement('div');
     supportsBookmark = _this.supportsBookmark();
-    dialog = ModalView(message, {
+    _dialog = ModalView(message, {
       title: 'Error',
       closable: false,
       classes: ['modal-error', 'catalog'],
@@ -214,22 +227,21 @@ var FeedWarningView = function (options) {
     message.appendChild(_this.getDialogModifySearchAction(
         'See the error message above for details about why the current ' +
         'request failed and modify appropriately.'));
-    message.appendChild(_this.getDialogRevertAction(dialog));
+    message.appendChild(_this.getDialogRevertAction(_dialog));
 
     if (supportsBookmark) {
       message.querySelector('.bookmark').addEventListener(
           'click', _this.addBookmark);
     }
 
-    dialog.show();
+    _dialog.show();
   };
 
   _this.showServerMaxError = function (data) {
-    var message,
-        dialog;
+    var message;
 
     message = document.createElement('div');
-    dialog = ModalView(message, {
+    _dialog = ModalView(message, {
       title: 'Error',
       closable: false,
       classes: ['modal-error', 'catalog'],
@@ -246,9 +258,9 @@ var FeedWarningView = function (options) {
     message.appendChild(_this.getDialogModifySearchAction(
         'We recommend at most ' + _maxResults + ' earthquakes for your ' +
         'device.'));
-    message.appendChild(_this.getDialogRevertAction(dialog));
+    message.appendChild(_this.getDialogRevertAction(_dialog));
 
-    dialog.show();
+    _dialog.show();
   };
 
   /**
@@ -270,11 +282,10 @@ var FeedWarningView = function (options) {
    * @see Catalog.js#_showServerError
    */
   _this.showServiceError = function (data) {
-    var message,
-        dialog;
+    var message;
 
     message = document.createElement('div');
-    dialog = ModalView(message, {
+    _dialog = ModalView(message, {
       title: 'Error',
       closable: false,
       classes: ['modal-error', 'catalog'],
@@ -289,9 +300,9 @@ var FeedWarningView = function (options) {
     message.appendChild(_this.getDialogModifySearchAction(
         'See the error message above for details about why the current ' +
         'request failed and modify appropriately.'));
-    message.appendChild(_this.getDialogRevertAction(dialog));
+    message.appendChild(_this.getDialogRevertAction(_dialog));
 
-    dialog.show();
+    _dialog.show();
   };
 
   /**
