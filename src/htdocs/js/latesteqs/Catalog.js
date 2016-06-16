@@ -53,8 +53,6 @@ var Catalog = function (options) {
       _maxResults = 2000;
     }
 
-    _maxResults = 200;
-
     _app = options.app;
 
     _feedWarningView = FeedWarningView({app:_app, maxResults: _maxResults});
