@@ -13,7 +13,9 @@ var FeedWarningView = function (options) {
       _initialize,
 
       _app,
-      _maxResults;
+      _maxResults,
+
+      _onDialogHide;
 
   _this = {};
 
@@ -21,14 +23,20 @@ var FeedWarningView = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
     _app = options.app || {};
     _maxResults = options.maxResults || 0;
+
+    _this.callback = null;
+    _this.data = null;
+    _this.dialog = null;
   };
 
-  _this.destroy = function () {
-    _app = null;
-    _maxResults = null;
-
-    _initialize = null;
-    _this = null;
+  /**
+   * Hides the dialog and executes the callback.
+   *
+   * Triggered by _this.dialog.hide()
+   */
+  _onDialogHide = function () {
+    _this.hide();
+    _this.onDialogContinue();
   };
 
   /**
@@ -40,6 +48,19 @@ var FeedWarningView = function (options) {
     } else if (window.external && window.external.AddFavorite) { // IE
       window.external.AddFavorite(window.location, document.title);
     }
+  };
+
+  /**
+   * Cleans up
+   */
+  _this.destroy = function () {
+    _onDialogHide = null;
+
+    _app = null;
+    _maxResults = null;
+
+    _initialize = null;
+    _this = null;
   };
 
     /**
@@ -91,27 +112,61 @@ var FeedWarningView = function (options) {
     return p;
   };
 
+  /**
+   * Hides dialog and unbinds event
+   */
+  _this.hide = function () {
+    if (_this.dialog) {
+      _this.dialog.off('hide', _onDialogHide);
+      _this.dialog.hide();
+      _this.dialog = null;
+    }
+  };
 
+  /**
+   * Executes the callback, when a callback exists for the
+   * "Continue anyway" option
+   *
+   * Called when the "continue anyway" button is clicked, or the modal is
+   * closed without selecting any of the available options.
+   */
+  _this.onDialogContinue = function () {
+    if (_this.callback) {
+      _this.callback(_this.data);
+    }
+  };
+
+  /**
+   * Displays a modal dialog to the user indicating that the feed may be too
+   * large to display in the browser.
+   *
+   * @param callback {Function}
+   *      function to execute when "continue anyway" button is clicked
+   *
+   * @param data {Object}
+   *      data to be passed to the callback
+   */
   _this.showClientMaxError = function (callback, data) {
-    var message,
-        dialog;
+    var message;
+
+    _this.callback = callback;
+    _this.data = data;
 
     message = document.createElement('div');
 
-    dialog = ModalView(message, {
+    _this.dialog = ModalView(message, {
       title: 'Caution',
       closable: false,
       classes: ['modal-warning', 'catalog'],
       buttons: [
         {
           callback: function () {
-            dialog.hide();
-            callback(data);
+            _this.hide();
+            _this.onDialogContinue();
           },
           text: 'Continue anyway',
         }
-      ],
-      destroyOnHide: true
+      ]
     });
 
     message.innerHTML = [
@@ -125,31 +180,43 @@ var FeedWarningView = function (options) {
     message.appendChild(_this.getDialogModifySearchAction(
         'We recommend at most ' + _maxResults + ' earthquakes for your ' +
         'device.'));
-    message.appendChild(_this.getDialogRevertAction(dialog));
+    message.appendChild(_this.getDialogRevertAction(_this.dialog));
 
-    dialog.show();
+    _this.dialog.show();
+    _this.dialog.on('hide', _onDialogHide);
   };
 
+  /**
+   * Displays a modal dialog to the user indicating that there is no data in
+   * the currently loaded feed/search.
+   *
+   * @param callback {Function}
+   *      function to execute when "continue anyway" button is clicked
+   *
+   * @param data {Object}
+   *      data to be passed to the callback
+   */
   _this.showNoDataError = function (callback, data) {
-    var message,
-        dialog;
+    var message;
+
+    _this.callback = callback;
+    _this.data = data;
 
     message = document.createElement('div');
 
-    dialog = ModalView(message, {
+    _this.dialog = ModalView(message, {
       title: 'Caution',
       closable: true,
       classes: ['modal-warning', 'catalog'],
       buttons: [
         {
           callback: function () {
-            dialog.hide();
-            callback(data);
+            _this.hide();
+            _this.onDialogContinue();
           },
           text: 'Continue'
         }
-      ],
-      destroyOnHide: true
+      ]
     });
 
     message.innerHTML = [
@@ -162,7 +229,8 @@ var FeedWarningView = function (options) {
       '</p>'
     ].join('');
 
-    dialog.show();
+    _this.dialog.show();
+    _this.dialog.on('hide', _onDialogHide);
   };
 
   /**
@@ -182,13 +250,12 @@ var FeedWarningView = function (options) {
      * @see Catalog.js#_showServiceError
      */
   _this.showServerError = function () {
-    var dialog,
-        message,
+    var message,
         supportsBookmark;
 
     message = document.createElement('div');
     supportsBookmark = _this.supportsBookmark();
-    dialog = ModalView(message, {
+    _this.dialog = ModalView(message, {
       title: 'Error',
       closable: false,
       classes: ['modal-error', 'catalog'],
@@ -214,22 +281,28 @@ var FeedWarningView = function (options) {
     message.appendChild(_this.getDialogModifySearchAction(
         'See the error message above for details about why the current ' +
         'request failed and modify appropriately.'));
-    message.appendChild(_this.getDialogRevertAction(dialog));
+    message.appendChild(_this.getDialogRevertAction(_this.dialog));
 
     if (supportsBookmark) {
       message.querySelector('.bookmark').addEventListener(
           'click', _this.addBookmark);
     }
 
-    dialog.show();
+    _this.dialog.show();
   };
 
+
+  /**
+   * Displays a modal dialog to the user if the query was too large to return
+   *
+   * @param data {Object}
+   *      json response with error data
+   */
   _this.showServerMaxError = function (data) {
-    var message,
-        dialog;
+    var message;
 
     message = document.createElement('div');
-    dialog = ModalView(message, {
+    _this.dialog = ModalView(message, {
       title: 'Error',
       closable: false,
       classes: ['modal-error', 'catalog'],
@@ -246,9 +319,9 @@ var FeedWarningView = function (options) {
     message.appendChild(_this.getDialogModifySearchAction(
         'We recommend at most ' + _maxResults + ' earthquakes for your ' +
         'device.'));
-    message.appendChild(_this.getDialogRevertAction(dialog));
+    message.appendChild(_this.getDialogRevertAction(_this.dialog));
 
-    dialog.show();
+    _this.dialog.show();
   };
 
   /**
@@ -270,11 +343,10 @@ var FeedWarningView = function (options) {
    * @see Catalog.js#_showServerError
    */
   _this.showServiceError = function (data) {
-    var message,
-        dialog;
+    var message;
 
     message = document.createElement('div');
-    dialog = ModalView(message, {
+    _this.dialog = ModalView(message, {
       title: 'Error',
       closable: false,
       classes: ['modal-error', 'catalog'],
@@ -289,9 +361,9 @@ var FeedWarningView = function (options) {
     message.appendChild(_this.getDialogModifySearchAction(
         'See the error message above for details about why the current ' +
         'request failed and modify appropriately.'));
-    message.appendChild(_this.getDialogRevertAction(dialog));
+    message.appendChild(_this.getDialogRevertAction(_this.dialog));
 
-    dialog.show();
+    _this.dialog.show();
   };
 
   /**

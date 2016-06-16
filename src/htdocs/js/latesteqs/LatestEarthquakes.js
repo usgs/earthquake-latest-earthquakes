@@ -159,6 +159,7 @@ var LatestEarthquakes = function (options) {
     _settingsView = SettingsView({
       el: el.querySelector('.settings-view'),
       catalog: _catalog,
+      config: _config,
       model: _this.model
     });
 
