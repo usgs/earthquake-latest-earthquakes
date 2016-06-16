@@ -31,6 +31,7 @@ var Catalog = function (options) {
       _lastFeedLoaded,
       _loadingMessage,
       _maxResults,
+      _triggeredByAutoUpdate,
       _xhr;
 
 
@@ -52,9 +53,12 @@ var Catalog = function (options) {
       _maxResults = 2000;
     }
 
+    _maxResults = 200;
+
     _app = options.app;
 
     _feedWarningView = FeedWarningView({app:_app, maxResults: _maxResults});
+    _triggeredByAutoUpdate = false;
 
     _this.model = options.model || Model();
     _this.model.on('change:feed', 'onFeedChange', _this);
@@ -129,6 +133,8 @@ var Catalog = function (options) {
       _xhr = null;
     }
 
+    _triggeredByAutoUpdate = null;
+
     _initialize = null;
     _this = null;
   }, _this.destroy);
@@ -147,10 +153,10 @@ var Catalog = function (options) {
         // feed
         url = feed.url;
         params = null;
-        if (feed.id !== _lastFeedLoaded.id) {
-          _this.loadUrl(url, params, _this.onCheckFeedSuccess);
-        } else {
+        if (feed.id === _lastFeedLoaded.id && _triggeredByAutoUpdate) {
           _this.loadUrl(url, params, _this.onLoadSuccess);
+        } else {
+          _this.loadUrl(url, params, _this.onCheckFeedSuccess);
         }
       } else {
         // search
@@ -261,6 +267,15 @@ var Catalog = function (options) {
   };
 
   _this.onFeedChange = function () {
+    var activeElement;
+
+    // when the back button is used in the browser
+    if (_feedWarningView.dialog) {
+      activeElement = document.activeElement;
+      _feedWarningView.hide();
+      activeElement.focus();
+    }
+
     _this.load();
     _this.setAutoUpdateInterval();
   };
@@ -280,7 +295,6 @@ var Catalog = function (options) {
    * Called when catalog successfully loaded.
    */
   _this.onLoadSuccess = function (data/*, xhr*/) {
-    var activeElement;
 
     if (_loadingMessage !== null) {
       _loadingMessage.hide();
@@ -288,13 +302,6 @@ var Catalog = function (options) {
     }
 
     _lastFeedLoaded = _this.model.get('feed');
-
-    // when the back button is used in the browser
-    if (_feedWarningView.dialog) {
-      activeElement = document.activeElement;
-      _feedWarningView.hide();
-      activeElement.focus();
-    }
 
     if (data.metadata.hasOwnProperty('status') &&
         data.metadata.status !== 200) {
@@ -351,9 +358,11 @@ var Catalog = function (options) {
 
       feed = _this.model.get('feed');
       if (feed.hasOwnProperty('autoUpdate') && feed.autoUpdate) {
-        _autoUpdateIntervalHandler = setInterval(
-          _this.load, feed.autoUpdate
-        );
+        _autoUpdateIntervalHandler = setInterval(function () {
+          _triggeredByAutoUpdate = true;
+          _this.load();
+          _triggeredByAutoUpdate = false;
+        }, feed.autoUpdate);
       }
     }
   };
