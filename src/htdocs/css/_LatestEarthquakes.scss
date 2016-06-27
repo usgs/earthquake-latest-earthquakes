@@ -54,15 +54,6 @@ body {
       height: 100%;
       position: relative;
 
-      &:after {
-        color: #fff;
-        content: 'beta';
-        line-height: 1.0;
-        padding-left: 0.5em;
-        position: absolute;
-        bottom: 0;
-      }
-
       > img {
         border: none;
         height: 140%;
