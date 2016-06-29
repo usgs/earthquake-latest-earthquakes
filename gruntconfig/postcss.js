@@ -28,7 +28,7 @@ var postcss = {
         }),
         precss(),
         calc(),
-        autoprefixer({'browsers': 'last 2 versions'}) // vendor prefix as needed
+        autoprefixer({'browsers': 'last 4 versions'}) // vendor prefix as needed
       ]
     },
     expand: true,
