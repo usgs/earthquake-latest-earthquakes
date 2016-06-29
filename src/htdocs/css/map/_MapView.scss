@@ -16,6 +16,12 @@
   height: 100%;
 }
 
+.leaflet-touch .leaflet-top > .leaflet-control-zoom {
+  border-radius: 2px;
+  box-shadow: 0 1px 1px #333;
+  display: block;
+}
+
 @media screen and (min-width: 465px) {
 
   .legend-control {
