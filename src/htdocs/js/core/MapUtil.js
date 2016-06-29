@@ -55,5 +55,23 @@ MapUtil.boundsContain = function(bounds, latlng) {
   return (longitude <= maxLongitude && longitude >= minLongitude);
 };
 
+/**
+ * Converts from leaflet bounds objet to multidimensional mapposition array
+ *
+ * @param L.latLngBounds {object}
+ *     leaflet bounds object
+ *
+ * @return {Array<Array>}
+ *     2x2 mapposition array
+ *     [
+ *       [minimum latitude, minimum longitude],
+ *       [maximum latitude, maximum longitude]
+ *     ]
+ */
+MapUtil.convertBounds = function (latLng) {
+  return [[latLng._southWest.lat, latLng._southWest.lng],
+          [latLng._northEast.lat, latLng._northEast.lng]];
+};
+
 
 module.exports = MapUtil;
