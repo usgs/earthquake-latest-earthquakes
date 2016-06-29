@@ -290,8 +290,7 @@ var MapView = function (options) {
     try {
       map = _this.map;
       latLng = _this.getEventLocation();
-      mapBounds = map.getBounds();
-      mapBounds = MapUtil.convertBounds(mapBounds);
+      mapBounds = MapUtil.convertBounds(map.getBounds());
 
       if (!MapUtil.boundsContain(mapBounds, latLng)) {
         bounds = _this.getPaddedBounds(latLng[0], latLng[1]);
