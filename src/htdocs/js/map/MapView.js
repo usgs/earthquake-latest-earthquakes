@@ -291,8 +291,9 @@ var MapView = function (options) {
       map = _this.map;
       latLng = _this.getEventLocation();
       mapBounds = map.getBounds();
+      mapBounds = MapUtil.convertBounds(mapBounds);
 
-      if (!mapBounds.contains(latLng)) {
+      if (!MapUtil.boundsContain(mapBounds, latLng)) {
         bounds = _this.getPaddedBounds(latLng[0], latLng[1]);
 
         if (bounds.intersects(mapBounds)) {
@@ -335,10 +336,7 @@ var MapView = function (options) {
       _this.onMoveEndTriggered = true;
       bounds = _this.map.getBounds();
       _this.model.set({
-        'mapposition': [
-          [bounds._southWest.lat, bounds._southWest.lng],
-          [bounds._northEast.lat, bounds._northEast.lng]
-        ]
+        'mapposition': MapUtil.convertBounds(bounds)
       });
       _this.onMoveEndTriggered = false;
     }
