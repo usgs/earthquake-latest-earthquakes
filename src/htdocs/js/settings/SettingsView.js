@@ -22,6 +22,7 @@ var SettingsView = function (options) {
       _mapLayersEl,
       _mapOverlaysEl,
       _searchButton,
+      _searchEl,
       _timezoneEl;
 
 
@@ -56,11 +57,13 @@ var SettingsView = function (options) {
     _listSortEl = document.createElement('section');
     _mapLayersEl = document.createElement('section');
     _mapOverlaysEl = document.createElement('section');
+    _searchEl = document.createElement('section');
     _timezoneEl = document.createElement('section');
 
     // append sections to _this.content
     _this.content.appendChild(_autoUpdateEl);
     _this.content.appendChild(_feedsEl);
+    _this.content.appendChild(_searchEl);
     _this.content.appendChild(_listFormatEl);
     _this.content.appendChild(_listSortEl);
     _this.content.appendChild(_restrictListToMapEl);
@@ -84,6 +87,7 @@ var SettingsView = function (options) {
     _mapLayersEl = null;
     _mapOverlaysEl = null;
     _searchButton = null;
+    _searchEl = null;
     _timezoneEl = null;
 
     _initialize = null;
@@ -193,17 +197,12 @@ var SettingsView = function (options) {
   };
 
   _this.renderSearchButton = function () {
-    var el;
-
-    el = _feedsEl.querySelector('.radio-options-view-footer');
-
     _searchButton = document.createElement('button');
     _searchButton.addEventListener('click', _this.onSearchButtonClick, _this);
     _searchButton.classList.add('search-button');
     _searchButton.classList.add('blue');
     _searchButton.innerHTML = 'Search Earthquake Catalog';
-
-    el.appendChild(_searchButton);
+    _searchEl.appendChild(_searchButton);
   };
 
   _this.onSearchButtonClick = function () {
