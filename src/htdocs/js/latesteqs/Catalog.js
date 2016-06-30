@@ -93,7 +93,7 @@ var Catalog = function (options) {
     _this.trigger('loading');
 
     url = url.replace('query.geojson', 'count');
-    data.format = 'geojson';
+    data = Util.extend({}, data, {format: 'geojson'});
 
     _xhr = Xhr.ajax({
       url: url,
