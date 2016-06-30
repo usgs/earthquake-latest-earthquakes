@@ -10,18 +10,22 @@ body {
 
 /***** layout for header, content, footer *****/
 .latest-earthquakes {
-  display: flex;
-  flex-direction: column;
+  display: block;
   height: 100%;
   width: 100%;
 }
 
+.latest-earthquakes-header,
+.latest-earthquakes-content,
+.latest-earthquakes-footer {
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
 .latest-earthquakes-footer,
 .latest-earthquakes-header {
-  box-shadow: 0 1px 8px rgba(0,0,0,0.5);
   display: block;
-  height: 50px;
-  position: relative;
   z-index: 4;
 }
 
@@ -40,9 +44,12 @@ body {
 
 .latest-earthquakes-header {
   align-items: center;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.5);
   background-color: #3d5e80;
   display: flex;
+  height: 50px;
   padding: 10px;
+  top: 0;
 
   > .latest-earthquakes-flex {
     flex-grow: 1;
@@ -67,14 +74,18 @@ body {
 }
 
 .latest-earthquakes-footer {
+  bottom: 0;
   height: 0;
 }
 
 .latest-earthquakes-content {
-  display: flex;
-  flex: 1;
-  height: 100%;
+  bottom: 0;
+  display: block;
+  left: 0;
   overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 50px;
 }
 
 
@@ -87,21 +98,13 @@ body {
 .latest-earthquakes-settings {
   display: none;
   overflow: hidden;
-  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
   -webkit-overflow-scrolling: touch;
-}
-
-.latest-earthquakes-map {
-  position: relative;
-
-  > .map-view {
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
 }
 
 .latest-earthquakes-list,
@@ -123,17 +126,6 @@ body {
   display: block;
 }
 
-/* list and settings are 100% wide by default */
-/* list is 320px wide */
-.latest-earthquakes-list {
-  width: 100%;
-}
-
-/** map fills rest of screen by default. */
-.latest-earthquakes-map {
-  flex: 1;
-}
-
 /* hide other views on smaller screens */
 .mode-list > .latest-earthquakes-map,
 .mode-map > .latest-earthquakes-settings,
@@ -144,14 +136,6 @@ body {
 
 /* 641 leaves room for list and settings at 320px plus 1px for map */
 @media screen and (min-width: 641px) {
-  /* when map is visible restrict list to 320px */
-  .mode-map > .latest-earthquakes-list,
-  /* when list or map are visible restrict settings to 320px */
-  .mode-list > .latest-earthquakes-settings,
-  .mode-map > .latest-earthquakes-settings {
-    width: 320px;
-  }
-
   /** show views when mode enabled (reset for hide rules). */
   .mode-list > .latest-earthquakes-list,
   .mode-map > .latest-earthquakes-map,
@@ -159,13 +143,74 @@ body {
     display: block;
   }
 
-  .latest-earthquakes-settings,
-  .latest-earthquakes-list {
-    box-shadow: 0 1px 8px rgba(0,0,0,0.5);
+  .mode-settings.mode-list {
+    > .latest-earthquakes-settings {
+      left: auto;
+      width: 320px;
+    }
+
+    > .latest-earthquakes-list {
+      right: 320px;
+    }
   }
+
+  .mode-list.mode-map {
+    > .latest-earthquakes-list {
+      right: auto;
+      width: 320px;
+    }
+
+    > .latest-earthquakes-map {
+      left: 320px;
+    }
+  }
+
+  .mode-settings.mode-map {
+    > .latest-earthquakes-settings {
+      left: auto;
+      width: 320px;
+    }
+
+    > .latest-earthquakes-map {
+      right: 320px;
+    }
+  }
+
+
+  /* when map is visible restrict list to 320px * /
+  .mode-map > .latest-earthquakes-list,
+  /* when list or map are visible restrict settings to 320px * /
+  .mode-list > .latest-earthquakes-settings,
+  .mode-map > .latest-earthquakes-settings {
+    width: 320px;
+  }
+
+  .mode-list.mode-settings > .latest-earthquakes-list {
+    right: 320px;
+    width: auto;
+  }
+
+  .mode-list.mode-map > .latest-earthquakes-list {
+    right: auto;
+    width: 320px;
+  }
+
+  .mode-list > .latest-earthquakes-settings,
+  .mode-map > .latest-earthquakes-settings {
+    left: auto;
+  }
+
 
   .latest-earthquakes-settings,
   .latest-earthquakes-list {
     box-shadow: 0 1px 8px rgba(0,0,0,0.5);
   }
+
+  .mode-list.mode-map > .latest-earthquakes-map {
+    left: 320px;
+  }
+
+  .mode-settings.mode-map > .latest-earthquakes-map {
+    right: 320px;
+  }*/
 }
