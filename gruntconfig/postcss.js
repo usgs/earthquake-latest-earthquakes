@@ -48,7 +48,10 @@ var postcss = {
     expand: true,
     options: {
       processors: [
-        cssnano({zindex: false}) // minify
+        cssnano({ // minify
+          autoprefixer: false,
+          zindex: false
+        })
       ]
     },
     src: [
