@@ -130,22 +130,22 @@ var _DEFAULTS = {
     {
       'id': 'list',
       'name': 'List',
-      'icon': 'list'
+      'icon': '&#xE896;'
     },
     {
       'id': 'map',
       'name': 'Map',
-      'icon': 'language'
+      'icon': '&#xE894;'
     },
     {
       'id': 'settings',
       'name': 'Settings',
-      'icon': 'settings'
+      'icon': '&#xE8B8;'
     },
     {
       'id': 'help',
       'name': 'About',
-      'icon': 'help_outline'
+      'icon': '&#xE8FD;'
     }
   ],
 

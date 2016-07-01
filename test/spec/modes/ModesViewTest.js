@@ -17,22 +17,22 @@ describe('modes/ModesView', function () {
         {
           'id': 'list',
           'name': 'List',
-          'icon': 'list'
+          'icon': '&#xE896;'
         },
         {
           'id': 'map',
           'name': 'Map',
-          'icon': 'language'
+          'icon': '&#xE894;'
         },
         {
           'id': 'settings',
-          'name': 'settings',
-          'icon': 'settings'
+          'name': 'Settings',
+          'icon': '&#xE8B8;'
         },
         {
           'id': 'help',
-          'name': 'Help',
-          'icon': 'help_outline'
+          'name': 'About',
+          'icon': '&#xE8FD;'
         }
       ]),
       model: Model({
