@@ -14,12 +14,12 @@ model = Model({
     {
       'id': 'settings',
       'name': 'settings',
-      'icon': 'settings'
+      'icon': '&#xE8B8;'
     },
     {
      'id': 'help',
      'name': 'About',
-     'icon': 'help_outline'
+     'icon': '&#xE8FD;'
     }
   ]
 });
