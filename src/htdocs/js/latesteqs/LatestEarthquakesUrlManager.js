@@ -45,6 +45,40 @@ var LatestEarthquakesUrlManager = function (options) {
   };
 
   /**
+   * Upconverts old boolean bookmarks to arrays.
+   *
+   * {'setting': true} --> {'setting': ['setting']}
+   * AND
+   * {'setting': false} --> {'setting': []}
+   *
+   * Note : This method converts the object in-place, but also returns
+   *        a reference to that object.
+   *
+   * @param settings {Object}
+   *     The object of settings.
+   * @param key {String}
+   *     The name of the setting to upconvert.
+   *
+   * @return {Object}
+   *     A reference to the given settings
+   */
+  _this.convertBooleanToArray = function (settings, key) {
+    var value;
+
+    if (settings.hasOwnProperty(key) && typeof settings[key] === 'boolean') {
+      value = [];
+
+      if (settings[key] === true) {
+        value.push(key);
+      }
+
+      settings[key] = value;
+    }
+
+    return settings;
+  };
+
+  /**
    * Free references.
    */
   _this.destroy = function () {
@@ -67,6 +101,13 @@ var LatestEarthquakesUrlManager = function (options) {
    */
   _this.getModelSettings = Util.compose(_this.getModelSettings, function (settings) {
     _this.hideSettings(settings);
+    return settings;
+  });
+
+  _this.getUrlSettings = Util.compose(_this.getUrlSettings, function (settings) { 
+    _this.convertBooleanToArray(settings, 'restrictListToMap');
+    _this.convertBooleanToArray(settings, 'autoUpdate');
+
     return settings;
   });
 
