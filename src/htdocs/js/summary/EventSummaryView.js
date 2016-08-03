@@ -204,7 +204,7 @@ var EventSummaryView = function (options) {
    */
   _this.render = function () {
     var eq,
-        timezoneOffset;
+        timezone;
 
     eq = _this.model.get('event');
 
@@ -215,9 +215,9 @@ var EventSummaryView = function (options) {
     }
 
     // set current timezone setting
-    timezoneOffset = _this.model.get('timezone');
-    if (timezoneOffset) {
-      _formatter.setTimezoneOffset(timezoneOffset.offset);
+    timezone = _this.model.get('timezone');
+    if (timezone) {
+      _formatter.setTimezoneOffset(timezone.offset);
     }
 
     Util.empty(_this.el);
