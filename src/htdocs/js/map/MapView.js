@@ -88,6 +88,10 @@ var MapView = function (options) {
       el,
       {
         attributionControl: false,
+        maxBounds: [
+          [-90, -Infinity],
+          [90, Infinity]
+        ],
         zoomAnimation: false
       }
     );
