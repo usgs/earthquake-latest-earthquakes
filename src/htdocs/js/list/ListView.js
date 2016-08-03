@@ -365,7 +365,7 @@ var ListView = function (options) {
             'class="settings-link">Settings</a>.' +
           '</li>' +
           '<li>' +
-            '<a href="/earthquakes/map/doc_whicheqs.php">' +
+            '<a href="/data/comcat/data-availability.php">' +
               'Which earthquakes are included on the map and ' +
               'list?' +
             '</a>' +
