@@ -1,7 +1,8 @@
-/* global before, chai, describe, it */
+/* global before, chai, describe, it, sinon */
 'use strict';
 
-var EventSummaryFormat = require('summary/EventSummaryFormat');
+var EventSummaryFormat = require('summary/EventSummaryFormat'),
+    Formatter = require('core/Formatter');
 
 var expect = chai.expect;
 
@@ -160,6 +161,28 @@ describe('summary/EventSummaryFormat', function () {
       expect(el.querySelector('.tsunami')).to.equal(null);
     });
   });
+
+  describe('setTimezoneOffset', function () {
+    var formatter,
+        formatView;
+
+    before(function () {
+      formatter = Formatter();
+      formatView = EventSummaryFormat({formatter: formatter});
+    });
+
+    it('sets timezone offset that is passed to datetime format', function () {
+      var timeSpy;
+
+      timeSpy = sinon.spy(formatter, 'datetime');
+      formatView.setTimezoneOffset(12345);
+      formatView.format(featureNoData);
+
+      expect(timeSpy.getCall(0).args[1]).to.equal(12345);
+      timeSpy.restore();
+    });
+  });
+
 });
 
 

@@ -16,7 +16,8 @@ var EventSummaryFormat = function (options) {
   var _this,
       _initialize,
 
-      _formatter;
+      _formatter,
+      _timezoneOffset;
 
 
   _this = {};
@@ -24,6 +25,7 @@ var EventSummaryFormat = function (options) {
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
     _formatter = options.formatter || Formatter();
+    _timezoneOffset = options.timezoneOffset || 0;
   };
 
 
@@ -75,7 +77,7 @@ var EventSummaryFormat = function (options) {
     latitude = coordinates[1];
     longitude = coordinates[0];
 
-    time = _formatter.datetime(time, 0, false);
+    time = _formatter.datetime(time, _timezoneOffset, false);
     location = _formatter.location(latitude, longitude);
     depth = _formatter.depth(depth, 'km');
 
@@ -163,6 +165,17 @@ var EventSummaryFormat = function (options) {
     el.innerHTML = buf.join('');
     return el;
   };
+
+  /**
+   * APIMethod.
+   *
+   * @param offset {Number}
+   *     the timezone offset to use when formatting dates.
+   */
+  _this.setTimezoneOffset = function (offset) {
+    _timezoneOffset = offset || 0;
+  };
+
 
 
   _initialize(options);

@@ -40,6 +40,7 @@ var EventSummaryView = function (options) {
     _this.model.off('change', 'render', _this);
 
     _this.model.on('change:event', _onEventSelect, _this);
+    _this.model.on('change:timezone', 'render', _this);
     _closeButton.addEventListener('click', _onCloseButtonClick);
 
     // touch (mobile) interactions
@@ -71,6 +72,7 @@ var EventSummaryView = function (options) {
 
   _this.destroy = Util.compose(function () {
     _this.model.off('change:event', _onEventSelect, _this);
+    _this.model.off('change:timezone', 'render', _this);
     _closeButton.removeEventListener('click', _onCloseButtonClick);
 
     _closeButton = null;
@@ -201,7 +203,8 @@ var EventSummaryView = function (options) {
    * Called when the "event" property is updated on the model.
    */
   _this.render = function () {
-    var eq;
+    var eq,
+        timezoneOffset;
 
     eq = _this.model.get('event');
 
@@ -213,6 +216,12 @@ var EventSummaryView = function (options) {
 
     if (!_isVisible) {
       _this.showEventSummary(eq);
+    }
+
+    // set current timezone setting
+    timezoneOffset = _this.model.get('timezone');
+    if (timezoneOffset) {
+      _formatter.setTimezoneOffset(timezoneOffset.offset);
     }
 
     _this.el.innerHTML = '';
