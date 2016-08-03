@@ -220,7 +220,7 @@ var EventSummaryView = function (options) {
       _formatter.setTimezoneOffset(timezoneOffset.offset);
     }
 
-    _this.el.innerHTML = '';
+    Util.empty(_this.el);
     _this.el.appendChild(_closeButton);
     _this.el.appendChild(_formatter.format(eq));
 
