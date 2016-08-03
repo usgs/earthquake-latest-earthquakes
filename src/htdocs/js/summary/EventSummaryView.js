@@ -214,10 +214,6 @@ var EventSummaryView = function (options) {
       return;
     }
 
-    if (!_isVisible) {
-      _this.showEventSummary(eq);
-    }
-
     // set current timezone setting
     timezoneOffset = _this.model.get('timezone');
     if (timezoneOffset) {
@@ -227,6 +223,11 @@ var EventSummaryView = function (options) {
     _this.el.innerHTML = '';
     _this.el.appendChild(_closeButton);
     _this.el.appendChild(_formatter.format(eq));
+
+    // Update content, then show EventSummary
+    if (!_isVisible) {
+      _this.showEventSummary(eq);
+    }
   };
 
   /**
