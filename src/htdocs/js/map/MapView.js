@@ -192,26 +192,6 @@ var MapView = function (options) {
   }, _this.destroy);
 
   /**
-   * Gets bounds around a given latitude, longitude
-   *
-   * @param number {latitude, longitude}
-   *    latitude and longitude
-   */
-  _this.getPaddedBounds = function (latitude, longitude) {
-    var bounds,
-        pad;
-
-    pad = 5;
-
-    bounds = new L.LatLngBounds(
-      [Math.max(latitude - pad, -90), Math.max(longitude - pad, -180)],
-      [Math.min(latitude + pad,  90), Math.min(longitude + pad,  180)]
-    );
-
-    return bounds;
-  };
-
-  /**
    * gets latitude and longitude for an event
    */
   _this.getEventLocation = function () {
@@ -231,6 +211,26 @@ var MapView = function (options) {
 
     latLng = [latitude, longitude];
     return latLng;
+  };
+
+  /**
+   * Gets bounds around a given latitude, longitude
+   *
+   * @param number {latitude, longitude}
+   *    latitude and longitude
+   */
+  _this.getPaddedBounds = function (latitude, longitude) {
+    var bounds,
+        pad;
+
+    pad = 5;
+
+    bounds = new L.LatLngBounds(
+      [Math.max(latitude - pad, -90), Math.max(longitude - pad, -180)],
+      [Math.min(latitude + pad,  90), Math.min(longitude + pad,  180)]
+    );
+
+    return bounds;
   };
 
   _this.hasBounds = function () {
