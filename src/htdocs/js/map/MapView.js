@@ -66,7 +66,10 @@ var MapView = function (options) {
       _onViewModesChange,
       _onMoveEnd,
       _onClick,
-      _renderScheduled;
+      _renderBasemapChange,
+      _renderMapPositionChange,
+      _renderOverlayChange,
+      _renderViewModesChange;
 
   _this = View(options);
 
@@ -108,33 +111,13 @@ var MapView = function (options) {
 
     _this.map.on('click', _onClick, _this);
     _this.map.on('moveend', _onMoveEnd, _this);
-    _this.model.on('change:basemap', _onBasemapChange, _this);
-    _this.model.on('change:mapposition', _onMapPositionChange, _this);
-    _this.model.on('change:overlays', _onOverlayChange, _this);
-    _this.model.on('change:viewModes', _onViewModesChange, _this);
-    _this.model.on('change:event', _this.onChangeEvent, _this);
+    _this.model.on('change:basemap', 'onBasemapChange', _this);
+    _this.model.on('change:mapposition', 'onMapPositionChange', _this);
+    _this.model.on('change:overlays', 'onOverlayChange', _this);
+    _this.model.on('change:viewModes', 'onViewModesChange', _this);
+    _this.model.on('change:event', 'onChangeEvent', _this);
   };
 
-
-  _onBasemapChange = function () {
-    _this.onBasemapChange();
-  };
-
-  _onMapPositionChange = function () {
-    _this.onMapPositionChange();
-  };
-
-  _onMoveEnd = function () {
-    _this.onMoveEnd();
-  };
-
-  _onOverlayChange = function () {
-    _this.onOverlayChange();
-  };
-
-  _onViewModesChange = function () {
-    _this.onViewModesChange();
-  };
 
   /**
    * DOM event listener that delegates to (potentially subclassed)
@@ -145,6 +128,17 @@ var MapView = function (options) {
    */
   _onClick = function () {
     _this.onClick();
+  };
+
+  /**
+   * DOM event listener that delegates to (potentially subclassed)
+   * _this.onMoveEnd.
+   *
+   * @param e {DOMEvent}
+   *     the dom event.
+   */
+  _onMoveEnd = function () {
+    _this.onMoveEnd();
   };
 
   _this.deselectEventonMoveEnd = function () {
@@ -188,7 +182,10 @@ var MapView = function (options) {
     _onMapPositionChange = null;
     _onMoveEnd = null;
     _onOverlayChange = null;
-    _onViewModesChange = null;
+    _renderBasemapChange = null;
+    _renderMapPositionChange = null;
+    _renderOverlayChange = null;
+    _renderViewModesChange = null;
 
     _initialize = null;
     _this = null;
@@ -266,11 +263,7 @@ var MapView = function (options) {
   };
 
   _this.onBasemapChange = function () {
-    _renderScheduled = true;
-  };
-
-  _this.renderScheduled = function () {
-    return _renderScheduled;
+    _renderBasemapChange = true;
   };
 
   /**
@@ -322,7 +315,7 @@ var MapView = function (options) {
   };
 
   _this.onMapPositionChange = function () {
-    _renderScheduled = true;
+    _renderMapPositionChange = true;
   };
 
   _this.onMoveEnd = function () {
@@ -344,26 +337,38 @@ var MapView = function (options) {
   };
 
   _this.onOverlayChange = function () {
-    _renderScheduled = true;
+    _renderOverlayChange = true;
   };
 
   _this.onViewModesChange = function () {
-    _renderScheduled = true;
+    _renderViewModesChange = true;
   };
 
   _this.render = function (force) {
-    if (_this.renderScheduled() || force === true) {
+    if (_renderViewModesChange || force  === true) {
       _this.renderViewModesChange();
-      _this.renderBasemapChange();
-      _this.renderOverlayChange();
-      _this.renderMapPositionChange();
+      _renderViewModesChange = false;
 
+      // focus map on selected event when "map" is enabled as a view mode
       if (_this.isEnabled() && _this.model.get('event')) {
         _this.onChangeEvent();
       }
     }
-    _renderScheduled = false;
 
+    if (_renderBasemapChange || force  === true) {
+      _this.renderBasemapChange();
+      _renderBasemapChange = false;
+    }
+
+    if (_renderOverlayChange || force  === true) {
+      _this.renderOverlayChange();
+      _renderOverlayChange = false;
+    }
+
+    if (_renderMapPositionChange || force  === true) {
+      _this.renderMapPositionChange();
+      _renderMapPositionChange = false;
+    }
   };
 
   _this.renderBasemapChange = function () {
