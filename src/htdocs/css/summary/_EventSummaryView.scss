@@ -1,4 +1,9 @@
 
+/* Override inherited property, allow pointer events on EventSummaryView */
+.latest-earthquakes-footer > .event-summary-view {
+  pointer-events: auto;
+}
+
 .event-summary-view {
   bottom: -500px;
   display: none;
