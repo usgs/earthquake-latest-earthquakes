@@ -73,8 +73,9 @@ body {
 }
 
 .latest-earthquakes-footer {
-  bottom: 0;
-  height: 0;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
 }
 
 .latest-earthquakes-content {
