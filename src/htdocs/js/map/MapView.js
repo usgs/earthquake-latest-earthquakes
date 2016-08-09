@@ -349,7 +349,7 @@ var MapView = function (options) {
   };
 
   _this.render = function (force) {
-    if (_renderViewModesChange || force  === true) {
+    if (_renderViewModesChange || force === true) {
       _this.renderViewModesChange();
       _renderViewModesChange = false;
 
@@ -359,17 +359,17 @@ var MapView = function (options) {
       }
     }
 
-    if (_renderBasemapChange || force  === true) {
+    if (_renderBasemapChange || force === true) {
       _this.renderBasemapChange();
       _renderBasemapChange = false;
     }
 
-    if (_renderOverlayChange || force  === true) {
+    if (_renderOverlayChange || force === true) {
       _this.renderOverlayChange();
       _renderOverlayChange = false;
     }
 
-    if (_renderMapPositionChange || force  === true) {
+    if (_renderMapPositionChange || force === true) {
       _this.renderMapPositionChange();
       _renderMapPositionChange = false;
     }
