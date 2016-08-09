@@ -177,7 +177,6 @@ var EventSummaryFormat = function (options) {
   };
 
 
-
   _initialize(options);
   options = null;
   return _this;
