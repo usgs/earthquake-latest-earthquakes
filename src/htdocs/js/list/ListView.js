@@ -335,16 +335,16 @@ var ListView = function (options) {
    */
   _this.render = Util.compose(function () {
     var listFormat,
-        timezoneOffset;
+        timezone;
 
     listFormat = _this.model.get('listFormat');
     if (listFormat) {
       listFormat = listFormat.format;
 
       // set current timezone setting
-      timezoneOffset = _this.model.get('timezone');
-      if (timezoneOffset) {
-        listFormat.setTimezoneOffset(timezoneOffset.offset);
+      timezone = _this.model.get('timezone');
+      if (timezone) {
+        listFormat.setTimezoneOffset(timezone.offset);
       }
     } else {
       listFormat = _DEFAULT_FORMAT;
