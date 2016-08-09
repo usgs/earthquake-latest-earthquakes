@@ -353,6 +353,11 @@ var MapView = function (options) {
       _this.renderViewModesChange();
       _renderViewModesChange = false;
 
+      // ensure map is updated when view mode changes and map is visible
+      if (_this.isEnabled()) {
+        _renderMapPositionChange = true;
+      }
+
       // focus map on selected event when "map" is enabled as a view mode
       if (_this.isEnabled() && _this.model.get('event')) {
         _this.onChangeEvent();
