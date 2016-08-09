@@ -99,12 +99,14 @@ var LatestEarthquakesUrlManager = function (options) {
    * @return {Object}
    *     same object with settings removed.
    */
-  _this.getModelSettings = Util.compose(_this.getModelSettings, function (settings) {
+  _this.getModelSettings = Util.compose(_this.getModelSettings,
+      function (settings) {
     _this.hideSettings(settings);
     return settings;
   });
 
-  _this.getUrlSettings = Util.compose(_this.getUrlSettings, function (settings) { 
+  _this.getUrlSettings = Util.compose(_this.getUrlSettings,
+      function (settings) {
     _this.convertBooleanToArray(settings, 'restrictListToMap');
     _this.convertBooleanToArray(settings, 'autoUpdate');
 
