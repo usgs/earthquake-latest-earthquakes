@@ -349,8 +349,6 @@ var MapView = function (options) {
   };
 
   _this.render = function (force) {
-    //console.log('render');
-
     if (_renderViewModesChange || force === true) {
       _this.renderViewModesChange();
     }
@@ -397,8 +395,6 @@ var MapView = function (options) {
     var mapBounds,
         modelBounds;
 
-
-    console.log('map position');
     _renderMapPositionChange = false;
 
 
@@ -450,7 +446,6 @@ var MapView = function (options) {
 
   _this.renderViewModesChange = function () {
 
-    console.log('view modes');
     _renderViewModesChange = false;
 
     if (_this.isEnabled()) {
