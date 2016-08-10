@@ -1,6 +1,6 @@
 {
   "name": "earthquake-latest-earthquakes",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Mobile friendly, interactive earthquake map and list application.",
   "repository": {
     "type": "git",
