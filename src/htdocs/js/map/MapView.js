@@ -351,27 +351,18 @@ var MapView = function (options) {
   _this.render = function (force) {
     if (_renderViewModesChange || force === true) {
       _this.renderViewModesChange();
-      _renderViewModesChange = false;
-
-      // focus map on selected event when "map" is enabled as a view mode
-      if (_this.isEnabled() && _this.model.get('event')) {
-        _this.onChangeEvent();
-      }
     }
 
     if (_renderBasemapChange || force === true) {
       _this.renderBasemapChange();
-      _renderBasemapChange = false;
     }
 
     if (_renderOverlayChange || force === true) {
       _this.renderOverlayChange();
-      _renderOverlayChange = false;
     }
 
     if (_renderMapPositionChange || force === true) {
       _this.renderMapPositionChange();
-      _renderMapPositionChange = false;
     }
   };
 
@@ -382,6 +373,7 @@ var MapView = function (options) {
     oldBasemap = _this.basemap;
     newBasemap = _this.model.get('basemap');
     _this.basemap = newBasemap; // keep track of selected basemap
+    _renderBasemapChange = false;
 
     // if basemap is already selected, do nothing
     if (oldBasemap && newBasemap && oldBasemap.id === newBasemap.id) {
@@ -403,6 +395,9 @@ var MapView = function (options) {
     var mapBounds,
         modelBounds;
 
+    _renderMapPositionChange = false;
+
+
     if (_this.isEnabled()) {
       modelBounds = _this.model.get('mapposition');
 
@@ -417,6 +412,8 @@ var MapView = function (options) {
         _this.map.fitBounds(modelBounds, {animate: false});
       }
     }
+
+    _renderMapPositionChange = false;
   };
 
   _this.renderOverlayChange = function () {
@@ -428,6 +425,7 @@ var MapView = function (options) {
     oldOverlays = _this.overlays.slice(0);
     newOverlays = _this.model.get('overlays') || [];
     _this.overlays = newOverlays; // keep track of selected overlays
+    _renderOverlayChange = false;
 
     // remove overlays that no longer exist in selection
     for (i = 0; i < oldOverlays.length; i++) {
@@ -447,11 +445,20 @@ var MapView = function (options) {
   };
 
   _this.renderViewModesChange = function () {
+
+    _renderViewModesChange = false;
+
     if (_this.isEnabled()) {
       if (!_this.hasBounds()) {
         _this.ignoreNextMoveEnd = true;
       }
       _this.map.invalidateSize();
+      // ensure map is updated when view mode changes and map is visible
+      _this.renderMapPositionChange();
+      // focus map on selected event when "map" is enabled as a view mode
+      if (_this.model.get('event')) {
+        _this.onChangeEvent();
+      }
     }
   };
 
