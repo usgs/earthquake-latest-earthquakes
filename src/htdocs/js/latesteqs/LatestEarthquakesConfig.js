@@ -54,31 +54,31 @@ var _DEFAULTS = {
   feed: [
     {
       'id': '1day_m25',
-      'name' : '1 Day - M2.5+ U.S./M4.5+ World',
+      'name' : '1 Day - <abbr title="Magnitude">M</abbr>2.5+ U.S./<abbr title="Magnitude">M</abbr>4.5+ World',
       'url' : '/earthquakes/feed/v1.0/summary/2.5_day.geojson',
       'autoUpdate': 60 * 1000
     },
     {
       'id': '1day_all',
-      'name' : '1 Day - All Mags U.S./M4.5+ World',
+      'name' : '1 Day - All Mags U.S./<abbr title="Magnitude">M</abbr>4.5+ World',
       'url' : '/earthquakes/feed/v1.0/summary/all_day.geojson',
       'autoUpdate': 60 * 1000
     },
     {
       'id': '7day_m45',
-      'name' : '7 Days - M4.5+ U.S. and World',
+      'name' : '7 Days - <abbr title="Magnitude">M</abbr>4.5+ U.S. and World',
       'url' : '/earthquakes/feed/v1.0/summary/4.5_week.geojson',
       'autoUpdate': 60 * 1000
     },
     {
       'id': '7day_m25',
-      'name' : '7 Days - M2.5+U.S./M4.5+  World',
+      'name' : '7 Days - <abbr title="Magnitude">M</abbr>2.5+U.S./<abbr title="Magnitude">M</abbr>4.5+ World',
       'url' : '/earthquakes/feed/v1.0/summary/2.5_week.geojson',
       'autoUpdate': 60 * 1000
     },
     {
       'id': '7day_all',
-      'name' : '7 Days - All Mags U.S./M4.5+  World',
+      'name' : '7 Days - All Mags U.S./<abbr title="Magnitude">M</abbr>4.5+ World',
       'url' : '/earthquakes/feed/v1.0/summary/all_week.geojson',
       'autoUpdate': 60 * 1000
     },
