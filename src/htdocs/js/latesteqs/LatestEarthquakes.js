@@ -1,3 +1,4 @@
+/* global SCENARIO_MODE */
 'use strict';
 
 // TODO: use real List, Map, and Settings views
@@ -97,6 +98,9 @@ var LatestEarthquakes = function (options) {
       };
     }
 
+    if (SCENARIO_MODE) {
+      el.classList.add('scenario-mode');
+    }
     el.classList.add('latest-earthquakes');
     el.innerHTML =
         '<header class="latest-earthquakes-header">' +
