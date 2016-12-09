@@ -2,14 +2,14 @@
 'use strict';
 
 // TODO: use real List, Map, and Settings views
-var
-    AboutView = require('about/AboutView'),
+var AboutView = require('about/AboutView'),
     Catalog = require('latesteqs/Catalog'),
     EventSummaryView = require('summary/EventSummaryView'),
     LatestEarthquakesConfig = require('latesteqs/LatestEarthquakesConfig'),
     ListView = require('list/ListView'),
     MapView = require('map/MapView'),
     ModesView = require('modes/ModesView'),
+    ScenariosConfig = require('latesteqs/ScenariosConfig'),
     SettingsView = require('settings/SettingsView'),
     UrlManager = require('latesteqs/LatestEarthquakesUrlManager'),
     Util = require('util/Util'),
@@ -21,7 +21,10 @@ var _DEFAULTS = {
   settings: null
 };
 
-var _DEFAULT_SETTINGS = {
+
+var _DEFAULT_SETTINGS = {};
+
+var _EARTHQUAKE_SETTINGS = {
   autoUpdate: [
     'autoUpdate'
   ],
@@ -51,6 +54,34 @@ var _DEFAULT_SETTINGS = {
   }
 };
 
+var _SCENARIO_SETTINGS = {
+  autoUpdate: null,
+  basemap: 'grayscale',
+  feed: 'bssc2014',
+  listFormat: 'shakemap',
+  mapposition: [ // must be [[sw], [ne]]
+    [24.6, -125.0],
+    [50.0, -65.0]
+  ],
+  overlays: [
+    'plates',
+    'faults'
+  ],
+  restrictListToMap: [
+    'restrictListToMap'
+  ],
+  search: null,
+  searchForm: '/scenarios/search/',
+  searchUrl: '/fdsnws/scenario/1/query.geojson',
+  sort: 'largest',
+  timezone: null,
+  viewModes: {
+    list: true,
+    map: true,
+    settings: false,
+    help: false
+  }
+};
 
 /**
  * The Latest Earthquakes application entry point.
@@ -88,6 +119,12 @@ var LatestEarthquakes = function (options) {
     el = _this.el;
 
     _modesView = ModesView();
+
+    if (SCENARIO_MODE) {
+      _DEFAULT_SETTINGS = _SCENARIO_SETTINGS;
+    } else {
+      _DEFAULT_SETTINGS = _EARTHQUAKE_SETTINGS;
+    }
 
     if (ModesView.mobileCheck()) {
       _DEFAULT_SETTINGS.viewModes = {
@@ -137,9 +174,16 @@ var LatestEarthquakes = function (options) {
       app: _this
     });
 
-    _config = LatestEarthquakesConfig(Util.extend({}, options.config, {
-      'event': _catalog
-    }));
+    if (SCENARIO_MODE) {
+      _config = ScenariosConfig(Util.extend({}, options.config, {
+        'event': _catalog,
+        'feed': options.feed
+      }));
+    } else {
+      _config = LatestEarthquakesConfig(Util.extend({}, options.config, {
+        'event': _catalog
+      }));
+    }
 
     _modesView = ModesView({
       collection: _config.options.viewModes,
