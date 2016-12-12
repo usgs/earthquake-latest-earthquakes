@@ -1,3 +1,4 @@
+/* global SCENARIO_MODE */
 'use strict';
 
 var CheckboxOptionsView = require('settings/CheckboxOptionsView'),
@@ -114,20 +115,23 @@ var SettingsView = function (options) {
         timezoneView;
 
     // Auto Update
-    autoUpdateView = CheckboxOptionsView({
-      el: _autoUpdateEl,
-      collection: _config.options.autoUpdate,
-      model: _this.model,
-      title: 'Earthquakes',
-      watchProperty: 'autoUpdate'
-    });
-    autoUpdateView.render();
+    if (SCENARIO_MODE === 'actual') {
+      autoUpdateView = CheckboxOptionsView({
+        el: _autoUpdateEl,
+        collection: _config.options.autoUpdate,
+        model: _this.model,
+        title: 'Earthquakes',
+        watchProperty: 'autoUpdate'
+      });
+      autoUpdateView.render();
+    }
 
     // Earthquake Feeds
     feedsView = RadioOptionsView({
       el: _feedsEl,
       collection: _config.options.feed,
       model: _this.model,
+      title: SCENARIO_MODE ? 'Scenario Earthquakes' : null,
       watchProperty: 'feed'
     });
     feedsView.render();
@@ -181,14 +185,16 @@ var SettingsView = function (options) {
     mapOverlaysView.render();
 
     // Time Zone
-    timezoneView = RadioOptionsView({
-      el: _timezoneEl,
-      collection: _config.options.timezone,
-      model: _this.model,
-      title: 'Time Zone',
-      watchProperty: 'timezone'
-    });
-    timezoneView.render();
+    if (SCENARIO_MODE === 'actual') {
+      timezoneView = RadioOptionsView({
+        el: _timezoneEl,
+        collection: _config.options.timezone,
+        model: _this.model,
+        title: 'Time Zone',
+        watchProperty: 'timezone'
+      });
+      timezoneView.render();
+    }
   };
 
   _this.renderHeader = function () {
