@@ -330,14 +330,23 @@ var EarthquakeLayer = function (options) {
       el.classList.add('zoomedin');
       el.classList.remove('zoomednormal');
       el.classList.remove('zoomedout');
+      _this.map._container.classList.add('zoomedin');
+      _this.map._container.classList.remove('zoomednormal');
+      _this.map._container.remove('zoomedout');
     } else if (zoom > 5) {
       el.classList.remove('zoomedin');
       el.classList.add('zoomednormal');
       el.classList.remove('zoomedout');
+      _this.map._container.classList.remove('zoomedin');
+      _this.map._container.classList.add('zoomednormal');
+      _this.map._container.classList.remove('zoomedout');
     } else {
       el.classList.remove('zoomedin');
       el.classList.remove('zoomednormal');
       el.classList.add('zoomedout');
+      _this.map._container.classList.remove('zoomedin');
+      _this.map._container.classList.remove('zoomednormal');
+      _this.map._container.classList.add('zoomedout');
     }
   };
 

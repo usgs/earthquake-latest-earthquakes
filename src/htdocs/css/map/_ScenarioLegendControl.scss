@@ -1,0 +1,61 @@
+.scenario-legend-control {
+  display: flex;
+  flex-direction: column;
+
+  > h5 {
+    font-size: 0.88em;
+    margin: 0.25em 0;
+  }
+
+  > .scenario-marker-sizes,
+  > .scenario-intensity-colors {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin: 0.5em 0.25em;
+    padding: 0;
+    text-align: center;
+  }
+
+  > .scenario-marker-sizes {
+    align-items: center;
+    justify-content: space-between;
+
+    &:before {
+      content: "0";
+      font-size: 0.88em;
+      margin: 0 1em 0 0.25em;
+    }
+
+    &:after {
+      content: "7";
+      font-size: 0.88em;
+      margin: 0 0.25em 0 1em;
+    }
+
+    > .earthquake-marker {
+      border-color: #999;
+      margin: 0 1px;
+      position: relative;
+    }
+  }
+
+  > .scenario-intensity-colors {
+    margin: 0.5em 0.25em;
+
+    > .mmiI {
+      box-shadow: inset 0 0 1px #aaa;
+    }
+
+    > li {
+      border: none;
+      border-radius: 50%;
+      font-size: 0.77em;
+      line-height: 15px;
+      margin-left: 1px;
+      text-align: center;
+      width: 15px;
+    }
+  }
+}
+

@@ -18,7 +18,8 @@
 
   echo navGroup('Map',
     navItem('/map/EarthquakeLayerExample.php', 'EarthquakeLayer') .
-    navItem('/map/LegendControlExample.php', 'LegendControl')
+    navItem('/map/LegendControlExample.php', 'LegendControl') .
+    navItem('/map/ScenarioLegendControlExample.php', 'ScenarioLegendControl')
   );
 
   echo navGroup('Modes',
