@@ -44,6 +44,7 @@ ALL_CLASSES = getAliases(JS, [
   'latesteqs/LatestEarthquakes',
   'latesteqs/LatestEarthquakesConfig',
   'latesteqs/LatestEarthquakesUrlManager',
+  'latesteqs/ScenariosConfig',
 
   'list/DefaultListFormat',
   'list/DownloadView',
