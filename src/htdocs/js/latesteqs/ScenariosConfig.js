@@ -2,9 +2,7 @@
 
 var Config = require('core/Config'),
     DefaultListFormat = require('list/DefaultListFormat'),
-    DyfiListFormat = require('list/DyfiListFormat'),
     Grayscale = require('leaflet/layer/Grayscale'),
-    PagerListFormat = require('list/PagerListFormat'),
     Satellite = require('leaflet/layer/Satellite'),
     ShakeMapListFormat = require('list/ShakeMapListFormat'),
     Street = require('leaflet/layer/Street'),
@@ -53,19 +51,9 @@ var _DEFAULTS = {
       'format': DefaultListFormat()
     },
     {
-      'id': 'dyfi',
-      'name': 'DYFI',
-      'format': DyfiListFormat()
-    },
-    {
       'id': 'shakemap',
       'name': 'ShakeMap',
       'format': ShakeMapListFormat()
-    },
-    {
-      'id': 'losspager',
-      'name': 'PAGER',
-      'format': PagerListFormat()
     }
   ],
 
