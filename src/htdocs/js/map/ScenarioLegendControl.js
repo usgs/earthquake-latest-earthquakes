@@ -3,9 +3,9 @@
 
 
 /**
- * Legend Control for latest earthquakes map.
+ * Scenario Legend Control for latest earthquakes map.
  */
-var LegendControl = L.Control.extend({
+var ScenarioLegendControl = L.Control.extend({
   options:{
     position: 'bottomright'
   },
@@ -56,10 +56,10 @@ var LegendControl = L.Control.extend({
 });
 
 
-L.Control.LegendControl = LegendControl;
+L.Control.ScenarioLegendControl = ScenarioLegendControl;
 
-L.control.legendControl = function (options) {
-  return new LegendControl(options);
+L.control.scenarioLegendControl = function (options) {
+  return new ScenarioLegendControl(options);
 };
 
-module.exports = L.control.legendControl;
+module.exports = L.control.scenarioLegendControl;

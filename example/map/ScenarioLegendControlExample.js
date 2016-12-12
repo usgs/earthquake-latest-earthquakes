@@ -8,7 +8,7 @@ require('map/ScenarioLegendControl');
 
 
 var initialize = function () {
-  var legendControl,
+  var scenarioLegendControl,
       map,
       natgeo;
 
@@ -18,13 +18,13 @@ var initialize = function () {
       zoom: 3,
       zoomControl: false
     });
-  legendControl = L.control.legendControl();
+  scenarioLegendControl = L.control.scenarioLegendControl();
   natgeo = Terrain({
     'provider': Terrain.NATGEO
   });
 
   map.addLayer(natgeo);
-  map.addControl(legendControl);
+  map.addControl(scenarioLegendControl);
 };
 
 

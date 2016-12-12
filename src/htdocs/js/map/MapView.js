@@ -4,6 +4,7 @@
 require('leaflet/control/MousePosition');
 require('leaflet/control/ZoomToControl');
 require('map/LegendControl');
+require('map/ScenarioLegendControl');
 
 var EarthquakeLayer = require('map/EarthquakeLayer'),
     MapUtil = require('core/MapUtil'),
@@ -105,7 +106,11 @@ var MapView = function (options) {
     });
 
     _this.map.addLayer(_earthquakes);
-    L.control.legendControl().addTo(_this.map);
+    if (SCENARIO_MODE) {
+      L.control.scenarioLegendControl().addTo(_this.map);
+    } else {
+      L.control.legendControl().addTo(_this.map);
+    }
     L.control.scale().addTo(_this.map);
     L.control.zoomToControl({locations:options.locations}).addTo(_this.map);
 
