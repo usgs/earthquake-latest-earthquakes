@@ -83,7 +83,17 @@ describe('list/ListView', function () {
 
       expect(view.footer.innerHTML).to.not.equal('');
       expect(view.footer.querySelectorAll('li').length).to.equal(3);
+      view.destroy();
 
+      /* Test footer in scenario mode */
+      view = ListView();
+      window.SCENARIO_MODE = true;
+      view.renderFooter();
+
+      expect(view.footer.innerHTML).to.not.equal('');
+      expect(view.footer.querySelectorAll('li').length).to.equal(1);
+
+      window.SCENARIO_MODE = false;
       view.destroy();
     });
   });
