@@ -115,7 +115,7 @@ var SettingsView = function (options) {
         timezoneView;
 
     // Auto Update
-    if (SCENARIO_MODE === 'actual') {
+    if (!SCENARIO_MODE) {
       autoUpdateView = CheckboxOptionsView({
         el: _autoUpdateEl,
         collection: _config.options.autoUpdate,
@@ -185,7 +185,7 @@ var SettingsView = function (options) {
     mapOverlaysView.render();
 
     // Time Zone
-    if (SCENARIO_MODE === 'actual') {
+    if (!SCENARIO_MODE) {
       timezoneView = RadioOptionsView({
         el: _timezoneEl,
         collection: _config.options.timezone,
