@@ -1,8 +1,9 @@
-/* global L */
+/* global L, SCENARIO_MODE */
 'use strict';
 
 
 var Collection = require('mvc/Collection'),
+    Formatter = require('core/Formatter'),
     Model = require('mvc/Model'),
     Util = require('util/Util');
 
@@ -79,6 +80,7 @@ var EarthquakeLayer = function (options) {
 
     _this.collection = options.collection || Collection();
     _this.el = options.el || document.createElement('div');
+    _this.formatter = options.formatter || Formatter();
     _this.model = options.model || Model();
     _this.map = null;
 
@@ -391,6 +393,8 @@ var EarthquakeLayer = function (options) {
         classes,
         mag,
         magClass,
+        mmi,
+        mmiClass,
         props,
         type,
         typeClass;
@@ -401,22 +405,31 @@ var EarthquakeLayer = function (options) {
       return classes;
     }
 
-    age = new Date().getTime() - props.time;
     mag = props.mag;
     type = props.type;
 
-    if (age <= _AGE_HOUR) {
-      ageClass = _AGE_HOUR_CLASS;
-    } else if (age <= _AGE_DAY) {
-      ageClass = _AGE_DAY_CLASS;
-    } else if (age <= _AGE_WEEK) {
-      ageClass = _AGE_WEEK_CLASS;
-    } else if (age <= _AGE_MONTH) {
-      ageClass = _AGE_MONTH_CLASS;
+    if (SCENARIO_MODE) {
+      // color markers based on mmi
+      mmi = props.mmi;
+      mmiClass = 'mmi' + this.formatter.mmi(mmi);
+      marker.classList.add(mmiClass);
     } else {
-      ageClass = _AGE_OLDER_CLASS;
+      // color markers based on age
+      age = new Date().getTime() - props.time;
+      if (age <= _AGE_HOUR) {
+        ageClass = _AGE_HOUR_CLASS;
+      } else if (age <= _AGE_DAY) {
+        ageClass = _AGE_DAY_CLASS;
+      } else if (age <= _AGE_WEEK) {
+        ageClass = _AGE_WEEK_CLASS;
+      } else if (age <= _AGE_MONTH) {
+        ageClass = _AGE_MONTH_CLASS;
+      } else {
+        ageClass = _AGE_OLDER_CLASS;
+      }
+      marker.classList.add(ageClass);
     }
-    marker.classList.add(ageClass);
+
 
     if (!mag && mag !== 0) {
       magClass = _MAG_UNKNOWN_CLASS;
