@@ -74,14 +74,13 @@ $prompts = array(
     'prompt' => 'URL Path for application',
     'default' => '/earthquakes/map',
     'secure' => false
-  )/*,
+  ),
 
   'INSTALLATION_TYPE' => array(
     'prompt' => '"actual" or "scenario" events.',
     'default' => 'actual',
     'secure' => false
   )
-  */
 );
 
 foreach ($prompts as $key => $item) {
