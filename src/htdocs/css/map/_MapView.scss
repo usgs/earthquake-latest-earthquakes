@@ -7,7 +7,6 @@
   width: 100%;
 }
 
-.legend-control,
 .scenario-legend-control {
   display: none;
 }
@@ -40,6 +39,12 @@
   width: 8em;
 }
 
+.leaflet-control-mouseposition {
+  flex-shrink: 0;
+  text-align: center;
+  width: 120px;
+}
+
 @media screen and (min-width: 520px) {
 
   .scenario-badge {
@@ -48,7 +53,6 @@
   }
 
   /* hide legend up until 500px */
-  .legend-control,
   .scenario-legend-control {
     display: flex;
   }

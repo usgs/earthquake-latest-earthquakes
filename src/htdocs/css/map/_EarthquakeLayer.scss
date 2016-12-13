@@ -11,7 +11,6 @@
   }
 }
 
-
 .eq-age-hour {
   background-color: #F00;
 }
@@ -28,6 +27,9 @@
   background-color: #ccc;
 }
 
+.eq-type-eq {
+  border-radius: 50%;
+}
 
 .eq-mag-unknown {
     border: 1px dotted #333;
@@ -88,7 +90,4 @@
   .zoomedin .eq-mag-2 {width: 11px;height: 11px;margin-left: -6px;margin-top: -6px;}
   .zoomedin .eq-mag-1 {width: 9px;height: 9px;margin-left: -5px;margin-top: -5px;}
   .zoomedin .eq-mag-0 {width: 7px;height: 7px;margin-left: -4px;margin-top: -4px;}
-}
-.eq-type-eq {
-  border-radius: 20px;
 }
