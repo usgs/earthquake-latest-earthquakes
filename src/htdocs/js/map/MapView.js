@@ -1,4 +1,4 @@
-/* global L */
+/* global L, SCENARIO_MODE */
 'use strict';
 
 require('leaflet/control/MousePosition');
@@ -109,6 +109,9 @@ var MapView = function (options) {
     L.control.scale().addTo(_this.map);
     L.control.zoomToControl({locations:options.locations}).addTo(_this.map);
 
+    if (SCENARIO_MODE) {
+      _this.createScenarioBadge();
+    }
     if (!Util.isMobile()) {
       L.control.mousePosition().addTo(_this.map);
     }
@@ -143,6 +146,20 @@ var MapView = function (options) {
    */
   _onMoveEnd = function () {
     _this.onMoveEnd();
+  };
+
+  _this.createScenarioBadge = function () {
+    var badge;
+
+    badge = document.createElement('div');
+    badge.classList.add(
+      'scenario-badge',
+      'leaflet-control',
+      'alert',
+      'warning'
+    );
+    badge.innerHTML = 'Scenario';
+    _this.el.appendChild(badge);
   };
 
   _this.deselectEventonMoveEnd = function () {
