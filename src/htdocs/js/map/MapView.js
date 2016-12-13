@@ -118,7 +118,11 @@ var MapView = function (options) {
       L.control.legendControl().addTo(_this.map);
     }
     L.control.scale({'position': 'bottomright'}).addTo(_this.map);
-    L.control.zoomToControl({locations:options.locations}).addTo(_this.map);
+
+    L.control.zoomToControl({
+      'locations': options.locations,
+      'position': 'topright'
+    }).addTo(_this.map);
 
 
     _this.map.on('click', _onClick, _this);
