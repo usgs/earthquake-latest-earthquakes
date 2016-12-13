@@ -77,6 +77,27 @@ describe('map/Mapview', function () {
     });
   });
 
+  describe('createScenarioBadge', function () {
+    it('creates Scenario badge when in scenario mode', function () {
+      var badge,
+          view;
+
+      window.SCENARIO_MODE = true;
+
+      view = MapView({
+        model: Model(model)
+      });
+
+      view.createScenarioBadge();
+      badge = view.el.querySelector('.scenario-badge').innerHTML;
+
+      expect(badge).to.equal('Scenario');
+
+      window.SCENARIO_MODE = false;
+      view.destroy();
+    });
+  });
+
   describe('getPaddedBounds', function () {
     it('gets bounds around given point', function () {
       var bounds,
