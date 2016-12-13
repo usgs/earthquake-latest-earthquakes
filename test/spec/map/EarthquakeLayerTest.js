@@ -362,5 +362,25 @@ describe('map/EarthquakeLayer', function () {
       expect(el.style.transform).to.equal(
           'rotate(45deg) scale(0.7071, 0.7071)');
     });
+
+    it('sets classes for scenarios', function () {
+      // set scenario mode
+      window.SCENARIO_MODE = true;
+
+      view.setMarkerClasses({
+        properties: {
+          mag: 7,
+          mmi: 7.6,
+          type: 'earthquake'
+        }
+      }, el);
+
+      expect(el.classList.contains('mmiVIII')).to.equal(true);
+      expect(el.classList.contains('eq-mag-7')).to.equal(true);
+      expect(el.classList.contains('eq-type-eq')).to.equal(true);
+
+      // set mode back to actual
+      window.SCENARIO_MODE = false;
+    });
   });
 });
