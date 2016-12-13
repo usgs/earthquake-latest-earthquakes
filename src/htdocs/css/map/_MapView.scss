@@ -1,9 +1,14 @@
 
 .leaflet-bottom.leaflet-right {
-  width: 50%;
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0 0 1em;
+  width: 100%;
 }
 
-.legend-control {
+.legend-control,
+.scenario-legend-control {
   display: none;
 }
 
@@ -35,42 +40,39 @@
   width: 8em;
 }
 
-@media screen and (min-width: 465px) {
+@media screen and (min-width: 520px) {
 
   .scenario-badge {
     bottom: auto;
     top: 0;
   }
 
-  .legend-control {
-    display: block;
-  }
-
-  .leaflet-control-mouseposition + .legend-control {
-    height: 52px;
-    left: -72px;
-    position: absolute;
-    width: 144px;
-    top: -29px;
+  /* hide legend up until 500px */
+  .legend-control,
+  .scenario-legend-control {
+    display: flex;
   }
 }
 
-@media screen and (max-width: 783px) {
+@media screen and (max-width: 830px) {
 
   /* Two modes enabled (including map), window is below 740px. */
   .mode-list .leaflet-control-mouseposition,
   .mode-list .legend-control,
+  .mode-list .scenario-legend-control,
   .mode-settings .leaflet-control-mouseposition,
-  .mode-settings .legend-control {
+  .mode-settings .legend-control,
+  .mode-settings .scenario-legend-control {
     display: none;
   }
 }
 
-@media screen and (max-width: 1090px) {
+@media screen and (max-width: 1140px) {
 
   /* All three modes enabled, window is below 1090px. */
   .mode-list.mode-settings .leaflet-control-mouseposition,
-  .mode-list.mode-settings .legend-control {
+  .mode-list.mode-settings .legend-control,
+  .mode-list.mode-settings .scenario-legend-control {
     display: none;
   }
 }

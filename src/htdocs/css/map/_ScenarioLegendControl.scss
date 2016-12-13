@@ -1,5 +1,4 @@
 .scenario-legend-control {
-  display: flex;
   flex-direction: column;
 
   > h5 {
@@ -9,17 +8,17 @@
 
   > .scenario-marker-sizes,
   > .scenario-intensity-colors {
+    align-items: center;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     list-style: none;
-    margin: 0.5em 0.25em;
+    margin: 0em 0.25em 0.5em 0.25em;
     padding: 0;
     text-align: center;
   }
 
   > .scenario-marker-sizes {
-    align-items: center;
-    justify-content: space-between;
 
     &:before {
       content: "0";
@@ -28,7 +27,7 @@
     }
 
     &:after {
-      content: "7";
+      content: "7+";
       font-size: 0.88em;
       margin: 0 0.25em 0 1em;
     }

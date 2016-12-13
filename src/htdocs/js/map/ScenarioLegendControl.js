@@ -24,7 +24,7 @@ var ScenarioLegendControl = L.Control.extend({
 
     container.innerHTML = [
       '<h5>Magnitude</h5>',
-      '<ol class="zoomedout scenario-marker-sizes">',
+      '<ol class="scenario-marker-sizes">',
         '<li class="earthquake-marker eq-type-eq eq-mag-0"></li>',
         '<li class="earthquake-marker eq-type-eq eq-mag-1"></li>',
         '<li class="earthquake-marker eq-type-eq eq-mag-2"></li>',
@@ -56,7 +56,7 @@ var ScenarioLegendControl = L.Control.extend({
 });
 
 
-L.Control.ScenarioLegendControl = ScenarioLegendControl;
+L.Control.scenarioLegendControl = ScenarioLegendControl;
 
 L.control.scenarioLegendControl = function (options) {
   return new ScenarioLegendControl(options);

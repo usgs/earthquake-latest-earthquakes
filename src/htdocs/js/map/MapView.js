@@ -106,20 +106,20 @@ var MapView = function (options) {
     });
 
     _this.map.addLayer(_earthquakes);
-    if (SCENARIO_MODE) {
-      L.control.scenarioLegendControl().addTo(_this.map);
-    } else {
-      L.control.legendControl().addTo(_this.map);
-    }
-    L.control.scale().addTo(_this.map);
-    L.control.zoomToControl({locations:options.locations}).addTo(_this.map);
 
-    if (SCENARIO_MODE) {
-      _this.createScenarioBadge();
-    }
+    // position all controls bottomright
     if (!Util.isMobile()) {
       L.control.mousePosition().addTo(_this.map);
     }
+    if (SCENARIO_MODE) {
+      L.control.scenarioLegendControl().addTo(_this.map);
+      _this.createScenarioBadge();
+    } else {
+      L.control.legendControl().addTo(_this.map);
+    }
+    L.control.scale({'position': 'bottomright'}).addTo(_this.map);
+    L.control.zoomToControl({locations:options.locations}).addTo(_this.map);
+
 
     _this.map.on('click', _onClick, _this);
     _this.map.on('moveend', _onMoveEnd, _this);
