@@ -9,18 +9,16 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-
-    + .legend-control-item {
-      margin-left: 0.5em;
-    }
+    margin: 0 0.25em;
 
     > h5 {
       font-size: 0.88em;
       margin: 0.5em 0;
     }
 
-    > .magnitude-legend,
-    > .age-legend {
+    > .age-legend,
+    > .intensity-legend,
+    > .magnitude-legend {
       align-items: center;
       display: flex;
       flex-direction: row;
@@ -31,6 +29,7 @@
       text-align: center;
     }
 
+    /*** Magnitude ***/
     > .magnitude-legend {
 
       &:before {
@@ -52,8 +51,8 @@
       }
     }
 
+    /*** Age (Past) ***/
     > .age-legend {
-      margin: 0.25em 0.5em;
 
       > li {
         display: flex;
@@ -67,6 +66,29 @@
           position: relative;
           height: 2em;
           width: 2em;
+        }
+      }
+    }
+
+    /*** Intensity (MMI) ***/
+    > .intensity-legend {
+
+      > li {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.77em;
+        margin: 0 0.25em;
+
+        > .earthquake-marker {
+          border-radius: 50%;
+          margin: 0.25em auto;
+          position: relative;
+          height: 1.5em;
+          width: 1.5em;
+        }
+
+        > .mmiI {
+          box-shadow: none;
         }
       }
     }
