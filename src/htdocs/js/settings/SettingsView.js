@@ -1,4 +1,4 @@
-/* global SCENARIO_MODE */
+/* global SCENARIO_MODE, SEARCH_PATH */
 'use strict';
 
 var CheckboxOptionsView = require('settings/CheckboxOptionsView'),
@@ -212,7 +212,7 @@ var SettingsView = function (options) {
   };
 
   _this.onSearchButtonClick = function () {
-    window.location = '/earthquakes/search/' + window.location.hash;
+    window.location = SEARCH_PATH + window.location.hash;
   };
 
   _initialize(options);
