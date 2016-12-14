@@ -24,17 +24,23 @@
 
 .scenario-badge {
   background-color: #fdf7dc;
+  bottom: 0;
   font-size: 1.5em;
-  left: 50%;
-  margin: 10px 0 0 -3em;
-  padding: .30em 0;
+  left: 0;
+  line-height: 2.5em;
+  margin: 10px auto;
   position: absolute;
+  right: 0;
   text-align: center;
-  top: 0;
-  width: 6em;
+  width: 8em;
 }
 
 @media screen and (min-width: 465px) {
+
+  .scenario-badge {
+    bottom: auto;
+    top: 0;
+  }
 
   .legend-control {
     display: block;
