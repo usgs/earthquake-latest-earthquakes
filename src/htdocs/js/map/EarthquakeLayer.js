@@ -329,7 +329,7 @@ var EarthquakeLayer = function (options) {
     if (zoom > 10) {
       _this.map._container.classList.add('zoomedin');
       _this.map._container.classList.remove('zoomednormal');
-      _this.map._container.remove('zoomedout');
+      _this.map._container.classList.remove('zoomedout');
     } else if (zoom > 5) {
       _this.map._container.classList.remove('zoomedin');
       _this.map._container.classList.add('zoomednormal');
