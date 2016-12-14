@@ -1,3 +1,4 @@
+/* global SCENARIO_MODE */
 'use strict';
 
 
@@ -355,27 +356,31 @@ var ListView = function (options) {
 
   /**
    * Render the footer information for this view into `_this.footer`.
+   * The footer is formatted based on if scenario mode is selected or not.
    */
   _this.renderFooter = function () {
-    _this.footer.innerHTML =
+    var footer;
+
+    footer =
       '<h4>Didn&apos;t find what you were looking for?</h4>' +
-        '<ul>' +
-          '<li>' +
-            'Check your <a href="javascript:void(null);" ' +
-            'class="settings-link">Settings</a>.' +
-          '</li>' +
-          '<li>' +
-            '<a href="/data/comcat/data-availability.php">' +
-              'Which earthquakes are included on the map and ' +
-              'list?' +
-            '</a>' +
-          '</li>' +
-          '<li>' +
-            '<a href="/earthquakes/eventpage/unknown#tellus">' +
-              'Felt something not shown – report it here.' +
-            '</a>' +
-          '</li>' +
+      '<ul>' +
+        '<li>' +
+          'Check your <a href="javascript:void(null);" ' +
+          'clas="settings-link">Settings</a>.' +
+        '</li>' +
+        (!SCENARIO_MODE ?
+        '<li>' +
+          '<a href="/data/comcat/data-availability.php">' +
+            'Which earthquakes are included on the map and list?' +
+          '</a>' +
+        '</li>' +
+        '<li>' +
+          '<a href="/earthquakes/eventpage/unknown#tellus">' +
+            'Felt something not shown – report it here.' +
+          '</a>' +
+        '</li>': '') +
       '</ul>';
+    _this.footer.innerHTML = footer;
   };
 
   /**
