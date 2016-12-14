@@ -212,7 +212,11 @@ var SettingsView = function (options) {
   };
 
   _this.onSearchButtonClick = function () {
-    window.location = '/earthquakes/search/' + window.location.hash;
+    if (SCENARIO_MODE) {
+      window.location = '/scenarios/search/' + window.location.hash;
+    } else {
+      window.location = '/earthquakes/search/' + window.location.hash;
+    }
   };
 
   _initialize(options);
