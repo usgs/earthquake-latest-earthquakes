@@ -47,14 +47,10 @@
 
 @media screen and (min-width: 520px) {
 
+  /* place scenario branding at bottom on small screens */
   .scenario-badge {
     bottom: auto;
     top: 0;
-  }
-
-  /* hide legend up until 500px */
-  .scenario-legend-control {
-    display: flex;
   }
 }
 
@@ -63,10 +59,8 @@
   /* Two modes enabled (including map), window is below 740px. */
   .mode-list .leaflet-control-mouseposition,
   .mode-list .legend-control,
-  .mode-list .scenario-legend-control,
   .mode-settings .leaflet-control-mouseposition,
-  .mode-settings .legend-control,
-  .mode-settings .scenario-legend-control {
+  .mode-settings .legend-control {
     display: none;
   }
 }
@@ -75,8 +69,7 @@
 
   /* All three modes enabled, window is below 1090px. */
   .mode-list.mode-settings .leaflet-control-mouseposition,
-  .mode-list.mode-settings .legend-control,
-  .mode-list.mode-settings .scenario-legend-control {
+  .mode-list.mode-settings .legend-control {
     display: none;
   }
 }
