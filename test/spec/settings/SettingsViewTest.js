@@ -59,6 +59,31 @@ describe('SettingsView', function () {
       views = content.querySelectorAll('section');
       expect(button.nodeName).to.equal('BUTTON');
     });
-  });
 
+    it('generates correct checkbox/radio option views in scenario mode',
+        function () {
+      var checkboxOptions,
+          content,
+          radioOptions;
+
+      window.SCENARIO_MODE = true;
+      settingsView = SettingsView({
+        el: document.createElement('div'),
+        config: LatestEarthquakesConfig(),
+        model: Model()
+      });
+
+      settingsView.render();
+
+      content = settingsView.el.querySelector('.settings-content');
+      checkboxOptions =
+          content.querySelectorAll('.checkbox-options-view-header');
+      radioOptions = content.querySelectorAll('.radio-options-view-content');
+
+      expect(checkboxOptions.length).to.equal(2);
+      expect(radioOptions.length).to.equal(4);
+
+      window.SCENARIO_MODE = false;
+    });
+  });
 });
