@@ -1,4 +1,4 @@
-/* global SCENARIO_MODE */
+/* global SCENARIO_MODE, SEARCH_PATH */
 'use strict';
 
 // TODO: use real List, Map, and Settings views
@@ -42,7 +42,6 @@ var _EARTHQUAKE_SETTINGS = {
     'restrictListToMap'
   ],
   search: null,
-  searchForm: '/earthquakes/search/',
   searchUrl: '/fdsnws/event/1/query.geojson',
   sort: 'newest',
   timezone: 'utc',
@@ -71,7 +70,6 @@ var _SCENARIO_SETTINGS = {
     'restrictListToMap'
   ],
   search: null,
-  searchForm: '/scenarios/search/',
   searchUrl: '/fdsnws/scenario/1/query.geojson',
   sort: 'largest',
   timezone: null,

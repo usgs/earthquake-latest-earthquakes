@@ -29,6 +29,7 @@
       /* create list & map with config. */
       '<script>' .
         'var SCENARIO_MODE = ' . json_encode($SCENARIO_MODE) . ';' .
+        'var SEARCH_PATH = ' . json_encode($SEARCH_PATH) . ';' .
       '</script>
       <script src="/lib/leaflet-0.7.7/leaflet.js"></script>
       <script src="js/index.js"></script>

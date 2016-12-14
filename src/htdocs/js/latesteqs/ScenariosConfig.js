@@ -166,8 +166,6 @@ var _DEFAULTS = {
  *       name {String} display name
  *       layer {ILayer}
  *           leaflet layer
- * @param options.searchForm {String}
- *     url to search form.
  * @param options.searchUrl {String}
  *     base url for search api.
  * @param options.sorts {Array<Object>}
