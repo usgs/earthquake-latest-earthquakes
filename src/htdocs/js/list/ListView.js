@@ -366,7 +366,7 @@ var ListView = function (options) {
       '<ul>' +
         '<li>' +
           'Check your <a href="javascript:void(null);" ' +
-          'clas="settings-link">Settings</a>.' +
+          'class="settings-link">Settings</a>.' +
         '</li>' +
         (!SCENARIO_MODE ?
         '<li>' +
