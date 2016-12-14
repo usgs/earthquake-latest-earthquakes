@@ -1,42 +1,106 @@
-.legend-control-header {
-  font-size: 10px;
-  font-weight: normal;
-  margin: 2px 0 8px 0;
-}
+.legend-control {
+  /* hide on small screens */
+  display: none;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 
-.legend-control-list {
-  display: flex;
-  margin: 0;
-}
+  > .legend-control-item {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 0 0.25em;
 
-.legend-control-item {
-  font-size: 10px;
-  text-align: center;
+    > h5 {
+      font-size: 0.88em;
+      margin: 0.5em 0;
+    }
 
-  + .legend-control-item {
-    margin-left: 2px;
+    > .age-legend,
+    > .intensity-legend,
+    > .magnitude-legend {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      list-style: none;
+      margin: 0.5em;
+      padding: 0;
+      text-align: center;
+    }
+
+    /*** Magnitude ***/
+    > .magnitude-legend {
+
+      &:before {
+        content: "0";
+        font-size: 0.88em;
+        margin-right: 1em;
+      }
+
+      &:after {
+        content: "7+";
+        font-size: 0.88em;
+        margin-left: 1em;
+      }
+
+      > .earthquake-marker {
+        border-color: #999;
+        margin: 0 1px;
+        position: relative;
+      }
+    }
+
+    /*** Age (Past) ***/
+    > .age-legend {
+
+      > li {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.77em;
+        margin: 0 0.5em;
+
+        > .earthquake-marker {
+          border-radius: 50%;
+          margin: 0.25em auto;
+          position: relative;
+          height: 2em;
+          width: 2em;
+        }
+      }
+    }
+
+    /*** Intensity (MMI) ***/
+    > .intensity-legend {
+
+      > li {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.77em;
+        margin: 0 0.25em;
+
+        > .earthquake-marker {
+          border-radius: 50%;
+          margin: 0.25em auto;
+          position: relative;
+          height: 1.5em;
+          width: 1.5em;
+        }
+
+        > .mmiI {
+          box-shadow: none;
+        }
+      }
+    }
   }
 }
 
-.color-bar {
-  border: 1px solid #000;
-  display: block;
-  height: 7px;
-  width: 30px;
+@media screen and (min-width: 520px) {
+
+  /* hide legend up until 500px */
+  .legend-control {
+    display: flex;
+  }
 }
 
-.eq-age-hour {
-  background-color: #f00;
-}
 
-.eq-age-day {
-  background-color: #f90;
-}
-
-.eq-age-week {
-  background-color: #ff0;
-}
-
-.eq-age-month {
-  background-color: #fff;
-}
