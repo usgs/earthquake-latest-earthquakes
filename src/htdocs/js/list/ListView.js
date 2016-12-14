@@ -361,8 +361,14 @@ var ListView = function (options) {
   _this.renderFooter = function () {
     var footer;
 
-    if (!SCENARIO_MODE) {
-      footer =
+    footer =
+      '<h4>Didn&apos;t find what you were looking for?</h4>' +
+      '<ul>' +
+        '<li>' +
+          'Check your <a href="javascript:void(null);" ' +
+          'clas="settings-link">Settings</a>.' +
+        '</li>' +
+        (!SCENARIO_MODE ?
         '<li>' +
           '<a href="/data/comcat/data-availability.php">' +
             'Which earthquakes are included on the map and list?' +
@@ -372,21 +378,8 @@ var ListView = function (options) {
           '<a href="/earthquakes/eventpage/unknown#tellus">' +
             'Felt something not shown – report it here.' +
           '</a>' +
-        '</l>';
-    } else {
-      footer = '';
-    }
-
-    footer =
-      '<h4>Didn&apos;t find what you were looking for?</h4>' +
-      '<ul>' +
-        '<li>' +
-          'Check your <a href="javascript:void(null);" ' +
-          'clas="settings-link">Settings</a>.' +
-        '</li>' +
-        footer +
+        '</li>': '') +
       '</ul>';
-
     _this.footer.innerHTML = footer;
   };
 
