@@ -1,4 +1,4 @@
-/* global SCENARIO_MODE, SEARCH_PATH */
+/* global SCENARIO_MODE */
 'use strict';
 
 // TODO: use real List, Map, and Settings views
