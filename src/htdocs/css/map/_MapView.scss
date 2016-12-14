@@ -22,7 +22,25 @@
   display: block;
 }
 
+.scenario-badge {
+  background-color: #fdf7dc;
+  bottom: 0;
+  font-size: 1.5em;
+  left: 0;
+  line-height: 2.5em;
+  margin: 10px auto;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  width: 8em;
+}
+
 @media screen and (min-width: 465px) {
+
+  .scenario-badge {
+    bottom: auto;
+    top: 0;
+  }
 
   .legend-control {
     display: block;
