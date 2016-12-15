@@ -207,7 +207,8 @@ var SettingsView = function (options) {
     _searchButton.addEventListener('click', _this.onSearchButtonClick, _this);
     _searchButton.classList.add('search-button');
     _searchButton.classList.add('blue');
-    _searchButton.innerHTML = 'Search Earthquake Catalog';
+    _searchButton.innerHTML =
+        SCENARIO_MODE ? 'Search Scenario Catalog' : 'Search Earthquake Catalog';
     _searchEl.appendChild(_searchButton);
   };
 

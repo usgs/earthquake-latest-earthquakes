@@ -60,6 +60,32 @@ describe('SettingsView', function () {
       expect(button.nodeName).to.equal('BUTTON');
     });
 
+    it('generates the correct search button text in actual mode', function () {
+      var buttonText;
+
+      buttonText = settingsView.el.querySelector('.search-button').innerHTML;
+
+      expect (buttonText).to.equal('Search Earthquake Catalog');
+    });
+
+    it('generates the correct search button text in scenario mode', function () {
+      var buttonText;
+
+      window.SCENARIO_MODE = true;
+      settingsView = SettingsView({
+        el: document.createElement('div'),
+        config: LatestEarthquakesConfig(),
+        model: Model()
+      });
+
+      settingsView.render();
+
+      buttonText = settingsView.el.querySelector('.search-button').innerHTML;
+      expect (buttonText).to.equal('Search Scenario Catalog');
+
+      window.SCENARIO_MODE = false;
+    });
+
     it('generates correct checkbox/radio option views in scenario mode',
         function () {
       var checkboxOptions,

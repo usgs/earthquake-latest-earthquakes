@@ -1,4 +1,4 @@
-/* global SCENARIO_MODE, SEARCH_PATH */
+/* global SEARCH_PATH */
 'use strict';
 
 var ModalView = require('mvc/ModalView'),

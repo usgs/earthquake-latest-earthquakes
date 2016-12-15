@@ -180,7 +180,7 @@ describe('DefaultListFormat', function () {
       source = defaultListFormat.getSubheaderMarkup(
           {properties: {'sources': ',test,test,test,'}});
 
-      expect(source).to.equal('test, test, test');
+      expect(source).to.equal('TEST, TEST, TEST');
 
       window.SCENARIO_MODE = false;
     });
