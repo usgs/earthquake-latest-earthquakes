@@ -265,6 +265,7 @@ var DefaultListFormat = function (options) {
       sources = sources.replace(/^,|,$/g, '');
       // Replaces remaining commas with a comma followed by a space.
       sources = sources.replace(/,/g, ', ');
+      sources = sources.toUpperCase();
 
       return sources;
     }
