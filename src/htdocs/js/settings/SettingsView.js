@@ -77,7 +77,12 @@ var SettingsView = function (options) {
    * Frees resources associated with this view.
    */
   _this.destroy = Util.compose(function () {
-    _searchButton.removeEventListener('click', _this.onSearchButtonClick, _this);
+    // Checkes for scenario mode so that it does not try to destroy an event
+    // listener that was not created.
+    if (!SCENARIO_MODE) {
+      _searchButton.removeEventListener('click', _this.onSearchButtonClick,
+          _this);
+    }
 
     _autoUpdateEl = null;
     _config = null;
@@ -101,7 +106,11 @@ var SettingsView = function (options) {
   _this.render = function () {
     _this.renderHeader();
     _this.renderContent();
-    _this.renderSearchButton();
+
+    // When in scenario mode does not show search button
+    if (!SCENARIO_MODE) {
+      _this.renderSearchButton();
+    }
   };
 
   _this.renderContent = function () {
@@ -207,8 +216,7 @@ var SettingsView = function (options) {
     _searchButton.addEventListener('click', _this.onSearchButtonClick, _this);
     _searchButton.classList.add('search-button');
     _searchButton.classList.add('blue');
-    _searchButton.innerHTML =
-        SCENARIO_MODE ? 'Search Scenario Catalog' : 'Search Earthquake Catalog';
+    _searchButton.innerHTML = 'Search Earthquake Catalog';
     _searchEl.appendChild(_searchButton);
   };
 
