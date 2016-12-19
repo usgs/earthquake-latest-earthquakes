@@ -329,6 +329,12 @@ var MapView = function (options) {
     }
   };
 
+  _this.onFeedChange = function () {
+    // var bbox;
+    //
+    // bbox = _this.model.get('feed').bbox;
+  };
+
   /**
    * Click handler for map.
    *
