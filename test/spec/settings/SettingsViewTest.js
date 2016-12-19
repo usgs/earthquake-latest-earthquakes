@@ -23,7 +23,6 @@ describe('SettingsView', function () {
 
   afterEach(function () {
     settingsView.destroy();
-    window.SCENARIO_MODE = false;
   });
 
   describe('constructor', function () {
@@ -70,42 +69,48 @@ describe('SettingsView', function () {
     });
 
     it('does not generates the search button in scenario mode', function () {
+      var view;
+
       window.SCENARIO_MODE = true;
-      settingsView = SettingsView({
+
+      view = SettingsView({
         el: document.createElement('div'),
         config: LatestEarthquakesConfig(),
         model: Model()
       });
+      sinon.spy(view, 'renderSearchButton');
+      view.render();
 
-      sinon.spy(settingsView, 'renderSearchButton');
+      expect(view.renderSearchButton.callCount).to.equal(0);
 
-      settingsView.render();
-
-      expect(settingsView.renderSearchButton.callCount).to.equal(0);
+      window.SCENARIO_MODE = false;
     });
 
     it('generates correct checkbox/radio option views in scenario mode',
         function () {
       var checkboxOptions,
           content,
-          radioOptions;
+          radioOptions,
+          view;
 
       window.SCENARIO_MODE = true;
-      settingsView = SettingsView({
+
+      view = SettingsView({
         el: document.createElement('div'),
         config: LatestEarthquakesConfig(),
         model: Model()
       });
+      view.render();
 
-      settingsView.render();
-
-      content = settingsView.el.querySelector('.settings-content');
-      checkboxOptions =
-          content.querySelectorAll('.checkbox-options-view-header');
+      content = view.el.querySelector('.settings-content');
+      checkboxOptions = content.querySelectorAll(
+          '.checkbox-options-view-header');
       radioOptions = content.querySelectorAll('.radio-options-view-content');
 
       expect(checkboxOptions.length).to.equal(2);
       expect(radioOptions.length).to.equal(4);
+
+      window.SCENARIO_MODE = false;
     });
   });
 });
