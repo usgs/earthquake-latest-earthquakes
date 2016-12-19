@@ -147,6 +147,21 @@ var Catalog = function (options) {
 
     feed = _this.model.get('feed');
     if (feed) {
+      // Updates map extents for catalog
+      if (feed.bbox) {
+        _this.model.set({
+          'mapposition': [
+            [
+              feed.bbox[1],
+              feed.bbox[0]
+            ],
+            [
+              feed.bbox[3],
+              feed.bbox[2]
+            ]
+          ]
+        });
+      }
       if (feed.url) {
         // feed
         url = feed.url;
