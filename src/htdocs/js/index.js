@@ -20,7 +20,8 @@ if (SCENARIO_MODE) {
         feeds.push({
           'id': data[i].id,
           'name': data[i].title,
-          'url': url + '&catalog=' + data[i].id
+          'url': url + '&catalog=' + data[i].id,
+          'bbox': data[i].bbox
         });
       }
 
@@ -38,4 +39,3 @@ if (SCENARIO_MODE) {
     el: document.querySelector('#latest-earthquakes')
   });
 }
-
