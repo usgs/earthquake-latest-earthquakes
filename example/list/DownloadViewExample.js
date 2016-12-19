@@ -11,7 +11,7 @@ var initialize = function () {
       search;
 
   catalog = Catalog();
-  search = 'http://earthquake.usgs.gov/fdsnws/event/1/query' +
+  search = 'https://earthquake.usgs.gov/fdsnws/event/1/query' +
       '?format=geojson&jsonerror=true' +
       '&starttime=2016-04-21%2000%3A00%3A00' +
       '&endtime=2016-04-28%2023%3A59%3A59' +
