@@ -1,4 +1,4 @@
-/* global afterEach, beforeEach, chai, describe, it */
+/* global afterEach, beforeEach, chai, describe, it, sinon */
 'use strict';
 
 
@@ -23,6 +23,7 @@ describe('SettingsView', function () {
 
   afterEach(function () {
     settingsView.destroy();
+    window.SCENARIO_MODE = false;
   });
 
   describe('constructor', function () {
@@ -68,9 +69,7 @@ describe('SettingsView', function () {
       expect (buttonText).to.equal('Search Earthquake Catalog');
     });
 
-    it('generates the correct search button text in scenario mode', function () {
-      var buttonText;
-
+    it('does not generates the search button in scenario mode', function () {
       window.SCENARIO_MODE = true;
       settingsView = SettingsView({
         el: document.createElement('div'),
@@ -78,12 +77,11 @@ describe('SettingsView', function () {
         model: Model()
       });
 
+      sinon.spy(settingsView, 'renderSearchButton');
+
       settingsView.render();
 
-      buttonText = settingsView.el.querySelector('.search-button').innerHTML;
-      expect (buttonText).to.equal('Search Scenario Catalog');
-
-      window.SCENARIO_MODE = false;
+      expect(settingsView.renderSearchButton.callCount).to.equal(0);
     });
 
     it('generates correct checkbox/radio option views in scenario mode',
@@ -108,8 +106,6 @@ describe('SettingsView', function () {
 
       expect(checkboxOptions.length).to.equal(2);
       expect(radioOptions.length).to.equal(4);
-
-      window.SCENARIO_MODE = false;
     });
   });
 });
