@@ -167,7 +167,7 @@ var MapView = function (options) {
       'alert',
       'warning'
     );
-    badge.innerHTML = 'Scenario';
+    badge.innerHTML = 'Scenarios';
     _this.el.appendChild(badge);
   };
 

@@ -91,7 +91,7 @@ describe('map/Mapview', function () {
       view.createScenarioBadge();
       badge = view.el.querySelector('.scenario-badge').innerHTML;
 
-      expect(badge).to.equal('Scenario');
+      expect(badge).to.equal('Scenarios');
 
       window.SCENARIO_MODE = false;
       view.destroy();
