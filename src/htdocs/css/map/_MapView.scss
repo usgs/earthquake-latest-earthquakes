@@ -12,7 +12,7 @@
 }
 
 /* Keeps screen from zooming when input is selected on mobile devices */
-.leaflet-touch .zoomto-control {
+.zoomto-control {
   font-size: 16px;
 }
 
@@ -29,14 +29,17 @@
 .scenario-badge {
   background-color: #fdf7dc;
   bottom: 0;
-  font-size: 1.5em;
+  font-size: 16px;
   left: 0;
   line-height: 2.5em;
+  max-width: 18em;
+  min-width: 8em;
   margin: 10px auto;
+  padding: 2px;
   position: absolute;
   right: 0;
   text-align: center;
-  width: 8em;
+  width: 20%;
 }
 
 .leaflet-control-mouseposition {
