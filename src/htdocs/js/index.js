@@ -7,7 +7,7 @@ var LatestEarthquakes = require('latesteqs/LatestEarthquakes'),
 if (SCENARIO_MODE) {
   // fetch catalog feeds
   Xhr.ajax({
-    url: 'https://earthquake.usgs.gov/scenarios/catalog/index.json.php',
+    url: '/scenarios/catalog/index.json.php',
     success: function (data) {
       var feeds;
 
