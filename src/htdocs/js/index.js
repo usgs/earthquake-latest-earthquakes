@@ -9,19 +9,19 @@ if (SCENARIO_MODE) {
   Xhr.ajax({
     url: 'https://earthquake.usgs.gov/scenarios/catalog/index.json.php',
     success: function (data) {
-      var feeds,
-          url;
+      var feeds;
 
       feeds = [];
-      url = 'https://earthquake.usgs.gov/fdsnws/scenario/1/query.geojson' +
-          '?starttime=1900/01/01T00:00:00Z';
 
       for (var i = 0, len = data.length; i < len; i++) {
         feeds.push({
           'id': data[i].id,
           'name': data[i].title,
-          'url': url + '&catalog=' + data[i].id,
-          'bbox': data[i].bbox
+          'bbox': data[i].bbox,
+          'params': {
+            'catalog': data[i].id,
+            'starttime': '1900-01-01T00:00:00Z'
+          }
         });
       }
 
