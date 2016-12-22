@@ -1,3 +1,4 @@
+/* global SCENARIO_MODE, SEARCH_PATH */
 'use strict';
 
 var CheckboxOptionsView = require('settings/CheckboxOptionsView'),
@@ -76,7 +77,12 @@ var SettingsView = function (options) {
    * Frees resources associated with this view.
    */
   _this.destroy = Util.compose(function () {
-    _searchButton.removeEventListener('click', _this.onSearchButtonClick, _this);
+    // Checkes for scenario mode so that it does not try to destroy an event
+    // listener that was not created.
+    if (!SCENARIO_MODE) {
+      _searchButton.removeEventListener('click', _this.onSearchButtonClick,
+          _this);
+    }
 
     _autoUpdateEl = null;
     _config = null;
@@ -100,7 +106,11 @@ var SettingsView = function (options) {
   _this.render = function () {
     _this.renderHeader();
     _this.renderContent();
-    _this.renderSearchButton();
+
+    // When in scenario mode does not show search button
+    if (!SCENARIO_MODE) {
+      _this.renderSearchButton();
+    }
   };
 
   _this.renderContent = function () {
@@ -114,20 +124,23 @@ var SettingsView = function (options) {
         timezoneView;
 
     // Auto Update
-    autoUpdateView = CheckboxOptionsView({
-      el: _autoUpdateEl,
-      collection: _config.options.autoUpdate,
-      model: _this.model,
-      title: 'Earthquakes',
-      watchProperty: 'autoUpdate'
-    });
-    autoUpdateView.render();
+    if (!SCENARIO_MODE) {
+      autoUpdateView = CheckboxOptionsView({
+        el: _autoUpdateEl,
+        collection: _config.options.autoUpdate,
+        model: _this.model,
+        title: 'Earthquakes',
+        watchProperty: 'autoUpdate'
+      });
+      autoUpdateView.render();
+    }
 
     // Earthquake Feeds
     feedsView = RadioOptionsView({
       el: _feedsEl,
       collection: _config.options.feed,
       model: _this.model,
+      title: SCENARIO_MODE ? 'Scenario Earthquakes' : null,
       watchProperty: 'feed'
     });
     feedsView.render();
@@ -181,14 +194,16 @@ var SettingsView = function (options) {
     mapOverlaysView.render();
 
     // Time Zone
-    timezoneView = RadioOptionsView({
-      el: _timezoneEl,
-      collection: _config.options.timezone,
-      model: _this.model,
-      title: 'Time Zone',
-      watchProperty: 'timezone'
-    });
-    timezoneView.render();
+    if (!SCENARIO_MODE) {
+      timezoneView = RadioOptionsView({
+        el: _timezoneEl,
+        collection: _config.options.timezone,
+        model: _this.model,
+        title: 'Time Zone',
+        watchProperty: 'timezone'
+      });
+      timezoneView.render();
+    }
   };
 
   _this.renderHeader = function () {
@@ -206,7 +221,7 @@ var SettingsView = function (options) {
   };
 
   _this.onSearchButtonClick = function () {
-    window.location = '/earthquakes/search/' + window.location.hash;
+    window.location = SEARCH_PATH + window.location.hash;
   };
 
   _initialize(options);

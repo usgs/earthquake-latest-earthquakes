@@ -1,14 +1,18 @@
 
 .leaflet-bottom.leaflet-right {
-  width: 50%;
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0 0 1em;
+  width: 100%;
 }
 
-.legend-control {
+.scenario-legend-control {
   display: none;
 }
 
 /* Keeps screen from zooming when input is selected on mobile devices */
-.leaflet-touch .zoomto-control {
+.zoomto-control {
   font-size: 16px;
 }
 
@@ -22,22 +26,38 @@
   display: block;
 }
 
-@media screen and (min-width: 465px) {
+.scenario-badge {
+  background-color: #fdf7dc;
+  bottom: 0;
+  font-size: 16px;
+  left: 0;
+  line-height: 2.5em;
+  max-width: 18em;
+  min-width: 8em;
+  margin: 10px auto;
+  padding: 2px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  width: 20%;
+}
 
-  .legend-control {
-    display: block;
-  }
+.leaflet-control-mouseposition {
+  flex-shrink: 0;
+  text-align: center;
+  width: 120px;
+}
 
-  .leaflet-control-mouseposition + .legend-control {
-    height: 52px;
-    left: -72px;
-    position: absolute;
-    width: 144px;
-    top: -29px;
+@media screen and (min-width: 520px) {
+
+  /* place scenario branding at bottom on small screens */
+  .scenario-badge {
+    bottom: auto;
+    top: 0;
   }
 }
 
-@media screen and (max-width: 783px) {
+@media screen and (max-width: 840px) {
 
   /* Two modes enabled (including map), window is below 740px. */
   .mode-list .leaflet-control-mouseposition,
@@ -48,7 +68,7 @@
   }
 }
 
-@media screen and (max-width: 1090px) {
+@media screen and (max-width: 1150px) {
 
   /* All three modes enabled, window is below 1090px. */
   .mode-list.mode-settings .leaflet-control-mouseposition,

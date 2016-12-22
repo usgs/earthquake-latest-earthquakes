@@ -1,3 +1,4 @@
+/* global SEARCH_PATH */
 'use strict';
 
 var ModalView = require('mvc/ModalView'),
@@ -74,7 +75,7 @@ var FeedWarningView = function (options) {
 
     p = document.createElement('p');
     p.innerHTML = [
-      '<a class="catalog-anchor" href="/earthquakes/search/', // TODO :: Configurable?
+      '<a class="catalog-anchor" href="', SEARCH_PATH,
         window.location.hash, '">Modify Search</a>',
         '<small class="catalog-action-description">', helpText, '</small>'
     ].join('');

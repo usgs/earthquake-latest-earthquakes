@@ -1,3 +1,4 @@
+/* global SCENARIO_MODE */
 'use strict';
 
 
@@ -253,7 +254,21 @@ var DefaultListFormat = function (options) {
    *     The value to display as the item's "subheader" information.
    */
   _this.getSubheaderMarkup = function (eq) {
-    return _formatter.datetime(_this.getProperty(eq, 'time'), _timezoneOffset);
+    var sources;
+
+    if (!SCENARIO_MODE) {
+      return _formatter.datetime(_this.getProperty(eq, 'time'), _timezoneOffset);
+    } else {
+      // if an event can belong to multiple catalogs
+      sources = _this.getProperty(eq, 'sources');
+      // Strips off leading & trailing comma
+      sources = sources.replace(/^,|,$/g, '');
+      // Replaces remaining commas with a comma followed by a space.
+      sources = sources.replace(/,/g, ', ');
+      sources = sources.toUpperCase();
+
+      return sources;
+    }
   };
 
   /**

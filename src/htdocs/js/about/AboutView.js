@@ -106,7 +106,7 @@ var AboutView = function (options) {
           '</a>',
         '</li>',
         '<li>',
-          '<a href="http://earthquake.usgs.gov/">',
+          '<a href="https://earthquake.usgs.gov/">',
             'Earthquake Hazards Program',
           '</a>',
         '</li>',

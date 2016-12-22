@@ -2,9 +2,7 @@
 
 var Config = require('core/Config'),
     DefaultListFormat = require('list/DefaultListFormat'),
-    DyfiListFormat = require('list/DyfiListFormat'),
     Grayscale = require('leaflet/layer/Grayscale'),
-    PagerListFormat = require('list/PagerListFormat'),
     Satellite = require('leaflet/layer/Satellite'),
     ShakeMapListFormat = require('list/ShakeMapListFormat'),
     Street = require('leaflet/layer/Street'),
@@ -16,13 +14,6 @@ var Config = require('core/Config'),
 
 
 var _DEFAULTS = {
-
-  autoUpdate: [
-    {
-      'id': 'autoUpdate',
-      'name': 'Auto Update'
-    }
-  ],
 
   basemap: [
     {
@@ -51,57 +42,7 @@ var _DEFAULTS = {
 
   'event': {},
 
-  feed: [
-    {
-      'id': '1day_m25',
-      'name' : '1 Day - <abbr title="Magnitude">M</abbr>2.5+ U.S./<abbr title="Magnitude">M</abbr>4.5+ World',
-      'url' : '/earthquakes/feed/v1.0/summary/2.5_day.geojson',
-      'autoUpdate': 60 * 1000
-    },
-    {
-      'id': '1day_all',
-      'name' : '1 Day - All Mags U.S./<abbr title="Magnitude">M</abbr>4.5+ World',
-      'url' : '/earthquakes/feed/v1.0/summary/all_day.geojson',
-      'autoUpdate': 60 * 1000
-    },
-    {
-      'id': '7day_m45',
-      'name' : '7 Days - <abbr title="Magnitude">M</abbr>4.5+ U.S. and World',
-      'url' : '/earthquakes/feed/v1.0/summary/4.5_week.geojson',
-      'autoUpdate': 60 * 1000
-    },
-    {
-      'id': '7day_m25',
-      'name' : '7 Days - <abbr title="Magnitude">M</abbr>2.5+U.S./<abbr title="Magnitude">M</abbr>4.5+ World',
-      'url' : '/earthquakes/feed/v1.0/summary/2.5_week.geojson',
-      'autoUpdate': 60 * 1000
-    },
-    {
-      'id': '7day_all',
-      'name' : '7 Days - All Mags U.S./<abbr title="Magnitude">M</abbr>4.5+ World',
-      'url' : '/earthquakes/feed/v1.0/summary/all_week.geojson',
-      'autoUpdate': 60 * 1000
-    },
-    // Added Significant feed here
-    {
-      'id': '30day_sig',
-      'name': '30 Days - Significant U.S. and World',
-      'url': '/earthquakes/feed/v1.0/summary/significant_month.geojson',
-      'autoUpdate': 15 * 60 * 1000
-    },
-    {
-      'id': '30day_m45',
-      'name' : '30 Days - M4.5+ U.S. and World',
-      'url' : '/earthquakes/feed/v1.0/summary/4.5_month.geojson',
-      'autoUpdate': 15 * 60 * 1000
-    },
-    {
-      'id': '30day_m25',
-      'name' : '30 Days - M2.5+ U.S./M4.5+ World',
-      'url' : '/earthquakes/feed/v1.0/summary/2.5_month.geojson',
-      'autoUpdate': 15 * 60 * 1000
-    }
-  ],
+  feed: [],
 
   listFormat: [
     {
@@ -110,19 +51,9 @@ var _DEFAULTS = {
       'format': DefaultListFormat()
     },
     {
-      'id': 'dyfi',
-      'name': 'DYFI',
-      'format': DyfiListFormat()
-    },
-    {
       'id': 'shakemap',
       'name': 'ShakeMap',
       'format': ShakeMapListFormat()
-    },
-    {
-      'id': 'losspager',
-      'name': 'PAGER',
-      'format': PagerListFormat()
     }
   ],
 
@@ -185,20 +116,6 @@ var _DEFAULTS = {
 
   sort: [
     {
-      'id': 'newest',
-      'name' : 'Newest first',
-      'sort' : function (a, b) {
-        return b.properties.time - a.properties.time;
-      }
-    },
-    {
-      'id': 'oldest',
-      'name' : 'Oldest first',
-      'sort' : function (a, b) {
-        return a.properties.time - b.properties.time;
-      }
-    },
-    {
       'id': 'largest',
       'name' : 'Largest magnitude first',
       'sort' : function (a, b) {
@@ -211,19 +128,6 @@ var _DEFAULTS = {
       'sort' : function (a, b) {
         return a.properties.mag - b.properties.mag;
       }
-    }
-  ],
-
-  timezone: [
-    {
-      'id': 'utc',
-      'name': '<abbr title="Coordinated Universal Time">UTC</abbr>',
-      'offset': 0
-    },
-    {
-      'id': 'local',
-      'name': 'Local System Time',
-      'offset': -1 * new Date().getTimezoneOffset()
     }
   ]
 
@@ -248,8 +152,6 @@ var _DEFAULTS = {
  *       name {String} display name
  *       url {String}
  *           url for catalog
- *       autoUpdate {Number}
- *           interval in milliseconds for auto update, or null to disable.
  * @param options.listFormats {Array<Object>}
  *     list formats.
  *     each list format object should have these properties:
@@ -281,7 +183,7 @@ var _DEFAULTS = {
  *       offset {Number}
  *           timezone offset in minutes. 0 for utc.
  */
-var LatestEarthquakesConfig = function (options) {
+var ScenariosConfig = function (options) {
   var _this;
 
 
@@ -293,4 +195,4 @@ var LatestEarthquakesConfig = function (options) {
 };
 
 
-module.exports = LatestEarthquakesConfig;
+module.exports = ScenariosConfig;

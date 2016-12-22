@@ -171,6 +171,19 @@ describe('DefaultListFormat', function () {
       expect(timeSpy.callCount).to.equal(1);
       timeSpy.restore();
     });
+
+    it('returns string formatted correctly when in scenario mode', function () {
+      var source;
+
+      window.SCENARIO_MODE = true;
+
+      source = defaultListFormat.getSubheaderMarkup(
+          {properties: {'sources': ',test,test,test,'}});
+
+      expect(source).to.equal('TEST, TEST, TEST');
+
+      window.SCENARIO_MODE = false;
+    });
   });
 
   describe('setTimezoneOffset', function () {

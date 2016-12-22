@@ -1,9 +1,10 @@
-/* global L */
+/* global L, SCENARIO_MODE */
 'use strict';
 
 require('leaflet/control/MousePosition');
 require('leaflet/control/ZoomToControl');
 require('map/LegendControl');
+require('map/ScenarioLegendControl');
 
 var EarthquakeLayer = require('map/EarthquakeLayer'),
     MapUtil = require('core/MapUtil'),
@@ -105,13 +106,24 @@ var MapView = function (options) {
     });
 
     _this.map.addLayer(_earthquakes);
-    L.control.legendControl().addTo(_this.map);
-    L.control.scale().addTo(_this.map);
-    L.control.zoomToControl({locations:options.locations}).addTo(_this.map);
 
+    // position all controls bottomright
     if (!Util.isMobile()) {
       L.control.mousePosition().addTo(_this.map);
     }
+    if (SCENARIO_MODE) {
+      L.control.scenarioLegendControl().addTo(_this.map);
+      _this.createScenarioBadge();
+    } else {
+      L.control.legendControl().addTo(_this.map);
+    }
+    L.control.scale({'position': 'bottomright'}).addTo(_this.map);
+
+    L.control.zoomToControl({
+      'locations': options.locations,
+      'position': 'topright'
+    }).addTo(_this.map);
+
 
     _this.map.on('click', _onClick, _this);
     _this.map.on('moveend', _onMoveEnd, _this);
@@ -143,6 +155,20 @@ var MapView = function (options) {
    */
   _onMoveEnd = function () {
     _this.onMoveEnd();
+  };
+
+  _this.createScenarioBadge = function () {
+    var badge;
+
+    badge = document.createElement('div');
+    badge.classList.add(
+      'scenario-badge',
+      'leaflet-control',
+      'alert',
+      'warning'
+    );
+    badge.innerHTML = 'Scenarios';
+    _this.el.appendChild(badge);
   };
 
   _this.deselectEventonMoveEnd = function () {

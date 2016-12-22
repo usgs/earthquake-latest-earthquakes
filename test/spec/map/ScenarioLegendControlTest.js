@@ -2,24 +2,24 @@
 'use strict';
 
 
-var LegendControl = require('map/LegendControl');
+var ScenarioLegendControl = require('map/ScenarioLegendControl');
 
 
 var expect = chai.expect;
 
 
-describe('map/LegendControl', function () {
+describe('map/ScenarioLegendControl', function () {
   describe('constructor', function () {
     it('Can be required', function () {
       /* jshint -W030 */
-      expect(LegendControl).to.not.be.null;
+      expect(ScenarioLegendControl).to.not.be.null;
       /* jshint +W030 */
     });
 
     it('Can be instantiated', function () {
       var control;
 
-      control = LegendControl();
+      control = ScenarioLegendControl();
 
       /* jshint -W030 */
       expect(control).to.not.be.null;
@@ -32,7 +32,7 @@ describe('map/LegendControl', function () {
       var control,
           result;
 
-      control = LegendControl();
+      control = ScenarioLegendControl();
       result = control.onAdd();
 
       /* jshint -W030 */
@@ -41,7 +41,7 @@ describe('map/LegendControl', function () {
           .to.be.true;
       expect(result.querySelectorAll('.magnitude-legend').length)
           .to.equal(1);
-      expect(result.querySelectorAll('.age-legend').length)
+      expect(result.querySelectorAll('.intensity-legend').length)
           .to.equal(1);
       /* jshint +W030 */
     });

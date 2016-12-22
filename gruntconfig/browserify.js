@@ -44,6 +44,7 @@ ALL_CLASSES = getAliases(JS, [
   'latesteqs/LatestEarthquakes',
   'latesteqs/LatestEarthquakesConfig',
   'latesteqs/LatestEarthquakesUrlManager',
+  'latesteqs/ScenariosConfig',
 
   'list/DefaultListFormat',
   'list/DownloadView',
@@ -56,6 +57,7 @@ ALL_CLASSES = getAliases(JS, [
   'map/EarthquakeLayer',
   'map/LegendControl',
   'map/MapView',
+  'map/ScenarioLegendControl',
 
   'modes/ModesView',
 

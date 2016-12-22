@@ -128,6 +128,45 @@ describe('latesteqs/Catalog', function () {
       catalog.loadUrl.restore();
       catalog.destroy();
     });
+
+    it('updates mapposition when catalog changes', function () {
+      var args,
+          bbox,
+          catalog,
+          stub;
+
+      bbox = [1,2,3,4];
+
+      catalog = Catalog({
+        model: Model({
+          'feed': {
+            id: 'abc',
+            url: 'test url',
+            bbox: bbox
+          }
+        })
+      });
+
+      stub = sinon.stub(catalog.model, 'set', function () {});
+      catalog.load();
+
+      args = stub.getCall(0).args;
+      expect(args[0]).to.deep.equal({
+        'mapposition': [
+          [
+            2,
+            1
+          ],
+          [
+            4,
+            3
+          ]
+        ]
+      });
+
+      stub.restore();
+      catalog.destroy();
+    });
   });
 
   describe('loadQuery', function () {
