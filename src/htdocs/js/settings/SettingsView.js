@@ -73,8 +73,8 @@ var SettingsView = function (options) {
     // disclaimer text
     _disclaimerEl.className = 'disclaimer';
     _disclaimerEl.innerHTML = 'All lists include most worldwide ' +
-        'events magnitude 4.5+ &hellip; ' +
-        '<a href="/data/comcat/data-availability.php">read more</a>';
+        'events magnitude 4.5 and greater, ' +
+        '<a href="/data/comcat/data-availability.php">read more</a>.';
 
 
     // append sections to _this.content
