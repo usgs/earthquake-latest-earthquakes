@@ -16,6 +16,7 @@ var SettingsView = function (options) {
 
       _autoUpdateEl,
       _config,
+      _disclaimerEl,
       _feedsEl,
       _restrictListToMapEl,
       _listFormatEl,
@@ -52,6 +53,7 @@ var SettingsView = function (options) {
 
     // create sections
     _autoUpdateEl = document.createElement('section');
+    _disclaimerEl = document.createElement('p');
     _feedsEl = document.createElement('section');
     _restrictListToMapEl = document.createElement('section');
     _listFormatEl = document.createElement('section');
@@ -61,9 +63,18 @@ var SettingsView = function (options) {
     _searchEl = document.createElement('section');
     _timezoneEl = document.createElement('section');
 
+    // disclaimer text
+    _disclaimerEl.className = 'disclaimer';
+    _disclaimerEl.innerHTML = '<b>Note: </b>' +
+        'These should not be considered to be complete lists of all ' +
+        'events in the US and adjacent areas and especially should not be ' +
+        'considered to be complete lists of all events M4.5+ in the world.';
+
+
     // append sections to _this.content
     _this.content.appendChild(_autoUpdateEl);
     _this.content.appendChild(_feedsEl);
+    _this.content.appendChild(_disclaimerEl);
     _this.content.appendChild(_searchEl);
     _this.content.appendChild(_listFormatEl);
     _this.content.appendChild(_listSortEl);
@@ -86,6 +97,7 @@ var SettingsView = function (options) {
 
     _autoUpdateEl = null;
     _config = null;
+    _disclaimerEl = null;
     _feedsEl = null;
     _restrictListToMapEl = null;
     _listFormatEl = null;
