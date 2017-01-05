@@ -1,4 +1,4 @@
-/* favorite */
+/* legend toggle */
 .legend-container.show {
   position: relative;
 
@@ -46,38 +46,8 @@
 }
 
 
-
-/* second favorite */
-.legend-container > .expand-button {
-  display: none;
-}
-
-.expand-button.hidden + .legend-control-item,
-.expand-button.hidden + .legend-control-item + .legend-control-item {
-  display: none;
-}
-
-.expand-button {
-  width: 100%;
-  text-align: left;
-  font-size: 14px;
-
-  &:before {
-    content: '\e5cf';
-    display: inline-block;
-    font-family: 'Material Icons';
-    margin-right: 1em;
-    vertical-align: top;
-  }
-}
-
-.expand-button.hidden:before {
-  content: '\e5ce';
-}
-
-
+/* legend, hide on small screens */
 .legend-control {
-  /* hide on small screens */
   display: none;
   flex-direction: row;
   flex-wrap: wrap;

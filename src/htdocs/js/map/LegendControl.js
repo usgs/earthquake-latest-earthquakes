@@ -25,7 +25,6 @@ var LegendControl = L.Control.extend({
 
     container.innerHTML = [
     '<div class="legend-container hide">',
-      '<button class="expand-button" alt="expand">show legend</button>',
       '<div class="legend-control-item">',
         '<h5>Magnitude</h5>',
         '<ol class="magnitude-legend">',

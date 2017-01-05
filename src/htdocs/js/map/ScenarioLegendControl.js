@@ -25,8 +25,7 @@ var ScenarioLegendControl = L.Control.extend({
 
     container.innerHTML = [
       '<div class="legend-container hide">',
-        '<div class="legend-control-item hide">',
-          '<button class="expand-button" alt="expand">show legend</button>',
+        '<div class="legend-control-item">',
           '<h5>Magnitude</h5>',
           '<ol class="magnitude-legend">',
             '<li class="earthquake-marker eq-type-eq eq-mag-0"></li>',
