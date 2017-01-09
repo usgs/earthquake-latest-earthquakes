@@ -16,7 +16,9 @@ var SettingsView = function (options) {
 
       _autoUpdateEl,
       _config,
+      _disclaimerEl,
       _feedsEl,
+      _feedsHeaderEl,
       _restrictListToMapEl,
       _listFormatEl,
       _listSortEl,
@@ -52,7 +54,9 @@ var SettingsView = function (options) {
 
     // create sections
     _autoUpdateEl = document.createElement('section');
+    _disclaimerEl = document.createElement('p');
     _feedsEl = document.createElement('section');
+    _feedsHeaderEl = document.createElement('h4');
     _restrictListToMapEl = document.createElement('section');
     _listFormatEl = document.createElement('section');
     _listSortEl = document.createElement('section');
@@ -61,7 +65,21 @@ var SettingsView = function (options) {
     _searchEl = document.createElement('section');
     _timezoneEl = document.createElement('section');
 
+
+    // feeds section header
+    _feedsHeaderEl.innerHTML = (SCENARIO_MODE ? 'Scenario ' : '') +
+        'Earthquakes';
+
+    // disclaimer text
+    _disclaimerEl.className = 'disclaimer';
+    _disclaimerEl.innerHTML = 'All lists include most worldwide ' +
+        'events magnitude 4.5 and greater, ' +
+        '<a href="/data/comcat/data-availability.php">read more</a>.';
+
+
     // append sections to _this.content
+    _this.content.appendChild(_feedsHeaderEl);
+    _this.content.appendChild(_disclaimerEl);
     _this.content.appendChild(_autoUpdateEl);
     _this.content.appendChild(_feedsEl);
     _this.content.appendChild(_searchEl);
@@ -86,7 +104,9 @@ var SettingsView = function (options) {
 
     _autoUpdateEl = null;
     _config = null;
+    _disclaimerEl = null;
     _feedsEl = null;
+    _feedsHeaderEl = null;
     _restrictListToMapEl = null;
     _listFormatEl = null;
     _listSortEl = null;
@@ -129,7 +149,7 @@ var SettingsView = function (options) {
         el: _autoUpdateEl,
         collection: _config.options.autoUpdate,
         model: _this.model,
-        title: 'Earthquakes',
+        title: null,
         watchProperty: 'autoUpdate'
       });
       autoUpdateView.render();
@@ -140,7 +160,7 @@ var SettingsView = function (options) {
       el: _feedsEl,
       collection: _config.options.feed,
       model: _this.model,
-      title: SCENARIO_MODE ? 'Scenario Earthquakes' : null,
+      title: null,
       watchProperty: 'feed'
     });
     feedsView.render();
