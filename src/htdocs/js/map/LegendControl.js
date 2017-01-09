@@ -14,7 +14,8 @@ var LegendControl = L.Control.extend({
    * Creates a control, to later be added to the map.
    */
   onAdd: function (/* map */) {
-    var container;
+    var container,
+        legend;
 
     // create the control container with a particular class name¬
     container = L.DomUtil.create(
@@ -23,6 +24,7 @@ var LegendControl = L.Control.extend({
     );
 
     container.innerHTML = [
+    '<div class="legend-container hide">',
       '<div class="legend-control-item">',
         '<h5>Magnitude</h5>',
         '<ol class="magnitude-legend">',
@@ -59,8 +61,24 @@ var LegendControl = L.Control.extend({
             '<span class="earthquake-marker eq-age-older"></span>',
             '<span>Older</span>',
           '</li>',
-        '</div>'
+        '</div>',
+        '<div class="legend-container-message">',
+          '<div class="collapsed">show legend</div>',
+          '<div class="expanded">hide legend</div>',
+        '</div>',
+      '</div>'
     ].join('');
+
+    legend = container.querySelector('.legend-container');
+    legend.addEventListener('click', function () {
+      if (this.classList.contains('hide')) {
+        this.classList.remove('hide');
+        this.classList.add('show');
+      } else {
+        this.classList.remove('show');
+        this.classList.add('hide');
+      }
+    });
 
     return container;
   }
