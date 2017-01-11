@@ -7,13 +7,9 @@
   width: 100%;
 }
 
-.scenario-legend-control {
-  display: none;
-}
-
 /* Keeps screen from zooming when input is selected on mobile devices */
 .zoomto-control {
-  font-size: 16px;
+  font-size: auto;
 }
 
 .map-view {
@@ -29,9 +25,8 @@
 .scenario-badge {
   background-color: #fdf7dc;
   bottom: 0;
-  font-size: 16px;
   left: 0;
-  line-height: 2.5em;
+  line-height: 35px;
   max-width: 18em;
   min-width: 8em;
   margin: 10px auto;
@@ -48,6 +43,14 @@
   width: 120px;
 }
 
+@media screen and (max-width: 520px) {
+
+  /* Keeps screen from zooming when input is selected on mobile devices */
+  .zoomto-control {
+    font-size: 16px;
+  }
+}
+
 @media screen and (min-width: 520px) {
 
   /* place scenario branding at bottom on small screens */
@@ -55,6 +58,7 @@
     bottom: auto;
     top: 0;
   }
+
 }
 
 @media screen and (max-width: 840px) {
