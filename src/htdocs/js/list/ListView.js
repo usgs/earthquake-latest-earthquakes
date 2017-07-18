@@ -61,6 +61,7 @@ var ListView = function (options) {
       _headerUpdateTime,
       _listFormat,
       _noDataMessage,
+      _searchParameterList,
 
       _createScaffold;
 
@@ -101,6 +102,7 @@ var ListView = function (options) {
       '<h3 class="header-title"></h3>' +
       '<span class="header-count accordion-toggle"></span>' +
       '<div class="accordion-content header-info-content">' +
+        '<div class="search-parameter-list"></div>' +
         '<p class="header-update-time"></p>' +
         '<button class="download-button blue" type="button">' +
           'Download Earthquakes' +
@@ -111,10 +113,13 @@ var ListView = function (options) {
       el: _this.header
     });
 
+    _this.model.on('change:feed', 'displaySearchParameters', _this);
+
     _headerTitle = _this.header.querySelector('.header-title');
     _headerCount = _this.header.querySelector('.header-count');
     _headerUpdateTime = _this.header.querySelector('.header-update-time');
     _downloadButton = _this.header.querySelector('button');
+    _searchParameterList = _this.header.querySelector('.search-parameter-list');
 
     _downloadView = DownloadView({
       model: _this.model,
@@ -126,6 +131,39 @@ var ListView = function (options) {
     });
 
     _downloadButton.addEventListener('click', _this.onButtonClick);
+  };
+
+  _this.displaySearchParameters = function () {
+    var buf,
+        feed,
+        key,
+        metadata,
+        params,
+        updateTime;
+
+    buf = [];
+    feed = this.model.get('feed') || {};
+    params = feed.params;
+
+    if (feed.isSearch) {
+      for(key in params) {
+        buf.push(
+          '<dt>' + key + '</dt>' +
+          '<dd>' + params[key] + '</dd>'
+        );
+      }
+    }
+
+    metadata = _this.collection.metadata || {};
+    updateTime = _formatter.datetime(metadata.generated, false);
+    if (updateTime) {
+      buf.push(
+        '<dt>updated</dt>' +
+        '<dd>' + updateTime + '</dd>'
+      );
+    }
+
+    _searchParameterList.innerHTML = '<dl>' + buf.join('') + '</dl>';
   };
 
   /**
