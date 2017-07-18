@@ -50,6 +50,7 @@ ALL_CLASSES = getAliases(JS, [
   'list/DownloadView',
   'list/DyfiListFormat',
   'list/ListView',
+  'list/MetadataView',
 
   'list/PagerListFormat',
   'list/ShakeMapListFormat',

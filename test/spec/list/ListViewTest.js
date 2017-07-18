@@ -3,7 +3,6 @@
 
 
 var Catalog = require('latesteqs/Catalog'),
-    Collection = require('mvc/Collection'),
     ListView = require('list/ListView'),
     Model = require('mvc/Model');
 
@@ -104,7 +103,8 @@ describe('list/ListView', function () {
   describe('renderHeader', function () {
     it('creates header markup as expected', function (done) {
       var catalog,
-          view;
+          view,
+          stub;
 
       catalog = Catalog({
         model: Model({
@@ -130,10 +130,12 @@ describe('list/ListView', function () {
         })
       });
 
+      stub = sinon.stub(view.metadataView, 'render', function () {
+        return;
+      });
+
       catalog.on('reset', function () {
-        expect(view.header.querySelector('.header-title').innerHTML).to.equal('7 Days, Magnitude 2.5+ Worldwide');
-        expect(view.header.querySelector('.header-count').innerHTML).to.equal('245 earthquakes.');
-        expect(view.header.querySelector('.header-update-time').innerHTML).to.equal('Updated: 2016-04-12 21:50:46 (UTC)');
+        expect(stub.callCount).to.not.equal(0);
 
         view.destroy();
         done();
@@ -142,22 +144,6 @@ describe('list/ListView', function () {
       catalog.loadUrl('/feeds/2.5_week.json', null, catalog.onLoadSuccess);
 
     });
-  });
-
-  describe('formatCountInfo', function () {
-    var view;
-
-    view = ListView();
-
-    it('shows X of Y earthquakes if restrict is true', function () {
-      expect(view.formatCountInfo(9, 3, true)).to.equal('3 of 9 earthquakes in map area.');
-    });
-
-    it('shows Y earthquakes if restrict is False', function () {
-      expect(view.formatCountInfo(9, 3, false)).to.equal('9 earthquakes.');
-    });
-
-    view.destroy();
   });
 
   describe('filterEvents', function () {
@@ -223,35 +209,6 @@ describe('list/ListView', function () {
 
     spy.restore();
     view.destroy();
-  });
-
-  describe('getDataToRender', function () {
-    it('gets the filtered data from the collection to render', function () {
-      var collection,
-          data,
-          view;
-
-      collection = Collection([
-        {'id': 'item-1', 'value': 'value-1'},
-        {'id': 'item-2', 'value': 'value-2'},
-        {'id': 'item-3', 'value': 'value-3'}
-      ]);
-
-      view = ListView({collection: collection});
-      sinon.stub(view, 'filterEvents', function () {
-        return 'filterEvents';
-      });
-
-      view.filterEnabled = false;
-      data = view.getDataToRender();
-      expect(data.length).to.equal(collection.data().length);
-
-      view.filterEnabled = true;
-      data = view.getDataToRender();
-      expect(data).to.equal('filterEvents');
-
-      view.destroy();
-    });
   });
 
 });

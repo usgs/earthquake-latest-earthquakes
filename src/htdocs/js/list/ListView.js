@@ -2,12 +2,10 @@
 'use strict';
 
 
-var Accordion = require('accordion/Accordion'),
-    DownloadView = require('list/DownloadView'),
-    Formatter = require('core/Formatter'),
+var Formatter = require('core/Formatter'),
     GenericCollectionView = require('core/GenericCollectionView'),
     MapUtil = require('core/MapUtil'),
-    ModalView = require('mvc/ModalView'),
+    MetadataView = require('list/MetadataView'),
     Util = require('util/Util');
 
 
@@ -29,7 +27,6 @@ _DEFAULT_FORMAT = {
 _DEFAULTS = {
   classPrefix: 'list-view',
   containerNodeName: 'ol',
-  noDataMessage: 'There are no events in the current feed.',
   watchProperty: 'event'
 };
 
@@ -59,11 +56,7 @@ var ListView = function (options) {
       _headerCount,
       _headerTitle,
       _headerUpdateTime,
-      _listFormat,
-      _noDataMessage,
-      _searchParameterList,
-
-      _createScaffold;
+      _listFormat;
 
 
   options = Util.extend({}, _DEFAULTS, options);
@@ -78,7 +71,6 @@ var ListView = function (options) {
    */
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
-    _noDataMessage = options.noDataMessage;
 
     _this.filterEnabled = false;
     _this.mapEnabled = false;
@@ -88,82 +80,11 @@ var ListView = function (options) {
     _this.model.on('change:restrictListToMap', 'onRestrictListToMap', _this);
     _this.footer.addEventListener('click', _this.onFooterClick);
 
-    _createScaffold();
-  };
-
-  /**
-   * Creates scaffolding for list view header.
-   */
-  _createScaffold = function () {
-    _this.header.classList.add('accordion');
-    _this.header.classList.add('accordion-closed');
-
-    _this.header.innerHTML =
-      '<h3 class="header-title"></h3>' +
-      '<span class="header-count accordion-toggle"></span>' +
-      '<div class="accordion-content header-info-content">' +
-        '<div class="search-parameter-list"></div>' +
-        '<p class="header-update-time"></p>' +
-        '<button class="download-button blue" type="button">' +
-          'Download Earthquakes' +
-        '</button>' +
-      '</div>';
-
-    Accordion({
-      el: _this.header
+    _this.metadataView = MetadataView({
+      el: _this.header,
+      collection: _this.collection,
+      model: _this.model
     });
-
-    _this.model.on('change:feed', 'displaySearchParameters', _this);
-
-    _headerTitle = _this.header.querySelector('.header-title');
-    _headerCount = _this.header.querySelector('.header-count');
-    _headerUpdateTime = _this.header.querySelector('.header-update-time');
-    _downloadButton = _this.header.querySelector('button');
-    _searchParameterList = _this.header.querySelector('.search-parameter-list');
-
-    _downloadView = DownloadView({
-      model: _this.model,
-      collection: _this.collection
-    });
-
-    _downloadModal = ModalView(_downloadView.el, {
-      title: 'Download'
-    });
-
-    _downloadButton.addEventListener('click', _this.onButtonClick);
-  };
-
-  _this.displaySearchParameters = function () {
-    var buf,
-        feed,
-        key,
-        metadata,
-        params,
-        updateTime;
-
-    buf = [];
-    feed = this.model.get('feed') || {};
-    params = feed.params;
-
-    if (feed.isSearch) {
-      for(key in params) {
-        buf.push(
-          '<dt>' + key + '</dt>' +
-          '<dd>' + params[key] + '</dd>'
-        );
-      }
-    }
-
-    metadata = _this.collection.metadata || {};
-    updateTime = _formatter.datetime(metadata.generated, false);
-    if (updateTime) {
-      buf.push(
-        '<dt>updated</dt>' +
-        '<dd>' + updateTime + '</dd>'
-      );
-    }
-
-    _searchParameterList.innerHTML = '<dl>' + buf.join('') + '</dl>';
   };
 
   /**
@@ -195,7 +116,6 @@ var ListView = function (options) {
    *
    */
   _this.destroy = Util.compose(function () {
-    _downloadButton.removeEventListener('click', _this.onButtonClick);
     _this.footer.removeEventListener('click', _this.onFooterClick);
 
     _this.model.off('change:listFormat', 'render', _this);
@@ -211,8 +131,6 @@ var ListView = function (options) {
     _headerTitle = null;
     _headerUpdateTime = null;
     _listFormat = null;
-
-    _createScaffold = null;
 
     _initialize = null;
     _this = null;
@@ -270,54 +188,6 @@ var ListView = function (options) {
     if (target.classList.contains('settings-link')) {
       _this.onSettingsLinkClick();
     }
-  };
-
-  /**
-   * Formats earthquake count information
-   *
-   * @param number (totalCount)
-   *    number of total earthquakes.
-   * @param number (displayCount)
-   *    Number of earthquakes visable on map.
-   * @param boolean (restrict)
-   *    true or false.
-   */
-  _this.formatCountInfo = function (totalCount, displayCount, restrict) {
-    var countInfo;
-
-    if (restrict) {
-      countInfo = displayCount + ' of ' + totalCount +
-          ' earthquakes in map area.';
-    } else {
-      countInfo = totalCount + ' earthquakes.';
-    }
-
-    return countInfo;
-  };
-
-  /**
-   * Return all filtered data.
-   *
-   * @return {Array}
-   *    An array of features.
-   */
-  _this.getDataToRender = function () {
-    var data;
-
-    data = _this.collection.data().slice(0);
-
-    if (_this.filterEnabled) {
-      data = _this.filterEvents(data);
-    }
-
-    return data;
-  };
-
-  /**
-   * Shows download view when button is clicked.
-   */
-  _this.onButtonClick = function () {
-    _downloadModal.show();
   };
 
   /**
@@ -422,27 +292,10 @@ var ListView = function (options) {
   };
 
   /**
-   * Render the header information.
+   * Render the header information
    */
   _this.renderHeader = function () {
-    var displayCount,
-        headerCount,
-        headerTitle,
-        metadata,
-        totalCount,
-        updateTime;
-
-    metadata = _this.collection.metadata || {};
-    headerTitle = _this.model.get('feed').name;
-    totalCount = metadata.hasOwnProperty('count') ? metadata.count : '&ndash;';
-    displayCount = _this.getDataToRender().length;
-    headerCount = _this.formatCountInfo(totalCount, displayCount,
-        _this.filterEnabled);
-    updateTime = _formatter.datetime(metadata.generated, false);
-
-    _headerTitle.innerHTML = headerTitle;
-    _headerCount.innerHTML = headerCount;
-    _headerUpdateTime.innerHTML = 'Updated: ' + updateTime;
+    _this.metadataView.render();
   };
 
 
