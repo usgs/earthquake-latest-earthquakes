@@ -1,3 +1,4 @@
+/* global SEARCH_PATH */
 'use strict';
 
 
@@ -9,8 +10,9 @@ var Accordion = require('accordion/Accordion'),
     ModalView = require('mvc/ModalView'),
     Util = require('util/Util');
 
-
-var _DEFAULTS = {};
+var _DEFAULTS = {
+  noDataMessage: 'There are no events in the current feed.',
+};
 
 
 /**
@@ -49,8 +51,12 @@ var MetadataView = function (options) {
    *
    */
   _this.destroy = Util.compose(function () {
-    _this.downloadButton.removeEventListener('click', _this.onButtonClick);
+    _this.downloadButtonEl.removeEventListener('click', _this.onButtonClick);
+    _this.searchButton.removeEventListener('click', _this.onSearchButtonClick,
+        _this);
     _this.model.on('change', 'render', _this);
+    _this.model.off('change:feed', 'displaySearchParameters', _this);
+    _this.collection.off('reset', 'render', _this);
     _initialize = null;
     _this = null;
   }, _this.destroy);
@@ -64,10 +70,13 @@ var MetadataView = function (options) {
       '<h3 class="header-title"></h3>' +
       '<span class="header-count accordion-toggle"></span>' +
       '<div class="accordion-content header-info-content">' +
-        '<dl class="search-parameter-list"></dl>' +
-        '<button class="download-button blue" type="button">' +
-          'Download' +
-        '</button>' +
+        '<h4 class="download-title"></h4>' +
+        '<dl>' +
+          '<dt>Last Updated</dt>' +
+          '<dd class="feed-update-time"></dd>' +
+        '</dl>' +
+        '<button class="download-button blue" type="button">Download</button>' +
+        '<div class="search-parameter-view"><div>' +
       '</div>';
 
     Accordion({
@@ -75,10 +84,12 @@ var MetadataView = function (options) {
     });
 
     _this.titleEl = _this.el.querySelector('.header-title');
+    _this.downloadTitleEl = _this.el.querySelector('.download-title');
     _this.countEl = _this.el.querySelector('.header-count');
-    _this.downloadButtonEl = _this.el.querySelector('button');
-    _this.searchParameterListEl =
-        _this.el.querySelector('.search-parameter-list');
+    _this.downloadButtonEl = _this.el.querySelector('.download-button');
+    _this.feedUpdateTimeEL = _this.el.querySelector('.feed-update-time');
+    _this.searchParameterViewEl =
+        _this.el.querySelector('.search-parameter-view');
 
     _this.downloadView = DownloadView({
       model: _this.model,
@@ -150,8 +161,7 @@ var MetadataView = function (options) {
         headerCount,
         headerTitle,
         metadata,
-        totalCount,
-        updateTime;
+        totalCount;
 
     metadata = _this.collection.metadata || {};
     headerTitle = _this.model.get('feed').name;
@@ -159,47 +169,58 @@ var MetadataView = function (options) {
     displayCount = _this.getDataToRender().length;
     headerCount = _this.formatCountInfo(totalCount, displayCount,
         _this.filterEnabled);
-    updateTime = _this.formatter.datetime(metadata.generated, false);
 
+    _this.feedUpdateTimeEL.innerHTML =
+        _this.formatter.datetime(metadata.generated);
     _this.titleEl.innerHTML = headerTitle;
+    _this.downloadTitleEl.innerHTML = headerTitle;
     _this.countEl.innerHTML = headerCount;
 
     _this.displaySearchParameters();
   };
 
-
   _this.displaySearchParameters = function () {
     var buf,
         feed,
         key,
-        metadata,
-        params,
-        updateTime;
+        params;
 
-    buf = [];
     feed = this.model.get('feed') || {};
-    params = feed.params;
 
+    // only display if feed is a search
     if (feed.isSearch) {
-      for(key in params) {
+      buf = [];
+      params = feed.params;
+
+      for (key in params) {
         buf.push(
           '<dt>' + key + '</dt>' +
           '<dd>' + params[key] + '</dd>'
         );
       }
-    }
 
-    metadata = _this.collection.metadata || {};
-    updateTime = _this.formatter.datetime(metadata.generated, false);
-    if (updateTime) {
-      buf.push(
-        '<dt>updated</dt>' +
-        '<dd>' + updateTime + '</dd>'
-      );
-    }
+      _this.searchParameterViewEl.innerHTML = '<h4>Search Parameters</h4>' +
+          '<dl class="search-parameter-list">' + buf.join('') + '</dl>';
 
-    _this.searchParameterListEl.innerHTML = '<dl>' + buf.join('') + '</dl>';
-   };
+      if (!_this.searchButton) {
+        _this.renderSearchButton();
+      }
+      _this.searchParameterViewEl.appendChild(_this.searchButton);
+    }
+  };
+
+  _this.renderSearchButton = function () {
+    _this.searchButton = document.createElement('button');
+    _this.searchButton.addEventListener('click', _this.onSearchButtonClick, _this);
+    _this.searchButton.classList.add('search-button');
+    _this.searchButton.classList.add('blue');
+    _this.searchButton.innerHTML = 'Modify Search';
+  };
+
+  _this.onSearchButtonClick = function () {
+    window.location = SEARCH_PATH + window.location.hash;
+  };
+
 
   _initialize(options);
   options = null;
