@@ -1,13 +1,11 @@
-/* global chai, describe, it */
+/* global chai, describe, it, sinon */
 'use strict';
 
 
-// var Catalog = require('latesteqs/Catalog'),
-//     Collection = require('mvc/Collection'),
-//     MetadataView = require('list/MetadataView'),
-//     Model = require('mvc/Model');
-
-var MetadataView = require('list/MetadataView');
+var Catalog = require('latesteqs/Catalog'),
+    Collection = require('mvc/Collection'),
+    MetadataView = require('list/MetadataView'),
+    Model = require('mvc/Model');
 
 
 var expect = chai.expect;
@@ -32,157 +30,169 @@ describe('list/MetadataView', function () {
     });
   });
 
-  // describe('renderHeader', function () {
-  //   it('creates header markup as expected', function (done) {
-  //     var catalog,
-  //         view;
+  describe('displaySearchParameters', function () {
+    it('creates list of search parameters from feed', function (done) {
+      var catalog,
+          view;
 
-  //     catalog = Catalog({
-  //       model: Model({
-  //         sort: {
-  //           'id': 'newest',
-  //           'name' : 'Newest first',
-  //           'sort' : function (a, b) {
-  //             return b.properties.time - a.properties.time;
-  //           }
-  //         }
-  //       })
-  //     });
+      catalog = Catalog();
+      catalog.loadUrl('/feeds/2.5_week.geojson');
 
-  //     view = MetadataView({
-  //       collection: catalog,
-  //       model: Model({
-  //         feed: {
-  //           'id': '7day_m25',
-  //           'name' : '7 Days, Magnitude 2.5+ Worldwide',
-  //           'url' : '/earthquakes/feed/v1.0/summary/2.5_week.geojson',
-  //           'autoUpdate': 60 * 1000
-  //         }
-  //       })
-  //     });
+      view = MetadataView({
+        collection: catalog,
+        model: Model({
+          feed: {
+            'id': '123456789',
+            'name' : 'Search Results',
+            'isSearch': true,
+            'params': {
+              'test1': 'value1',
+              'test2': 'value2',
+              'test3': 'value3',
+              'test4': 'value4'
+            }
+          }
+        })
+      });
 
-  //     catalog.on('reset', function () {
-  //       expect(view.header.querySelector('.header-title').innerHTML).to.equal('7 Days, Magnitude 2.5+ Worldwide');
-  //       expect(view.header.querySelector('.header-count').innerHTML).to.equal('245 earthquakes.');
-  //       expect(view.header.querySelector('.header-update-time').innerHTML).to.equal('Updated: 2016-04-12 21:50:46 (UTC)');
+      catalog.on('reset', function () {
+        expect(view.el.querySelectorAll('.feed-metadata-list dt').length)
+            .to.equal(1);
+        expect(view.el.querySelectorAll('.search-parameter-list dt').length)
+            .to.equal(4);
 
-  //       view.destroy();
-  //       done();
-  //     });
+        view.destroy();
+        done();
+      });
+    });
+  });
 
-  //     catalog.loadUrl('/feeds/2.5_week.json', null, catalog.onLoadSuccess);
+  describe('formatCountInfo', function () {
+    var view;
 
-  //   });
-  // });
+    view = MetadataView();
 
-  // describe('formatCountInfo', function () {
-  //   var view;
+    it('shows X of Y earthquakes if restrict is true', function () {
+      expect(view.formatCountInfo(9, 3, true)).to.equal('3 of 9 earthquakes in map area.');
+    });
 
-  //   view = MetadataView();
+    it('shows Y earthquakes if restrict is False', function () {
+      expect(view.formatCountInfo(9, 3, false)).to.equal('9 earthquakes.');
+    });
 
-  //   it('shows X of Y earthquakes if restrict is true', function () {
-  //     expect(view.formatCountInfo(9, 3, true)).to.equal('3 of 9 earthquakes in map area.');
-  //   });
+    view.destroy();
+  });
 
-  //   it('shows Y earthquakes if restrict is False', function () {
-  //     expect(view.formatCountInfo(9, 3, false)).to.equal('9 earthquakes.');
-  //   });
+  describe('onButtonClick', function () {
+    it('shows the modal dialog', function () {
+      var stub,
+          view;
 
-  //   view.destroy();
-  // });
+      view = MetadataView({
+        collection: Collection(),
+        model: Model()
+      });
 
-  // describe('filterEvents', function () {
-  //   var data,
-  //       model,
-  //       view;
+      stub = sinon.stub(view.downloadModal, 'show', function () { return; });
+      view.onButtonClick();
 
-  //   model = Model({
-  //     'mapposition': [
-  //       [10, -130], // southwest
-  //       [30, -110] // northeast
-  //     ],
-  //     'viewModes': [{'id': 'list'}]
-  //   });
+      expect(stub.callCount).to.equal(1);
+    });
+  });
 
-  //   view = MetadataView({
-  //     model: model
-  //   });
+  describe('onSearchButtonClick', function () {
+    it('calls setWindowLocation', function () {
+      var stub,
+          view;
 
-  //   data = [
-  //     {
+      view = MetadataView({
+        collection: Collection(),
+        model: Model()
+      });
 
-  //       geometry: {
-  //         coordinates: [
-  //           -120, 20, 0
-  //         ]
-  //       }
-  //     },
-  //     {
-  //       geometry: {
-  //         coordinates: [
-  //           -155, 65, 0
-  //         ]
-  //       }
-  //     }
-  //   ];
+      stub = sinon.stub(view, 'setWindowLocation', function () { return; });
+      view.onSearchButtonClick();
 
-  //   it('does NOT filter events when the map is disabled', function () {
-  //     expect(view.filterEvents(data).length).to.equal(2);
-  //   });
+      expect(stub.callCount).to.equal(1);
+    });
+  });
 
-  //   it('filters events when a map is enabled', function () {
-  //     model.set({
-  //       'viewModes': [{'id': 'map'}]
-  //     });
-  //     expect(view.filterEvents(data).length).to.equal(1);
-  //   });
-  // });
+  describe('onSearchButtonClick', function () {
+    it('calls setWindowLocation', function () {
+      var url,
+          view;
 
-  // describe('onRestrictListToMap', function () {
-  //   var spy,
-  //       view;
+      view = MetadataView({
+        collection: Collection(),
+        model: Model()
+      });
 
-  //   view = MetadataView();
-  //   spy = sinon.spy(view, 'onRestrictListToMap');
-  //   view.model.set({
-  //     'restrictListToMap': []
-  //   });
+      url = '#test';
+      view.setWindowLocation(url);
 
-  //   it('is triggered by a setting change', function () {
-  //     expect(spy.callCount).to.equal(1);
-  //   });
+      expect(window.location.hash).to.equal('#test');
+    });
+  });
 
-  //   spy.restore();
-  //   view.destroy();
-  // });
+  describe('render', function () {
+    it('shows the metadata view', function (done) {
+      var catalog,
+          countStub,
+          displayStub,
+          dateTimeStub,
+          view;
 
-  // describe('getDataToRender', function () {
-  //   it('gets the filtered data from the collection to render', function () {
-  //     var collection,
-  //         data,
-  //         view;
+      catalog = Catalog();
+      catalog.loadUrl('/feeds/2.5_week.geojson');
+      catalog.metadata = {
+        count: 72,
+        generated: 1500572838000
+      };
 
-  //     collection = Collection([
-  //       {'id': 'item-1', 'value': 'value-1'},
-  //       {'id': 'item-2', 'value': 'value-2'},
-  //       {'id': 'item-3', 'value': 'value-3'}
-  //     ]);
+      view = MetadataView({
+        collection: catalog,
+        model: Model({
+          feed: {
+            'id': '123456789',
+            'name' : 'Search Results',
+            'isSearch': true,
+            'params': {
+              'test1': 'value1',
+              'test2': 'value2',
+              'test3': 'value3',
+              'test4': 'value4'
+            }
+          }
+        })
+      });
 
-  //     view = MetadataView({collection: collection});
-  //     sinon.stub(view, 'filterEvents', function () {
-  //       return 'filterEvents';
-  //     });
+      countStub = sinon.stub(view, 'formatCountInfo', function () {
+        return;
+      });
 
-  //     view.filterEnabled = false;
-  //     data = view.getDataToRender();
-  //     expect(data.length).to.equal(collection.data().length);
+      dateTimeStub = sinon.stub(view.formatter, 'datetime', function () {
+        return;
+      });
 
-  //     view.filterEnabled = true;
-  //     data = view.getDataToRender();
-  //     expect(data).to.equal('filterEvents');
+      displayStub = sinon.stub(view, 'displaySearchParameters', function () {
+        return;
+      });
 
-  //     view.destroy();
-  //   });
-  // });
+      view.render();
+
+      catalog.on('reset', function () {
+        expect(countStub.called).to.equal(true);
+        expect(dateTimeStub.called).to.equal(true);
+        expect(displayStub.called).to.equal(true);
+        expect(view.downloadTitleEl.innerHTML).to.equal('Search Results');
+        expect(view.titleEl.innerHTML).to.equal('Search Results');
+        done();
+      });
+    });
+  });
+
+
+
+
 
 });

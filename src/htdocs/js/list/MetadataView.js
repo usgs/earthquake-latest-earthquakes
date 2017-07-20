@@ -52,7 +52,7 @@ var MetadataView = function (options) {
       '<span class="header-count accordion-toggle"></span>' +
       '<div class="accordion-content header-info-content">' +
         '<h4 class="download-title"></h4>' +
-        '<dl>' +
+        '<dl class="feed-metadata-list">' +
           '<dt>Last Updated</dt>' +
           '<dd class="feed-update-time"></dd>' +
         '</dl>' +
@@ -161,24 +161,6 @@ var MetadataView = function (options) {
   };
 
   /**
-   * Return all filtered data.
-   *
-   * @return {Array}
-   *    An array of features.
-   */
-  _this.getDataToRender = function () {
-    var data;
-
-    data = _this.collection.data().slice(0);
-
-    if (_this.filterEnabled) {
-      data = _this.filterEvents(data);
-    }
-
-    return data;
-  };
-
-  /**
    * Show download view when button is clicked.
    */
   _this.onButtonClick = function () {
@@ -186,10 +168,10 @@ var MetadataView = function (options) {
   };
 
   /**
-   * Redirect to earthquake search page when search button is clicked
+   * Called when search button is clicked
    */
   _this.onSearchButtonClick = function () {
-    window.location = SEARCH_PATH + window.location.hash;
+    _this.setWindowLocation(SEARCH_PATH + window.location.hash);
   };
 
   /**
@@ -197,25 +179,38 @@ var MetadataView = function (options) {
    */
   _this.render = function () {
     var displayCount,
+        feed,
         headerCount,
         headerTitle,
         metadata,
         totalCount;
 
     metadata = _this.collection.metadata || {};
-    headerTitle = _this.model.get('feed').name;
+    feed = _this.model.get('feed');
+    headerTitle = (_this.model.get('feed') ?
+        _this.model.get('feed').name : '&ndash;');
     totalCount = metadata.hasOwnProperty('count') ? metadata.count : '&ndash;';
-    displayCount = _this.getDataToRender().length;
+    displayCount = _this.collection.data().length;
     headerCount = _this.formatCountInfo(totalCount, displayCount,
         _this.filterEnabled);
 
+    _this.countEl.innerHTML = headerCount;
+    _this.downloadTitleEl.innerHTML = headerTitle;
     _this.feedUpdateTimeEL.innerHTML =
         _this.formatter.datetime(metadata.generated);
     _this.titleEl.innerHTML = headerTitle;
-    _this.downloadTitleEl.innerHTML = headerTitle;
-    _this.countEl.innerHTML = headerCount;
 
     _this.displaySearchParameters();
+  };
+
+  /**
+   * Redirect page to specified URL
+   *
+   * @param string (url)
+   *        The URL where the page should be redirected
+   */
+  _this.setWindowLocation = function (url) {
+    window.location = url;
   };
 
 
