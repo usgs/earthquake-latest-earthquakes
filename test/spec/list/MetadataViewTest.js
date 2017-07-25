@@ -67,22 +67,6 @@ describe('list/MetadataView', function () {
     });
   });
 
-  describe('formatCountInfo', function () {
-    var view;
-
-    view = MetadataView();
-
-    it('shows X of Y earthquakes if restrict is true', function () {
-      expect(view.formatCountInfo(9, 3, true)).to.equal('3 of 9 earthquakes in map area.');
-    });
-
-    it('shows Y earthquakes if restrict is False', function () {
-      expect(view.formatCountInfo(9, 3, false)).to.equal('9 earthquakes.');
-    });
-
-    view.destroy();
-  });
-
   describe('onButtonClick', function () {
     it('shows the modal dialog', function () {
       var stub,
@@ -117,27 +101,9 @@ describe('list/MetadataView', function () {
     });
   });
 
-  describe('onSearchButtonClick', function () {
-    it('calls setWindowLocation', function () {
-      var url,
-          view;
-
-      view = MetadataView({
-        collection: Collection(),
-        model: Model()
-      });
-
-      url = '#test';
-      view.setWindowLocation(url);
-
-      expect(window.location.hash).to.equal('#test');
-    });
-  });
-
   describe('render', function () {
     it('shows the metadata view', function (done) {
       var catalog,
-          countStub,
           displayStub,
           dateTimeStub,
           view;
@@ -166,10 +132,6 @@ describe('list/MetadataView', function () {
         })
       });
 
-      countStub = sinon.stub(view, 'formatCountInfo', function () {
-        return;
-      });
-
       dateTimeStub = sinon.stub(view.formatter, 'datetime', function () {
         return;
       });
@@ -181,18 +143,29 @@ describe('list/MetadataView', function () {
       view.render();
 
       catalog.on('reset', function () {
-        expect(countStub.called).to.equal(true);
         expect(dateTimeStub.called).to.equal(true);
         expect(displayStub.called).to.equal(true);
         expect(view.downloadTitleEl.innerHTML).to.equal('Search Results');
-        expect(view.titleEl.innerHTML).to.equal('Search Results');
         done();
       });
     });
   });
 
+  describe('setWindowLocation', function () {
+    it('sets window.location', function () {
+      var url,
+          view;
 
+      view = MetadataView({
+        collection: Collection(),
+        model: Model()
+      });
 
+      url = '#test';
+      view.setWindowLocation(url);
 
+      expect(window.location.hash).to.equal('#test');
+    });
+  });
 
 });

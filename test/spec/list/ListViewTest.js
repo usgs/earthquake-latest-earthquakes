@@ -73,6 +73,22 @@ describe('list/ListView', function () {
     });
   });
 
+  describe('formatCountInfo', function () {
+    var view;
+
+    view = ListView();
+
+    it('shows X of Y earthquakes if restrict is true', function () {
+      expect(view.formatCountInfo(9, 3, true)).to.equal('3 of 9 earthquakes in map area.');
+    });
+
+    it('shows Y earthquakes if restrict is False', function () {
+      expect(view.formatCountInfo(9, 3, false)).to.equal('9 earthquakes.');
+    });
+
+    view.destroy();
+  });
+
   describe('renderFooter', function () {
     it('creates footer markup as expected', function () {
       var view;
