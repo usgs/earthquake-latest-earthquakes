@@ -2,8 +2,7 @@
 'use strict';
 
 
-var Accordion = require('accordion/Accordion'),
-    Collection = require('mvc/Collection'),
+var Collection = require('mvc/Collection'),
     DownloadView = require('list/DownloadView'),
     Formatter = require('core/Formatter'),
     GenericCollectionView = require('core/GenericCollectionView'),
@@ -40,26 +39,19 @@ var MetadataView = function (options) {
     _this.collection = options.collection || Collection();
     _this.formatter = options.formatter || Formatter();
 
-    _this.collection.on('reset', 'render', _this);
     _this.model.off('change', 'render', _this);
     _this.model.on('change:feed', 'displaySearchParameters', _this);
 
     // TODO, make configurable, to start open
-    _this.el.classList.add('accordion');
-    _this.el.classList.add('accordion-closed');
     _this.el.innerHTML =
-      '<h3 class="header-title"></h3>' +
-      '<span class="header-count accordion-toggle"></span>' +
-      '<div class="accordion-content header-info-content">' +
         '<h4 class="download-title"></h4>' +
         '<dl class="feed-metadata-list">' +
           '<dt>Last Updated</dt>' +
           '<dd class="feed-update-time"></dd>' +
         '</dl>' +
         '<button class="download-button blue" type="button">Download</button>' +
-        '<div class="search-parameter-view"><div>' +
-      '</div>';
-    _this.countEl = _this.el.querySelector('.header-count');
+        '<div class="search-parameter-view"><div>';
+
     _this.downloadButtonEl = _this.el.querySelector('.download-button');
     _this.downloadButtonEl.addEventListener('click', _this.onButtonClick);
     _this.downloadTitleEl = _this.el.querySelector('.download-title');
@@ -71,12 +63,6 @@ var MetadataView = function (options) {
     _this.searchButton.innerHTML = 'Modify Search';
     _this.searchParameterViewEl =
         _this.el.querySelector('.search-parameter-view');
-    _this.titleEl = _this.el.querySelector('.header-title');
-
-    // Create Accordion
-    Accordion({
-      el: _this.el
-    });
 
     // Create DownloadView
     _this.downloadView = DownloadView({
@@ -100,7 +86,7 @@ var MetadataView = function (options) {
         _this);
     _this.model.on('change', 'render', _this);
     _this.model.off('change:feed', 'displaySearchParameters', _this);
-    _this.collection.off('reset', 'render', _this);
+
     _initialize = null;
     _this = null;
   }, _this.destroy);
@@ -138,29 +124,6 @@ var MetadataView = function (options) {
   };
 
   /**
-   * Format earthquake count information
-   *
-   * @param number (totalCount)
-   *    number of total earthquakes.
-   * @param number (displayCount)
-   *    Number of earthquakes visable on map.
-   * @param boolean (restrict)
-   *    true or false.
-   */
-  _this.formatCountInfo = function (totalCount, displayCount, restrict) {
-    var countInfo;
-
-    if (restrict) {
-      countInfo = displayCount + ' of ' + totalCount +
-          ' earthquakes in map area.';
-    } else {
-      countInfo = totalCount + ' earthquakes.';
-    }
-
-    return countInfo;
-  };
-
-  /**
    * Show download view when button is clicked.
    */
   _this.onButtonClick = function () {
@@ -178,27 +141,18 @@ var MetadataView = function (options) {
    * Render the view.
    */
   _this.render = function () {
-    var displayCount,
-        feed,
-        headerCount,
+    var feed,
         headerTitle,
-        metadata,
-        totalCount;
+        metadata;
 
     metadata = _this.collection.metadata || {};
     feed = _this.model.get('feed');
     headerTitle = (_this.model.get('feed') ?
         _this.model.get('feed').name : '&ndash;');
-    totalCount = metadata.hasOwnProperty('count') ? metadata.count : '&ndash;';
-    displayCount = _this.collection.data().length;
-    headerCount = _this.formatCountInfo(totalCount, displayCount,
-        _this.filterEnabled);
 
-    _this.countEl.innerHTML = headerCount;
     _this.downloadTitleEl.innerHTML = headerTitle;
     _this.feedUpdateTimeEL.innerHTML =
         _this.formatter.datetime(metadata.generated);
-    _this.titleEl.innerHTML = headerTitle;
 
     _this.displaySearchParameters();
   };

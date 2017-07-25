@@ -2,7 +2,8 @@
 'use strict';
 
 
-var Formatter = require('core/Formatter'),
+var Accordion = require('accordion/Accordion'),
+    Formatter = require('core/Formatter'),
     GenericCollectionView = require('core/GenericCollectionView'),
     MapUtil = require('core/MapUtil'),
     MetadataView = require('list/MetadataView'),
@@ -27,6 +28,7 @@ _DEFAULT_FORMAT = {
 _DEFAULTS = {
   classPrefix: 'list-view',
   containerNodeName: 'ol',
+  noDataMessage: 'There are no events in the current feed.',
   watchProperty: 'event'
 };
 
@@ -56,7 +58,8 @@ var ListView = function (options) {
       _headerCount,
       _headerTitle,
       _headerUpdateTime,
-      _listFormat;
+      _listFormat,
+      _noDataMessage;
 
 
   options = Util.extend({}, _DEFAULTS, options);
@@ -71,6 +74,7 @@ var ListView = function (options) {
    */
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
+    _noDataMessage = options.noDataMessage;
 
     _this.filterEnabled = false;
     _this.mapEnabled = false;
@@ -80,8 +84,26 @@ var ListView = function (options) {
     _this.model.on('change:restrictListToMap', 'onRestrictListToMap', _this);
     _this.footer.addEventListener('click', _this.onFooterClick);
 
+    _this.header.classList.add('accordion');
+    _this.header.classList.add('accordion-closed');
+    _this.header.innerHTML =
+        '<h3 class="header-title"></h3>' +
+        '<span class="header-count accordion-toggle"></span>' +
+        '<div class="accordion-content header-info-content">' +
+          '<div class="metadata-view"></div' +
+        '</div>';
+
+    _this.metadataViewEl = _this.header.querySelector('.metadata-view');
+
+    Accordion({
+      el: _this.header
+    });
+
+    _headerTitle = _this.header.querySelector('.header-title');
+    _headerCount = _this.header.querySelector('.header-count');
+
     _this.metadataView = MetadataView({
-      el: _this.header,
+      el: _this.metadataViewEl,
       collection: _this.collection,
       model: _this.model
     });
@@ -180,6 +202,49 @@ var ListView = function (options) {
 
     return events;
   };
+
+   /**
+   * Formats earthquake count information
+   *
+   * @param number (totalCount)
+   *    number of total earthquakes.
+   * @param number (displayCount)
+   *    Number of earthquakes visable on map.
+   * @param boolean (restrict)
+   *    true or false.
+   */
+  _this.formatCountInfo = function (totalCount, displayCount, restrict) {
+    var countInfo;
+
+    if (restrict) {
+      countInfo = displayCount + ' of ' + totalCount +
+          ' earthquakes in map area.';
+    } else {
+      countInfo = totalCount + ' earthquakes.';
+    }
+
+    return countInfo;
+  };
+
+
+  /**
+   * Return all filtered data.
+   *
+   * @return {Array}
+   *    An array of features.
+   */
+  _this.getDataToRender = function () {
+    var data;
+
+    data = _this.collection.data().slice(0);
+
+    if (_this.filterEnabled) {
+      data = _this.filterEvents(data);
+    }
+
+    return data;
+  };
+
 
   _this.onFooterClick = function (e) {
     var target;
@@ -295,6 +360,23 @@ var ListView = function (options) {
    * Render the header information
    */
   _this.renderHeader = function () {
+    var displayCount,
+        headerCount,
+        headerTitle,
+        metadata,
+        totalCount;
+
+    metadata = _this.collection.metadata || {};
+    headerTitle = _this.model.get('feed').name;
+    totalCount = metadata.hasOwnProperty('count') ? metadata.count : '&ndash;';
+    displayCount = _this.getDataToRender().length;
+    headerCount = _this.formatCountInfo(totalCount, displayCount,
+        _this.filterEnabled);
+
+    _headerTitle.innerHTML = headerTitle;
+    _headerCount.innerHTML = headerCount;
+
+    // render metadata view
     _this.metadataView.render();
   };
 
