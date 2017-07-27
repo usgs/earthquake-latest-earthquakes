@@ -150,8 +150,7 @@ var MetadataView = function (options) {
 
     metadata = _this.collection.metadata || {};
     feed = _this.model.get('feed');
-    headerTitle = (_this.model.get('feed') ?
-        _this.model.get('feed').name : '&ndash;');
+    headerTitle = (feed ? feed.name : '&ndash;');
 
     _this.downloadTitleEl.innerHTML = headerTitle;
     _this.feedUpdateTimeEl.innerHTML =
