@@ -53,7 +53,7 @@ var MetadataView = function (options) {
         '<div class="search-parameter-view"><div>';
 
     _this.downloadButtonEl = _this.el.querySelector('.download-button');
-    _this.downloadButtonEl.addEventListener('click', _this.onButtonClick);
+    _this.downloadButtonEl.addEventListener('click', _this.onDownloadButtonClick);
     _this.downloadTitleEl = _this.el.querySelector('.download-title');
     _this.feedUpdateTimeEL = _this.el.querySelector('.feed-update-time');
     _this.searchButton = document.createElement('button');
@@ -81,7 +81,7 @@ var MetadataView = function (options) {
    *
    */
   _this.destroy = Util.compose(function () {
-    _this.downloadButtonEl.removeEventListener('click', _this.onButtonClick);
+    _this.downloadButtonEl.removeEventListener('click', _this.onDownloadButtonClick);
     _this.searchButton.removeEventListener('click', _this.onSearchButtonClick,
         _this);
     _this.model.on('change', 'render', _this);
@@ -126,7 +126,7 @@ var MetadataView = function (options) {
   /**
    * Show download view when button is clicked.
    */
-  _this.onButtonClick = function () {
+  _this.onDownloadButtonClick = function () {
     _this.downloadModal.show();
   };
 

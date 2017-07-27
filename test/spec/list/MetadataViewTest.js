@@ -67,7 +67,7 @@ describe('list/MetadataView', function () {
     });
   });
 
-  describe('onButtonClick', function () {
+  describe('onDownloadButtonClick', function () {
     it('shows the modal dialog', function () {
       var stub,
           view;
@@ -78,7 +78,7 @@ describe('list/MetadataView', function () {
       });
 
       stub = sinon.stub(view.downloadModal, 'show', function () { return; });
-      view.onButtonClick();
+      view.onDownloadButtonClick();
 
       expect(stub.callCount).to.equal(1);
     });
