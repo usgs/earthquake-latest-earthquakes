@@ -56,11 +56,11 @@ var MetadataView = function (options) {
     _this.downloadButtonEl.addEventListener('click', _this.onDownloadButtonClick);
     _this.downloadTitleEl = _this.el.querySelector('.download-title');
     _this.feedUpdateTimeEl = _this.el.querySelector('.feed-update-time');
-    _this.searchButton = document.createElement('button');
-    _this.searchButton.addEventListener('click', _this.onSearchButtonClick, _this);
-    _this.searchButton.classList.add('search-button');
-    _this.searchButton.classList.add('blue');
-    _this.searchButton.innerHTML = 'Modify Search';
+    _this.searchButtonEl = document.createElement('button');
+    _this.searchButtonEl.addEventListener('click', _this.onSearchButtonClick, _this);
+    _this.searchButtonEl.classList.add('search-button');
+    _this.searchButtonEl.classList.add('blue');
+    _this.searchButtonEl.innerHTML = 'Modify Search';
     _this.searchParameterViewEl =
         _this.el.querySelector('.search-parameter-view');
 
@@ -82,7 +82,7 @@ var MetadataView = function (options) {
    */
   _this.destroy = Util.compose(function () {
     _this.downloadButtonEl.removeEventListener('click', _this.onDownloadButtonClick);
-    _this.searchButton.removeEventListener('click', _this.onSearchButtonClick,
+    _this.searchButtonEl.removeEventListener('click', _this.onSearchButtonClick,
         _this);
     _this.model.on('change', 'render', _this);
     _this.model.off('change:feed', 'displaySearchParameters', _this);
@@ -119,7 +119,7 @@ var MetadataView = function (options) {
       _this.searchParameterViewEl.innerHTML =
           '<h4>Search Parameters</h4>' +
           '<dl class="search-parameter-list">' + buf.join('') + '</dl>';
-      _this.searchParameterViewEl.appendChild(_this.searchButton);
+      _this.searchParameterViewEl.appendChild(_this.searchButtonEl);
     }
   };
 
