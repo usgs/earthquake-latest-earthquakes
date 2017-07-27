@@ -83,10 +83,13 @@ var MetadataView = function (options) {
    *
    */
   _this.destroy = Util.compose(function () {
+    if (!_this) {
+      return;
+    }
     _this.downloadButtonEl.removeEventListener('click',
         _this.onDownloadButtonClick);
-    _this.searchButtonEl.removeEventListener('click', _this.onSearchButtonClick,
-        _this);
+    _this.searchButtonEl.removeEventListener('click',
+        _this.onSearchButtonClick);
     _this.model.on('change', 'render', _this);
     _this.model.off('change:feed', 'displaySearchParameters', _this);
 
@@ -119,6 +122,7 @@ var MetadataView = function (options) {
       }
 
       // Add search parameters with search button
+      Util.empty(_this.searchParameterViewEl);
       _this.searchParameterViewEl.innerHTML =
           '<h4>Search Parameters</h4>' +
           '<dl class="search-parameter-list">' + buf.join('') + '</dl>';
