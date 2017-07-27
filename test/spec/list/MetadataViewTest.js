@@ -84,7 +84,7 @@ describe('list/MetadataView', function () {
     });
   });
 
-  describe.only('onSearchButtonClick', function () {
+  describe('onSearchButtonClick', function () {
     it('calls setWindowLocation', function () {
       var stub,
           view;
@@ -146,7 +146,6 @@ describe('list/MetadataView', function () {
       catalog.on('reset', function () {
         expect(dateTimeStub.called).to.equal(true);
         expect(displayStub.called).to.equal(true);
-        expect(view.downloadTitleEl.innerHTML).to.equal('Search Results');
         done();
       });
     });

@@ -44,7 +44,6 @@ var MetadataView = function (options) {
 
     // TODO, make configurable, to start open
     _this.el.innerHTML =
-        '<h4 class="download-title"></h4>' +
         '<dl class="feed-metadata-list">' +
           '<dt>Last Updated</dt>' +
           '<dd class="feed-update-time"></dd>' +
@@ -55,7 +54,6 @@ var MetadataView = function (options) {
     _this.downloadButtonEl = _this.el.querySelector('.download-button');
     _this.downloadButtonEl.addEventListener('click',
         _this.onDownloadButtonClick);
-    _this.downloadTitleEl = _this.el.querySelector('.download-title');
     _this.feedUpdateTimeEl = _this.el.querySelector('.feed-update-time');
     _this.searchButtonEl = document.createElement('button');
     _this.searchButtonEl.addEventListener('click',
@@ -148,18 +146,16 @@ var MetadataView = function (options) {
    * Render the view.
    */
   _this.render = function () {
-    var feed,
-        headerTitle,
-        metadata;
+    var metadata,
+        updateTime;
 
     metadata = _this.collection.metadata || {};
-    feed = _this.model.get('feed');
-    headerTitle = (feed ? feed.name : '&ndash;');
+    updateTime = _this.formatter.datetime(metadata.generated);
 
-    _this.downloadTitleEl.innerHTML = headerTitle;
-    _this.feedUpdateTimeEl.innerHTML =
-        _this.formatter.datetime(metadata.generated);
+    // Update feed/search metadata
+    _this.feedUpdateTimeEl.innerHTML = updateTime;
 
+    // Update search parameters
     _this.displaySearchParameters();
   };
 
