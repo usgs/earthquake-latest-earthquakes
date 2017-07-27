@@ -1,4 +1,4 @@
-/* global chai, describe, it, sinon */
+/* global SEARCH_PATH, chai, describe, it, sinon */
 'use strict';
 
 
@@ -84,7 +84,7 @@ describe('list/MetadataView', function () {
     });
   });
 
-  describe('onSearchButtonClick', function () {
+  describe.only('onSearchButtonClick', function () {
     it('calls setWindowLocation', function () {
       var stub,
           view;
@@ -98,6 +98,7 @@ describe('list/MetadataView', function () {
       view.onSearchButtonClick();
 
       expect(stub.callCount).to.equal(1);
+      expect(stub.calledWith(SEARCH_PATH + window.location.hash)).to.equal(true);
     });
   });
 
