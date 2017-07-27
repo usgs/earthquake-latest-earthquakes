@@ -55,7 +55,7 @@ var MetadataView = function (options) {
     _this.downloadButtonEl = _this.el.querySelector('.download-button');
     _this.downloadButtonEl.addEventListener('click', _this.onDownloadButtonClick);
     _this.downloadTitleEl = _this.el.querySelector('.download-title');
-    _this.feedUpdateTimeEL = _this.el.querySelector('.feed-update-time');
+    _this.feedUpdateTimeEl = _this.el.querySelector('.feed-update-time');
     _this.searchButton = document.createElement('button');
     _this.searchButton.addEventListener('click', _this.onSearchButtonClick, _this);
     _this.searchButton.classList.add('search-button');
@@ -151,7 +151,7 @@ var MetadataView = function (options) {
         _this.model.get('feed').name : '&ndash;');
 
     _this.downloadTitleEl.innerHTML = headerTitle;
-    _this.feedUpdateTimeEL.innerHTML =
+    _this.feedUpdateTimeEl.innerHTML =
         _this.formatter.datetime(metadata.generated);
 
     _this.displaySearchParameters();
