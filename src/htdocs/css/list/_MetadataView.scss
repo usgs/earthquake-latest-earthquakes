@@ -2,17 +2,29 @@
   font-size: 0.88em;
 
   dl {
+    margin: 1em 0;
     overflow: auto;
   }
 
   dt {
     color: #777;
+    display: inline;
     font-size: 0.88em;
     font-weight: normal;
+    margin: 0;
+
+    &:before {
+      content: '';
+      display: block;
+      overflow: hidden;
+      margin: 0.25em 0;
+    }
   }
 
   dd {
-    margin: 0 0 1em;
+    display: block;
+    float: right;
+    font-size: 1em;
   }
 
   h4 {
@@ -38,18 +50,6 @@
   margin: 0 6px;
   text-decoration: none;
   vertical-align: middle;
-}
-
-
-.header-title {
-  padding: 0 1em;
-}
-
-.list-view-header > .header-count {
-  border: 0;
-  font-size: 0.88em;
-  padding: 0.25em 1em;
-  margin: 1em 0;
 }
 
 .header-update-time {

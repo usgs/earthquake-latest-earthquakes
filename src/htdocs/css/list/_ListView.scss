@@ -37,3 +37,15 @@
     margin-bottom: 1em;
   }
 }
+
+.header-title {
+  padding: 0 1em;
+}
+
+.list-view-header > .header-count {
+  background-color: #eee;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-size: 0.77em;
+  margin: 16px 16px 24px;
+}
