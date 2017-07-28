@@ -107,6 +107,9 @@ var MetadataView = function (options) {
 
     feed = this.model.get('feed') || {};
 
+    // clear search params
+    Util.empty(_this.searchParameterViewEl);
+
     // only display if feed is a search
     if (feed.isSearch) {
       buf = [];
@@ -120,7 +123,6 @@ var MetadataView = function (options) {
       }
 
       // Add search parameters with search button
-      Util.empty(_this.searchParameterViewEl);
       _this.searchParameterViewEl.innerHTML =
           '<h4>Search Parameters</h4>' +
           '<dl class="search-parameter-list">' + buf.join('') + '</dl>';
