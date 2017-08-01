@@ -89,8 +89,7 @@ var ListView = function (options) {
     _this.header.innerHTML =
         '<h3 class="header-title"></h3>' +
         '<span class="header-count accordion-toggle"></span>' +
-        '<div class="accordion-content header-info-content">' +
-          '<div class="metadata-view"></div' +
+        '<div class="accordion-content metadata-view">' +
         '</div>';
 
     _this.metadataViewEl = _this.header.querySelector('.metadata-view');
