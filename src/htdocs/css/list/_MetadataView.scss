@@ -4,31 +4,6 @@
   border-top: 1px solid #ddd;
   font-size: 0.88em;
 
-  dl {
-    margin: 1em 0;
-    overflow: auto;
-
-    > dt {
-      color: #666;
-      display: inline;
-      font-weight: normal;
-      margin: 0;
-
-      &:before {
-        content: '';
-        display: block;
-        overflow: hidden;
-        margin: 0.25em 0;
-      }
-    }
-
-    > dd {
-      display: block;
-      float: right;
-      font-size: 1em;
-    }
-  }
-
   .download-button,
   .search-button {
     background-color: #3d5e80;
@@ -38,16 +13,35 @@
   }
 }
 
+dl.metadata-list {
+  margin: 1em 0;
+  overflow: auto;
+
+  > dt {
+    color: #666;
+    display: inline;
+    font-weight: normal;
+    margin: 0;
+
+    &:before {
+      content: '';
+      display: block;
+      overflow: hidden;
+      margin: 0.25em 0;
+    }
+  }
+
+  > dd {
+    display: block;
+    float: right;
+    font-size: 1em;
+  }
+}
+
 .search-parameter-view > h4 {
   border-bottom: 1px solid #ddd;
   font-family: Source Sans Pro,Helvetica,Arial,sans-serif;
   font-weight: normal;
   font-size: 1em;
   padding-bottom: 1em;
-}
-
-.header-update-time {
-  color: #777;
-  font-size: 0.77em;
-  text-align: center;
 }

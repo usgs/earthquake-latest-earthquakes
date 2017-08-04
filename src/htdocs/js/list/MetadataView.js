@@ -44,7 +44,7 @@ var MetadataView = function (options) {
 
     // TODO, make configurable, to start open
     _this.el.innerHTML =
-        '<dl class="feed-metadata-list">' +
+        '<dl class="metadata-list feed-metadata-list">' +
           '<dt>Last Updated</dt>' +
           '<dd class="feed-update-time"></dd>' +
         '</dl>' +
@@ -125,7 +125,7 @@ var MetadataView = function (options) {
       // Add search parameters with search button
       _this.searchParameterViewEl.innerHTML =
           '<h4>Search Parameters</h4>' +
-          '<dl class="search-parameter-list">' + buf.join('') + '</dl>';
+          '<dl class="metadata-list search-parameter-list">' + buf.join('') + '</dl>';
       _this.searchParameterViewEl.appendChild(_this.searchButtonEl);
     }
   };
