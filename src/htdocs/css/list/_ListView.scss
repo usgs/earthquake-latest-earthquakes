@@ -38,14 +38,24 @@
   }
 }
 
-.header-title {
-  padding: 0 1em;
-}
 
-.list-view-header > .header-count {
-  background-color: #eee;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  font-size: 0.77em;
-  margin: 16px 16px 24px;
+.list-view-header {
+
+  > .header-title {
+    padding: 0 17px;
+  }
+
+  > .header-count {
+    display: block;
+    font-size: 0.88em;
+    margin: 0 0 1.5em;
+    padding: 0 17px
+  }
+
+  > .metadata-view-toggle {
+    background: #eee;
+    border: solid #ddd;
+    border-width: 1px 0 0 0;
+    font-size: 0.88em;
+  }
 }
