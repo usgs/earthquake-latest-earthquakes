@@ -154,6 +154,8 @@ var _DEFAULTS = {
       'id': 'plates',
       'name': 'Plate Boundaries',
       'layer': TectonicPlates({
+        'tileUrl': '/basemap/tiles/plates/{z}/{x}/{y}.png',
+        'maxZoom': 12,
         'zIndex':5
       })
     },
@@ -161,8 +163,14 @@ var _DEFAULTS = {
       'id': 'faults',
       'name': 'U.S. Faults',
       'layer': UsFault({
+        tileUrl: '/basemap/tiles/faults/{z}/{x}/{y}.png',
         tileOpts: {
+          'maxZoom': 12,
           'zIndex': 4
+        },
+        dataUrl: '/basemap/tiles/faults/{z}/{x}/{y}.grid.json?callback={cb}',
+        dataOpts: {
+          'maxZoom': 12
         }
       })
     },
@@ -170,7 +178,9 @@ var _DEFAULTS = {
       'id': 'ushazard',
       'name': 'U.S. Hazard',
       'layer': UsHazard({
+        'maxZoom': 12,
         'opacity': 0.6,
+        'tileUrl': '/basemap/tiles/ushaz/{z}/{x}/{y}.png',
         'zIndex': 3
       })
     }

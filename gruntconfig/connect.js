@@ -23,6 +23,7 @@ var connect = {
   proxies: [
     {
       context: [
+        '/basemap/',
         '/earthquakes/feed/',
         '/fdsnws/',
         '/scenarios/'
