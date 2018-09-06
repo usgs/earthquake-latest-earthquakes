@@ -14,7 +14,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "autoprefixer": "^6.0.3",
+    "autoprefixer": "^9.1.5",
     "chai": "~3.4.0",
     "connect-gzip": "^0.1.6",
     "cssnano": "^3.3.1",
@@ -32,8 +32,8 @@
     "grunt-mocha-phantomjs": "^3.0.0",
     "grunt-postcss": "^0.7.0",
     "hazdev-accordion": "^0.1.1",
-    "hazdev-template": "1.1.6",
     "hazdev-leaflet": "0.3.6",
+    "hazdev-template": "1.1.6",
     "hazdev-webutils": "0.1.9",
     "leaflet": "~0.7.7",
     "mocha": "^2.3.3",
