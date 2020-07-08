@@ -42,8 +42,9 @@ COPY --from=buildenv /var/www/apps/ /var/www/apps/
 # configure
 RUN /bin/bash --login -c "\
     cp /var/www/apps/earthquake-latest-earthquakes/htdocs/_config.inc.php /var/www/html/. && \
-    ln -s /var/www/apps/earthquake-latest-earthquakes/htdocs/lib/ /var/www/html/lib && \
     ln -s /var/www/apps/hazdev-template/conf/httpd.conf /etc/httpd/conf.d/hazdev-template.conf && \
+    ln -s /var/www/apps/earthquake-latest-earthquakes/htdocs/lib/ /var/www/html/lib && \
+    ln -s /var/www/apps/earthquake-latest-earthquakes/conf/container_redirects.conf /etc/httpd/conf.d/container_redirects.conf && \
     ln -s /var/www/apps/earthquake-latest-earthquakes/conf/httpd.conf /etc/httpd/conf.d/earthquake-latest-earthquakes.conf \
     "
 
