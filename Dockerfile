@@ -5,7 +5,7 @@ FROM ${BUILD_IMAGE} as buildenv
 
 # dependencies for build
 USER root
-RUN yum install -y php && \
+RUN yum install -y php bzip2 && \
     npm install -g grunt-cli
 
 COPY . /earthquake-latest-earthquakes
