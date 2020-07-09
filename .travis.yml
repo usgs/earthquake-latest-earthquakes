@@ -5,7 +5,6 @@ php:
 before_install:
   - composer self-update
   - nvm install 6
-  - nvm use 6
   - npm install -g grunt-cli
   - npm --version
   - node --version
