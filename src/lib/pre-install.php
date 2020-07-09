@@ -54,8 +54,7 @@ file_put_contents($HTTPD_CONF, '
 
   # allow requests, and set default caching
   <Location ' . $CONFIG['MOUNT_PATH'] . '>
-    Order Allow,Deny
-    Allow From all
+    Require all granted
 
     ExpiresActive on
     ExpiresDefault "access plus 1 days"
