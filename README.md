@@ -1,3 +1,7 @@
+> **THIS PROJECT HAS BEEN ARCHIVED**
+> 
+> Please see [https://code.usgs.gov/ghsc/hazdev/legacy-latest-earthquakes](https://code.usgs.gov/ghsc/hazdev/legacy-latest-earthquakes)
+
 earthquake-latest-earthquakes
 ==============
 
